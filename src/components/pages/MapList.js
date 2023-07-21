@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import SearchBox from '../ui/MapList/SearchBox';
+import MapViewBox from '../layout/MapViewBox';
 
 const MapList = () => {
   return (
@@ -11,6 +12,25 @@ const MapList = () => {
         </AlarmIcon>
         <LoginNickname>UUGEEN</LoginNickname>
       </Header>
+      <MapViewBox
+        nickname="UUGEEN"
+        nickname2="JWON"
+        image="/images/lionImage_png.png"
+        image2="images/mapImage2_png.png"
+      />
+      <MapViewBox
+        nickname="JUSANG"
+        nickname2="SUNGHWAN"
+        image="/images/gridImage_png.png"
+        image2="/images/lionImage_png.png"
+      />
+
+      <MapViewBox
+        nickname="NICK"
+        nickname2="NAME"
+        image="/images/mapImage_png.png"
+        image2="/images/gridImage_png.png"
+      />
     </Container>
   );
 };
