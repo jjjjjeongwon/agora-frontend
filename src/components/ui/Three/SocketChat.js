@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import TalkBubble from './TalkBubble';
 
 function SocketChat({ roomName, socket }) {
   const [welcomeMessage, setWelcomeMessage] = useState('');
@@ -55,7 +56,8 @@ function SocketChat({ roomName, socket }) {
           <h3>Room: {roomName}</h3>
           <ul>
             {messageList.map((message, index) => (
-              <li key={index}>{message}</li>
+              <TalkBubble key={index} message={message} />
+              // <li key={index}>{message}</li>
             ))}
           </ul>
           <form id="msg" onSubmit={handleMessageSubmit}>
