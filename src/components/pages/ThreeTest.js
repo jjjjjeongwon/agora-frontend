@@ -10,13 +10,9 @@ const ThreeTest = () => {
   const [sendNickName, setSendNickName] = useState('');
   const [balls, setBalls] = useState([]);
   const [ballMap, setBallMap] = useState({});
-  // console.log(balls);
-  // console.log('닉네임 체크', nickName);
-  // console.log('보내는 닉네임 체크', sendNickName);
 
   const [myId, setMyId] = useState(null);
   const playerSpeed = 1;
-  //   const [radius, setRadius] = useState(16);
   const radius = 16;
   const [keys, setKeys] = useState({
     right: false,
@@ -24,14 +20,11 @@ const ThreeTest = () => {
     up: false,
     down: false,
   });
-  //   const socketRef = useRef();
   const canvasRef = useRef();
-  // const ballMap = useRef({});
 
   const handleRoomSubmit = (event) => {
     event.preventDefault();
     setSendNickName(nickName);
-    // console.log('닉네임!!!!!!!!', sendNickName);
     const data = {
       nickname: nickName,
       roomName: roomName,
@@ -44,7 +37,6 @@ const ThreeTest = () => {
     let curPlayer = ballMap[myId];
 
     if (keys.right) {
-      // console.log(curPlayer);
       curPlayer.x += playerSpeed;
     }
     if (keys.left) {
@@ -59,33 +51,17 @@ const ThreeTest = () => {
     sendData();
   };
 
-  // const PlayerBall = (id, color, x, y) => ({
-  //   id,
-  //   color: color,
-  //   x: Math.random() * 500,
-  //   y: Math.random() * 500,
-  // });
-  // console.log('check!!!', myId);
-
-  // console.log(socket);
   useEffect(() => {
-    socket.on('user_id', (data) => {
-      // console.log('check222!!!', data);
-    });
-
     socket.on('join_user', (data) => {
-      console.log('check3333!!!', data);
       joinUser(data.id, data.color, data.x, data.y);
     });
 
     socket.on('bye', (data) => {
-      // console.log('chec444444!!!', data);
       leaveUser(data);
     });
 
     socket.on('update_state', (data) => {
-      console.log('check555555!!!', data);
-      updateState(data.nickname, data.x, data.y);
+      updateState(data.id, data.color, data.x, data.y);
     });
 
     const keyDownHandler = (e) => {
@@ -137,72 +113,45 @@ const ThreeTest = () => {
   }, []);
 
   const joinUser = (id, color, x, y) => {
-    // let ball = PlayerBall(id, color, x, y);
-    // // console.log('ball', ball);
-
-    // setBalls((balls) => [...balls, ball]);
-    // ballMap.current[id] = ball;
-    // // console.log('ballMap', ballMap);
-
-    // return ball;
-
     const newBall = { id, color, x, y };
 
-    // console.log(newBall);
-
-    // Add new ball to the balls array
     setBalls((prevBalls) => [...prevBalls, newBall]);
 
-    // Add new ball to the ballMap object
     setBallMap((prevBallMap) => ({ ...prevBallMap, [id]: newBall }));
   };
 
-  // console.log(ballMap);
-
   const leaveUser = (id) => {
     setBalls((balls) => balls.filter((ball) => ball.id !== id));
-    // console.log(ballMap[id]);
-    // delete ballMap[id];
+    delete ballMap[id];
   };
 
-  const updateState = (id, x, y) => {
-    // let ball = ballMap[id];
-    // // console.log(ball);
-    // if (!ball) {
-    //   return;
-    // }
-    // ball.x = x;
-    // ball.y = y;
-    setBallMap((prevMap) => {
-      if (!prevMap[id]) {
-        return prevMap;
-      }
-      return { ...prevMap, [id]: { ...prevMap[id], x, y } };
+  const updateState = (id, color, x, y) => {
+    setBalls((prevBalls) => {
+      return prevBalls.map((ball) =>
+        ball.id === id ? { ...ball, color: color, x: x, y: y } : ball
+      );
     });
   };
 
   const sendData = () => {
-    // console.log('myId', myId);
     if (myId) {
       let curPlayer = ballMap[myId];
-      // console.log(curPlayer);
       let data = {};
       data = {
         id: curPlayer.id,
         x: curPlayer.x,
         y: curPlayer.y,
+        color: curPlayer.color,
+        roomName: roomName,
       };
       if (data) {
-        console.log('보내는 좌표 데이터', data);
         socket.emit('send_location', data);
       }
     }
   };
-
   useEffect(() => {
     const ctx = canvasRef?.current.getContext('2d');
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    // console.log(balls);
 
     balls.forEach((ball, i) => {
       ctx.fillStyle = ball.color;
@@ -226,26 +175,6 @@ const ThreeTest = () => {
       return () => clearInterval(update);
     }
   }, [myId, keys]);
-
-  // const renderPlayer = () => {
-  //   let curPlayer = ballMap[myId];
-
-  //   if (keys.right) {
-  //     // console.log(curPlayer);
-  //     curPlayer.x += playerSpeed;
-  //   }
-  //   if (keys.left) {
-  //     curPlayer.x -= playerSpeed;
-  //   }
-  //   if (keys.up) {
-  //     curPlayer.y -= playerSpeed;
-  //   }
-  //   if (keys.down) {
-  //     curPlayer.y += playerSpeed;
-  //   }
-  //   sendData();
-  // };
-
   return (
     <div>
       <canvas ref={canvasRef} id="myCanvas" width="1024" height="768" />
