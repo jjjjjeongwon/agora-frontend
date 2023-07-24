@@ -26,10 +26,10 @@ const ThreeTest = () => {
     event.preventDefault();
     setSendNickName(nickName);
     const data = {
-      nickname: nickName,
+      nickName: nickName,
       roomName: roomName,
     };
-    setMyId(data.nickname);
+    setMyId(data.nickName);
 
     socket.emit('enter_room', data);
   };

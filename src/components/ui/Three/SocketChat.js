@@ -15,12 +15,12 @@ function SocketChat({ roomName, socket }) {
     // 소켓 이벤트 핸들러 등록
     socket.on('welcome', (user, newCount) => {
       setWelcomeMessage(`${newCount}명 in ${roomName}`);
-      setMessageList((prevList) => [...prevList, `${user} 입장`]);
+      setMessageList((prevList) => [...prevList, `${user} : 입장`]);
     });
 
     socket.on('bye', (left, newCount) => {
       setWelcomeMessage(`${newCount}명 in ${roomName}`);
-      setMessageList((prevList) => [...prevList, `${left} 퇴장`]);
+      setMessageList((prevList) => [...prevList, `${left} : 퇴장`]);
     });
 
     socket.on('new_message', (message) => {
@@ -42,8 +42,11 @@ function SocketChat({ roomName, socket }) {
     event.preventDefault();
     setSendNickName(nickName);
     // console.log('닉네임', nickName);
-
-    socket.emit('enter_room', roomName, nickName);
+    const data = {
+      nickName: nickName,
+      roomName: roomName,
+    };
+    socket.emit('enter_room', data);
   };
 
   const handleMessageSubmit = (event) => {
