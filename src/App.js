@@ -19,7 +19,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/three/:id" element={<Three />} />
       <Route path="/maplist" element={<MapList />} />
-      <Route path="/threetest" element={<ThreeTest />} />
+      <Route path="/threetest/:id" element={<ThreeTest />} />
     </Routes>
   );
 }

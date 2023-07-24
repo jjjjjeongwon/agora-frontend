@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 
 const socket = io('http://3.35.5.22:8080');
@@ -6,6 +7,8 @@ const socket = io('http://3.35.5.22:8080');
 let myId;
 
 const ThreeTest = () => {
+  const roomName = useParams().id;
+  const [nickName, setNickName] = useState('');
   const [balls, setBalls] = useState([]);
   console.log(balls);
   //   const [myId, setMyId] = useState(null);
@@ -20,6 +23,17 @@ const ThreeTest = () => {
   //   const socketRef = useRef();
   const canvasRef = useRef();
   const ballMap = useRef({});
+
+  const handleRoomSubmit = (event) => {
+    event.preventDefault();
+    console.log('닉네임', event.target);
+    setNickName(event.target.elements.name);
+    const data = {
+      nickname: nickName,
+      roomName: roomName,
+    };
+    socket.emit('enter_room', data);
+  };
 
   const PlayerBall = (id, color, x, y) => ({
     id,
@@ -120,7 +134,7 @@ const ThreeTest = () => {
   };
 
   useEffect(() => {
-    const ctx = canvasRef.current.getContext('2d');
+    const ctx = canvasRef?.current.getContext('2d');
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
     balls.forEach((ball, i) => {
@@ -139,10 +153,19 @@ const ThreeTest = () => {
 
   return (
     <div>
-      {balls.map((ball) => (
-        <div key={ball.id} />
-      ))}
-      <canvas ref={canvasRef} id="myCanvas" width="1024" height="768" />;
+      <canvas ref={canvasRef} id="myCanvas" width="1024" height="768" />
+      {nickName ? (
+        <div>
+          {balls.map((ball) => (
+            <div key={ball.id} />
+          ))}
+        </div>
+      ) : (
+        <form onSubmit={handleRoomSubmit}>
+          <input type="text" name="name" placeholder="Enter your nickname" />
+          <button type="submit">Enter Room</button>
+        </form>
+      )}
     </div>
   );
 };

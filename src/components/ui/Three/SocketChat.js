@@ -4,8 +4,12 @@ import TalkBubble from './TalkBubble';
 function SocketChat({ roomName, socket }) {
   const [welcomeMessage, setWelcomeMessage] = useState('');
   const [nickName, setNickName] = useState('');
+  const [sendNickName, setSendNickName] = useState('');
   const [messageList, setMessageList] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
+
+  console.log('닉네임', nickName);
+  console.log('보내는 닉네임', sendNickName);
 
   useEffect(() => {
     // 소켓 이벤트 핸들러 등록
@@ -36,7 +40,9 @@ function SocketChat({ roomName, socket }) {
 
   const handleRoomSubmit = (event) => {
     event.preventDefault();
-    setNickName(event.target.elements.name);
+    setSendNickName(nickName);
+    // console.log('닉네임', nickName);
+
     socket.emit('enter_room', roomName, nickName);
   };
 
@@ -51,7 +57,7 @@ function SocketChat({ roomName, socket }) {
   return (
     // 임시 UI
     <div>
-      {nickName ? (
+      {sendNickName ? (
         <div>
           <h3>Room: {roomName}</h3>
           <ul>
@@ -71,10 +77,15 @@ function SocketChat({ roomName, socket }) {
           </form>
         </div>
       ) : (
-        <form onSubmit={handleRoomSubmit}>
-          <input type="text" name="name" placeholder="Enter your nickname" />
-          <button type="submit">Enter Room</button>
-        </form>
+        <div>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your nickname"
+            onChange={(e) => setNickName(e.target.value)}
+          />
+          <button onClick={handleRoomSubmit}>Enter Room</button>
+        </div>
       )}
       <h3>{welcomeMessage}</h3>
     </div>
