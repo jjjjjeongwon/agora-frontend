@@ -64,23 +64,26 @@ const Player = ({ socket }) => {
     playerMesh.scale.z = 0.5;
 
     const keyDownHandler = (e) => {
-      playerMesh.userData.moving = true;
       switch (e.code) {
         case 'ArrowRight':
         case 'KeyD':
           setKeys((keys) => ({ ...keys, right: true }));
+          playerMesh.userData.moving = true;
           break;
         case 'ArrowLeft':
         case 'KeyA':
           setKeys((keys) => ({ ...keys, left: true }));
+          playerMesh.userData.moving = true;
           break;
         case 'ArrowDown':
         case 'KeyS':
           setKeys((keys) => ({ ...keys, down: true }));
+          playerMesh.userData.moving = true;
           break;
         case 'ArrowUp':
         case 'KeyW':
           setKeys((keys) => ({ ...keys, up: true }));
+          playerMesh.userData.moving = true;
           break;
         default:
           break;
@@ -88,23 +91,26 @@ const Player = ({ socket }) => {
     };
 
     const keyUpHandler = (e) => {
-      playerMesh.userData.moving = false;
       switch (e.code) {
         case 'ArrowRight':
         case 'KeyD':
           setKeys((keys) => ({ ...keys, right: false }));
+          playerMesh.userData.moving = false;
           break;
         case 'ArrowLeft':
         case 'KeyA':
           setKeys((keys) => ({ ...keys, left: false }));
+          playerMesh.userData.moving = false;
           break;
         case 'ArrowDown':
         case 'KeyS':
           setKeys((keys) => ({ ...keys, down: false }));
+          playerMesh.userData.moving = false;
           break;
         case 'ArrowUp':
         case 'KeyW':
           setKeys((keys) => ({ ...keys, up: false }));
+          playerMesh.userData.moving = false;
           break;
         default:
           break;
