@@ -1,4 +1,4 @@
-import { OrbitControls, Sky, Stars } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -11,6 +11,8 @@ import gsap from 'gsap';
 import io from 'socket.io-client';
 
 //components
+import EnvSky from '../ui/Three/3Dcanvas/EnvSky';
+import EnvStars from '../ui/Three/3Dcanvas/EnvStars';
 import Floor from '../ui/Three/3Dcanvas/Floor';
 import Player from '../ui/Three/3Dcanvas/Player';
 import Light from '../ui/Three/3Dcanvas/Light';
@@ -62,21 +64,8 @@ const Three = () => {
         <Light />
         <Spot />
         <Suspense fallback={null}>
-          <Sky
-            distance={4500}
-            sunPosition={[0, 1, 0]}
-            inclination={0}
-            azimuth={0.25}
-          />
-
-          <Stars
-            radius={100} // Radius of the inner sphere (default=100)
-            depth={50} // Depth of area where stars should fit (default=50)
-            count={5000} // Amount of stars (default=5000)
-            factor={4} // Size factor (default=4)
-            saturation={0} // Saturation 0-1 (default=0)
-            fade // Faded dots (default=false)
-          />
+          <EnvSky />
+          <EnvStars />
           <Player />
         </Suspense>
         <OrbitControls />
