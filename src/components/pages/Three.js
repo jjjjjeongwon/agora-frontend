@@ -88,11 +88,6 @@ const Player = () => {
         child.castShadow = true;
       }
     });
-    // const mixer = new THREE.AnimationMixer(playerMesh);
-    // const actions = [
-    //   mixer.clipAction(glb.animations[0]),
-    //   mixer.clipAction(glb.animations[1]),
-    // ];
     const handlePointerDown = (e) => {
       isPressed = true;
       calculateMousePosition(e);
