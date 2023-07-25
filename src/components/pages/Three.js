@@ -20,13 +20,15 @@ import Spot from '../ui/Three/3Dcanvas/Spot';
 
 // global state
 import { useRecoilState } from 'recoil';
-import { LoginState } from '../../state/UserAtom';
+import { LoginState, UserState } from '../../state/UserAtom';
 
 const socket = io('http://3.35.5.22:8080/');
 
 const Three = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginState);
+  const [myId, setMyId] = useRecoilState(UserState);
 
+  console.log(myId);
   const [nickName, setNickName] = useState('');
   const [sendNickName, setSendNickName] = useState('');
 
@@ -65,7 +67,7 @@ const Three = () => {
           aspect: aspectRatio,
           near: 0.1,
           far: 1000,
-          position: [0, 8, 8],
+          position: [0, 5, 5],
           zoom: 0.5,
         }}
       >
@@ -75,7 +77,7 @@ const Three = () => {
         <Suspense fallback={null}>
           <EnvSky />
           <EnvStars />
-          <Player />
+          <Player socket={socket} roomName={roomName} />
         </Suspense>
         <OrbitControls />
       </Canvas>

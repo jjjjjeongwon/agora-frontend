@@ -4,7 +4,10 @@ import * as THREE from 'three';
 
 import { useState, useEffect } from 'react';
 
-const Player = ({ socket }) => {
+// global state
+import { useRecoilState } from 'recoil';
+import { LoginState, UserState } from '../../../../state/UserAtom';
+const Player = ({ socket, roomName }) => {
   const glb = useGLTF('../models/ilbuni.glb');
   const playerMesh = glb.scene.children[0];
   playerMesh.position.y = 0.5;
@@ -13,7 +16,9 @@ const Player = ({ socket }) => {
   const [players, setPlayers] = useState([]);
   const [playerMap, setPlayerMap] = useState({});
 
-  const [myId, setMyId] = useState(null);
+  const [myId, setMyId] = useRecoilState(UserState);
+
+  const [isLogin, setIsLogin] = useRecoilState(LoginState);
 
   const mixer = new THREE.AnimationMixer(playerMesh);
   const actions = [
@@ -29,28 +34,65 @@ const Player = ({ socket }) => {
     down: false,
   });
 
+  const joinUser = (id, color, x, z) => {
+    const newPlayer = { id, color, x, z };
+
+    setPlayers((prevPlayers) => [...prevPlayers, newPlayer]);
+
+    setPlayerMap((prevPlayerMap) => ({ ...prevPlayerMap, [id]: newPlayer }));
+  };
+
+  const leaveUser = (id) => {
+    setPlayers((players) => players.filter((player) => player.id !== id));
+    delete playerMap[id];
+  };
+
+  const updateState = (id, color, x, z) => {
+    setPlayers((prevPlayers) => {
+      return prevPlayers.map((player) =>
+        player.id === id ? { ...player, color: color, x: x, z: z } : player
+      );
+    });
+  };
+
+  const sendData = () => {
+    if (myId && isLogin) {
+      let curPlayer = playerMap[myId];
+      let data = {};
+      data = {
+        id: curPlayer.id,
+        x: curPlayer.x,
+        z: curPlayer.z,
+        color: curPlayer.color,
+        roomName: roomName,
+      };
+      if (data) {
+        socket.emit('send_location', data);
+      }
+    }
+  };
+
   const renderPlayer = () => {
-    // let curPlayer = playerMap[myId];
+    let curPlayer = playerMap[myId];
 
     if (keys.right) {
       playerMesh.position.x += speed;
+      curPlayer.x = playerMesh.position.x;
     }
     if (keys.left) {
       playerMesh.position.x -= speed;
+      curPlayer.x = playerMesh.position.x;
     }
     if (keys.up) {
       playerMesh.position.z -= speed;
+      curPlayer.z = playerMesh.position.z;
     }
     if (keys.down) {
       playerMesh.position.z += speed;
+      curPlayer.z = playerMesh.position.z;
     }
 
-    // 카메라를 캐릭터가 움직일 때마다 따라 갈 수 있게 하기 + 고정시키기
-    // three.camera.position.x = playerMesh.position.x + 1;
-    // three.camera.position.z = playerMesh.position.z + 5; // You may want to adjust this to set camera distance from player
-
-    // three.camera.lookAt(playerMesh.position); // Make camera always point to player
-    // sendData();
+    sendData();
   };
 
   useEffect(() => {
@@ -59,9 +101,20 @@ const Player = ({ socket }) => {
         child.castShadow = true;
       }
     });
-    playerMesh.scale.x = 0.5;
-    playerMesh.scale.y = 0.5;
-    playerMesh.scale.z = 0.5;
+
+    socket.on('join_user', (data) => {
+      console.log('join_user', data);
+      joinUser(data.id, data.color, data.x, data.z);
+    });
+
+    socket.on('bye', (data) => {
+      leaveUser(data);
+    });
+
+    socket.on('update_state', (data) => {
+      console.log('update_state', data);
+      updateState(data.id, data.color, data.x, data.z);
+    });
 
     const keyDownHandler = (e) => {
       switch (e.code) {
@@ -124,6 +177,16 @@ const Player = ({ socket }) => {
       window.removeEventListener('keyup', keyUpHandler);
     };
   }, []);
+
+  useEffect(() => {
+    if (myId && (keys.right || keys.left || keys.up || keys.down)) {
+      const update = setInterval(() => {
+        renderPlayer();
+      }, 10);
+      return () => clearInterval(update);
+    }
+  }, [myId, keys]);
+
   useFrame((state, delta) => {
     if (!playerMesh) return;
     // TODO 이곳에서 이동로직 처리
@@ -136,9 +199,8 @@ const Player = ({ socket }) => {
       playerMesh.userData.animations[0].play();
       playerMesh.userData.animations[1].stop();
     }
-    renderPlayer();
   });
-  return <primitive name={'character'} object={glb.scene} dispose={null} />;
+  return <primitive object={glb.scene} dispose={null} />;
 };
 
 export default Player;

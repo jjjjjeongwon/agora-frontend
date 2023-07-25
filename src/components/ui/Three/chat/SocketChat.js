@@ -3,10 +3,11 @@ import TalkBubble from './TalkBubble';
 
 // global state
 import { useRecoilState } from 'recoil';
-import { LoginState } from '../../../../state/UserAtom';
+import { LoginState, UserState } from '../../../../state/UserAtom';
 
 function SocketChat({ roomName, socket }) {
   const [isLogin, setIsLogin] = useRecoilState(LoginState);
+  const [myId, setMyId] = useRecoilState(UserState);
 
   const [welcomeMessage, setWelcomeMessage] = useState('');
   const [nickName, setNickName] = useState('');
@@ -24,12 +25,13 @@ function SocketChat({ roomName, socket }) {
     // 소켓 이벤트 핸들러 등록
     socket.on('welcome', (user, newCount) => {
       console.log(user, newCount);
+      setRoomUserCount(newCount);
       setWelcomeMessage(`${newCount}명 in ${roomName}`);
       setMessageList((prevList) => [...prevList, `${user} : 입장`]);
     });
 
     socket.on('bye', (left, newCount) => {
-      console.log(left, newCount);
+      // console.log(left, newCount);
       setRoomUserCount(newCount);
       setWelcomeMessage(`${newCount}명 in ${roomName}`);
       setMessageList((prevList) => [...prevList, `${left} : 퇴장`]);
@@ -60,6 +62,7 @@ function SocketChat({ roomName, socket }) {
       nickName: nickName,
       roomName: roomName,
     };
+    setMyId(data.nickName);
     socket.emit('enter_room', data);
     setIsLogin(true);
   };
