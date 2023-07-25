@@ -6,7 +6,7 @@ import './App.css';
 import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
 import Main from './components/pages/Main';
-import Three from './components/pages/Three';
+import Three from './components/pages/ThreePers';
 import MapList from './components/pages/MapList';
 //test-moving
 import ThreeTest from './components/pages/ThreeTest';
