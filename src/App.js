@@ -6,10 +6,8 @@ import './App.css';
 import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
 import Main from './components/pages/Main';
-import Three from './components/pages/ThreePers';
+import Three from './components/pages/Three';
 import MapList from './components/pages/MapList';
-//test-moving
-import ThreeTest from './components/pages/ThreeTest';
 
 function App() {
   return (
@@ -19,7 +17,6 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/three/:id" element={<Three />} />
       <Route path="/maplist" element={<MapList />} />
-      <Route path="/threetest/:id" element={<ThreeTest />} />
     </Routes>
   );
 }
