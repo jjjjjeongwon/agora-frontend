@@ -4,7 +4,7 @@ import * as THREE from 'three';
 
 import { useState, useEffect } from 'react';
 
-const Player = () => {
+const Player = ({ socket }) => {
   const glb = useGLTF('../models/ilbuni.glb');
   const playerMesh = glb.scene.children[0];
   playerMesh.position.y = 0.5;

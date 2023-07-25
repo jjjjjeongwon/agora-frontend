@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import TalkBubble from './TalkBubble';
 
+// global state
+import { useRecoilState } from 'recoil';
+import { LoginState } from '../../../../state/UserAtom';
+
 function SocketChat({ roomName, socket }) {
+  const [isLogin, setIsLogin] = useRecoilState(LoginState);
+
   const [welcomeMessage, setWelcomeMessage] = useState('');
   const [nickName, setNickName] = useState('');
   const [sendNickName, setSendNickName] = useState('');
   const [messageList, setMessageList] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
+  const [roomUserCount, setRoomUserCount] = useState(0);
+
+  console.log('몇명 있는지?', roomUserCount);
 
   console.log('닉네임', nickName);
   console.log('보내는 닉네임', sendNickName);
@@ -14,16 +23,21 @@ function SocketChat({ roomName, socket }) {
   useEffect(() => {
     // 소켓 이벤트 핸들러 등록
     socket.on('welcome', (user, newCount) => {
+      console.log(user, newCount);
       setWelcomeMessage(`${newCount}명 in ${roomName}`);
       setMessageList((prevList) => [...prevList, `${user} : 입장`]);
     });
 
     socket.on('bye', (left, newCount) => {
+      console.log(left, newCount);
+      setRoomUserCount(newCount);
       setWelcomeMessage(`${newCount}명 in ${roomName}`);
       setMessageList((prevList) => [...prevList, `${left} : 퇴장`]);
     });
 
     socket.on('new_message', (message) => {
+      console.log(message);
+
       setMessageList((prevList) => [...prevList, message]);
     });
 
@@ -47,6 +61,7 @@ function SocketChat({ roomName, socket }) {
       roomName: roomName,
     };
     socket.emit('enter_room', data);
+    setIsLogin(true);
   };
 
   const handleMessageSubmit = (event) => {

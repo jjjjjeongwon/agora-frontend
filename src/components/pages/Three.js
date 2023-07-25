@@ -18,9 +18,18 @@ import Player from '../ui/Three/3Dcanvas/Player';
 import Light from '../ui/Three/3Dcanvas/Light';
 import Spot from '../ui/Three/3Dcanvas/Spot';
 
+// global state
+import { useRecoilState } from 'recoil';
+import { LoginState } from '../../state/UserAtom';
+
 const socket = io('http://3.35.5.22:8080/');
 
 const Three = () => {
+  const [isLogin, setIsLogin] = useRecoilState(LoginState);
+
+  const [nickName, setNickName] = useState('');
+  const [sendNickName, setSendNickName] = useState('');
+
   const roomName = useParams().id;
   const navigate = useNavigate();
   // 모달창 상태 관리
