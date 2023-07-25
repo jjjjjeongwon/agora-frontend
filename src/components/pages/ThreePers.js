@@ -9,6 +9,7 @@ import { styled, keyframes, css } from 'styled-components';
 import VisitListModal from '../ui/Three/VisitListModal';
 import gsap from 'gsap';
 import io from 'socket.io-client';
+import { useKeyPress } from 'react-use';
 const socket = io('http://3.35.5.22:8080/');
 
 const Floor = () => {
@@ -25,16 +26,21 @@ const Floor = () => {
   );
 };
 
-let isPressed = false;
-const mouse = new THREE.Vector2();
-const destinationPoint = new THREE.Vector3();
-let angle = 0;
 useGLTF.preload('../models/Bear.glb');
 const Player = () => {
   const glb = useGLTF('../models/Bear.glb');
   const playerMesh = glb.scene.children[0];
-  playerMesh.position.y = 1.3;
+  playerMesh.position.y = 0.5;
   const three = useThree();
+
+  const upPress = useKeyPress('w');
+  const downPress = useKeyPress('s');
+  const leftPress = useKeyPress('a');
+  const rightPress = useKeyPress('d');
+  const upArrowPress = useKeyPress('ArrowUp');
+  const downArrowPress = useKeyPress('ArrowDown');
+  const leftArrowPress = useKeyPress('ArrowLeft');
+  const rightArrowPress = useKeyPress('ArrowRight');
 
   const mixer = new THREE.AnimationMixer(playerMesh);
   const actions = [
@@ -44,122 +50,73 @@ const Player = () => {
   playerMesh.userData.animations = actions;
   console.log(playerMesh.userData.animations);
 
-  // console.log(actions[0]);
-
-  // console.log(glb);
-  // console.log(playerMesh);
-
-  const checkIntersects = () => {
-    const floorMesh = three.scene.getObjectByName('floor');
-    const pointerMesh = three.scene.getObjectByName('pointerMesh');
-
-    const intersects = three.raycaster.intersectObject(floorMesh);
-
-    if (!playerMesh) return;
-    for (const item of intersects) {
-      if (item.object.name === 'floor') {
-        destinationPoint.x = item.point.x;
-        destinationPoint.y = 0.3;
-        destinationPoint.z = item.point.z;
-        // playerMesh.lookAt(destinationPoint);
-
-        playerMesh.userData.moving = true;
-
-        pointerMesh.position.x = destinationPoint.x;
-        pointerMesh.position.z = destinationPoint.z;
-      }
-      break;
-    }
-  };
-
-  const raycasting = () => {
-    three.raycaster.setFromCamera(mouse, three.camera);
-    checkIntersects();
-  };
-
-  const calculateMousePosition = (e) => {
-    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
-  };
-
   useEffect(() => {
     glb.scene.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = true;
       }
     });
-    const handlePointerDown = (e) => {
-      isPressed = true;
-      calculateMousePosition(e);
-    };
-    const handlePointerMove = (e) => {
-      calculateMousePosition(e);
-    };
-    const handlePointerUp = () => {
-      isPressed = false;
-    };
-
-    three.gl.domElement.addEventListener('pointerdown', handlePointerDown);
-    three.gl.domElement.addEventListener('pointermove', handlePointerMove);
-    three.gl.domElement.addEventListener('pointerup', handlePointerUp);
-    return () => {
-      isPressed = false;
-      three.gl.domElement.removeEventListener('pointerdown', handlePointerDown);
-      three.gl.domElement.removeEventListener('pointermove', handlePointerMove);
-      three.gl.domElement.removeEventListener('pointerup', handlePointerUp);
-    };
+    playerMesh.scale.x = 0.5;
+    playerMesh.scale.y = 0.5;
+    playerMesh.scale.z = 0.5;
   }, []);
   useFrame((state, delta) => {
     if (!playerMesh) return;
     // TODO 이곳에서 이동로직 처리
     mixer.update(delta);
+    const speed = 0.05;
+    const rotationSpeed = 0.1;
 
-    if (isPressed) {
-      raycasting();
+    let targetYRotation = null;
+
+    if (upPress || upArrowPress) {
+      playerMesh.position.z -= speed;
+      three.camera.position.z -= speed;
+      targetYRotation = Math.PI;
     }
-    if (playerMesh.userData.moving) {
-      angle = Math.atan2(
-        destinationPoint.z - playerMesh.position.z,
-        destinationPoint.x - playerMesh.position.x
+    if (downPress || downArrowPress) {
+      playerMesh.position.z += speed;
+      three.camera.position.z += speed;
+      targetYRotation = 0;
+    }
+    if (leftPress || leftArrowPress) {
+      playerMesh.position.x -= speed;
+      three.camera.position.x -= speed;
+      targetYRotation = Math.PI / 2;
+    }
+    if (rightPress || rightArrowPress) {
+      playerMesh.position.x += speed;
+      three.camera.position.x += speed;
+      targetYRotation = -Math.PI / 2;
+    }
+
+    // 회전값을 보간합니다.
+    if (targetYRotation !== null) {
+      playerMesh.rotation.y = THREE.MathUtils.lerp(
+        playerMesh.rotation.y,
+        targetYRotation,
+        rotationSpeed
       );
-      playerMesh.position.x += Math.cos(angle) * 0.05;
-      playerMesh.position.z += Math.sin(angle) * 0.05;
+    }
 
-      three.camera.position.x = 1 + playerMesh.position.x;
-      three.camera.position.z = 5 + playerMesh.position.z;
-
+    if (
+      upPress ||
+      downPress ||
+      leftPress ||
+      rightPress ||
+      upArrowPress ||
+      downArrowPress ||
+      leftArrowPress ||
+      rightArrowPress
+    ) {
       playerMesh.userData.animations[0].stop();
       playerMesh.userData.animations[1].play();
-
-      if (
-        Math.abs(destinationPoint.x - playerMesh.position.x) < 0.03 &&
-        Math.abs(destinationPoint.z - playerMesh.position.z) < 0.03
-      ) {
-        playerMesh.userData.moving = false;
-        // console.log('멈춤');
-      }
     } else {
-      // 서 있는 상태
       playerMesh.userData.animations[0].play();
       playerMesh.userData.animations[1].stop();
     }
   });
   return <primitive name={'character'} object={glb.scene} dispose={null} />;
-};
-
-const PointerCircle = () => {
-  return (
-    <mesh
-      receiveShadow
-      castShadow
-      name="pointerMesh"
-      position={[0, 0.01, 0]}
-      rotation={[-Math.PI / 2, 0, 0]}
-    >
-      <circleGeometry args={[1, 32]} />
-      <meshStandardMaterial color={'yellow'} transparent opacity={0.8} />
-    </mesh>
-  );
 };
 
 // Light를 별도의 컴포넌트로 분리했다.
@@ -195,7 +152,7 @@ const Spot = () => {
       rotation={[-Math.PI / 2, 0, 0]}
       receiveShadow
     >
-      <planeGeometry args={[6, 6]} />
+      <CircleGeometry args={[6, 6]} />
       <meshStandardMaterial color={'yellow'} transparent opacity={0.5} />
     </mesh>
   );
@@ -232,21 +189,17 @@ const Three = () => {
           autoUpdate: true,
           type: THREE.PCFSoftShadowMap,
         }}
-        orthographic
         camera={{
-          zoom: 50,
-          position: [1, 5, 5],
-          left: -1 * aspectRatio,
-          right: 1 * aspectRatio,
-          top: 1,
-          bottom: -1,
-          near: -1000,
+          fov: 50,
+          aspect: aspectRatio,
+          near: 0.1,
           far: 1000,
+          position: [0, 3, 0],
+          zoom: 0.5,
         }}
       >
         <Floor />
         <LightComponent />
-        <PointerCircle />
         <Spot />
         <Suspense fallback={null}>
           <Sky
@@ -266,6 +219,7 @@ const Three = () => {
           />
           <Player />
         </Suspense>
+        <OrbitControls />
       </Canvas>
       <ChatWrap>
         <SocketChat roomName={roomName} socket={socket} />
