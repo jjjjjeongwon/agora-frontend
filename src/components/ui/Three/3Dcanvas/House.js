@@ -4,6 +4,9 @@ import gsap from 'gsap';
 const House = ({ myPlayer, houseSpot }) => {
   const glb = useGLTF('../models/house.glb');
   const house = glb.scene.children[0];
+  house && (house.scale.x = 2);
+  house && (house.scale.y = 2);
+  house && (house.scale.z = 2);
   house?.position.set(5, -1.3, 2);
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
@@ -21,7 +24,7 @@ const House = ({ myPlayer, houseSpot }) => {
       house && (house.visible = true);
       gsap.to(house.position, {
         duration: 1.3,
-        y: 1,
+        y: 1.7,
         ease: 'Bounce.easeOut',
       });
     } else {

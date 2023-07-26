@@ -10,8 +10,8 @@ import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 const Player = ({ socket, roomName, myPlayer, setMyPlayer }) => {
   const glb = useGLTF('../models/Bear.glb');
   const playerMesh = glb.scene.children[0];
-  playerMesh.position.y = 0.7;
-  playerMesh.scale.set(0.5, 0.5, 0.5);
+  playerMesh.position.y = 0.3;
+  // playerMesh.scale.set(0.1, 0.1, 0.1);
   const mixers = [];
 
   const speed = 0.05;
@@ -31,7 +31,7 @@ const Player = ({ socket, roomName, myPlayer, setMyPlayer }) => {
     }
     const clonedPlayreMesh = SkeletonUtils.clone(playerMesh);
     clonedPlayreMesh.position.set(x, playerMesh.position.y, z);
-    clonedPlayreMesh.scale.set(0.5, 0.5, 0.5);
+    clonedPlayreMesh.scale.set(0.2, 0.2, 0.2);
 
     const mixer = new THREE.AnimationMixer(clonedPlayreMesh);
     mixers.push(mixer);

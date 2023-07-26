@@ -32,6 +32,14 @@ function SocketChat({ roomName, socket }) {
       setMessageList((prevList) => [...prevList, `${left} : 퇴장`]);
     });
 
+    socket.on('origin_user', (data) => {
+      console.log('새로들어와서 입장, 퇴장 알려주면 안됨 - 몇 명인지만', data);
+    });
+
+    socket.on('new_user', (data) => {
+      console.log(data);
+    });
+
     socket.on('new_message', (message) => {
       console.log(message);
 
