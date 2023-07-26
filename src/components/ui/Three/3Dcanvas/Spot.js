@@ -1,10 +1,8 @@
-import React from 'react';
-
-const Spot = () => {
+const Spot = ({ spot }) => {
   return (
     <mesh
       name="spot"
-      position={[5, 0.005, 5]}
+      position={spot}
       rotation={[-Math.PI / 2, 0, 0]}
       receiveShadow
     >
