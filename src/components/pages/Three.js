@@ -138,24 +138,24 @@ const Three = () => {
         <img src="/images/magnifier.png" alt="" />
       </PlusICon>
       {/* 맵 커스텀 모달 */}
-      <PostBox onClick={showCustomModal}>
+      {/* <PostBox onClick={showCustomModal}>
         <img src="/images/tool.png" alt="" />
       </PostBox>
       <ContainerMap customModalOpen={customModalOpen}>
         {customModalOpen && (
           <MapCustomModal setCustomModalOpen={setCustomModalOpen} />
         )}
-      </ContainerMap>
+      </ContainerMap> */}
 
       {/* 밤명록 작성 모달 */}
-      {/* <PostBox onClick={showLetterModal}>
+      <PostBox onClick={showLetterModal}>
         <img src="/images/letter.png" alt="" />
-      </PostBox> */}
-      {/* <ContainerLetter letterModalOpen={letterModalOpen}>
-              {letterModalOpen && (
-                <VisitListWriteModal setLetterModalOpen={setLetterModalOpen} />
-              )}
-            </ContainerLetter> */}
+      </PostBox>
+      <ContainerLetter letterModalOpen={letterModalOpen}>
+        {letterModalOpen && (
+          <VisitListWriteModal setLetterModalOpen={setLetterModalOpen} />
+        )}
+      </ContainerLetter>
 
       {/* 우체통 모달 */}
       {/* <PostBox onClick={showModal}>

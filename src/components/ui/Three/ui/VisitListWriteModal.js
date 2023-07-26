@@ -21,7 +21,11 @@ const VisitListWriteModal = forwardRef((props, ref) => {
 
   return (
     <>
-      <Container ref={wrapperRef}>ssss</Container>
+      <Container ref={wrapperRef}>
+        <VisitListTitle>MEMO</VisitListTitle>
+        <Content></Content>
+        <CustomButton>WRITE</CustomButton>
+      </Container>
     </>
   );
 });
@@ -35,10 +39,50 @@ const Container = styled.div`
   position: absolute;
   box-sizing: border-box;
   margin: 5% auto;
-  padding: 10px 20px;
+  padding: 40px 45px;
   border-radius: 10px;
   background-image: url('/images/visitPaper.png');
   background-size: cover;
 `;
 
+const VisitListTitle = styled.div`
+  font-family: 'gloria hallelujah';
+  margin-left: 50px;
+  margin-bottom: 30px;
+  /* font-family: 'bagel fat one'; */
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Content = styled.input`
+  width: 100%;
+  height: 60px;
+  background-color: #e6d6c5;
+  border: 1px solid #b2947c;
+  border-radius: 5px;
+  outline: none;
+`;
+
+const CustomButton = styled.div`
+  font-family: 'gloria hallelujah';
+
+  width: 100px;
+  height: 28px;
+  border-radius: 27px;
+  display: flex;
+  margin: 30px auto auto 15px;
+  align-items: center;
+  justify-content: center;
+  color: #916a3f;
+  font-size: 16px;
+  background-color: #e5d2c1;
+  border: 1.5px solid #916a3f;
+  cursor: pointer;
+  &:hover {
+    transition-duration: 0.3s;
+    background-color: white;
+  }
+`;
 export default VisitListWriteModal;
