@@ -12,7 +12,12 @@
 ├── react-dom@18.2.0 <br>
 ├── react-router-dom@6.14.2 <br>
 ├── react-scripts@5.0.1 <br>
+├── react-spinners@0.13.8 <br>
+├── react-use@17.4.0 <br>
 ├── react@18.2.0 <br>
+├── recoil-persist@5.1.0 <br>
+├── recoil@0.7.7 <br>
+├── socket.io-client@4.7.1
 ├── socket.io@4.7.1 <br>
 ├── styled-components@6.0.4 <br>
 ├── sweetalert2@11.7.18 <br>
