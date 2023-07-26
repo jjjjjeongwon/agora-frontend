@@ -29,8 +29,9 @@ import TalkBubble from '../ui/Three/chat/TalkBubble';
 import House from '../ui/Three/3Dcanvas/House';
 import Tree from '../ui/Three/3Dcanvas/Tree';
 import CampFire from '../ui/Three/3Dcanvas/CampFire';
+import PostOfficeBox from '../ui/Three/3Dcanvas/PostOfficeBox';
 
-const socket = io('http://15.164.176.168:8080/');
+const socket = io('http://3.35.5.145:8080/');
 
 const Three = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginState);
@@ -39,30 +40,31 @@ const Three = () => {
   const [nickName, setNickName] = useState('');
   const [sendNickName, setSendNickName] = useState('');
 
+  const [viewVisitList, setViewVisitList] = useState(false);
+
   const [myPlayer, setMyPlayer] = useState({});
 
   const roomName = useParams().id;
   const navigate = useNavigate();
   const aspectRatio = window.innerWidth / window.innerHeight;
 
-  console.log('제대로 되었낭?', myPlayer);
-
   //spots
-  const houseSpot = [5, 0.005, 5];
-  const postSpot = [10, 0.005, 5];
+  const houseSpot = { x: 5, y: 0.005, z: 5 };
+  const postSpot = { x: 10, y: 0.005, z: 5 };
 
   // 모달창 상태 관리
   const [modalOpen, setModalOpen] = useState(false);
   const [letterModalOpen, setLetterModalOpen] = useState(false);
   const [customModalOpen, setCustomModalOpen] = useState(false);
   // 모달창 노출
-  const showModal = () => {
-    if (modalOpen === true) {
+
+  useEffect(() => {
+    if (viewVisitList === false) {
       setModalOpen(false);
     } else {
       setModalOpen(true);
     }
-  };
+  }, [viewVisitList]);
 
   const showLetterModal = () => {
     if (letterModalOpen === true) {
@@ -115,7 +117,12 @@ const Three = () => {
         <Suspense fallback={null}>
           <CampFire />
           <Tree />
-          <House />
+          <PostOfficeBox
+            myPlayer={myPlayer}
+            postSpot={postSpot}
+            setViewVisitList={setViewVisitList}
+          />
+          <House myPlayer={myPlayer} houseSpot={houseSpot} />
           <Player
             socket={socket}
             roomName={roomName}
@@ -161,9 +168,9 @@ const Three = () => {
       {/* <PostBox onClick={showModal}>
         <img src="/images/letter.png" alt="" />
       </PostBox> */}
-      {/* <Container modalOpen={modalOpen}>
+      <Container modalOpen={modalOpen}>
         {modalOpen && <VisitListModal setModalOpen={setModalOpen} />}
-      </Container> */}
+      </Container>
     </div>
   );
 };
