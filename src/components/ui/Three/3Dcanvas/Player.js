@@ -7,7 +7,7 @@ import { useRecoilState } from 'recoil';
 import { LoginState, UserState } from '../../../../state/UserAtom';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 
-const Player = ({ socket, roomName }) => {
+const Player = ({ socket, roomName, myPlayer, setMyPlayer }) => {
   const glb = useGLTF('../models/Bear.glb');
   const playerMesh = glb.scene.children[0];
   playerMesh.position.y = 0.7;
@@ -93,6 +93,7 @@ const Player = ({ socket, roomName }) => {
         roomName: roomName,
       };
       if (data) {
+        setMyPlayer(data);
         socket.emit('send_location', data);
       }
     }
