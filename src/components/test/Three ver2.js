@@ -31,11 +31,11 @@ let isPressed = false;
 const mouse = new THREE.Vector2();
 const destinationPoint = new THREE.Vector3();
 let angle = 0;
-useGLTF.preload('../models/Bear.glb');
+useGLTF.preload('../models/ilbuni.glb');
 const Player = () => {
-  const glb = useGLTF('../models/Bear.glb');
+  const glb = useGLTF('../models/ilbuni.glb');
   const playerMesh = glb.scene.children[0];
-  playerMesh.position.y = 1.3;
+  playerMesh.position.y = 0.3;
   const three = useThree();
 
   const mixer = new THREE.AnimationMixer(playerMesh);
@@ -149,21 +149,6 @@ const Player = () => {
   return <primitive name={'character'} object={glb.scene} dispose={null} />;
 };
 
-const PointerCircle = () => {
-  return (
-    <mesh
-      receiveShadow
-      castShadow
-      name="pointerMesh"
-      position={[0, 0.01, 0]}
-      rotation={[-Math.PI / 2, 0, 0]}
-    >
-      <circleGeometry args={[1, 32]} />
-      <meshStandardMaterial color={'yellow'} transparent opacity={0.8} />
-    </mesh>
-  );
-};
-
 // Light를 별도의 컴포넌트로 분리했다.
 const LightComponent = () => {
   const three = useThree();
@@ -197,7 +182,7 @@ const Spot = () => {
       rotation={[-Math.PI / 2, 0, 0]}
       receiveShadow
     >
-      <planeGeometry args={[6, 6]} />
+      <circleGeometry args={[2, 64, 64]} />
       <meshStandardMaterial color={'yellow'} transparent opacity={0.5} />
     </mesh>
   );
@@ -234,27 +219,24 @@ const Three = () => {
           autoUpdate: true,
           type: THREE.PCFSoftShadowMap,
         }}
-        orthographic
         camera={{
-          zoom: 50,
-          position: [1, 5, 5],
-          left: -1 * aspectRatio,
-          right: 1 * aspectRatio,
-          top: 1,
-          bottom: -1,
-          near: -1000,
+          fov: 50,
+          aspect: aspectRatio,
+          near: 0.1,
           far: 1000,
+          position: [0, 5, 5],
+          zoom: 0.5,
         }}
       >
         <Floor />
         <LightComponent />
-        <PointerCircle />
         <Spot />
         <Suspense fallback={null}>
           <EnvSky />
           <EnvStars />
           <Player />
         </Suspense>
+        <OrbitControls />
       </Canvas>
       <ChatWrap>
         <SocketChat roomName={roomName} socket={socket} />

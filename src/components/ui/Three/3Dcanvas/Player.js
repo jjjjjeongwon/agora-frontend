@@ -1,5 +1,5 @@
 import { useGLTF } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 import { useState, useEffect } from 'react';
@@ -7,26 +7,24 @@ import { useState, useEffect } from 'react';
 // global state
 import { useRecoilState } from 'recoil';
 import { LoginState, UserState } from '../../../../state/UserAtom';
+
 const Player = ({ socket, roomName }) => {
-  const glb = useGLTF('../models/ilbuni.glb');
-  const playerMesh = glb.scene.children[0];
-  playerMesh.position.y = 0.5;
-  const three = useThree();
+  // const glb = useGLTF('../models/Bear.glb');
+  // const playerMesh = glb.scene.children[0];
+  // playerMesh.position.y = 0.7;
+  // playerMesh.scale.set(0.5, 0.5, 0.5);
+  // const mixer = new THREE.AnimationMixer(playerMesh);
+  // const actions = [
+  //   mixer.clipAction(glb.scene.animations[0]),
+  //   mixer.clipAction(glb.scene.animations[1]),
+  // ];
+  // playerMesh.userData.animations = actions;
+
   const speed = 0.05;
   const [players, setPlayers] = useState([]);
   const [playerMap, setPlayerMap] = useState({});
-
   const [myId, setMyId] = useRecoilState(UserState);
-
   const [isLogin, setIsLogin] = useRecoilState(LoginState);
-
-  const mixer = new THREE.AnimationMixer(playerMesh);
-  const actions = [
-    mixer.clipAction(glb.animations[0]),
-    mixer.clipAction(glb.animations[1]),
-  ];
-  playerMesh.userData.animations = actions;
-
   const [keys, setKeys] = useState({
     right: false,
     left: false,
@@ -34,8 +32,16 @@ const Player = ({ socket, roomName }) => {
     down: false,
   });
 
-  const joinUser = (id, color, x, z) => {
-    const newPlayer = { id, color, x, z };
+  const joinUser = (id, x, z) => {
+    if (playerMap[id]) {
+      return;
+    }
+    const cube = new THREE.Mesh(
+      new THREE.BoxGeometry(1, 1, 1),
+      new THREE.MeshStandardMaterial({ color: 'skyblue' })
+    );
+    const newPlayer = { id, cube };
+    // const newPlayer = { id, playerMesh };
 
     setPlayers((prevPlayers) => [...prevPlayers, newPlayer]);
 
@@ -47,23 +53,44 @@ const Player = ({ socket, roomName }) => {
     delete playerMap[id];
   };
 
-  const updateState = (id, color, x, z) => {
+  const updateState = (id, x, z) => {
     setPlayers((prevPlayers) => {
-      return prevPlayers.map((player) =>
-        player.id === id ? { ...player, color: color, x: x, z: z } : player
-      );
+      return prevPlayers.map((player) => {
+        if (player.id === id) {
+          player.cube.position.x = x;
+          player.cube.position.z = z;
+        }
+        return player;
+      });
     });
   };
 
-  const sendData = () => {
+  const renderPlayer = () => {
+    let curPlayer = playerMap[myId];
+    console.log('curPlayer : ', curPlayer);
+    if (keys.right) {
+      curPlayer.cube.position.x += speed;
+    }
+    if (keys.left) {
+      curPlayer.cube.position.x -= speed;
+    }
+    if (keys.up) {
+      curPlayer.cube.position.z -= speed;
+    }
+    if (keys.down) {
+      curPlayer.cube.position.z += speed;
+    }
+
+    sendData(curPlayer.cube.position.x, curPlayer.cube.position.z);
+  };
+
+  const sendData = (x, z) => {
     if (myId && isLogin) {
-      let curPlayer = playerMap[myId];
       let data = {};
       data = {
-        id: curPlayer.id,
-        x: curPlayer.x,
-        z: curPlayer.z,
-        color: curPlayer.color,
+        id: myId,
+        x: x,
+        z: z,
         roomName: roomName,
       };
       if (data) {
@@ -72,39 +99,16 @@ const Player = ({ socket, roomName }) => {
     }
   };
 
-  const renderPlayer = () => {
-    let curPlayer = playerMap[myId];
-
-    if (keys.right) {
-      playerMesh.position.x += speed;
-      curPlayer.x = playerMesh.position.x;
-    }
-    if (keys.left) {
-      playerMesh.position.x -= speed;
-      curPlayer.x = playerMesh.position.x;
-    }
-    if (keys.up) {
-      playerMesh.position.z -= speed;
-      curPlayer.z = playerMesh.position.z;
-    }
-    if (keys.down) {
-      playerMesh.position.z += speed;
-      curPlayer.z = playerMesh.position.z;
-    }
-
-    sendData();
-  };
-
   useEffect(() => {
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-      }
-    });
-
+    // glb.scene.traverse((child) => {
+    //   if (child.isMesh) {
+    //     child.castShadow = true;
+    //   }
+    // });
     socket.on('join_user', (data) => {
       console.log('join_user', data);
-      joinUser(data.id, data.color, data.x, data.z);
+      console.log(data);
+      joinUser(data.id, data.x, data.z);
     });
 
     socket.on('bye', (data) => {
@@ -113,7 +117,7 @@ const Player = ({ socket, roomName }) => {
 
     socket.on('update_state', (data) => {
       console.log('update_state', data);
-      updateState(data.id, data.color, data.x, data.z);
+      updateState(data.id, data.x, data.z);
     });
 
     const keyDownHandler = (e) => {
@@ -121,22 +125,18 @@ const Player = ({ socket, roomName }) => {
         case 'ArrowRight':
         case 'KeyD':
           setKeys((keys) => ({ ...keys, right: true }));
-          playerMesh.userData.moving = true;
           break;
         case 'ArrowLeft':
         case 'KeyA':
           setKeys((keys) => ({ ...keys, left: true }));
-          playerMesh.userData.moving = true;
           break;
         case 'ArrowDown':
         case 'KeyS':
           setKeys((keys) => ({ ...keys, down: true }));
-          playerMesh.userData.moving = true;
           break;
         case 'ArrowUp':
         case 'KeyW':
           setKeys((keys) => ({ ...keys, up: true }));
-          playerMesh.userData.moving = true;
           break;
         default:
           break;
@@ -148,22 +148,18 @@ const Player = ({ socket, roomName }) => {
         case 'ArrowRight':
         case 'KeyD':
           setKeys((keys) => ({ ...keys, right: false }));
-          playerMesh.userData.moving = false;
           break;
         case 'ArrowLeft':
         case 'KeyA':
           setKeys((keys) => ({ ...keys, left: false }));
-          playerMesh.userData.moving = false;
           break;
         case 'ArrowDown':
         case 'KeyS':
           setKeys((keys) => ({ ...keys, down: false }));
-          playerMesh.userData.moving = false;
           break;
         case 'ArrowUp':
         case 'KeyW':
           setKeys((keys) => ({ ...keys, up: false }));
-          playerMesh.userData.moving = false;
           break;
         default:
           break;
@@ -186,21 +182,28 @@ const Player = ({ socket, roomName }) => {
       return () => clearInterval(update);
     }
   }, [myId, keys]);
-
-  useFrame((state, delta) => {
-    if (!playerMesh) return;
-    // TODO 이곳에서 이동로직 처리
-    mixer.update(delta);
-
-    if (playerMesh.userData.moving) {
-      playerMesh.userData.animations[0].stop();
-      playerMesh.userData.animations[1].play();
-    } else {
-      playerMesh.userData.animations[0].play();
-      playerMesh.userData.animations[1].stop();
-    }
-  });
-  return <primitive object={glb.scene} dispose={null} />;
+  // useFrame((state, delta) => {
+  // TODO 이곳에서 이동로직 처리
+  // mixer.update(delta);
+  // if (isMoving) {
+  //   playerMesh.userData.animations[0].stop();
+  //   playerMesh.userData.animations[1].play();
+  // } else {
+  //   playerMesh.userData.animations[0].play();
+  //   playerMesh.userData.animations[1].stop();
+  // }
+  // });
+  return (
+    <>
+      {players.map((player) => {
+        return (
+          <primitive key={player.id} object={player.cube} dispose={null} />
+        );
+      })}
+    </>
+  );
+  // return <primitive key={players.id} object={players} dispose={null} />;
+  // return <primitive key={players.id} object={glb.scene} dispose={null} />;
 };
 
 export default Player;

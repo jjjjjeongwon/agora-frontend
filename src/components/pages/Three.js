@@ -22,7 +22,7 @@ import Spot from '../ui/Three/3Dcanvas/Spot';
 import { useRecoilState } from 'recoil';
 import { LoginState, UserState } from '../../state/UserAtom';
 
-const socket = io('http://3.35.5.22:8080/');
+const socket = io('http://15.164.176.168:8080/');
 
 const Three = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginState);
@@ -67,7 +67,7 @@ const Three = () => {
           aspect: aspectRatio,
           near: 0.1,
           far: 1000,
-          position: [0, 5, 5],
+          position: [0, 4, 7],
           zoom: 0.5,
         }}
       >
