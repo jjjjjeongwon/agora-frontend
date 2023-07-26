@@ -16,11 +16,6 @@ function SocketChat({ roomName, socket }) {
   const [inputMessage, setInputMessage] = useState('');
   const [roomUserCount, setRoomUserCount] = useState(0);
 
-  console.log('몇명 있는지?', roomUserCount);
-
-  console.log('닉네임', nickName);
-  console.log('보내는 닉네임', sendNickName);
-
   useEffect(() => {
     // 소켓 이벤트 핸들러 등록
     socket.on('welcome', (user, newCount) => {
