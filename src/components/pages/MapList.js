@@ -11,59 +11,57 @@ import userAPI from '../../apis/userAPI';
 import LoadingSpinner from '../ui/public/LoadingSpinner';
 
 const MapList = () => {
-  const [loading, setLoading] = useState(null);
+  // const [loading, setLoading] = useState(null);
 
-  useEffect(() => {
-    setLoading(true);
-    api();
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   api();
+  // }, []);
 
-  const api = async () => {
-    await userAPI
-      .get('/maplist')
-      .then((res) => {
-        console.log(res);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log('요청 에러!', err);
-      });
-  };
+  // const api = async () => {
+  //   await userAPI
+  //     .get('/maplist')
+  //     .then((res) => {
+  //       console.log(res);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log('요청 에러!', err);
+  //     });
+  // };
 
   return (
     <Container>
-      {loading ? (
+      {/* {loading ? (
         <LoadingSpinner />
-      ) : (
-        <>
-          <Header>
-            <SearchBox />
-            <AlarmIcon>
-              <img src="/images/alarm.png" alt="" />
-            </AlarmIcon>
-            <LoginNickname>UUGEEN</LoginNickname>
-          </Header>
-          <MapViewBox
-            nickname="UUGEEN"
-            nickname2="JWON"
-            image="/images/lionImage_png.png"
-            image2="images/mapImage2_png.png"
-          />
-          <MapViewBox
-            nickname="JUSANG"
-            nickname2="SUNGHWAN"
-            image="/images/gridImage_png.png"
-            image2="/images/lionImage_png.png"
-          />
+      ) : ( */}
+      <>
+        <Header>
+          <SearchBox />
 
-          <MapViewBox
-            nickname="NICK"
-            nickname2="NAME"
-            image="/images/mapImage_png.png"
-            image2="/images/gridImage_png.png"
-          />
-        </>
-      )}
+          <LoginNickname>UUGEEN</LoginNickname>
+        </Header>
+        <MapViewBox
+          nickname="UUGEEN"
+          nickname2="JWON"
+          image="/images/lionImage_png.png"
+          image2="images/mapImage2_png.png"
+        />
+        <MapViewBox
+          nickname="JUSANG"
+          nickname2="SUNGHWAN"
+          image="/images/gridImage_png.png"
+          image2="/images/lionImage_png.png"
+        />
+
+        <MapViewBox
+          nickname="NICK"
+          nickname2="NAME"
+          image="/images/mapImage_png.png"
+          image2="/images/gridImage_png.png"
+        />
+      </>
+      {/* )} */}
     </Container>
   );
 };
@@ -89,11 +87,13 @@ const AlarmIcon = styled.div`
 `;
 
 const LoginNickname = styled.div`
+  font-family: 'luckiest guy';
+
   display: flex;
   margin-right: 20px;
   color: gray;
   padding-top: 20px;
-  font-size: 30px;
+  font-size: 35px;
 `;
 
 export default MapList;

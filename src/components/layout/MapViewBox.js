@@ -8,7 +8,7 @@ const MapViewBox = ({ nickname, nickname2, image, image2 }) => {
   return (
     <Container
       onClick={() => {
-        navigate('/three');
+        navigate('/three/111');
       }}
     >
       <MapWrap>
@@ -100,11 +100,13 @@ const TagButtonWrap = styled.div`
 `;
 
 const Nickname = styled.div`
+  font-family: 'luckiest guy';
+  /* color: gray; */
   margin-left: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 15px;
 `;
 
 const ImageWrap = styled.div`

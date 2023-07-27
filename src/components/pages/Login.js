@@ -45,7 +45,7 @@ const Login = () => {
           <PasswordInputForm type="password" text="비밀번호" />
           <LoginErrorMessage />
           <LoginSignupButton
-            clickSubmit={() => navigate('/three')}
+            clickSubmit={() => navigate('/three/111')}
             text="로그인"
           />
           <SignupButton clickSubmit={() => navigate('/signup')} />

@@ -8,7 +8,6 @@ import Signup from './components/pages/Signup';
 import Main from './components/pages/Main';
 import Three from './components/pages/Three';
 import MapList from './components/pages/MapList';
-import ThreeViewTest from './components/test/ThreeViewTest';
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/three/:id" element={<Three />} />
       <Route path="/maplist" element={<MapList />} />
-      {/* <Route path="/three/:id" element={<ThreeViewTest />} /> */}
     </Routes>
   );
 }
