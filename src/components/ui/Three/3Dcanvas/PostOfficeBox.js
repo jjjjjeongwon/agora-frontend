@@ -4,10 +4,10 @@ import gsap from 'gsap';
 const PostOfficeBox = ({ myPlayer, postSpot, setViewVisitList }) => {
   const glb = useGLTF('../models/postbox.glb');
   const postOfficeBox = glb.scene.children[0];
-  postOfficeBox?.position.set(10, 0, 2);
-  // postOfficeBox?.scale.x = 0.5;
-  // postOfficeBox?.scale.y = 0.5;
-  // postOfficeBox?.scale.z = 0.5;
+  postOfficeBox?.position.set(10, 0.1, 2);
+  postOfficeBox && (postOfficeBox.scale.x = 0.02);
+  postOfficeBox && (postOfficeBox.scale.y = 0.02);
+  postOfficeBox && (postOfficeBox.scale.z = 0.02);
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
     if (

@@ -20,36 +20,48 @@ import Spot from '../ui/Three/3Dcanvas/Spot';
 
 // global state
 import { useRecoilState } from 'recoil';
-import { LoginState, UserState } from '../../state/UserAtom';
+import {
+  LoginState,
+  UserState,
+  UserCount,
+  JoinExitState,
+} from '../../state/UserAtom';
 
 import MapCustomModal from '../ui/Three/ui/MapCustomModal';
 import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
 import RoomHonorAlert from '../ui/Three/ui/RoomHonorAlert';
 import TalkBubble from '../ui/Three/chat/TalkBubble';
+import Game from '../ui/Three/3Dcanvas/Game';
 import House from '../ui/Three/3Dcanvas/House';
 import Tree from '../ui/Three/3Dcanvas/Tree';
 import CampFire from '../ui/Three/3Dcanvas/CampFire';
 import PostOfficeBox from '../ui/Three/3Dcanvas/PostOfficeBox';
+import JoinExitAlert from '../ui/Three/ui/JoinExitAlert';
+import CampFireAlert from '../ui/Three/ui/CampFireAlert';
 
 const socket = io('http://3.35.5.145:8080/');
 
 const Three = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginState);
   const [myId, setMyId] = useRecoilState(UserState);
+  const [joinExit, setJoinExit] = useRecoilState(JoinExitState);
 
   const [nickName, setNickName] = useState('');
   const [sendNickName, setSendNickName] = useState('');
 
   const [viewVisitList, setViewVisitList] = useState(false);
+  const [viewCampModal, setViewCampModal] = useState(false);
 
   const [myPlayer, setMyPlayer] = useState({});
+
+  const [countUser, setCountUser] = useRecoilState(UserCount);
 
   const roomName = useParams().id;
   const navigate = useNavigate();
   const aspectRatio = window.innerWidth / window.innerHeight;
 
   //spots
-  const houseSpot = { x: 5, y: 0.005, z: 5 };
+  const gameSpot = { x: 5, y: 0.005, z: 5 };
   const postSpot = { x: 10, y: 0.005, z: 5 };
 
   // 모달창 상태 관리
@@ -112,17 +124,18 @@ const Three = () => {
         <EnvStars />
         <Floor />
         <Light />
-        <Spot spot={houseSpot} />
+        <Spot spot={gameSpot} />
         <Spot spot={postSpot} />
         <Suspense fallback={null}>
-          <CampFire />
+          <CampFire myPlayer={myPlayer} setViewCampModal={setViewCampModal} />
           <Tree />
+          <House />
           <PostOfficeBox
             myPlayer={myPlayer}
             postSpot={postSpot}
             setViewVisitList={setViewVisitList}
           />
-          <House myPlayer={myPlayer} houseSpot={houseSpot} />
+          <Game myPlayer={myPlayer} gameSpot={gameSpot} />
           <Player
             socket={socket}
             roomName={roomName}
@@ -133,6 +146,11 @@ const Three = () => {
         <OrbitControls />
       </Canvas>
       <RoomHonorAlert />
+      {joinExit.enter && <JoinExitAlert />}
+
+      {viewCampModal && <CampFireAlert viewCampModal={viewCampModal} />}
+
+      <CountUser>{countUser}</CountUser>
 
       <ChatWrap>
         <SocketChat roomName={roomName} socket={socket} />
@@ -145,14 +163,14 @@ const Three = () => {
         <img src="/images/magnifier.png" alt="" />
       </PlusICon>
       {/* 맵 커스텀 모달 */}
-      {/* <PostBox onClick={showCustomModal}>
+      <PostBoxCopy onClick={showCustomModal}>
         <img src="/images/tool.png" alt="" />
-      </PostBox>
+      </PostBoxCopy>
       <ContainerMap customModalOpen={customModalOpen}>
         {customModalOpen && (
           <MapCustomModal setCustomModalOpen={setCustomModalOpen} />
         )}
-      </ContainerMap> */}
+      </ContainerMap>
 
       {/* 밤명록 작성 모달 */}
       <PostBox onClick={showLetterModal}>
@@ -212,6 +230,20 @@ const PostBox = styled.div`
     height: 100%;
   }
 `;
+const PostBoxCopy = styled.div`
+  animation: ${rotationAnimation} 1s linear infinite alternate;
+
+  position: absolute;
+  cursor: pointer;
+  right: 12%;
+  bottom: 5%;
+  width: 80px;
+  height: 80px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
 
 const Container = styled.div`
   ${({ modalOpen }) => {
@@ -253,6 +285,15 @@ const ContainerMap = styled.div`
       background: ${customModalOpen ? 'rgba(0, 0, 0, 0.5)' : 'transparent'};
     `;
   }}
+`;
+
+const CountUser = styled.div`
+  top: 3%;
+  right: 3%;
+  color: #5277df;
+  font-family: 'jua';
+  font-size: 50px;
+  position: absolute;
 `;
 
 const ChatWrap = styled.div`
