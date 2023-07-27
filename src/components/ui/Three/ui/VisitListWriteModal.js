@@ -56,7 +56,7 @@ const VisitListTitle = styled.div`
   justify-content: center;
 `;
 
-const Content = styled.input`
+const Content = styled.textarea`
   width: 100%;
   height: 60px;
   background-color: #e6d6c5;

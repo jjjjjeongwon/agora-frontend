@@ -126,14 +126,15 @@ const CustomTitle = styled.div`
 const InputTitle = styled.input`
   height: 22px;
   background-color: transparent;
-  border: 1px solid #7e7e7f;
+  border: 1px solid #775430;
   border-radius: 5px;
+  color: #775430;
   outline: none;
 `;
-const InputText = styled.input`
+const InputText = styled.textarea`
   height: 50px;
   background-color: transparent;
-  border: 1px solid #7e7e7f;
+  border: 1px solid #775430;
   border-radius: 5px;
   outline: none;
 `;
