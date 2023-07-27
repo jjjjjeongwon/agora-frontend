@@ -16,3 +16,13 @@ export const LoginState = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const JoinExitState = atom({
+  key: 'JoinExitState',
+  default: {},
+});
+
+export const UserCount = atom({
+  key: 'UserCount',
+  default: 0,
+});

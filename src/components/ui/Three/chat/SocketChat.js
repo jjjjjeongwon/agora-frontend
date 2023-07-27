@@ -3,13 +3,19 @@ import TalkBubble from './TalkBubble';
 
 // global state
 import { useRecoilState } from 'recoil';
-import { LoginState, UserState } from '../../../../state/UserAtom';
+import {
+  LoginState,
+  UserState,
+  JoinExitState,
+  UserCount,
+} from '../../../../state/UserAtom';
 
 function SocketChat({ roomName, socket }) {
   const [isLogin, setIsLogin] = useRecoilState(LoginState);
   const [myId, setMyId] = useRecoilState(UserState);
+  const [joinExit, setJoinExit] = useRecoilState(JoinExitState);
+  const [countUser, setCountUser] = useRecoilState(UserCount);
 
-  const [welcomeMessage, setWelcomeMessage] = useState('');
   const [nickName, setNickName] = useState('');
   const [sendNickName, setSendNickName] = useState('');
   const [messageList, setMessageList] = useState([]);
@@ -21,19 +27,18 @@ function SocketChat({ roomName, socket }) {
     socket.on('welcome', (user, newCount) => {
       console.log(user, newCount);
       setRoomUserCount(newCount);
-      setWelcomeMessage(`${newCount}명 in ${roomName}`);
-      setMessageList((prevList) => [...prevList, `${user} : 입장`]);
+      setCountUser(newCount);
     });
 
     socket.on('bye', (left, newCount) => {
       // console.log(left, newCount);
       setRoomUserCount(newCount);
-      setWelcomeMessage(`${newCount}명 in ${roomName}`);
-      setMessageList((prevList) => [...prevList, `${left} : 퇴장`]);
+      setCountUser(newCount);
     });
 
     socket.on('origin_user', (data) => {
-      console.log('새로들어와서 입장, 퇴장 알려주면 안됨 - 몇 명인지만', data);
+      console.log('입장, 퇴장 ', data);
+      setJoinExit(data);
     });
 
     socket.on('new_user', (data) => {
@@ -83,7 +88,6 @@ function SocketChat({ roomName, socket }) {
     <div>
       {sendNickName ? (
         <div>
-          <h3>Room: {roomName}</h3>
           <ul>
             {messageList.map((message, index) => (
               <TalkBubble key={index} message={message} />
@@ -111,7 +115,6 @@ function SocketChat({ roomName, socket }) {
           <button onClick={handleRoomSubmit}>Enter Room</button>
         </div>
       )}
-      <h3>{welcomeMessage}</h3>
     </div>
   );
 }
