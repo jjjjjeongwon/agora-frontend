@@ -1,11 +1,12 @@
 import { useGLTF } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 // global state
 import { useRecoilState } from 'recoil';
 import { LoginState, UserState } from '../../../../state/UserAtom';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
 const Player = ({ roomName, myPlayer, setMyPlayer }) => {
   const glb = useGLTF('../models/Bear.glb');
@@ -25,6 +26,17 @@ const Player = ({ roomName, myPlayer, setMyPlayer }) => {
     up: false,
     down: false,
   });
+
+  const [isLocked, setIsLocked] = useState(false);
+  const { camera, gl } = useThree();
+
+  // Control 움직임이 일정하게 하기 위해 매번 재할당
+  const controlsRef = useRef();
+  if (!controlsRef.current) {
+    controlsRef.current = new PointerLockControls(camera, gl.domElement);
+  }
+  const controls = controlsRef.current;
+
   const joinUser = (id, x, z) => {
     if (playerMap[id]) {
       return;
@@ -150,6 +162,18 @@ const Player = ({ roomName, myPlayer, setMyPlayer }) => {
           break;
       }
     };
+
+    controls.domElement.addEventListener('click', () => {
+      controls.lock();
+      setIsLocked(true);
+    });
+    controls.addEventListener('lock', () => {
+      console.log('lock!');
+    });
+    controls.addEventListener('unlock', () => {
+      console.log('unlock!');
+      setIsLocked(false);
+    });
     window.addEventListener('keydown', keyDownHandler);
     window.addEventListener('keyup', keyUpHandler);
 
@@ -159,14 +183,14 @@ const Player = ({ roomName, myPlayer, setMyPlayer }) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (myId && (keys.right || keys.left || keys.up || keys.down)) {
-      const update = setInterval(() => {
-        renderPlayer();
-      }, 10);
-      return () => clearInterval(update);
-    }
-  }, [myId, keys]);
+  // useEffect(() => {
+  //   if (myId && (keys.right || keys.left || keys.up || keys.down)) {
+  //     const update = setInterval(() => {
+  //       renderPlayer();
+  //     }, 10);
+  //     return () => clearInterval(update);
+  //   }
+  // }, [myId, keys]);
 
   useFrame((delta) => {
     let curPlayer = playerMap[myId];
@@ -183,6 +207,23 @@ const Player = ({ roomName, myPlayer, setMyPlayer }) => {
     mixers.forEach((mixer) => {
       mixer.update(delta);
     });
+
+    if (isLocked) {
+      if (keys.up) {
+        // velocity.current[2] -= speed;
+        controls.moveForward(0.05);
+      } else if (keys.down) {
+        // velocity.current[2] += speed;
+        controls.moveForward(-0.05);
+      }
+      if (keys.left) {
+        // velocity.current[0] -= speed;
+        controls.moveRight(-0.05);
+      } else if (keys.right) {
+        // velocity.current[0] += speed;
+        controls.moveRight(0.05);
+      }
+    }
   });
 
   return (

@@ -1,5 +1,5 @@
 import { OrbitControls } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { Suspense, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as THREE from 'three';
@@ -38,6 +38,7 @@ const World = () => {
   const postSpot = { x: 10, y: 0.005, z: 5 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
+  // console.log(camera.position);
 
   return (
     <div
@@ -60,8 +61,7 @@ const World = () => {
           aspect: aspectRatio,
           near: 0.1,
           far: 1000,
-          position: [0, 3, 7],
-          zoom: 0.5,
+          position: [0, 2, 4],
         }}
       >
         <EnvSky />
@@ -80,7 +80,7 @@ const World = () => {
             setMyPlayer={setMyPlayer}
           />
         </Suspense>
-        <OrbitControls />
+        {/* <OrbitControls /> */}
       </Canvas>
       <RoomHonorAlert />
     </div>

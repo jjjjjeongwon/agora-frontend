@@ -9,7 +9,7 @@ const Floor = () => {
   floorTexture.repeat.y = 3;
   return (
     <mesh castShadow receiveShadow name="floor" rotation={[-Math.PI / 2, 0, 0]}>
-      <planeGeometry args={[30, 30]} />
+      <planeGeometry args={[100, 100]} />
       <meshStandardMaterial map={floorTexture} />
     </mesh>
   );
