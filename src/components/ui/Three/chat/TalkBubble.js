@@ -17,7 +17,7 @@ const TalkBubble = ({ message }) => {
   }
 
   return (
-    <Container visible={visible}>
+    <Container $visible={visible}>
       <TalkPlace>{message}</TalkPlace>
     </Container>
   );

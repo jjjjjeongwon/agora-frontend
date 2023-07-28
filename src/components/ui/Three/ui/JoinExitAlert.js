@@ -23,7 +23,7 @@ const JoinExitAlert = () => {
 
   return (
     <>
-      <Container visible={visible}>
+      <Container $visible={visible}>
         <img src="/images/joinAlert.png" alt="" />
         <TextBox>
           {joinExit.nickName} {joinExit.enter}

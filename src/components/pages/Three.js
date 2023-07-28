@@ -166,7 +166,7 @@ const Three = () => {
       <PostBoxCopy onClick={showCustomModal}>
         <img src="/images/tool.png" alt="" />
       </PostBoxCopy>
-      <ContainerMap customModalOpen={customModalOpen}>
+      <ContainerMap $customModalOpen={customModalOpen}>
         {customModalOpen && (
           <MapCustomModal setCustomModalOpen={setCustomModalOpen} />
         )}
@@ -176,7 +176,7 @@ const Three = () => {
       <PostBox onClick={showLetterModal}>
         <img src="/images/letter.png" alt="" />
       </PostBox>
-      <ContainerLetter letterModalOpen={letterModalOpen}>
+      <ContainerLetter $letterModalOpen={letterModalOpen}>
         {letterModalOpen && (
           <VisitListWriteModal setLetterModalOpen={setLetterModalOpen} />
         )}

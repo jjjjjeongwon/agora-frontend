@@ -1,8 +1,13 @@
 import styled, { keyframes, css } from 'styled-components';
 import { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { JoinExitState } from '../../../state/UserAtom';
 
-const CampFireAlert = ({ viewCampModal }) => {
+const JoinExitAlert = () => {
   const [visible, setVisible] = useState(true);
+  const [joinExit, setJoinExit] = useRecoilState(JoinExitState);
+
+  console.log(joinExit.nickName);
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
@@ -10,20 +15,18 @@ const CampFireAlert = ({ viewCampModal }) => {
 
     // 컴포넌트가 unmount될 때 timer를 정리해주어야 합니다.
     return () => clearTimeout(timer);
-  }, []); // 빈 dependency 배열을 사용하여 이 effect를 컴포넌트가 mount될 때만 실행하도록 합니다.
+  }, [joinExit.nickName, joinExit.enter]); // 빈 dependency 배열을 사용하여 이 effect를 컴포넌트가 mount될 때만 실행하도록 합니다.
 
   if (!visible) {
     return null; // 컴포넌트가 보이지 않을 때는 아무것도 렌더링하지 않습니다.
   }
+
   return (
     <>
-      {/* <Container visible={visible}> */}
       <Container $visible={visible}>
-        <img src="/images/campfireAlert.png" alt="" />
+        <img src="/images/joinAlert.png" alt="" />
         <TextBox>
-          잠시 후,
-          <br />
-          5분 간 캠프파이어가 시작됩니다!
+          {joinExit.nickName} {joinExit.enter}
         </TextBox>
       </Container>
     </>
@@ -40,10 +43,10 @@ const fadeOut = keyframes`
 `;
 
 const Container = styled.div`
-  width: 450px;
-  height: 140px;
+  width: 150px;
+  height: 100px;
   top: 6%;
-  left: 35%;
+  right: 6%;
   /* background-color: transparent; */
   position: absolute;
   box-sizing: border-box;
@@ -61,13 +64,13 @@ const Container = styled.div`
 `;
 
 const TextBox = styled.div`
-  font-size: 26px;
+  font-size: 20px;
   font-family: 'jua';
   font-weight: 700;
-  color: #6a5b4c;
+  color: #5277df;
   position: absolute;
   top: 28%;
-  left: 4%;
+  left: 18%;
 `;
 
-export default CampFireAlert;
+export default JoinExitAlert;
