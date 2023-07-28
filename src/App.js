@@ -9,6 +9,7 @@ import Main from './components/pages/Main';
 // import Three from './components/pages/Three';
 import MapList from './components/pages/MapList';
 import World from './components/pages/World';
+import CollectionSpace from './components/pages/CollectionSpace';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       {/* <Route path="/three/:id" element={<Three />} /> */}
       <Route path="/world" element={<World />} />
       <Route path="/maplist" element={<MapList />} />
+      <Route path="/collectionspace" element={<CollectionSpace />} />
     </Routes>
   );
 }
