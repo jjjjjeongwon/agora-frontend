@@ -8,6 +8,7 @@ import EnvStars from '../ui/CollectionSpace/EnvStars';
 import Floor from '../ui/CollectionSpace/Floor';
 import Light from '../ui/CollectionSpace/Light';
 import Player from '../ui/CollectionSpace/Player';
+import Wall from '../ui/CollectionSpace/Wall';
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -34,7 +35,7 @@ const CollectionSpace = () => {
           aspect: aspect,
           near: 0.1,
           far: 100,
-          position: [0, 3, 7],
+          position: [0, 1, 0],
           zoom: 0.5,
         }}
       >
@@ -42,6 +43,7 @@ const CollectionSpace = () => {
         <EnvStars />
         <Light />
         <Floor />
+        <Wall />
         <Player />
       </Canvas>
     </div>
