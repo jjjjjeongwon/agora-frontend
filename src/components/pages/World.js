@@ -21,6 +21,7 @@ import RoomHonorAlert from '../layout/World/RoomHonorAlert';
 import House from '../ui/World/3Dcanvas/House';
 import Tree from '../ui/World/3Dcanvas/Tree';
 import PostOfficeBox from '../ui/World/3Dcanvas/PostOfficeBox';
+import CollectionSpace from './CollectionSpace';
 
 const World = () => {
   //route
@@ -29,6 +30,7 @@ const World = () => {
 
   //state
   const [myPlayer, setMyPlayer] = useState({});
+  const [isCollectionVisible, setIsColletionVisible] = useState(false);
 
   //globalState
   const joinExit = useRecoilValue(JoinExitState);
@@ -38,9 +40,22 @@ const World = () => {
   const postSpot = { x: 10, y: 0.005, z: 5 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
-  // console.log(camera.position);
+  console.log('올라 갔나?', isCollectionVisible);
 
-  return (
+  useEffect(() => {
+    if (
+      Math.abs(gameSpot.x - myPlayer.x) < 1.5 &&
+      Math.abs(gameSpot.z - myPlayer.z) < 1.5
+    ) {
+      setIsColletionVisible(true);
+    } else {
+      setIsColletionVisible(false);
+    }
+  }, [gameSpot, myPlayer]);
+
+  return isCollectionVisible ? (
+    <CollectionSpace />
+  ) : (
     <div
       style={{
         position: 'relative',

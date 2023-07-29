@@ -104,11 +104,15 @@ const Player = ({ roomName, myPlayer, setMyPlayer }) => {
         z: z,
         roomName: roomName,
       };
-      if (data) {
-        setMyPlayer(data);
-      }
+      // if (data) {
+      //   setMyPlayer(data);
+      // }
     }
   };
+
+  useEffect(() => {
+    setMyPlayer({ x: camera.position.x, z: camera.position.z });
+  }, [camera.position.x, camera.position.y]);
 
   useEffect(() => {
     glb.scene.traverse((child) => {
