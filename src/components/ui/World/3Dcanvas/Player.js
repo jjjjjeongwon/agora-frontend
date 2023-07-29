@@ -8,7 +8,7 @@ import { LoginState, UserState } from '../../../../state/UserAtom';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
-const Player = ({ roomName, myPlayer, setMyPlayer }) => {
+const Player = ({ roomName, myPlayer, setMyPlayer, setIsLocked, isLocked }) => {
   const glb = useGLTF('../models/Bear.glb');
   const playerMesh = glb.scene.children[0];
   playerMesh.position.y = 0.3;
@@ -27,7 +27,6 @@ const Player = ({ roomName, myPlayer, setMyPlayer }) => {
     down: false,
   });
 
-  const [isLocked, setIsLocked] = useState(false);
   const { camera, gl } = useThree();
 
   // Control 움직임이 일정하게 하기 위해 매번 재할당

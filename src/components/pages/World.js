@@ -22,6 +22,7 @@ import House from '../ui/World/3Dcanvas/House';
 import Tree from '../ui/World/3Dcanvas/Tree';
 import PostOfficeBox from '../ui/World/3Dcanvas/PostOfficeBox';
 import CollectionSpace from './CollectionSpace';
+import styled, { css } from 'styled-components';
 
 const World = () => {
   //route
@@ -31,6 +32,7 @@ const World = () => {
   //state
   const [myPlayer, setMyPlayer] = useState({});
   const [isCollectionVisible, setIsColletionVisible] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
 
   //globalState
   const joinExit = useRecoilValue(JoinExitState);
@@ -93,13 +95,36 @@ const World = () => {
             roomName={roomName}
             myPlayer={myPlayer}
             setMyPlayer={setMyPlayer}
+            setIsLocked={setIsLocked}
+            isLocked={isLocked}
           />
         </Suspense>
         {/* <OrbitControls /> */}
       </Canvas>
+      <CrossHair isLocked={isLocked} />
       <RoomHonorAlert />
     </div>
   );
 };
+
+const CrossHair = styled.div`
+  ${({ isLocked }) => {
+    return css`
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 2px;
+      background: #f00;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      visibility: ${isLocked
+        ? 'visible'
+        : 'hidden'}; // initial visibility is hidden
+    `;
+  }}
+`;
 
 export default World;
