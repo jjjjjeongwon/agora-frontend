@@ -11,6 +11,7 @@ import MapList from './components/pages/MapList';
 import World from './components/pages/World';
 import CollectionSpace from './components/pages/CollectionSpace';
 import Test from './components/pages/Test';
+import GlobalWorld from './components/pages/GlobalWorld';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      {/* <Route path="/three/:id" element={<Three />} /> */}
+      <Route path="/globalworld" element={<GlobalWorld />} />
       <Route path="/world" element={<World />} />
       <Route path="/maplist" element={<MapList />} />
       <Route path="/test" element={<Test />} />
