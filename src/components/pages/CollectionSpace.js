@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { Preload } from '@react-three/drei';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import styled, { css } from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // Components
 import EnvSky from '../ui/CollectionSpace/EnvSky';
@@ -11,7 +12,7 @@ import Floor from '../ui/CollectionSpace/Floor';
 import Light from '../ui/CollectionSpace/Light';
 import Wall from '../ui/CollectionSpace/Wall';
 import Player from '../ui/CollectionSpace/Player';
-import { useNavigate, useParams } from 'react-router-dom';
+import ImageFrame from '../ui/CollectionSpace/ImageFrame';
 import World from './World';
 import Spot from '../ui/World/3Dcanvas/Spot';
 
@@ -46,36 +47,39 @@ const CollectionSpace = () => {
         background: '#000',
       }}
     >
-      <Canvas
-        gl={{ antialias: true }}
-        shadows={{
-          enabled: true,
-          autoUpdate: true,
-          type: THREE.PCFSoftShadowMap,
-        }}
-        camera={{
-          fov: 50,
-          aspect: aspect,
-          near: 0.1,
-          far: 100,
-          position: [0, 1, 0],
-          zoom: 0.5,
-        }}
-      >
-        <EnvSky />
-        <EnvStars />
-        <Light />
-        <Floor />
-        <Wall />
-        <Spot spot={doorSpot} />
-        <Player
-          roomName={roomName}
-          setMyPlayer={setMyPlayer}
-          setIsLocked={setIsLocked}
-          isLocked={isLocked}
-        />
-        <Preload />
-      </Canvas>
+      <Suspense fallback={null}>
+        <Canvas
+          gl={{ antialias: true }}
+          shadows={{
+            enabled: true,
+            autoUpdate: true,
+            type: THREE.PCFSoftShadowMap,
+          }}
+          camera={{
+            fov: 50,
+            aspect: aspect,
+            near: 0.1,
+            far: 100,
+            position: [2, 2, 0],
+            zoom: 0.5,
+          }}
+        >
+          <EnvSky />
+          <EnvStars />
+          <Light />
+          <Floor />
+          <Wall />
+          <Spot spot={doorSpot} />
+
+          <ImageFrame />
+          <Player
+            roomName={roomName}
+            setMyPlayer={setMyPlayer}
+            setIsLocked={setIsLocked}
+            isLocked={isLocked}
+          />
+        </Canvas>
+      </Suspense>
       <CrossHair isLocked={isLocked} />
     </div>
   );

@@ -1,4 +1,3 @@
-import { OrbitControls } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
 import { Suspense, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -65,28 +64,28 @@ const World = () => {
         background: '#000',
       }}
     >
-      <Canvas
-        gl={{ antialias: true }}
-        shadows={{
-          enabled: true,
-          autoUpdate: true,
-          type: THREE.PCFSoftShadowMap,
-        }}
-        camera={{
-          fov: 50,
-          aspect: aspectRatio,
-          near: 0.1,
-          far: 1000,
-          position: [0, 2, 4],
-        }}
-      >
-        <EnvSky />
-        <EnvStars />
-        <Floor />
-        <Light />
-        <Spot spot={gameSpot} />
-        <Spot spot={postSpot} />
-        <Suspense fallback={null}>
+      <Suspense fallback={null}>
+        <Canvas
+          gl={{ antialias: true }}
+          shadows={{
+            enabled: true,
+            autoUpdate: true,
+            type: THREE.PCFSoftShadowMap,
+          }}
+          camera={{
+            fov: 50,
+            aspect: aspectRatio,
+            near: 0.1,
+            far: 1000,
+            position: [0, 2, 4],
+          }}
+        >
+          <EnvSky />
+          <EnvStars />
+          <Floor />
+          <Light />
+          <Spot spot={gameSpot} />
+          <Spot spot={postSpot} />
           <Tree />
           <House />
           <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} />
@@ -96,10 +95,8 @@ const World = () => {
             setIsLocked={setIsLocked}
             isLocked={isLocked}
           />
-        </Suspense>
-        {/* <OrbitControls /> */}
-        <Preload />
-      </Canvas>
+        </Canvas>
+      </Suspense>
       <CrossHair isLocked={isLocked} />
       <RoomHonorAlert />
     </div>

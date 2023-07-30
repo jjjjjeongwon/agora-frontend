@@ -11,15 +11,6 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
     left: false,
     right: false,
   });
-  // const [isLocked, setIsLocked] = useState(false);
-
-  const velocity = useRef([0, 0, 0]);
-  const playerRef = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshStandardMaterial({ color: 'black' })
-  );
-  const player = useRef(playerRef);
-
   // Control 움직임이 일정하게 하기 위해 매번 재할당
   const controlsRef = useRef();
   if (!controlsRef.current) {
@@ -41,7 +32,6 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
     setIsLocked(false);
   };
 
-  const speed = 0.01;
   useEffect(() => {
     const keyDownHandler = (e) => {
       switch (e.code) {
@@ -126,16 +116,9 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
         controls.moveRight(0.05);
       }
     }
-
-    player.current.translateX(velocity.current[0]);
-    player.current.translateZ(velocity.current[2]);
-
-    // friction
-    velocity.current[0] *= 0.9;
-    velocity.current[2] *= 0.9;
   });
 
-  // return <primitive object={player.current} dispose={null} />;
+  return;
 }
 
 export default Player;
