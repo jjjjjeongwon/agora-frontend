@@ -5,11 +5,17 @@ const Floor = () => {
   const floorTexture = useLoader(THREE.TextureLoader, '../images/grid.png');
   floorTexture.wrapS = THREE.RepeatWrapping;
   floorTexture.wrapT = THREE.RepeatWrapping;
-  floorTexture.repeat.x = 3;
-  floorTexture.repeat.y = 3;
+  floorTexture.repeat.x = 4;
+  floorTexture.repeat.y = 4;
   return (
-    <mesh castShadow receiveShadow name="floor" rotation={[-Math.PI / 2, 0, 0]}>
-      <planeGeometry args={[100, 100]} />
+    <mesh
+      castShadow
+      receiveShadow
+      name="floor"
+      position={[0, -0.5, 0]}
+      rotation={[-Math.PI / 2, 0, 0]}
+    >
+      <boxGeometry args={[40, 40, 1]} />
       <meshStandardMaterial map={floorTexture} />
     </mesh>
   );

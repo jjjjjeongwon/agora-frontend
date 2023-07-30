@@ -4,13 +4,22 @@ import * as THREE from 'three';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
 function Player({ setMyPlayer, setIsLocked, isLocked }) {
-  const { camera, gl } = useThree();
+  const { camera, gl, scene, clock } = useThree();
+  camera.frustumCulled = true;
   const [keys, setKeys] = useState({
     forward: false,
     backward: false,
     left: false,
     right: false,
   });
+
+  // raycaster
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+
+  // player speed
+  const speed = 0.1;
+
   // Control 움직임이 일정하게 하기 위해 매번 재할당
   const controlsRef = useRef();
   if (!controlsRef.current) {
@@ -18,8 +27,21 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
   }
   const controls = controlsRef.current;
 
-  const handleClick = () => {
+  const checkIntersects = () => {
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(scene.children);
+    for (const item of intersects) {
+      console.log(item.object.name);
+      break;
+    }
+  };
+
+  const handleClick = (e) => {
     controls.lock();
+    mouse.x = 0;
+    mouse.y = 0;
+    console.log(mouse.x, mouse.y);
+    checkIntersects();
     setIsLocked(true);
   };
 
@@ -31,6 +53,7 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
     console.log('unlock!');
     setIsLocked(false);
   };
+  console.log(camera.position);
 
   useEffect(() => {
     const keyDownHandler = (e) => {
@@ -99,21 +122,17 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
     setMyPlayer({ x: camera.position.x, z: camera.position.z });
   }, [camera.position.x, camera.position.y]);
 
-  useFrame(() => {
+  useFrame((delta) => {
     if (isLocked) {
       if (keys.up) {
-        // velocity.current[2] -= speed;
-        controls.moveForward(0.05);
+        controls.moveForward(speed);
       } else if (keys.down) {
-        // velocity.current[2] += speed;
-        controls.moveForward(-0.05);
+        controls.moveForward(-speed);
       }
       if (keys.left) {
-        // velocity.current[0] -= speed;
-        controls.moveRight(-0.05);
+        controls.moveRight(-speed);
       } else if (keys.right) {
-        // velocity.current[0] += speed;
-        controls.moveRight(0.05);
+        controls.moveRight(speed);
       }
     }
   });

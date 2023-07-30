@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Player } from '../ui/Three/Player';
-import { House } from '../ui/Three/House';
+import { Player } from '../ui/Three/ui/Player';
+import { House } from '../ui/Three/ui/House';
 import gsap from 'gsap';
 import { styled, keyframes, css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import VisitListModal from '../ui/Three/VisitListModal';
+import VisitListModal from '../ui/Three/ui/VisitListModal';
 
 const Three = () => {
   const containerRef = useRef();
