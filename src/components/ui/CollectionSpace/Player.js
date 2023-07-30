@@ -3,7 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
-function Player() {
+function Player({ setMyPlayer, setIsLocked, isLocked }) {
   const { camera, gl } = useThree();
   const [keys, setKeys] = useState({
     forward: false,
@@ -11,7 +11,7 @@ function Player() {
     left: false,
     right: false,
   });
-  const [isLocked, setIsLocked] = useState(false);
+  // const [isLocked, setIsLocked] = useState(false);
 
   const velocity = useRef([0, 0, 0]);
   const playerRef = new THREE.Mesh(
@@ -26,6 +26,20 @@ function Player() {
     controlsRef.current = new PointerLockControls(camera, gl.domElement);
   }
   const controls = controlsRef.current;
+
+  const handleClick = () => {
+    controls.lock();
+    setIsLocked(true);
+  };
+
+  const handleLock = () => {
+    console.log('lock!');
+  };
+
+  const handleUnlock = () => {
+    console.log('unlock!');
+    setIsLocked(false);
+  };
 
   const speed = 0.01;
   useEffect(() => {
@@ -74,17 +88,10 @@ function Player() {
           break;
       }
     };
-    controls.domElement.addEventListener('click', () => {
-      controls.lock();
-      setIsLocked(true);
-    });
-    controls.addEventListener('lock', () => {
-      console.log('lock!');
-    });
-    controls.addEventListener('unlock', () => {
-      console.log('unlock!');
-      setIsLocked(false);
-    });
+    controls.domElement.addEventListener('click', handleClick);
+
+    controls.addEventListener('lock', handleLock);
+    controls.addEventListener('unlock', handleUnlock);
 
     window.addEventListener('keydown', keyDownHandler);
     window.addEventListener('keyup', keyUpHandler);
@@ -92,8 +99,15 @@ function Player() {
     return () => {
       window.removeEventListener('keydown', keyDownHandler);
       window.removeEventListener('keyup', keyUpHandler);
+      controls.domElement.removeEventListener('click', handleClick);
+      controls.removeEventListener('lock', handleLock);
+      controls.removeEventListener('unlock', handleUnlock);
     };
   }, []);
+
+  useEffect(() => {
+    setMyPlayer({ x: camera.position.x, z: camera.position.z });
+  }, [camera.position.x, camera.position.y]);
 
   useFrame(() => {
     if (isLocked) {
@@ -112,11 +126,6 @@ function Player() {
         controls.moveRight(0.05);
       }
     }
-    //   camera.position.x = player.current.position.x;
-    //   camera.position.y = player.current.position.y + 4;
-    //   camera.position.z = player.current.position.z + 7;
-
-    // camera.lookAt(player.current.position);
 
     player.current.translateX(velocity.current[0]);
     player.current.translateZ(velocity.current[2]);
@@ -126,7 +135,7 @@ function Player() {
     velocity.current[2] *= 0.9;
   });
 
-  return <primitive object={player.current} dispose={null} />;
+  // return <primitive object={player.current} dispose={null} />;
 }
 
 export default Player;

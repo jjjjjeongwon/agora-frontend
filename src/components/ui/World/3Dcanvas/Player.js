@@ -8,7 +8,7 @@ import { LoginState, UserState } from '../../../../state/UserAtom';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
-const Player = ({ roomName, myPlayer, setMyPlayer, setIsLocked, isLocked }) => {
+const Player = ({ roomName, setMyPlayer, setIsLocked, isLocked }) => {
   const glb = useGLTF('../models/Bear.glb');
   const playerMesh = glb.scene.children[0];
   playerMesh.position.y = 0.3;
@@ -229,19 +229,19 @@ const Player = ({ roomName, myPlayer, setMyPlayer, setIsLocked, isLocked }) => {
     }
   });
 
-  return (
-    <>
-      {players.map((player) => {
-        return (
-          <primitive
-            key={player.id}
-            object={player.playerMesh}
-            dispose={null}
-          />
-        );
-      })}
-    </>
-  );
+  // return (
+  //   <>
+  //     {players.map((player) => {
+  //       return (
+  //         <primitive
+  //           key={player.id}
+  //           object={player.playerMesh}
+  //           dispose={null}
+  //         />
+  //       );
+  //     })}
+  //   </>
+  // );
 };
 
 export default Player;

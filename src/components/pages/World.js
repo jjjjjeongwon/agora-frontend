@@ -5,11 +5,12 @@ import { useParams } from 'react-router-dom';
 import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
+import { Preload } from '@react-three/drei';
 //components
 import EnvSky from '../ui/World/3Dcanvas/EnvSky';
 import EnvStars from '../ui/World/3Dcanvas/EnvStars';
 import Floor from '../ui/World/3Dcanvas/Floor';
-import Player from '../ui/World/3Dcanvas/Player';
+import Player from '../ui/CollectionSpace/Player';
 import Light from '../ui/World/3Dcanvas/Light';
 import Spot from '../ui/World/3Dcanvas/Spot';
 
@@ -42,7 +43,6 @@ const World = () => {
   const postSpot = { x: 10, y: 0.005, z: 5 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
-  console.log('올라 갔나?', isCollectionVisible);
 
   useEffect(() => {
     if (
@@ -50,14 +50,13 @@ const World = () => {
       Math.abs(gameSpot.z - myPlayer.z) < 1.5
     ) {
       setIsColletionVisible(true);
+      navigate('/collectionspace');
     } else {
       setIsColletionVisible(false);
     }
   }, [gameSpot, myPlayer]);
 
-  return isCollectionVisible ? (
-    <CollectionSpace />
-  ) : (
+  return (
     <div
       style={{
         position: 'relative',
@@ -93,13 +92,13 @@ const World = () => {
           <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} />
           <Player
             roomName={roomName}
-            myPlayer={myPlayer}
             setMyPlayer={setMyPlayer}
             setIsLocked={setIsLocked}
             isLocked={isLocked}
           />
         </Suspense>
         {/* <OrbitControls /> */}
+        <Preload />
       </Canvas>
       <CrossHair isLocked={isLocked} />
       <RoomHonorAlert />
