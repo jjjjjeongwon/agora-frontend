@@ -23,11 +23,11 @@ const Floor = () => {
         position={[0, 0.01, 0]}
       >
         <planeGeometry args={[30, 30]} />
-        <meshStandardMaterial map={floorTexture} />
+        <meshStandardMaterial color={'#D39C8A'} />
       </mesh>
       <mesh name="top" rotation={[Math.PI / 2, 0, 0]} position={[0, 6, 0]}>
         <planeGeometry args={[12, 12]} />
-        <meshStandardMaterial map={topTexture} />;
+        <meshStandardMaterial color={'#D39C8A'} />;
       </mesh>
     </>
   );

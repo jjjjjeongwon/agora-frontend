@@ -1,61 +1,28 @@
-import * as THREE from 'three';
-import { useLoader } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei';
+import { useEffect } from 'react';
 
 const ImageFrame = () => {
-  const image = useLoader(THREE.TextureLoader, '../images/test.jpeg');
+  const glb = useGLTF('../models/imageframe/photo_frame.glb');
+  const mesh = glb.scene.children[0];
+
+  useEffect(() => {
+    if (!mesh) return;
+    glb.scene.traverse((child) => {
+      if (child.isMesh) child.castShadow = true;
+    });
+    mesh.scale.x = 5;
+    mesh.scale.y = 5;
+    mesh.scale.z = 5;
+  });
   return (
     <>
-      <mesh rotation={[0, -Math.PI * 2, 0]} position={[-4, 3, -5.99]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-      <mesh rotation={[0, -Math.PI * 2, 0]} position={[0, 3, -5.99]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-      <mesh rotation={[0, -Math.PI * 2, 0]} position={[4, 3, -5.99]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-
-      <mesh rotation={[0, Math.PI, 0]} position={[-4, 3, 5.99]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-      <mesh rotation={[0, Math.PI, 0]} position={[0, 3, 5.99]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-      <mesh rotation={[0, Math.PI, 0]} position={[4, 3, 5.99]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-
-      <mesh rotation={[0, -Math.PI / 2, 0]} position={[5.99, 3, 0]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-      <mesh rotation={[0, -Math.PI / 2, 0]} position={[5.99, 3, 4]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-      <mesh rotation={[0, -Math.PI / 2, 0]} position={[5.99, 3, -4]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-
-      <mesh rotation={[0, Math.PI / 2, 0]} position={[-5.99, 3, 0]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-      <mesh rotation={[0, Math.PI / 2, 0]} position={[-5.99, 3, 4]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
-      <mesh rotation={[0, Math.PI / 2, 0]} position={[-5.99, 3, -4]}>
-        <planeGeometry args={[3, 3]} />
-        <meshStandardMaterial map={image} />
-      </mesh>
+      <primitive
+        position={[-5, 9, -8]}
+        // position={[-3.2, 2, -5.5]}
+        rotation={[0, 0, Math.PI / 2]}
+        object={mesh}
+        dispose={null}
+      />
     </>
   );
 };
