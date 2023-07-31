@@ -5,7 +5,6 @@ import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
 //components
 import EnvSky from '../ui/World/3Dcanvas/EnvSky';
-import EnvStars from '../ui/World/3Dcanvas/EnvStars';
 import Floor from '../ui/World/3Dcanvas/Floor';
 import Player from '../ui/CollectionSpace/Player';
 import Light from '../ui/World/3Dcanvas/Light';
@@ -22,6 +21,8 @@ import Gallery from '../ui/World/3Dcanvas/Gallery';
 import VideoPlane from '../ui/World/3Dcanvas/VideoPlane';
 import LoadingSpinner from '../ui/public/LoadingSpinner';
 import GuestBook from '../ui/World/3Dcanvas/GuestBook';
+import ImageCollection from '../ui/World/3Dcanvas/ImageCollection';
+import FloorFence from '../ui/World/3Dcanvas/FloorFence';
 
 const World = () => {
   //route
@@ -74,36 +75,37 @@ const World = () => {
             autoUpdate: true,
             type: THREE.PCFSoftShadowMap,
           }}
-          camera={{
-            fov: 50,
-            aspect: aspectRatio,
-            near: 0.1,
-            far: 1000,
-            position: [0, 2, 4],
-          }}
-          // orthographic
           // camera={{
-          //   zoom: 50,
-          //   position: [1, 5, 5],
-          //   left: -1 * aspectRatio,
-          //   right: 1 * aspectRatio,
-          //   top: 1,
-          //   bottom: -1,
-          //   near: -1000,
+          //   fov: 50,
+          //   aspect: aspectRatio,
+          //   near: 0.1,
           //   far: 1000,
+          //   position: [0, 2, 26],
           // }}
+          orthographic
+          camera={{
+            zoom: 50,
+            position: [1, 5, 5],
+            left: -1 * aspectRatio,
+            right: 1 * aspectRatio,
+            top: 1,
+            bottom: -1,
+            near: -1000,
+            far: 1000,
+          }}
         >
           <EnvSky />
-          <EnvStars />
           <Floor />
           <Light />
           <Spot spot={gameSpot} />
           <Spot spot={postSpot} />
           <House />
-          <Gallery />
-          {/* <GuestBook /> */}
+          {/* <ImageCollection /> */}
+          {/* <Gallery /> */}
+          <FloorFence />
+          <GuestBook />
           <VideoPlane />
-          <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} />
+          {/* <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} /> */}
           <Player
             roomName={roomName}
             setMyPlayer={setMyPlayer}

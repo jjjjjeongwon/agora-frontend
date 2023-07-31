@@ -15,8 +15,8 @@ const Floor = () => {
       position={[0, -0.5, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
     >
-      <boxGeometry args={[40, 40, 1]} />
-      <meshStandardMaterial map={floorTexture} />
+      <boxGeometry args={[46, 58, 1]} />
+      <meshStandardMaterial color={'#B2C78D'} />
     </mesh>
   );
 };
