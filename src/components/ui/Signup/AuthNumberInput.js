@@ -4,6 +4,7 @@ import userAPI from '../../../apis/userAPI';
 import EmailAuthInput from './EmailAuthInput';
 
 import Swal from 'sweetalert2';
+import LoginSignupInputForm from '../public/LoginSignupInputForm';
 
 const AuthNumberInput = ({ emailAuthNumRef, showTimer, emailAddress }) => {
   const checkEmailAuth = async () => {
@@ -32,11 +33,15 @@ const AuthNumberInput = ({ emailAuthNumRef, showTimer, emailAddress }) => {
   };
   return (
     <Container>
-      <EmailAuthInput
+      {/* <EmailAuthInput
         OnClickCallback={checkEmailAuth}
         title="인증확인"
         placeholder="인증번호를 입력해주세요"
         inputRef={emailAuthNumRef}
+      /> */}
+      <LoginSignupInputForm
+        inputRef={emailAuthNumRef}
+        text="인증번호를 입력해주세요"
       />
       <TimeLeft>{showTimer}</TimeLeft>
     </Container>
@@ -58,7 +63,7 @@ const TimeLeft = styled.div`
   align-items: center;
   margin-bottom: 12.5px;
   top: 12px;
-  left: 250px;
+  right: 5px;
   position: absolute;
 `;
 
