@@ -116,7 +116,7 @@ const CollectionSpace = () => {
       </Suspense>
       {/* <UploadVideoModal /> */}
       {/* <UploadImagePostModal /> */}
-      <ViewImagePostModal />
+      {/* <ViewImagePostModal /> */}
       <CrossHair isLocked={isLocked} />
     </div>
   );

@@ -250,7 +250,7 @@ const GlobalWorld = () => {
           <Player />
         </Suspense>
       </Canvas>
-      <HomeICon
+      {/* <HomeICon
         onClick={() => {
           navigate('/maplist');
         }}
@@ -259,7 +259,7 @@ const GlobalWorld = () => {
       </HomeICon>
       <PostBox onClick={showModal}>
         <img src="/images/postbox.png" alt="" />
-      </PostBox>
+      </PostBox> */}
     </div>
   );
 };

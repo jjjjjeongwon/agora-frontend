@@ -7,6 +7,7 @@ const LoginSignupTitle = () => {
 };
 
 const LoginText = styled.div`
+  top: 15%;
   color: white;
   width: 300px;
   height: 90px;

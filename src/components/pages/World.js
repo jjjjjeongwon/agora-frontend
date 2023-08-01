@@ -104,8 +104,8 @@ const World = () => {
           {/* <ImageCollection /> */}
           {/* <Gallery /> */}
           <FloorFence />
-          <GuestBook />
-          <VideoPlane />
+          {/* <GuestBook /> */}
+          {/* <VideoPlane /> */}
           {/* <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} /> */}
           <Player
             roomName={roomName}
@@ -115,6 +115,7 @@ const World = () => {
           />
         </Canvas>
       </Suspense>
+      {/* <VisitListWriteModal /> */}
       <CrossHair isLocked={isLocked} />
       <RoomHonorAlert />
     </div>

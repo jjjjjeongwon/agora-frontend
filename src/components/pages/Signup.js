@@ -9,6 +9,11 @@ import PasswordInputForm from '../ui/public/PasswordInputForm';
 import LoginSignupButton from '../ui/public/LoginSignupButton';
 import userAPI from '../../apis/userAPI';
 
+import home from '../../assets/images/map1.png';
+import postbox from '../../assets/images/map2.png';
+import constructTool from '../../assets/images/map3.png';
+import letter from '../../assets/images/map1.png';
+
 export const Signup = () => {
   const nicknameRef = useRef();
   const emailRef = useRef();
@@ -95,6 +100,19 @@ export const Signup = () => {
   const [alertcomment, setAlertcomment] = useState('');
   const [sentAuth, setSentAuth] = useState(false);
 
+  const tagList = {
+    0: home,
+    1: postbox,
+    2: constructTool,
+    3: letter,
+  };
+
+  const handleTagSelect = (e) => {
+    setSelectedTagNumber(e.target.value);
+  };
+
+  const [selectedTagNumber, setSelectedTagNumber] = useState(0);
+
   const playNumber = useRef(null);
   const timerNumber = useRef(null);
 
@@ -179,6 +197,26 @@ export const Signup = () => {
       <LoginSignupTitle />
       <Wrap>
         <SignupWrap>
+          <SignupInputTitle title="맵 선택" />
+          {/* <LoginSignupInputForm
+            inputRef={charaterRef}
+            text="1-4번 중 선택해주세요."
+          /> */}
+          <TagSelectWrap>
+            <TagImage src={tagList[selectedTagNumber]} />
+            <SelectPlaceDropBox onChange={handleTagSelect}>
+              <option value="0">1 </option>
+              <option value="1">2</option>
+              <option value="2">3 </option>
+              <option value="3">4 </option>
+            </SelectPlaceDropBox>
+          </TagSelectWrap>
+          <SignupInputTitle title="닉네임" />
+
+          <LoginSignupInputForm
+            inputRef={nicknameRef}
+            text="닉네임을 입력해주세요."
+          />
           <SignupInputTitle title="본인 확인 이메일" />
           <EmailAuthInput
             inputRef={emailRef}
@@ -193,24 +231,12 @@ export const Signup = () => {
             emailAddress={emailRef}
           />
 
-          <SignupInputTitle title="닉네임" />
-
-          <LoginSignupInputForm
-            inputRef={nicknameRef}
-            text="닉네임을 입력해주세요."
-          />
           {/* <SignupInputTitle title="이메일" /> */}
 
           {/* <LoginSignupInputForm
             inputRef={emailRef}
             text="이메일을 입력해주세요."
           /> */}
-
-          <SignupInputTitle title="캐릭터 선택" />
-          <LoginSignupInputForm
-            inputRef={charaterRef}
-            text="1-4번 중 선택해주세요."
-          />
 
           <SignupInputTitle title="비밀번호" />
           <PasswordInputForm
@@ -240,6 +266,45 @@ const SignupContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
+`;
+
+const TagSelectWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  /* height: 100px; */
+  /* margin-bottom: 5px; */
+`;
+
+const TagImage = styled.img`
+  background-color: transparent;
+  border-radius: 10px;
+  width: 45%;
+  height: 200px;
+  object-fit: cover;
+  margin-top: 2px;
+  margin-left: 40px;
+`;
+
+const SelectPlaceDropBox = styled.select`
+  /* margin-top: 35px; */
+  width: 100px;
+  height: 35px;
+  color: #858899;
+  border: 0.85px solid #e1e1e8;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  margin-right: 50px;
+  margin-bottom: 1rem;
+`;
+
+const ImageContainer = styled.div`
+  filter: brightness(50%);
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const Wrap = styled.div`

@@ -5,26 +5,27 @@ const VisitListWriteModal = forwardRef((props, ref) => {
   let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
 
   // 모달 끄기
-  useEffect(() => {
-    console.log('ddd');
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  });
+  // useEffect(() => {
+  //   console.log('ddd');
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // });
 
-  const handleClickOutside = (event) => {
-    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-      props.setLetterModalOpen(false);
-    }
-  };
+  // const handleClickOutside = (event) => {
+  //   if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+  //     props.setLetterModalOpen(false);
+  //   }
+  // };
 
   return (
     <>
-      <Container ref={wrapperRef}>
-        <VisitListTitle>MEMO</VisitListTitle>
+      {/* <Container ref={wrapperRef}> */}
+      <Container>
+        <VisitListTitle>FRIENDS</VisitListTitle>
         <Content></Content>
-        <CustomButton>WRITE</CustomButton>
+        <CustomButton>친구추가</CustomButton>
       </Container>
     </>
   );
@@ -46,7 +47,8 @@ const Container = styled.div`
 `;
 
 const VisitListTitle = styled.div`
-  font-family: 'gloria hallelujah';
+  font-family: 'luckiest guy';
+
   margin-left: 50px;
   margin-bottom: 30px;
   /* font-family: 'bagel fat one'; */
