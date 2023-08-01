@@ -8,7 +8,7 @@ const Wall = () => {
 
   const geometry = new THREE.BoxGeometry(13, 6, 1);
   const material = new THREE.MeshStandardMaterial({
-    color: "#C2B499",
+    color: "#fec0d5",
     side: THREE.DoubleSide,
   });
 

@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { BoxGeometry, MeshBasicMaterial } from "three";
 import * as THREE from "three";
 const Bed = () => {
-  const glb = useGLTF("../models/bed/cartoon_bed.glb");
+  const glb = useGLTF("../models/bed/bed_with_pillow.glb");
   const { scene } = useThree();
   const bed = glb.scene.children[0];
   useEffect(() => {
@@ -16,12 +16,12 @@ const Bed = () => {
       }
     });
     // bed.position.y = 0;
-    bed.position.set(-3, 0, -3.5);
+    bed.position.set(-3, 0, 3);
     // bed.position.set(0, 0, 0);
-    bed.rotation.z = Math.PI / 2;
-    bed.scale.x = 70;
-    bed.scale.y = 70;
-    bed.scale.z = 70;
+    bed.rotation.z = -Math.PI / 2;
+    bed.scale.x = 1;
+    bed.scale.y = 1;
+    bed.scale.z = 1;
     const mesh = new THREE.Mesh(
       new BoxGeometry(5, 1, 3),
       new MeshBasicMaterial({ transparent: true, opacity: 0 })

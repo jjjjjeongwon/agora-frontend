@@ -1,11 +1,11 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import { BoxGeometry, MeshBasicMaterial } from "three";
+import * as THREE from "three";
 
 const Tv = () => {
-  const glb = useGLTF('../models/tv/screen_led.glb');
+  const glb = useGLTF("../models/tv/screen_led.glb");
   const tv = glb.scene.children[0];
   const { scene } = useThree();
 
@@ -36,7 +36,7 @@ const Tv = () => {
     scene.add(mesh);
   }, []);
 
-  return <primitive name={'tv'} castShadow object={tv} dispose={null} />;
+  return <primitive name={"tv"} castShadow object={tv} dispose={null} />;
 };
 
 export default Tv;

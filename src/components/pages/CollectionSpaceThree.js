@@ -8,11 +8,10 @@ import { useNavigate, useParams } from "react-router-dom";
 // Components
 import EnvSky from "../ui/CollectionSpace/EnvSky";
 import EnvStars from "../ui/CollectionSpace/EnvStars";
-import Floor from "../ui/CollectionSpaceTwo/Floor";
+import Floor from "../ui/CollectionSpaceThree/Floor";
 import Light from "../ui/CollectionSpaceTwo/Light";
-import Wall from "../ui/CollectionSpaceTwo/Wall";
+import Wall from "../ui/CollectionSpaceThree/Wall";
 import Player from "../ui/CollectionSpace/Player";
-import World from "./World";
 import Spot from "../ui/World/3Dcanvas/Spot";
 import Door from "../ui/CollectionSpace/Door";
 import Video from "../ui/CollectionSpaceTwo/Video";
@@ -21,21 +20,16 @@ import ImageFrame from "../ui/CollectionSpace/ImageFrame";
 import CollectImage from "../ui/CollectionSpace/CollectImage";
 import VisitText from "../ui/CollectionSpace/VisitText";
 import VisitCard from "../ui/CollectionSpace/VisitCard";
-import Bed from "../ui/CollectionSpaceTwo/Bed";
+import Bed from "../ui/CollectionSpaceThree/Bed";
 import Table from "../ui/CollectionSpaceTwo/Table";
-import LoadingSpinner from "../ui/public/LoadingSpinner";
 import Camera from "../ui/CollectionSpaceTwo/Camera";
 import TvTable from "../ui/CollectionSpaceTwo/TvTable";
-import UploadVideoModal from "../ui/public/UploadVideoModal";
-import UploadImagePostModal from "../ui/public/UploadImagePostModal";
-import ViewImagePostModal from "../ui/public/ViewImagePostModal";
 import Remote from "../ui/CollectionSpaceTwo/Remote";
 import Lug from "../ui/CollectionSpaceTwo/Lug";
 import Pencil from "../ui/CollectionSpaceTwo/Pencil";
 import Window from "../ui/CollectionSpaceTwo/Window";
-import Plant from "../ui/CollectionSpaceTwo/Plant";
 
-const CollectionSpaceTwo = () => {
+const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
   const doorSpot = { x: 2.1, y: 0.1, z: -5 };
   const roomName = useParams().id;
@@ -106,15 +100,14 @@ const CollectionSpaceTwo = () => {
           <ImageFrame />
           <VisitText />
           <VisitCard />
-          <Camera />
-          <Pencil />
-          <Table />
+          {/* <Camera /> */}
+          {/* <Pencil /> */}
+          {/* <Table /> */}
           <Bed />
           <Door />
           <Video />
           <Wall />
           <Window />
-          <Plant />
           <Spot spot={doorSpot} />
           <Player
             roomName={roomName}
@@ -151,4 +144,4 @@ const CrossHair = styled.div`
   }}
 `;
 
-export default CollectionSpaceTwo;
+export default CollectionSpaceThree;
