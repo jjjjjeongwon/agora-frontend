@@ -21,10 +21,15 @@ import ImageFrame from '../ui/CollectionSpace/ImageFrame';
 import CollectImage from '../ui/CollectionSpace/CollectImage';
 import VisitText from '../ui/CollectionSpace/VisitText';
 import VisitCard from '../ui/CollectionSpace/VisitCard';
+import Bed from '../ui/CollectionSpace/Bed';
+import Table from '../ui/CollectionSpace/Table';
+import LoadingSpinner from '../ui/public/LoadingSpinner';
+import TopLight from '../ui/CollectionSpace/TopLight';
+import Camera from '../ui/CollectionSpace/Camera';
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
-  const doorSpot = { x: 0, y: 1, z: 5 };
+  const doorSpot = { x: 2, y: 1, z: 5 };
   const roomName = useParams().id;
   const navigate = useNavigate();
 
@@ -81,8 +86,6 @@ const CollectionSpace = () => {
           //   far: 1000,
           // }}
         >
-          <EnvSky />
-          <EnvStars />
           <Light />
           <Floor />
           <Tv />
@@ -90,6 +93,10 @@ const CollectionSpace = () => {
           <ImageFrame />
           <VisitText />
           <VisitCard />
+          <Camera />
+          <TopLight />
+          <Table />
+          <Bed />
           <Door />
           <Video />
           <Wall />

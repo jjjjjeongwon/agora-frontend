@@ -6,11 +6,12 @@ const Wall = () => {
   floorTexture.wrapS = THREE.RepeatWrapping;
   floorTexture.wrapT = THREE.RepeatWrapping;
 
-  const geometry = new THREE.BoxGeometry(12, 6, 1);
+  const geometry = new THREE.BoxGeometry(13, 6, 1);
   const material = new THREE.MeshStandardMaterial({
     color: '#D39C8A',
     side: THREE.DoubleSide,
   });
+
   return (
     <>
       <mesh
@@ -19,6 +20,7 @@ const Wall = () => {
         position={[0, 3, -6]}
         geometry={geometry}
         material={material}
+        receiveShadow
       ></mesh>
       <mesh
         name="bottomWall"
@@ -26,6 +28,7 @@ const Wall = () => {
         position={[0, 3, 6]}
         geometry={geometry}
         material={material}
+        receiveShadow
       ></mesh>
       <mesh
         name="leftWall"
@@ -33,6 +36,7 @@ const Wall = () => {
         position={[-6, 3, 0]}
         geometry={geometry}
         material={material}
+        receiveShadow
       ></mesh>
       <mesh
         name="rightWall"
@@ -40,6 +44,7 @@ const Wall = () => {
         position={[6, 3, 0]}
         geometry={geometry}
         material={material}
+        receiveShadow
       ></mesh>
     </>
   );

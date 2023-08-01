@@ -1,9 +1,14 @@
 import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
 import React, { useEffect } from 'react';
+import { BoxGeometry, MeshBasicMaterial } from 'three';
+import * as THREE from 'three';
 
 const Tv = () => {
   const glb = useGLTF('../models/tv/screen_led.glb');
   const tv = glb.scene.children[0];
+  const { scene } = useThree();
+
   useEffect(() => {
     if (!tv) return;
 
@@ -19,6 +24,16 @@ const Tv = () => {
     tv.rotation.x = Math.PI / 2;
     tv.rotation.y = Math.PI;
     tv.rotation.z = Math.PI / 2;
+    const mesh = new THREE.Mesh(
+      new BoxGeometry(0.5, 3, 5),
+      new MeshBasicMaterial({ transparent: true, opacity: 1 })
+    );
+
+    mesh.castShadow = true;
+    mesh.position.x = tv.position.x + 1.5;
+    mesh.position.y = tv.position.y;
+    mesh.position.z = tv.position.z + 2;
+    scene.add(mesh);
   }, []);
 
   return <primitive name={'tv'} castShadow object={tv} dispose={null} />;

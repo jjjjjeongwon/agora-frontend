@@ -14,7 +14,7 @@ const Door = () => {
     });
     // door.position.y = 0;
     door.position.set(-3, 0, -4.5);
-    door.scale.x = 0.02;
+    door.scale.x = 0.03;
     door.scale.y = 0.02;
     door.scale.z = 0.02;
   }, []);

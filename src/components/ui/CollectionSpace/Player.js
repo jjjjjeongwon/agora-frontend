@@ -32,7 +32,6 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
     const intersects = raycaster.intersectObjects(scene.children);
     for (const item of intersects) {
       console.log(item.object.name);
-      break;
     }
   };
 

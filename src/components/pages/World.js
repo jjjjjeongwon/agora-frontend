@@ -23,6 +23,7 @@ import LoadingSpinner from '../ui/public/LoadingSpinner';
 import GuestBook from '../ui/World/3Dcanvas/GuestBook';
 import ImageCollection from '../ui/World/3Dcanvas/ImageCollection';
 import FloorFence from '../ui/World/3Dcanvas/FloorFence';
+import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
 
 const World = () => {
   //route
@@ -84,7 +85,7 @@ const World = () => {
           // }}
           orthographic
           camera={{
-            zoom: 50,
+            zoom: 70,
             position: [1, 5, 5],
             left: -1 * aspectRatio,
             right: 1 * aspectRatio,
