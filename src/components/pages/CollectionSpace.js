@@ -34,6 +34,7 @@ import Remote from '../ui/CollectionSpace/Remote';
 import Lug from '../ui/CollectionSpace/Lug';
 import Chair from '../ui/CollectionSpace/Chair';
 import Pencil from '../ui/CollectionSpace/Pencil';
+import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -127,6 +128,7 @@ const CollectionSpace = () => {
       {/* <UploadVideoModal /> */}
       {/* <UploadImagePostModal /> */}
       {/* <ViewImagePostModal /> */}
+      <WriteVisitMemoModal />
       <CrossHair isLocked={isLocked} />
     </div>
   );
