@@ -14,15 +14,17 @@ const GuestBook = () => {
   const geometry = new THREE.PlaneGeometry(3, 3);
   const material = new THREE.MeshBasicMaterial({
     map: canvasTexture,
-    // side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1,
+    side: THREE.DoubleSide,
   });
 
   useFrame(() => {
     // Draw on the canvas
     texContext.clearRect(0, 0, texCanvas.width, texCanvas.height);
     texContext.fillStyle = 'white';
-    texContext.font = 'bold 50px sans-serif';
-    texContext.fillText('Oh2do 화이팅!', 50, 50);
+    texContext.font = 'bold 80px sans-serif';
+    texContext.fillText('의진이 집', 100, 100);
 
     //   // Update the texture
     canvasTexture.needsUpdate = true;
@@ -31,8 +33,6 @@ const GuestBook = () => {
     <>
       <mesh
         ref={meshRef}
-        castShadow
-        receiveShadow
         geometry={geometry}
         material={material}
         position={[0, 2, 0]}

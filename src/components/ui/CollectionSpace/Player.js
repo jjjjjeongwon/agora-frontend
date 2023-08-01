@@ -5,6 +5,8 @@ import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockCont
 
 function Player({ setMyPlayer, setIsLocked, isLocked }) {
   const { camera, gl, scene, clock } = useThree();
+
+  // culling 효과 true
   camera.frustumCulled = true;
   const [keys, setKeys] = useState({
     forward: false,

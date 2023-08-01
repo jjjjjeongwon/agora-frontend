@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 //components
 import EnvSky from '../ui/World/3Dcanvas/EnvSky';
 import Floor from '../ui/World/3Dcanvas/Floor';
-import Player from '../ui/CollectionSpace/Player';
+import Player from '../ui/CollectionSpace/Player copy';
 import Light from '../ui/World/3Dcanvas/Light';
 import Spot from '../ui/World/3Dcanvas/Spot';
 // global state
@@ -21,15 +21,18 @@ import Gallery from '../ui/World/3Dcanvas/Gallery';
 import VideoPlane from '../ui/World/3Dcanvas/VideoPlane';
 import LoadingSpinner from '../ui/public/LoadingSpinner';
 import GuestBook from '../ui/World/3Dcanvas/GuestBook';
+import Tree from '../ui/World/3Dcanvas/Tree';
 import ImageCollection from '../ui/World/3Dcanvas/ImageCollection';
 import FloorFence from '../ui/World/3Dcanvas/FloorFence';
 import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
+import { OrbitControls } from '@react-three/drei';
 
 const World = () => {
   //route
   const navigate = useNavigate();
   const roomName = useParams().id;
   const canvasRef = useRef();
+  const containerRef = useRef();
 
   //state
   const [myPlayer, setMyPlayer] = useState({});
@@ -45,7 +48,14 @@ const World = () => {
 
   const aspectRatio = window.innerWidth / window.innerHeight;
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // return () => {
+    //   containerRef.current.appendChild(.domElement);
+    //   if (containerRef.current) {
+    //     containerRef.current.removeChild(canvasRef.domElement);
+    //   }
+    // };
+  }, []);
   useEffect(() => {
     if (
       Math.abs(gameSpot.x - myPlayer.x) < 1.5 &&
@@ -60,6 +70,7 @@ const World = () => {
 
   return (
     <div
+      ref={containerRef}
       style={{
         position: 'relative',
         width: '100vw',
@@ -76,27 +87,26 @@ const World = () => {
             autoUpdate: true,
             type: THREE.PCFSoftShadowMap,
           }}
-          // camera={{
-          //   fov: 50,
-          //   aspect: aspectRatio,
-          //   near: 0.1,
-          //   far: 1000,
-          //   position: [0, 2, 26],
-          // }}
-          orthographic
           camera={{
-            zoom: 70,
-            position: [1, 5, 5],
-            left: -1 * aspectRatio,
-            right: 1 * aspectRatio,
-            top: 1,
-            bottom: -1,
-            near: -1000,
+            fov: 45,
+            aspect: aspectRatio,
+            near: 0.1,
             far: 1000,
+            position: [0, 2, 5],
           }}
+          // orthographic
+          // camera={{
+          //   zoom: 50,
+          //   position: [1, 5, 5],
+          //   left: -1 * aspectRatio,
+          //   right: 1 * aspectRatio,
+          //   top: 1,
+          //   bottom: -1,
+          //   near: -1000,
+          //   far: 1000,
+          // }}
         >
           <EnvSky />
-          <Floor />
           <Light />
           <Spot spot={gameSpot} />
           <Spot spot={postSpot} />
@@ -104,14 +114,23 @@ const World = () => {
           {/* <ImageCollection /> */}
           {/* <Gallery /> */}
           <FloorFence />
-          {/* <GuestBook /> */}
+          <Tree />
+          <GuestBook />
           {/* <VideoPlane /> */}
           {/* <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} /> */}
+          <Floor />
           <Player
             roomName={roomName}
             setMyPlayer={setMyPlayer}
             setIsLocked={setIsLocked}
             isLocked={isLocked}
+          />
+          <OrbitControls
+            enableDamping
+            minDistance={5}
+            maxDistance={15}
+            enablePan={false}
+            maxPolarAngle={Math.PI / 2 - 0.05}
           />
         </Canvas>
       </Suspense>

@@ -2,9 +2,8 @@ import { useGLTF } from '@react-three/drei';
 import React, { useRef, useEffect } from 'react';
 
 const Tree = () => {
-  const glb = useGLTF('../models/palm_tree.glb');
-  const treeRef = glb.scene.children[0];
-  const tree = useRef(treeRef);
+  const glb = useGLTF('../models/cartoon_tree.glb');
+  const tree = glb.scene.children[0];
   useEffect(() => {
     if (!tree) return;
 
@@ -14,12 +13,9 @@ const Tree = () => {
         child.receiveShadow = true;
       }
     });
-    tree.current.position.set(-7, 0, 2);
-    tree.current.scale.x = 2;
-    tree.current.scale.y = 2;
-    tree.current.scale.z = 2;
+    tree.position.set(-7, 0, 2);
   }, []);
-  return <primitive object={tree.current} dispose={null} />;
+  return <primitive object={tree} dispose={null} />;
 };
 
 export default Tree;
