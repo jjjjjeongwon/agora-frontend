@@ -5,7 +5,7 @@ import { BoxGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
 const ImageFrame = () => {
-  const glb = useGLTF('../models/imageframe/photo_frame.glb');
+  const glb = useGLTF('../models/imageframe/photoframe_blue.glb');
   const frame = glb.scene.children[0];
   const { scene } = useThree();
 
@@ -23,8 +23,8 @@ const ImageFrame = () => {
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
     frame.position.x = -5;
-    frame.position.y = 9;
-    frame.position.z = -8;
+    frame.position.y = 3.9;
+    frame.position.z = -3.1;
 
     mesh.castShadow = true;
     mesh.position.x = -5.4;

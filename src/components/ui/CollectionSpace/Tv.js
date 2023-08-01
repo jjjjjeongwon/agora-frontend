@@ -18,7 +18,7 @@ const Tv = () => {
       }
     });
     // tv.position.y = 0;
-    tv.position.set(5.4, 3, 2.5);
+    tv.position.set(5.4, 3.5, 2.5);
     tv.scale.x = 0.6;
     tv.scale.z = 0.7;
     tv.rotation.x = Math.PI / 2;
@@ -26,7 +26,7 @@ const Tv = () => {
     tv.rotation.z = Math.PI / 2;
     const mesh = new THREE.Mesh(
       new BoxGeometry(0.5, 3, 5),
-      new MeshBasicMaterial({ transparent: true, opacity: 1 })
+      new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
 
     mesh.castShadow = true;

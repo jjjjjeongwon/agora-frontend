@@ -4,7 +4,7 @@ import { useAspect, useVideoTexture, useTexture } from '@react-three/drei';
 
 const Video = () => {
   return (
-    <mesh position={[5.32, 3, 2.5]} rotation={[0, Math.PI / 2, 0]}>
+    <mesh position={[5.32, 3.5, 2.5]} rotation={[0, Math.PI / 2, 0]}>
       <Scene />
     </mesh>
   );
