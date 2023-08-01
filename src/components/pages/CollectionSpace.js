@@ -29,6 +29,7 @@ import Camera from '../ui/CollectionSpace/Camera';
 import TvTable from '../ui/CollectionSpace/TvTable';
 import UploadVideoModal from '../ui/public/UploadVideoModal';
 import UploadImagePostModal from '../ui/public/UploadImagePostModal';
+import ViewImagePostModal from '../ui/public/ViewImagePostModal';
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -114,7 +115,8 @@ const CollectionSpace = () => {
         </Canvas>
       </Suspense>
       {/* <UploadVideoModal /> */}
-      <UploadImagePostModal />
+      {/* <UploadImagePostModal /> */}
+      <ViewImagePostModal />
       <CrossHair isLocked={isLocked} />
     </div>
   );
