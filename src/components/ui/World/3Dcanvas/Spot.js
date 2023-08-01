@@ -6,7 +6,7 @@ const Spot = ({ spot }) => {
       rotation={[-Math.PI / 2, 0, 0]}
       receiveShadow
     >
-      <circleGeometry args={[0.5, 64, 64]} />
+      <circleGeometry args={[0.3, 64, 64]} />
       <meshStandardMaterial color={'black'} transparent opacity={1} />
     </mesh>
   );

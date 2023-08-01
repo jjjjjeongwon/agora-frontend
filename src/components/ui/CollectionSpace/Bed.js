@@ -27,10 +27,10 @@ const Bed = () => {
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
     const upMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(3, 3),
+      new THREE.PlaneGeometry(2, 2),
       new MeshBasicMaterial({
         transparent: true,
-        opacity: 1,
+        opacity: 0,
         color: 'white',
         side: THREE.DoubleSide,
       })

@@ -4,25 +4,22 @@ import React, { useEffect } from 'react';
 import { BoxGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
-const TopLight = () => {
-  const glb = useGLTF('../models/light/house_light.glb');
-  const topLight = glb.scene.children[0];
+const Chair = () => {
+  const glb = useGLTF('../models/chair/office_chair.glb');
+  const chair = glb.scene.children[0];
 
   useEffect(() => {
-    if (!topLight) return;
-
+    if (!chair) return;
     glb.scene.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = true;
       }
     });
-    // topLight.position.y = 0;
-    topLight.position.set(0, 2, 0);
-  }, []);
-
-  return (
-    <primitive name={'topLight'} castShadow object={topLight} dispose={null} />
-  );
+    chair.position.set(-2, 0, -2);
+    chair.scale.set(2, 2, 2);
+    chair.rotation.z = -Math.PI / 2;
+  });
+  return <primitive object={chair} dispose={null} />;
 };
 
-export default TopLight;
+export default Chair;

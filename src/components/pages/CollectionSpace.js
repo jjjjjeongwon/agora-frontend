@@ -30,10 +30,14 @@ import TvTable from '../ui/CollectionSpace/TvTable';
 import UploadVideoModal from '../ui/public/UploadVideoModal';
 import UploadImagePostModal from '../ui/public/UploadImagePostModal';
 import ViewImagePostModal from '../ui/public/ViewImagePostModal';
+import Remote from '../ui/CollectionSpace/Remote';
+import Lug from '../ui/CollectionSpace/Lug';
+import Chair from '../ui/CollectionSpace/Chair';
+import Pencil from '../ui/CollectionSpace/Pencil';
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
-  const doorSpot = { x: 2, y: 1, z: 5 };
+  const doorSpot = { x: 2.1, y: 0.1, z: -5 };
   const roomName = useParams().id;
   const navigate = useNavigate();
 
@@ -71,11 +75,11 @@ const CollectionSpace = () => {
             type: THREE.PCFSoftShadowMap,
           }}
           camera={{
-            fov: 50,
+            fov: 45,
             aspect: aspect,
             near: 0.1,
             far: 100,
-            position: [2, 2, 0],
+            position: [2, 2, -4],
             zoom: 0.5,
           }}
           // orthographic
@@ -90,9 +94,13 @@ const CollectionSpace = () => {
           //   far: 1000,
           // }}
         >
+          <EnvSky />
+          <EnvStars />
           <Light />
+          <Lug />
           <Floor />
           <Tv />
+          <Remote />
           <TvTable />
           <CollectImage />
           <ImageFrame />
@@ -100,6 +108,8 @@ const CollectionSpace = () => {
           <VisitCard />
           <Camera />
           <TopLight />
+          <Chair />
+          <Pencil />
           <Table />
           <Bed />
           <Door />

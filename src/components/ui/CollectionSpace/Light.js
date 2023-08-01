@@ -24,7 +24,7 @@ const Light = () => {
         ref={lightRef}
         intensity={0.5}
         castShadow
-        position={[2, 5, 3]}
+        position={[2, 5, 2]}
       />
     </>
   );
