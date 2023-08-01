@@ -72,18 +72,20 @@ const UploadImagePostModal = forwardRef((props, ref) => {
       <Container onSubmit={handleSubmit}>
         <CustomTitle>Photo</CustomTitle>
         <TitleName>Photo</TitleName>
-        <FlexPhoto>
-          <PhotoPreview></PhotoPreview>
-          <Content>
-            <input
-              type="file"
-              accept="image/*"
-              required
-              name="file"
-              onChange={handleFileChange}
-            />
-          </Content>
-        </FlexPhoto>
+        {/* <FlexPhoto> */}
+        <PhotoPreview>
+          <img id="imagePreview" src="" alt="" />
+        </PhotoPreview>
+        <Content>
+          <input
+            type="file"
+            accept="image/*"
+            required
+            name="file"
+            onChange={handleFileChange}
+          />
+        </Content>
+        {/* </FlexPhoto> */}
 
         <TitleName>Title</TitleName>
         <InputTitle
@@ -106,16 +108,16 @@ const UploadImagePostModal = forwardRef((props, ref) => {
 });
 
 const Container = styled.form`
-  width: 520px;
-  height: 580px;
+  width: 38rem;
+  height: 43rem;
   right: 30%;
   /* bottom: 10%; */
-  top: 0px;
+  top: 0;
   /* background-color: transparent; */
   position: absolute;
   box-sizing: border-box;
-  margin: 5% auto;
-  padding: 90px 80px;
+  margin: 2% auto;
+  padding: 90px 100px;
   border-radius: 10px;
   background-image: url('/images/imageNote.png');
   background-size: cover;
@@ -124,11 +126,18 @@ const FlexPhoto = styled.div`
   display: flex;
   margin-bottom: 10px;
 `;
-const PhotoPreview = styled.img`
-  width: 100%;
-  margin-right: 5px;
-  height: 150px;
+const PhotoPreview = styled.div`
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-right: 5px; */
+  height: 220px;
   background-color: #bbbbbb;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const Content = styled.div`
@@ -150,7 +159,7 @@ const TitleName = styled.div`
 
 const CustomTitle = styled.div`
   font-family: 'luckiest guy';
-  margin-bottom: 35px;
+  margin-bottom: 55px;
   /* font-family: 'bagel fat one'; */
   font-size: 40px;
   display: flex;
@@ -166,7 +175,7 @@ const InputTitle = styled.input`
   color: #686868;
   outline: none;
   margin-bottom: 10px;
-  width: 100%;
+  width: 95%;
 `;
 const InputText = styled.textarea`
   height: 60px;
@@ -174,7 +183,8 @@ const InputText = styled.textarea`
   border: 1px solid #686868;
   border-radius: 5px;
   outline: none;
-  width: 100%;
+  /* width: 100%; */
+  width: 95%;
 `;
 
 const CustomButton = styled.button`
@@ -185,7 +195,7 @@ const CustomButton = styled.button`
   height: 32px;
   border-radius: 27px;
   display: flex;
-  margin: 20px auto auto;
+  margin: 12px auto auto;
   align-items: center;
   justify-content: center;
   font-size: 16px;
