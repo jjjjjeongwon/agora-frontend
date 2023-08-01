@@ -59,6 +59,8 @@ const Login = () => {
   );
 };
 const LoginContainer = styled.div`
+  background-image: url('/images/background.png');
+
   font-family: 'Noto Sans KR';
   font-style: normal;
   width: 100%;
