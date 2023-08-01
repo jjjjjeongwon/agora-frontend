@@ -51,7 +51,7 @@ const Login = () => {
             text="비밀번호"
           />
           <LoginErrorMessage />
-          <LoginSignupButton clickSubmit={checkLogin} text="로그인" />
+          <LoginSignupButton clickSubmit={checkLogin} text="Login" />
           <SignupButton clickSubmit={() => navigate('/signup')} />
         </LoginWrap>
       </Wrap>

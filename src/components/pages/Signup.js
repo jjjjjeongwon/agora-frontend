@@ -221,7 +221,7 @@ export const Signup = () => {
           <EmailAuthInput
             inputRef={emailRef}
             OnClickCallback={ReceiveEmail}
-            title="인증번호 전송"
+            title="send"
             placeholder="이메일을 입력해주세요"
           />
 
@@ -250,7 +250,7 @@ export const Signup = () => {
             text="비밀번호를 다시 입력해주세요."
           />
 
-          <LoginSignupButton clickSubmit={clickSubmit} text="가입하기" />
+          <LoginSignupButton clickSubmit={clickSubmit} text="SIGN UP" />
         </SignupWrap>
       </Wrap>
     </SignupContainer>

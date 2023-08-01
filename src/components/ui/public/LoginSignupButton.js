@@ -6,14 +6,16 @@ const LoginSignupButton = ({ text, clickSubmit }) => {
 };
 
 const SubmitButton = styled.button`
+  font-family: 'luckiest guy';
+
   width: 420px;
   height: 48px;
   cursor: pointer;
-  background-color: #36431c;
+  background-color: #3c4d18;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
   color: white;
   margin-top: 20px;

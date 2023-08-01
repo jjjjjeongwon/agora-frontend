@@ -9,6 +9,8 @@ const InputTitle = styled.div`
   width: 100px;
   font-size: 15px;
   font-weight: bold;
+  font-family: 'jua';
+
   margin: 15px 0 10px 0;
 `;
 
