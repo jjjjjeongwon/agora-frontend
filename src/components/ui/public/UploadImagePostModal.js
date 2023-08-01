@@ -56,7 +56,7 @@ const UploadImagePostModal = forwardRef((props, ref) => {
       formData.append('email', 'rose3623@naver.com');
       console.log(formData);
 
-      const response = await userAPI.post('/boards/video', formData, {
+      const response = await userAPI.post('/boards/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
