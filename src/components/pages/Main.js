@@ -13,7 +13,7 @@ const Main = () => {
   return (
     <Container>
       <LogoContainer>
-        <LoginSignupTitle>AGORA</LoginSignupTitle>
+        <LoginSignupTitle>PoLY WoRLD </LoginSignupTitle>
         <AccessButton
           onClick={() => {
             navigate('/login');

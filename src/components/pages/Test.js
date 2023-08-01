@@ -45,12 +45,12 @@ const Test = () => {
       console.log(file);
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('title', title);
-      formData.append('content', content);
+      // formData.append('title', title);
+      // formData.append('content', content);
       formData.append('email', 'rose3623@naver.com');
       console.log(formData);
 
-      const response = await userAPI.post('/boards/upload', formData, {
+      const response = await userAPI.post('/boards/video', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

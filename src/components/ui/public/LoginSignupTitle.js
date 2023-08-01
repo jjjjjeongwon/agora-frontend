@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LoginSignupTitle = () => {
-  return <LoginText>AGORA</LoginText>;
+  return <LoginText>PoLY WoRLD</LoginText>;
 };
 
 const LoginText = styled.div`
   color: white;
-  width: 175px;
+  width: 300px;
   height: 90px;
-  font-size: 65px;
+  font-family: 'luckiest guy';
+
+  font-size: 80px;
   font-weight: bold;
   display: flex;
   justify-content: center;

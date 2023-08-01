@@ -27,6 +27,7 @@ import LoadingSpinner from '../ui/public/LoadingSpinner';
 import TopLight from '../ui/CollectionSpace/TopLight';
 import Camera from '../ui/CollectionSpace/Camera';
 import TvTable from '../ui/CollectionSpace/TvTable';
+import UploadVideoModal from '../ui/public/UploadVideoModal';
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -111,6 +112,7 @@ const CollectionSpace = () => {
           />
         </Canvas>
       </Suspense>
+      <UploadVideoModal />
       <CrossHair isLocked={isLocked} />
     </div>
   );

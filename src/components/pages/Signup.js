@@ -51,11 +51,30 @@ export const Signup = () => {
       });
   };
 
+  //  유저에 대한 전체 데이터
   // const receiveEmail = async () => {
   //   await userAPI
-  //     .get('/boards/64c81c748a631c0011be4610')
+  //     .get('/user/64c7edecfb0d7b9a0cf77d0d/content')
   //     .then((res) => {
   //       TIMER();
+  //       console.log(res);
+  //       alert(' 성공!');
+  //     })
+
+  //     .catch((err) => {
+  //       console.log(' 에러', err);
+  //       window.alert('=실패!');
+  //     });
+  // };
+
+  //  방명록
+  // const receiveEmail = async () => {
+  //   await userAPI
+  //     .post('/user/64c7edecfb0d7b9a0cf77d0d/guestbook', {
+  //       email: 'rose3623@naver.com',
+  //       content: '재미업서!',
+  //     })
+  //     .then((res) => {
   //       console.log(res);
   //       alert(' 성공!');
   //     })
