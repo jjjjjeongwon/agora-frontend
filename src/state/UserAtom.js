@@ -23,6 +23,12 @@ export const LoginEmailState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const NickNameState = atom({
+  key: 'NickNameState',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const JoinExitState = atom({
   key: 'JoinExitState',
   default: {},

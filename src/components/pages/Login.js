@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import LoginSignupTitle from '../ui/public/LoginSignupTitle';
@@ -8,7 +8,11 @@ import LoginSignupButton from '../ui/public/LoginSignupButton';
 import SignupButton from '../ui/Signup/SignupButton';
 import PasswordInputForm from '../ui/public/PasswordInputForm';
 import { useSetRecoilState } from 'recoil';
-import { LoginState, LoginEmailState } from '../../state/UserAtom';
+import {
+  LoginState,
+  LoginEmailState,
+  NickNameState,
+} from '../../state/UserAtom';
 
 import userAPI from '../../apis/userAPI';
 
@@ -17,6 +21,7 @@ import Swal from 'sweetalert2';
 const Login = () => {
   const setIsLogin = useSetRecoilState(LoginState);
   const setLoginEmail = useSetRecoilState(LoginEmailState);
+  const setLoginNickName = useSetRecoilState(NickNameState);
 
   const navigate = useNavigate();
 
@@ -24,30 +29,31 @@ const Login = () => {
   const passwordRef = useRef();
 
   const checkLogin = async () => {
-    await userAPI
-      .post('user/login', {
+    try {
+      const res = await userAPI.post('user/login', {
         email: emailRef.current.value,
         password: passwordRef.current.value,
-      }) //추가
-      .then((res) => {
-        console.log(res);
-        console.log(res.data.email);
-
-        setIsLogin(true);
-        setLoginEmail(res.data.email);
-        Swal.fire({
-          title: `반갑습니다!`,
-          confirmButtonColor: '#0e72ed',
-        });
-        navigate('/world');
-      })
-      .catch((err) => {
-        console.log('포스트 요청 에러', err);
-        Swal.fire({
-          title: `아이디 또는 패스워드를 확인해주세요!`,
-          confirmButtonColor: '#0e72ed',
-        });
       });
+
+      console.log(res);
+      console.log(res.data.nickname);
+
+      setIsLogin(true);
+      setLoginEmail(res.data.email);
+      setLoginNickName(res.data.nickname);
+
+      Swal.fire({
+        title: `반갑습니다!`,
+        confirmButtonColor: '#0e72ed',
+      });
+      navigate('/world');
+    } catch (err) {
+      console.log('포스트 요청 에러', err);
+      Swal.fire({
+        title: `아이디 또는 패스워드를 확인해주세요!`,
+        confirmButtonColor: '#0e72ed',
+      });
+    }
   };
   return (
     <LoginContainer>
