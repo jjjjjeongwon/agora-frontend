@@ -21,6 +21,9 @@ const UploadVideoModal = () => {
   // };
   const [file, setFile] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
+  const userEmail = JSON.parse(sessionStorage.getItem('isLogin'))[
+    'LoginEmailState'
+  ];
 
   const previewVideo = (file) => {
     const videoPreview = document.getElementById('videoPreview');
@@ -44,10 +47,10 @@ const UploadVideoModal = () => {
       console.log(file);
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('email', 'rose3623@naver.com');
+      formData.append('email', userEmail);
       console.log(formData);
 
-      const response = await userAPI.post('/boards/video', formData, {
+      const response = await userAPI.post('/board/video', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

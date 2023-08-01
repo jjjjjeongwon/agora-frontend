@@ -24,7 +24,7 @@ export const Signup = () => {
 
   const completeSignUp = async (SignupData) => {
     await userAPI
-      .post('/user-register', SignupData)
+      .post('/user', SignupData)
       .then((res) => {
         console.log(res);
         // Swal.fire({
@@ -43,7 +43,7 @@ export const Signup = () => {
 
   const receiveEmail = async () => {
     await userAPI
-      .post('/verify', { email: emailRef.current.value })
+      .post('/user/verify', { email: emailRef.current.value })
       .then((res) => {
         TIMER();
         console.log(res);
@@ -101,17 +101,18 @@ export const Signup = () => {
   const [sentAuth, setSentAuth] = useState(false);
 
   const tagList = {
-    0: home,
-    1: postbox,
-    2: constructTool,
-    3: letter,
+    1: home,
+    2: postbox,
+    3: constructTool,
+    4: letter,
   };
 
   const handleTagSelect = (e) => {
+    console.log(e.target.value);
     setSelectedTagNumber(e.target.value);
   };
 
-  const [selectedTagNumber, setSelectedTagNumber] = useState(0);
+  const [selectedTagNumber, setSelectedTagNumber] = useState(1);
 
   const playNumber = useRef(null);
   const timerNumber = useRef(null);
@@ -163,7 +164,7 @@ export const Signup = () => {
       email: emailRef.current.value,
       code: emailAuthNumRef.current.value,
       nickname: nicknameRef.current.value,
-      characterNum: charaterRef.current.value,
+      houseNum: selectedTagNumber,
       password: passwordRef.current.value,
       password2: passwordCheckRef.current.value,
     };
@@ -204,11 +205,14 @@ export const Signup = () => {
           /> */}
           <TagSelectWrap>
             <TagImage src={tagList[selectedTagNumber]} />
-            <SelectPlaceDropBox onChange={handleTagSelect}>
-              <option value="0">1 </option>
-              <option value="1">2</option>
-              <option value="2">3 </option>
-              <option value="3">4 </option>
+            <SelectPlaceDropBox
+              onChange={handleTagSelect}
+              defaultValue="default"
+            >
+              <option value="1">1 </option>
+              <option value="2">2</option>
+              <option value="3">3 </option>
+              <option value="4">4 </option>
             </SelectPlaceDropBox>
           </TagSelectWrap>
           <SignupInputTitle title="닉네임" />

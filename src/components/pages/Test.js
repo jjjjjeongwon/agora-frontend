@@ -38,27 +38,35 @@ const Test = () => {
     }
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await userAPI.post('/user/handleFriendRequest', {
+  //       from: 'rose3623@naver.com',
+  //       to: 'psung9510@gmail.com',
+  //     });
+
+  //     console.log('서버 응답:', response.data);
+
+  //     // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+  //   } catch (error) {
+  //     console.error('서버 오류:', error);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      console.log(file);
-      const formData = new FormData();
-      formData.append('file', file);
-      // formData.append('title', title);
-      // formData.append('content', content);
-      formData.append('email', 'rose3623@naver.com');
-      console.log(formData);
-
-      const response = await userAPI.post('/boards/video', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const response = await userAPI.get(
+        '/user/64c946f882bca94568567f77/content'
+      );
 
       console.log('서버 응답:', response.data);
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
-      setErrorMsg('게시물 업로드에 실패했습니다.');
       console.error('서버 오류:', error);
     }
   };

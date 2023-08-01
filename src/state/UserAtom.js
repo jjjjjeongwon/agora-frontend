@@ -17,6 +17,12 @@ export const LoginState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const LoginEmailState = atom({
+  key: 'LoginEmailState',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const JoinExitState = atom({
   key: 'JoinExitState',
   default: {},

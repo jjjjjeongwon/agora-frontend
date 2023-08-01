@@ -26,6 +26,10 @@ const UploadImagePostModal = forwardRef((props, ref) => {
 
   const [content, setContent] = useState('');
 
+  const userEmail = JSON.parse(sessionStorage.getItem('isLogin'))[
+    'LoginEmailState'
+  ];
+
   const previewImage = (file) => {
     const reader = new FileReader();
     reader.onload = function (e) {
@@ -53,10 +57,10 @@ const UploadImagePostModal = forwardRef((props, ref) => {
       formData.append('file', file);
       formData.append('title', title);
       formData.append('content', content);
-      formData.append('email', 'rose3623@naver.com');
+      formData.append('email', userEmail);
       console.log(formData);
 
-      const response = await userAPI.post('/boards/upload', formData, {
+      const response = await userAPI.post('/board', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

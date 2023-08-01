@@ -7,11 +7,17 @@ import LoginErrorMessage from '../ui/Login/LoginErrorMessage';
 import LoginSignupButton from '../ui/public/LoginSignupButton';
 import SignupButton from '../ui/Signup/SignupButton';
 import PasswordInputForm from '../ui/public/PasswordInputForm';
+import { useSetRecoilState } from 'recoil';
+import { LoginState, LoginEmailState } from '../../state/UserAtom';
+
 import userAPI from '../../apis/userAPI';
 
 import Swal from 'sweetalert2';
 
 const Login = () => {
+  const setIsLogin = useSetRecoilState(LoginState);
+  const setLoginEmail = useSetRecoilState(LoginEmailState);
+
   const navigate = useNavigate();
 
   const emailRef = useRef();
@@ -19,12 +25,16 @@ const Login = () => {
 
   const checkLogin = async () => {
     await userAPI
-      .post('/login', {
+      .post('user/login', {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       }) //추가
       .then((res) => {
         console.log(res);
+        console.log(res.data.email);
+
+        setIsLogin(true);
+        setLoginEmail(res.data.email);
         Swal.fire({
           title: `반갑습니다!`,
           confirmButtonColor: '#0e72ed',
