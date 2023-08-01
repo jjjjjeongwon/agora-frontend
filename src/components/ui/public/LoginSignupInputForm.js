@@ -12,7 +12,7 @@ const InputForm = styled.input`
   border-radius: 6px;
   border: 1px solid #dedede;
   padding: 14px 17px 13px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   outline: none;
   box-sizing: border-box;
   transition: all 0.1s ease;

@@ -9,7 +9,7 @@ const SubmitButton = styled.button`
   width: 420px;
   height: 48px;
   cursor: pointer;
-  background-color: #202f19;
+  background-color: #36431c;
   display: flex;
   align-items: center;
   justify-content: center;

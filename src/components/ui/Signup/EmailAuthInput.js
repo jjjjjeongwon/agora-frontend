@@ -44,7 +44,7 @@ const ReceiveEmailButton = styled.div`
   width: 100px;
   height: 48px;
   cursor: pointer;
-  background-color: #0e72ed;
+  background-color: #36431c;
   display: flex;
   align-items: center;
   justify-content: center;
