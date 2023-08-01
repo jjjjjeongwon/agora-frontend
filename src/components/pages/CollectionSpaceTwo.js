@@ -8,9 +8,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 // Components
 import EnvSky from '../ui/CollectionSpace/EnvSky';
 import EnvStars from '../ui/CollectionSpace/EnvStars';
-import Floor from '../ui/CollectionSpace/Floor';
-import Light from '../ui/CollectionSpace/Light';
-import Wall from '../ui/CollectionSpace/Wall';
+import Floor from '../ui/CollectionSpaceTwo/Floor';
+import Light from '../ui/CollectionSpaceTwo/Light';
+import Wall from '../ui/CollectionSpaceTwo/Wall';
 import Player from '../ui/CollectionSpace/Player';
 import World from './World';
 import Spot from '../ui/World/3Dcanvas/Spot';
@@ -21,10 +21,22 @@ import ImageFrame from '../ui/CollectionSpace/ImageFrame';
 import CollectImage from '../ui/CollectionSpace/CollectImage';
 import VisitText from '../ui/CollectionSpace/VisitText';
 import VisitCard from '../ui/CollectionSpace/VisitCard';
+import Bed from '../ui/CollectionSpaceTwo/Bed';
+import Table from '../ui/CollectionSpaceTwo/Table';
+import LoadingSpinner from '../ui/public/LoadingSpinner';
+import TopLight from '../ui/CollectionSpace/TopLight';
+import Camera from '../ui/CollectionSpaceTwo/Camera';
+import TvTable from '../ui/CollectionSpace/TvTable';
+import UploadVideoModal from '../ui/public/UploadVideoModal';
+import UploadImagePostModal from '../ui/public/UploadImagePostModal';
+import ViewImagePostModal from '../ui/public/ViewImagePostModal';
+import Remote from '../ui/CollectionSpace/Remote';
+import Lug from '../ui/CollectionSpace/Lug';
+import Pencil from '../ui/CollectionSpace/Pencil';
 
 const CollectionSpaceTwo = () => {
   const aspect = window.innerWidth / window.innerHeight;
-  const doorSpot = { x: 0, y: 1, z: 5 };
+  const doorSpot = { x: 2.1, y: 0.1, z: -5 };
   const roomName = useParams().id;
   const navigate = useNavigate();
 
@@ -62,11 +74,11 @@ const CollectionSpaceTwo = () => {
             type: THREE.PCFSoftShadowMap,
           }}
           camera={{
-            fov: 50,
+            fov: 45,
             aspect: aspect,
             near: 0.1,
             far: 100,
-            position: [2, 2, 0],
+            position: [2, 2, -4],
             zoom: 0.5,
           }}
           // orthographic
@@ -84,12 +96,20 @@ const CollectionSpaceTwo = () => {
           <EnvSky />
           <EnvStars />
           <Light />
+          <Lug />
           <Floor />
           <Tv />
+          <Remote />
+          <TvTable />
           <CollectImage />
           <ImageFrame />
           <VisitText />
           <VisitCard />
+          <Camera />
+          <TopLight />
+          <Pencil />
+          <Table />
+          <Bed />
           <Door />
           <Video />
           <Wall />
@@ -102,6 +122,9 @@ const CollectionSpaceTwo = () => {
           />
         </Canvas>
       </Suspense>
+      {/* <UploadVideoModal /> */}
+      {/* <UploadImagePostModal /> */}
+      {/* <ViewImagePostModal /> */}
       <CrossHair isLocked={isLocked} />
     </div>
   );

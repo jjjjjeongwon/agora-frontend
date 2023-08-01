@@ -7,12 +7,6 @@ const Door = () => {
   useEffect(() => {
     if (!door) return;
 
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-      }
-    });
-    // door.position.y = 0;
     door.position.set(-3, 0, -4.5);
     door.scale.x = 0.03;
     door.scale.y = 0.02;

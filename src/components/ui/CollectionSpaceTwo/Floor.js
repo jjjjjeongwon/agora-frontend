@@ -9,7 +9,7 @@ const Floor = () => {
         position={[0, 0.01, 0]}
       >
         <planeGeometry args={[12, 12]} />
-        <meshStandardMaterial color={'#354C5E'} />
+        <meshStandardMaterial color={'#B2C78D'} />
       </mesh>
       <mesh name="top" rotation={[Math.PI / 2, 0, 0]} position={[0, 6, 0]}>
         <planeGeometry args={[12, 12]} />
