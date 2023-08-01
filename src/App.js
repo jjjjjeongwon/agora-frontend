@@ -12,6 +12,7 @@ import World from './components/pages/World';
 import CollectionSpace from './components/pages/CollectionSpace';
 import Test from './components/pages/Test';
 import GlobalWorld from './components/pages/GlobalWorld';
+import CollectionSpaceTwo from './components/pages/CollectionSpaceTwo';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/maplist" element={<MapList />} />
       <Route path="/test" element={<Test />} />
       <Route path="/collectionspace" element={<CollectionSpace />} />
+      <Route path="/collectionspace_two" element={<CollectionSpaceTwo />} />
     </Routes>
   );
 }

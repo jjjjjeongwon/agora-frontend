@@ -36,37 +36,35 @@ export const Signup = () => {
       });
   };
 
-  // const receiveEmail = async () => {
-  //   await userAPI
-  //     .post('/verify', { email: emailRef.current.value })
-  //     .then((res) => {
-  //       TIMER();
-  //       console.log(res);
-  //       alert('인증번호 발송 성공!');
-  //     })
-
-  //     .catch((err) => {
-  //       console.log('인증번호 전송 에러', err);
-  //       window.alert('인증번호 전송 실패!');
-  //     });
-  // };
-
   const receiveEmail = async () => {
     await userAPI
-      .post('/user/64c7cf7ef90997b06730cb82/guestbook', {
-        content: '안녕하세용 호호',
-      })
+      .post('/verify', { email: emailRef.current.value })
       .then((res) => {
         TIMER();
         console.log(res);
-        alert('방명록 성공!');
+        alert('인증번호 발송 성공!');
       })
 
       .catch((err) => {
-        console.log(' 에러', err);
-        window.alert('=실패!');
+        console.log('인증번호 전송 에러', err);
+        window.alert('인증번호 전송 실패!');
       });
   };
+
+  // const receiveEmail = async () => {
+  //   await userAPI
+  //     .get('/boards/64c81c748a631c0011be4610')
+  //     .then((res) => {
+  //       TIMER();
+  //       console.log(res);
+  //       alert(' 성공!');
+  //     })
+
+  //     .catch((err) => {
+  //       console.log(' 에러', err);
+  //       window.alert('=실패!');
+  //     });
+  // };
 
   //timer
   let PlAYTIME;
