@@ -15,7 +15,7 @@ const FloorFence = ({ myPlayer, postSpot }) => {
       }
     });
 
-    floorFence.position.set(0, 0, 0);
+    floorFence.position.set(-0.5, 0, -1.2);
   });
 
   return <primitive object={floorFence} dispose={null} />;

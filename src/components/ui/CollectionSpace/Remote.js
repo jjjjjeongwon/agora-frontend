@@ -21,7 +21,7 @@ const Remote = () => {
       new BoxGeometry(0.2, 0.2, 0.6),
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
-
+    mesh.name = 'Remote';
     mesh.castShadow = true;
     mesh.position.x = remote.position.x;
     mesh.position.y = remote.position.y;

@@ -26,7 +26,57 @@ const House = () => {
         position={[-15, 0, -18]}
         scale={[4, 4, 4]}
         rotation={[0, Math.PI / 2, 0]}
-        object={scene}
+        object={scene.clone()}
+        dispose={null}
+      />
+      <primitive name={'house'} castShadow object={house} dispose={null} />
+      <primitive
+        castShadow
+        receiveShadow
+        position={[15, 0, -18]}
+        scale={[4, 4, 4]}
+        rotation={[0, -Math.PI / 2, 0]}
+        object={scene.clone()}
+        dispose={null}
+      />
+      <primitive name={'house'} castShadow object={house} dispose={null} />
+      <primitive
+        castShadow
+        receiveShadow
+        position={[15, 0, 0]}
+        scale={[4, 4, 4]}
+        rotation={[0, -Math.PI / 2, 0]}
+        object={scene.clone()}
+        dispose={null}
+      />
+      <primitive name={'house'} castShadow object={house} dispose={null} />
+      <primitive
+        castShadow
+        receiveShadow
+        position={[-15, 0, 0]}
+        scale={[4, 4, 4]}
+        rotation={[0, Math.PI / 2, 0]}
+        object={scene.clone()}
+        dispose={null}
+      />
+      <primitive name={'house'} castShadow object={house} dispose={null} />
+      <primitive
+        castShadow
+        receiveShadow
+        position={[15, 0, 18]}
+        scale={[4, 4, 4]}
+        rotation={[0, -Math.PI / 2, 0]}
+        object={scene.clone()}
+        dispose={null}
+      />
+      <primitive name={'house'} castShadow object={house} dispose={null} />
+      <primitive
+        castShadow
+        receiveShadow
+        position={[-15, 0, 18]}
+        scale={[4, 4, 4]}
+        rotation={[0, Math.PI / 2, 0]}
+        object={scene.clone()}
         dispose={null}
       />
       <primitive name={'house'} castShadow object={house} dispose={null} />

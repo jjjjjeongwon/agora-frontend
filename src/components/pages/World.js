@@ -35,7 +35,7 @@ const World = () => {
   const roomName = useParams().id;
   const canvasRef = useRef();
   const containerRef = useRef();
-
+  const glRef = useRef();
   //state
   const [myPlayer, setMyPlayer] = useState({});
   const [isCollectionVisible, setIsColletionVisible] = useState(false);
@@ -67,17 +67,9 @@ const World = () => {
   // };
 
   useEffect(() => {
-    // return () => {
-    //   containerRef.current.appendChild(gl.domElement);
-    //   if (containerRef.current) {
-    //     containerRef.current.removeChild(gl.domElement);
-    //   }
-    // };
-  }, []);
-  useEffect(() => {
     if (
-      Math.abs(gameSpot.x - myPlayer.x) < 1.5 &&
-      Math.abs(gameSpot.z - myPlayer.z) < 1.5
+      Math.abs(gameSpot.x - myPlayer.x) < 1 &&
+      Math.abs(gameSpot.z - myPlayer.z) < 1
     ) {
       setIsColletionVisible(true);
       navigate('/collectionspace/1');
@@ -105,24 +97,24 @@ const World = () => {
             autoUpdate: true,
             type: THREE.PCFSoftShadowMap,
           }}
-          // camera={{
-          //   fov: 45,
-          //   aspect: aspectRatio,
-          //   near: 0.1,
-          //   far: 1000,
-          //   position: [0, 1.7, 26],
-          // }}
-          orthographic
           camera={{
-            zoom: 50,
-            position: [1, 5, 5],
-            left: -1 * aspectRatio,
-            right: 1 * aspectRatio,
-            top: 1,
-            bottom: -1,
-            near: -1000,
+            fov: 45,
+            aspect: aspectRatio,
+            near: 0.1,
             far: 1000,
+            position: [0, 1.7, 26],
           }}
+          // orthographic
+          // camera={{
+          //   zoom: 50,
+          //   position: [1, 5, 5],
+          //   left: -1 * aspectRatio,
+          //   right: 1 * aspectRatio,
+          //   top: 1,
+          //   bottom: -1,
+          //   near: -1000,
+          //   far: 1000,
+          // }}
         >
           <EnvSky />
           <Light />

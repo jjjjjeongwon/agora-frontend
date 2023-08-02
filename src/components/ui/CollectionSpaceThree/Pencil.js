@@ -1,11 +1,11 @@
-import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
-import { CylinderGeometry, MeshBasicMaterial } from "three";
-import * as THREE from "three";
+import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import React, { useEffect } from 'react';
+import { CylinderGeometry, MeshBasicMaterial } from 'three';
+import * as THREE from 'three';
 
 const Pencil = () => {
-  const glb = useGLTF("../models/pencil/cup_with_pencils.glb");
+  const glb = useGLTF('../models/pencil/cup_with_pencils.glb');
   const pencil = glb.scene.children[0];
   const { scene } = useThree();
 
@@ -29,10 +29,11 @@ const Pencil = () => {
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
-        color: "white",
+        color: 'white',
         side: THREE.DoubleSide,
       })
     );
+    mesh.name = 'pencil';
     mesh.castShadow = true;
 
     mesh.position.x = pencil.position.x;

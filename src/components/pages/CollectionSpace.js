@@ -47,17 +47,17 @@ const CollectionSpace = () => {
   const [myPlayer, setMyPlayer] = useState({});
   const [isLocked, setIsLocked] = useState(false);
 
-  // useEffect(() => {
-  //   if (
-  //     Math.abs(doorSpot.x - myPlayer.x) < 1.5 &&
-  //     Math.abs(doorSpot.z - myPlayer.z) < 1.5
-  //   ) {
-  //     setIsColletionVisible(true);
-  //     navigate('/world');
-  //   } else {
-  //     setIsColletionVisible(false);
-  //   }
-  // }, [doorSpot]);
+  useEffect(() => {
+    if (
+      Math.abs(doorSpot.x - myPlayer.x) < 1 &&
+      Math.abs(doorSpot.z - myPlayer.z) < 1
+    ) {
+      setIsColletionVisible(true);
+      navigate('/world');
+    } else {
+      setIsColletionVisible(false);
+    }
+  }, [doorSpot]);
   return (
     <div
       style={{

@@ -22,21 +22,18 @@ const Camera = () => {
     camera.scale.y = 0.0003;
     camera.scale.z = 0.0003;
     const mesh = new THREE.Mesh(
-      new BoxGeometry(0.1, 0.2, 0.3),
+      new BoxGeometry(0.3, 0.4, 0.5),
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
         side: THREE.DoubleSide,
       })
     );
-
+    mesh.name = 'camera';
     mesh.castShadow = true;
     mesh.position.x = camera.position.x;
-    mesh.position.y = camera.position.y + 0.1;
+    mesh.position.y = camera.position.y;
     mesh.position.z = camera.position.z;
-    mesh.rotation.x = camera.rotation.x;
-    mesh.rotation.y = camera.rotation.y;
-    mesh.rotation.z = camera.rotation.z;
     scene.add(mesh);
   });
   return <primitive object={camera} dispose={null} />;

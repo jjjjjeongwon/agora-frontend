@@ -61,9 +61,6 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
   };
 
   const handleClick = (e) => {
-    mouse.x = 0;
-    mouse.y = 0;
-    console.log(mouse.x, mouse.y);
     checkIntersects();
   };
 

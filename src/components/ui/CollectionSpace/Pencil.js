@@ -20,7 +20,7 @@ const Pencil = () => {
     pencil.position.set(-3.3, 1.855, -4.4);
 
     const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.05, 0.05, 0.05, 32),
+      new CylinderGeometry(0.1, 0.1, 0.2, 32),
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
@@ -28,8 +28,9 @@ const Pencil = () => {
         side: THREE.DoubleSide,
       })
     );
+    mesh.name = 'pencil';
     mesh.castShadow = true;
-    mesh.position.set(-3.3, 2, -4.4);
+    mesh.position.set(-3.3, 1.9, -4.4);
     scene.add(mesh);
   });
   return <primitive object={pencil} dispose={null} />;

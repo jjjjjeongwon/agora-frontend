@@ -38,9 +38,6 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
 
   const handleClick = (e) => {
     controls.lock();
-    mouse.x = 0;
-    mouse.y = 0;
-    console.log(mouse.x, mouse.y);
     checkIntersects();
     setIsLocked(true);
   };
