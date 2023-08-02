@@ -45,8 +45,8 @@ const World = () => {
   const joinExit = useRecoilValue(JoinExitState);
 
   //spots
-  const gameSpot = { x: -12, y: 0.005, z: -17 };
-  const postSpot = { x: 10, y: 0.005, z: 5 };
+  const mySpot = { x: -12, y: 0.005, z: -17 };
+  const friendSpot1 = { x: -12, y: 0.005, z: 17 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -68,15 +68,19 @@ const World = () => {
 
   useEffect(() => {
     if (
-      Math.abs(gameSpot.x - myPlayer.x) < 1 &&
-      Math.abs(gameSpot.z - myPlayer.z) < 1
+      Math.abs(mySpot.x - myPlayer.x) < 1 &&
+      Math.abs(mySpot.z - myPlayer.z) < 1
     ) {
-      setIsColletionVisible(true);
+      // setIsColletionVisible(true);
       navigate('/collectionspace/1');
-    } else {
-      setIsColletionVisible(false);
+    } else if (
+      Math.abs(friendSpot1.x - myPlayer.x) < 1 &&
+      Math.abs(friendSpot1.z - myPlayer.z) < 1
+    ) {
+      // setIsColletionVisible(false);
+      navigate('/collectionspace_three');
     }
-  }, [gameSpot, myPlayer]);
+  }, [myPlayer]);
 
   return (
     <div
@@ -97,34 +101,34 @@ const World = () => {
             autoUpdate: true,
             type: THREE.PCFSoftShadowMap,
           }}
-          camera={{
-            fov: 45,
-            aspect: aspectRatio,
-            near: 0.1,
-            far: 1000,
-            position: [0, 1.7, 26],
-          }}
-          // orthographic
           // camera={{
-          //   zoom: 50,
-          //   position: [1, 5, 5],
-          //   left: -1 * aspectRatio,
-          //   right: 1 * aspectRatio,
-          //   top: 1,
-          //   bottom: -1,
-          //   near: -1000,
+          //   fov: 45,
+          //   aspect: aspectRatio,
+          //   near: 0.1,
           //   far: 1000,
+          //   position: [0, 1.7, 26],
           // }}
+          orthographic
+          camera={{
+            zoom: 50,
+            position: [1, 5, 5],
+            left: -1 * aspectRatio,
+            right: 1 * aspectRatio,
+            top: 1,
+            bottom: -1,
+            near: -1000,
+            far: 1000,
+          }}
         >
           <EnvSky />
           <Light />
-          <Spot spot={gameSpot} />
-          <Spot spot={postSpot} />
+          <Spot spot={mySpot} />
+          <Spot spot={friendSpot1} />
           <House />
           <FloorFence />
           <Tree />
           <GuestBook />
-          {/* <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} /> */}
+          {/* <PostOfficeBox myPlayer={myPlayer} friendSpot1={friendSpot1} /> */}
           <Floor />
           <Player
             roomName={roomName}

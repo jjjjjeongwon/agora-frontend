@@ -1,13 +1,15 @@
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, Float } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import React, { useEffect } from 'react';
-import { CylinderGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
 const Pencil = () => {
-  const glb = useGLTF('../models/pencil/cup_with_pencils.glb');
+  const glb = useGLTF('../models/pencil/cartoon_notebook__pencil.glb');
   const pencil = glb.scene.children[0];
   const { scene } = useThree();
+
+  const pointGeometry = new THREE.CylinderGeometry(0.08, 0, 0.15, 32);
+  const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
 
   useEffect(() => {
     if (!pencil) return;
@@ -18,15 +20,13 @@ const Pencil = () => {
       }
     });
 
-    pencil.position.x = -2.5;
-    pencil.position.y = 1.84;
-    pencil.position.z = 4;
-    pencil.scale.x = 0.17;
-    pencil.scale.y = 0.17;
-    pencil.scale.z = 0.17;
+    pencil.position.set(-4.2, 1.25, -5);
+    pencil.scale.x = 0.004;
+    pencil.scale.y = 0.004;
+    pencil.scale.z = 0.004;
     const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.05, 0.05, 0.05, 32),
-      new MeshBasicMaterial({
+      new THREE.BoxGeometry(1, 1, 1),
+      new THREE.MeshBasicMaterial({
         transparent: true,
         opacity: 0,
         color: 'white',
@@ -34,17 +34,29 @@ const Pencil = () => {
       })
     );
     mesh.name = 'pencil';
-    mesh.castShadow = true;
 
     mesh.position.x = pencil.position.x;
-    mesh.position.y = pencil.position.y + 0.1;
+    mesh.position.y = pencil.position.y;
     mesh.position.z = pencil.position.z;
-    mesh.rotation.x = pencil.rotation.x;
-    mesh.rotation.y = pencil.rotation.y;
-    mesh.rotation.z = pencil.rotation.z;
     scene.add(mesh);
   });
-  return <primitive object={pencil} dispose={null} />;
+  return (
+    <>
+      <Float
+        speed={10}
+        rotationIntensity={0.1}
+        floatIntensity={0.01}
+        floatingRange={[0, 0.1]}
+      >
+        <mesh
+          position={[-4.2, 1.55, -5]}
+          geometry={pointGeometry}
+          material={pointMaterial}
+        />
+      </Float>
+      <primitive object={pencil} dispose={null} />
+    </>
+  );
 };
 
 export default Pencil;
