@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LoginSignupTitle = () => {
-  return <LoginText>PoLY WoRLD</LoginText>;
+  const navigate = useNavigate();
+  return <LoginText onClick={() => navigate('/login')}>PoLY WoRLD</LoginText>;
 };
 
 const LoginText = styled.div`

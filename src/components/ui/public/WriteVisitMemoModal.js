@@ -38,25 +38,24 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
       });
   };
 
-  // 모달 끄기
-  // useEffect(() => {
-  //   console.log('ddd');
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // });
+  //모달 끄기
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
 
-  // const handleClickOutside = (event) => {
-  //   if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-  //     props.setLetterModalOpen(false);
-  //   }
-  // };
+  const handleClickOutside = (event) => {
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      props.setPencilModalOpen(false);
+      props.setPencil(false);
+    }
+  };
 
   return (
     <>
-      {/* <Container ref={wrapperRef}> */}
-      <Container>
+      <Container ref={wrapperRef}>
         <ListTitle>guest book</ListTitle>
         <VisitListTitle>Content</VisitListTitle>
 

@@ -15,7 +15,7 @@ function Scene() {
     <mesh>
       <planeGeometry args={[5, 3]} />
       <Suspense fallback={<FallbackMaterial url="../images/test.jpeg" />}>
-        <VideoMaterial url="../videos/birthday.mp4" />
+        <VideoMaterial url="../videos/princessVideo.mp4" />
       </Suspense>
     </mesh>
   );
