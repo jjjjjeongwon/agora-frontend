@@ -8,7 +8,7 @@ const Pencil = () => {
   const pencil = glb.scene.children[0];
   const { scene } = useThree();
 
-  const pointGeometry = new THREE.CylinderGeometry(0.08, 0, 0.15, 32);
+  const pointGeometry = new THREE.CylinderGeometry(0.12, 0, 0.28, 32);
   const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Pencil = () => {
         floatingRange={[0, 0.1]}
       >
         <mesh
-          position={[-4.2, 1.55, -5]}
+          position={[-4.2, 1.7, -5]}
           geometry={pointGeometry}
           material={pointMaterial}
         />

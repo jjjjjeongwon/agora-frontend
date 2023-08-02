@@ -1,4 +1,4 @@
-import { useGLTF } from '@react-three/drei';
+import { Float, useGLTF } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import React, { useEffect } from 'react';
 import { BoxGeometry, MeshBasicMaterial } from 'three';
@@ -9,6 +9,8 @@ const Camera = () => {
   //   const glb = useGLTF('../models/cartoon_furniture.glb');
   const camera = glb.scene.children[0];
   const { scene } = useThree();
+  const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
+  const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
   useEffect(() => {
     if (!camera) return;
 
@@ -36,7 +38,23 @@ const Camera = () => {
     mesh.position.z = camera.position.z;
     scene.add(mesh);
   });
-  return <primitive object={camera} dispose={null} />;
+  return (
+    <>
+      <Float
+        speed={10}
+        rotationIntensity={0.1}
+        floatIntensity={0.01}
+        floatingRange={[0, 0.1]}
+      >
+        <mesh
+          position={[-2, 1.7, 4]}
+          geometry={pointGeometry}
+          material={pointMaterial}
+        />
+      </Float>
+      <primitive object={camera} dispose={null} />
+    </>
+  );
 };
 
 export default Camera;
