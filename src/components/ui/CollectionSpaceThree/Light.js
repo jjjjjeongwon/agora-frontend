@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { useThree } from "@react-three/fiber";
+import { useEffect, useRef } from 'react';
+import { useThree } from '@react-three/fiber';
 
 const Light = () => {
   const three = useThree();
@@ -19,8 +19,8 @@ const Light = () => {
   }, []);
   return (
     <>
-      <ambientLight color={"white"} intensity={0.7} />
-      <directionalLight ref={lightRef} castShadow position={[0, 5, 0]} />
+      <ambientLight color={'white'} intensity={0.7} />
+      <directionalLight ref={lightRef} castShadow position={[1, 5, 3]} />
     </>
   );
 };

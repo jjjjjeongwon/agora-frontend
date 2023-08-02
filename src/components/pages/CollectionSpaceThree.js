@@ -9,7 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import EnvSky from '../ui/CollectionSpace/EnvSky';
 import EnvStars from '../ui/CollectionSpace/EnvStars';
 import Floor from '../ui/CollectionSpaceThree/Floor';
-import Light from '../ui/CollectionSpaceTwo/Light';
+import Light from '../ui/CollectionSpaceThree/Light';
 import Wall from '../ui/CollectionSpaceThree/Wall';
 import Player from '../ui/CollectionSpace/Player';
 import Spot from '../ui/World/3Dcanvas/Spot';

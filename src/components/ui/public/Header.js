@@ -27,7 +27,7 @@ const Header = () => {
         World
       </Logo>
       <Wrap>
-        <NickName>{nickname}</NickName>
+        <NickName>UUJEEN</NickName>
         <IconWrap>
           <Logout>
             <HoverWrap color="white" hoverColor="#BCC9C6">

@@ -6,7 +6,7 @@ const RoomHonorAlert = ({ roomHonor }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
-    }, 3000); // 2초 후에 사라짐
+    }, 5000); // 2초 후에 사라짐
 
     // 컴포넌트가 unmount될 때 timer를 정리해주어야 합니다.
     return () => clearTimeout(timer);
@@ -17,12 +17,12 @@ const RoomHonorAlert = ({ roomHonor }) => {
   }
   return (
     <>
-      <Container $visible={visible}>
-        <img src="/images/alertPurple.png" alt="" />
+      <Container visible={visible}>
+        <img src="/images/campfireAlert.png" alt="" />
         <TextBox>
           UUJEEN님의 맵에 오신것을 환영합니다!
           <br />
-          WASD를 조작해 자유롭게 이동해보세요!
+          방향키를 조작해 자유롭게 이동해보세요
         </TextBox>
       </Container>
     </>
@@ -39,9 +39,9 @@ const fadeOut = keyframes`
 `;
 
 const Container = styled.div`
-  width: 360px;
+  width: 420px;
   height: 120px;
-  top: 4%;
+  top: 8%;
   left: 35%;
   /* background-color: transparent; */
   position: absolute;
@@ -54,19 +54,19 @@ const Container = styled.div`
   ${(props) =>
     props.visible
       ? css`
-          animation: ${fadeOut} 3s linear;
+          animation: ${fadeOut} 5s linear;
         `
       : ''}
 `;
 
 const TextBox = styled.div`
-  font-size: 20px;
+  font-size: 22px;
   font-family: 'jua';
   font-weight: 700;
-  color: white;
+  color: #393232;
   position: absolute;
-  top: 55%;
-  left: 11%;
+  top: 28%;
+  left: 8%;
 `;
 
 export default RoomHonorAlert;
