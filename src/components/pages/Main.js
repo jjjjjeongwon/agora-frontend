@@ -25,20 +25,16 @@ const Main = () => {
           </AccessButton>
         </Location>
       </LogoContainer>
-
-      <HomeICon>
-        <img src="/images/home.png" alt="" />
-      </HomeICon>
     </Container>
   );
 };
 
 const Container = styled.div`
-  margin: auto;
+  margin: 300px auto;
   width: 70%;
   display: flex;
-
-  padding: 120px 90px;
+  align-items: center;
+  justify-content: center;
 `;
 
 const LogoContainer = styled.div`
@@ -50,6 +46,8 @@ const Location = styled.div`
 `;
 
 const ButtonBackground = styled.div`
+  /* left: 30px ; */
+  margin-left: 40px;
   position: absolute;
   width: 200px;
   height: 60px;
@@ -63,6 +61,7 @@ const ButtonBackground = styled.div`
 const AccessButton = styled.div`
   cursor: pointer;
   font-family: 'luckiest guy';
+  margin-left: 40px;
   top: 5px;
   display: flex;
   align-items: center;

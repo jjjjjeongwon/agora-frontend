@@ -29,6 +29,12 @@ export const NickNameState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const IdState = atom({
+  key: 'IdState',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const JoinExitState = atom({
   key: 'JoinExitState',
   default: {},

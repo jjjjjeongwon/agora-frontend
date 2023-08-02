@@ -26,6 +26,7 @@ import FloorFence from '../ui/World/3Dcanvas/FloorFence';
 import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
 import { OrbitControls } from '@react-three/drei';
 import Header from '../ui/public/Header';
+import userAPI from '../../apis/userAPI';
 import FriendsModal from '../ui/public/FriendsModal';
 
 const World = () => {
@@ -48,6 +49,22 @@ const World = () => {
   const postSpot = { x: 10, y: 0.005, z: 5 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
+
+  // const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await userAPI.get(`/user/${userId}/content`);
+
+  //     console.log('서버 응답:', response.data);
+
+  //     // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+  //   } catch (error) {
+  //     console.error('서버 오류:', error);
+  //   }
+  // };
 
   useEffect(() => {
     // return () => {

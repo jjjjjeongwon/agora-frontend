@@ -19,7 +19,7 @@ const LoginText = styled.div`
   justify-content: center;
   text-align: center;
   align-items: center;
-  margin: 40px auto 20px;
+  margin: 40px auto 100px;
   cursor: pointer;
 
   img {

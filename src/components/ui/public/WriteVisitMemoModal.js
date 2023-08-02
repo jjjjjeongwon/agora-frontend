@@ -8,14 +8,14 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
 
   const [content, setContent] = useState('');
   const roomHost = useParams().id;
-  const email = JSON.parse(sessionStorage.getItem('isLogin'))[
-    'LoginEmailState'
-  ];
+  // const email = JSON.parse(sessionStorage.getItem('isLogin'))[
+  //   'LoginEmailState'
+  // ];
 
   console.log(roomHost);
 
   const visitData = {
-    email: email,
+    // email: email,
     content: content,
   };
 
