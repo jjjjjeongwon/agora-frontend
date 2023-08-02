@@ -41,7 +41,7 @@ function Player({
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(scene.children);
     for (const item of intersects) {
-      console.log(item.object.name);
+      // console.log(item.object.name);
       if (item.object.name === 'image_5') {
         setAlbum(true);
       }

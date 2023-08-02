@@ -20,7 +20,7 @@ const RoomHonorAlert = ({ roomHonor }) => {
       <Container $visible={visible}>
         <img src="/images/alertPurple.png" alt="" />
         <TextBox>
-          UUGEEN님의 맵에 오신것을 환영합니다!
+          UUJEEN님의 맵에 오신것을 환영합니다!
           <br />
           WASD를 조작해 자유롭게 이동해보세요!
         </TextBox>

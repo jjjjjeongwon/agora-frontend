@@ -28,6 +28,7 @@ import { OrbitControls } from '@react-three/drei';
 import Header from '../ui/public/Header';
 import userAPI from '../../apis/userAPI';
 import FriendsModal from '../ui/public/FriendsModal';
+import Road from '../ui/World/3Dcanvas/Road';
 
 const World = () => {
   //route
@@ -45,8 +46,9 @@ const World = () => {
   const joinExit = useRecoilValue(JoinExitState);
 
   //spots
-  const mySpot = { x: -12, y: 0.005, z: -17 };
-  const friendSpot1 = { x: -12, y: 0.005, z: 17 };
+  const mySpot = { x: -11, y: 0.005, z: -17 };
+  const friendSpot1 = { x: -12, y: 0.005, z: 20 };
+  const waveSpot = { x: 0, y: 0.005, z: -26 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -79,6 +81,12 @@ const World = () => {
     ) {
       // setIsColletionVisible(false);
       navigate('/collectionspace_three');
+    } else if (
+      Math.abs(waveSpot.x - myPlayer.x) < 1 &&
+      Math.abs(waveSpot.z - myPlayer.z) < 1
+    ) {
+      // setIsColletionVisible(false);
+      navigate('/collectionspace_two');
     }
   }, [myPlayer]);
 
@@ -101,29 +109,31 @@ const World = () => {
             autoUpdate: true,
             type: THREE.PCFSoftShadowMap,
           }}
-          // camera={{
-          //   fov: 45,
-          //   aspect: aspectRatio,
-          //   near: 0.1,
-          //   far: 1000,
-          //   position: [0, 1.7, 26],
-          // }}
-          orthographic
           camera={{
-            zoom: 50,
-            position: [1, 5, 5],
-            left: -1 * aspectRatio,
-            right: 1 * aspectRatio,
-            top: 1,
-            bottom: -1,
-            near: -1000,
+            fov: 45,
+            aspect: aspectRatio,
+            near: 0.1,
             far: 1000,
+            position: [0, 1.7, 26],
           }}
+          // orthographic
+          // camera={{
+          //   zoom: 50,
+          //   position: [1, 5, 5],
+          //   left: -1 * aspectRatio,
+          //   right: 1 * aspectRatio,
+          //   top: 1,
+          //   bottom: -1,
+          //   near: -1000,
+          //   far: 1000,
+          // }}
         >
           <EnvSky />
           <Light />
           <Spot spot={mySpot} />
           <Spot spot={friendSpot1} />
+          <Spot spot={waveSpot} />
+          <Road />
           <House />
           <FloorFence />
           <Tree />
