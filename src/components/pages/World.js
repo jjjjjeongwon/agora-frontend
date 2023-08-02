@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 //components
 import EnvSky from '../ui/World/3Dcanvas/EnvSky';
 import Floor from '../ui/World/3Dcanvas/Floor';
-import Player from '../ui/CollectionSpace/Player copy';
+// import Player from '../ui/CollectionSpace/Player copy';
+import Player from '../ui/CollectionSpace/Player';
 import Light from '../ui/World/3Dcanvas/Light';
 import Spot from '../ui/World/3Dcanvas/Spot';
 // global state
@@ -26,6 +27,8 @@ import ImageCollection from '../ui/World/3Dcanvas/ImageCollection';
 import FloorFence from '../ui/World/3Dcanvas/FloorFence';
 import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
 import { OrbitControls } from '@react-three/drei';
+import Header from '../ui/public/Header';
+import FriendsModal from '../ui/public/FriendsModal';
 
 const World = () => {
   //route
@@ -78,7 +81,7 @@ const World = () => {
         background: '#000',
       }}
     >
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={null}>
         <Canvas
           ref={canvasRef}
           gl={{ antialias: true }}
@@ -92,7 +95,7 @@ const World = () => {
             aspect: aspectRatio,
             near: 0.1,
             far: 1000,
-            position: [0, 2, 5],
+            position: [0, 10, 10],
           }}
           // orthographic
           // camera={{
@@ -111,13 +114,12 @@ const World = () => {
           <Spot spot={gameSpot} />
           <Spot spot={postSpot} />
           <House />
-          {/* <ImageCollection /> */}
-          {/* <Gallery /> */}
+          <ImageCollection />
           <FloorFence />
           <Tree />
           <GuestBook />
-          {/* <VideoPlane /> */}
-          {/* <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} /> */}
+          <VideoPlane />
+          <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} />
           <Floor />
           <Player
             roomName={roomName}
@@ -125,40 +127,12 @@ const World = () => {
             setIsLocked={setIsLocked}
             isLocked={isLocked}
           />
-          <OrbitControls
-            enableDamping
-            minDistance={5}
-            maxDistance={15}
-            enablePan={false}
-            maxPolarAngle={Math.PI / 2 - 0.05}
-          />
         </Canvas>
       </Suspense>
-      {/* <VisitListWriteModal /> */}
-      <CrossHair isLocked={isLocked} />
       <RoomHonorAlert />
+      <Header />
+      {/* <FriendsModal /> */}
     </div>
   );
 };
-
-const CrossHair = styled.div`
-  ${({ isLocked }) => {
-    return css`
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 2px;
-      height: 2px;
-      background: #f00;
-      border: 10px solid #fff;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 10000;
-      visibility: ${isLocked
-        ? 'visible'
-        : 'hidden'}; // initial visibility is hidden
-    `;
-  }}
-`;
-
 export default World;
