@@ -12,7 +12,7 @@ const Camera = () => {
     if (!camera) return;
 
     camera.position.x = -5;
-    camera.position.y = 1.85;
+    camera.position.y = 1.4;
     camera.position.z = 3.3;
     camera.scale.x = 0.1;
     camera.scale.y = 0.1;
