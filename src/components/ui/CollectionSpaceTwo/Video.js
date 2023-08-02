@@ -1,6 +1,6 @@
-import * as THREE from "three";
-import { Suspense } from "react";
-import { useAspect, useVideoTexture, useTexture } from "@react-three/drei";
+import * as THREE from 'three';
+import { Suspense } from 'react';
+import { useAspect, useVideoTexture, useTexture } from '@react-three/drei';
 
 const Video = () => {
   return (
@@ -22,7 +22,7 @@ function Scene() {
 }
 
 function VideoMaterial({ url }) {
-  const texture = useVideoTexture(url);
+  const texture = useVideoTexture(url, { aspect: 16 / 9 });
   return (
     <meshBasicMaterial
       map={texture}

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 //components
 import EnvSky from '../ui/World/3Dcanvas/EnvSky';
 import Floor from '../ui/World/3Dcanvas/Floor';
-// import Player from '../ui/CollectionSpace/Player copy';
 import Player from '../ui/CollectionSpace/Player';
 import Light from '../ui/World/3Dcanvas/Light';
 import Spot from '../ui/World/3Dcanvas/Spot';
@@ -18,7 +17,6 @@ import RoomHonorAlert from '../layout/World/RoomHonorAlert';
 import House from '../ui/World/3Dcanvas/House';
 import PostOfficeBox from '../ui/World/3Dcanvas/PostOfficeBox';
 import styled, { css } from 'styled-components';
-import Gallery from '../ui/World/3Dcanvas/Gallery';
 import VideoPlane from '../ui/World/3Dcanvas/VideoPlane';
 import LoadingSpinner from '../ui/public/LoadingSpinner';
 import GuestBook from '../ui/World/3Dcanvas/GuestBook';
@@ -46,16 +44,16 @@ const World = () => {
   const joinExit = useRecoilValue(JoinExitState);
 
   //spots
-  const gameSpot = { x: 5, y: 0.005, z: 5 };
+  const gameSpot = { x: -12, y: 0.005, z: -17 };
   const postSpot = { x: 10, y: 0.005, z: 5 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
 
   useEffect(() => {
     // return () => {
-    //   containerRef.current.appendChild(.domElement);
+    //   containerRef.current.appendChild(gl.domElement);
     //   if (containerRef.current) {
-    //     containerRef.current.removeChild(canvasRef.domElement);
+    //     containerRef.current.removeChild(gl.domElement);
     //   }
     // };
   }, []);
@@ -65,7 +63,7 @@ const World = () => {
       Math.abs(gameSpot.z - myPlayer.z) < 1.5
     ) {
       setIsColletionVisible(true);
-      navigate('/collectionspace');
+      navigate('/collectionspace/1');
     } else {
       setIsColletionVisible(false);
     }
@@ -81,7 +79,7 @@ const World = () => {
         background: '#000',
       }}
     >
-      <Suspense fallback={null}>
+      <Suspense fallback={<LoadingSpinner />}>
         <Canvas
           ref={canvasRef}
           gl={{ antialias: true }}
@@ -90,36 +88,34 @@ const World = () => {
             autoUpdate: true,
             type: THREE.PCFSoftShadowMap,
           }}
-          camera={{
-            fov: 45,
-            aspect: aspectRatio,
-            near: 0.1,
-            far: 1000,
-            position: [0, 10, 10],
-          }}
-          // orthographic
           // camera={{
-          //   zoom: 50,
-          //   position: [1, 5, 5],
-          //   left: -1 * aspectRatio,
-          //   right: 1 * aspectRatio,
-          //   top: 1,
-          //   bottom: -1,
-          //   near: -1000,
+          //   fov: 45,
+          //   aspect: aspectRatio,
+          //   near: 0.1,
           //   far: 1000,
+          //   position: [0, 1.7, 26],
           // }}
+          orthographic
+          camera={{
+            zoom: 50,
+            position: [1, 5, 5],
+            left: -1 * aspectRatio,
+            right: 1 * aspectRatio,
+            top: 1,
+            bottom: -1,
+            near: -1000,
+            far: 1000,
+          }}
         >
           <EnvSky />
           <Light />
           <Spot spot={gameSpot} />
           <Spot spot={postSpot} />
           <House />
-          <ImageCollection />
           <FloorFence />
           <Tree />
           <GuestBook />
-          <VideoPlane />
-          <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} />
+          {/* <PostOfficeBox myPlayer={myPlayer} postSpot={postSpot} /> */}
           <Floor />
           <Player
             roomName={roomName}
@@ -131,8 +127,29 @@ const World = () => {
       </Suspense>
       <RoomHonorAlert />
       <Header />
+      <CrossHair isLocked={isLocked} />
       {/* <FriendsModal /> */}
     </div>
   );
 };
+
+const CrossHair = styled.div`
+  ${({ isLocked }) => {
+    return css`
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 2px;
+      background: #f00;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      visibility: ${isLocked
+        ? 'visible'
+        : 'hidden'}; // initial visibility is hidden
+    `;
+  }}
+`;
 export default World;
