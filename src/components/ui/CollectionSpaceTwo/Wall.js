@@ -1,15 +1,16 @@
-import * as THREE from "three";
-import { useLoader } from "@react-three/fiber";
-import { Html, Text, Svg } from "@react-three/drei";
+import * as THREE from 'three';
+import { useLoader } from '@react-three/fiber';
+import { Html, Text, Svg } from '@react-three/drei';
 const Wall = () => {
-  const floorTexture = useLoader(THREE.TextureLoader, "../images/grid.png");
+  const floorTexture = useLoader(THREE.TextureLoader, '../images/grid.png');
   floorTexture.wrapS = THREE.RepeatWrapping;
   floorTexture.wrapT = THREE.RepeatWrapping;
 
   const geometry = new THREE.BoxGeometry(13, 6, 1);
   const material = new THREE.MeshStandardMaterial({
-    color: "#C2B499",
+    color: '#C2B499',
     side: THREE.DoubleSide,
+    metalness: 0.2,
   });
 
   return (

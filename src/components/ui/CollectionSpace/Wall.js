@@ -10,6 +10,7 @@ const Wall = () => {
   const material = new THREE.MeshStandardMaterial({
     color: '#DDD9DC',
     side: THREE.DoubleSide,
+    metalness: 0.2,
   });
 
   return (
