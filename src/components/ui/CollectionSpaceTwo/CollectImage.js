@@ -7,12 +7,26 @@ const CollectImage = () => {
   const geometry = new THREE.PlaneGeometry(0.85, 1.25);
   const material = new THREE.MeshStandardMaterial({ map: image });
   return (
+    <>
     <mesh
       position={[-5.38, 3.9, -3.05]}
       rotation={[0, Math.PI / 2, 0]}
       geometry={geometry}
       material={material}
     ></mesh>
+    <mesh
+      position={[-5.38, 3.9, -3.05]}
+      rotation={[0, Math.PI / 2, 0]}
+      geometry={geometry}
+      material={material}
+    ></mesh>
+    <mesh
+      position={[-5.38, 3.9, -3.05]}
+      rotation={[0, Math.PI / 2, 0]}
+      geometry={geometry}
+      material={material}
+    ></mesh>
+    </>
   );
 };
 

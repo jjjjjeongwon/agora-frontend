@@ -14,7 +14,10 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
     left: false,
     right: false,
   });
-
+  const roomBoundary = {
+    min: { x: -5, y: 0, z: -5 },
+    max: { x: 5, y: 2, z: 5 },
+  };
   // raycaster
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
@@ -125,15 +128,48 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
 
   useFrame((delta) => {
     if (isLocked) {
+      // 플레이어가 이동할 위치를 계산합니다.
+      const newPosition = { ...camera.position };
+
+      // 각 방향으로의 이동을 검사합니다.
       if (keys.up) {
-        controls.moveForward(speed);
-      } else if (keys.down) {
-        controls.moveForward(-speed);
+        newPosition.z -= speed;
+        if (
+          newPosition.z >= roomBoundary.min.z &&
+          newPosition.z <= roomBoundary.max.z
+        ) {
+          controls.moveForward(speed);
+        }
       }
+
+      if (keys.down) {
+        newPosition.z += speed;
+        if (
+          newPosition.z >= roomBoundary.min.z &&
+          newPosition.z <= roomBoundary.max.z
+        ) {
+          controls.moveForward(-speed);
+        }
+      }
+
       if (keys.left) {
-        controls.moveRight(-speed);
-      } else if (keys.right) {
-        controls.moveRight(speed);
+        newPosition.x -= speed;
+        if (
+          newPosition.x >= roomBoundary.min.x &&
+          newPosition.x <= roomBoundary.max.x
+        ) {
+          controls.moveRight(-speed);
+        }
+      }
+
+      if (keys.right) {
+        newPosition.x += speed;
+        if (
+          newPosition.x >= roomBoundary.min.x &&
+          newPosition.x <= roomBoundary.max.x
+        ) {
+          controls.moveRight(speed);
+        }
       }
     }
   });

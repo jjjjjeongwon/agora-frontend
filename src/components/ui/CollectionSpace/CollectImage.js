@@ -8,7 +8,7 @@ const CollectImage = () => {
   const material = new THREE.MeshStandardMaterial({ map: image });
   return (
     <mesh
-      position={[-5.38, 3.9, -3.05]}
+      position={[-5.38, 3.9, -0.5]}
       rotation={[0, Math.PI / 2, 0]}
       geometry={geometry}
       material={material}

@@ -1,35 +1,36 @@
-import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
-import { Preload } from "@react-three/drei";
-import { useState, useEffect, useRef, Suspense } from "react";
-import styled, { css } from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
+import * as THREE from 'three';
+import { Canvas } from '@react-three/fiber';
+import { Preload } from '@react-three/drei';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import styled, { css } from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // Components
-import EnvSky from "../ui/CollectionSpace/EnvSky";
-import EnvStars from "../ui/CollectionSpace/EnvStars";
-import Floor from "../ui/CollectionSpaceThree/Floor";
-import Light from "../ui/CollectionSpaceTwo/Light";
-import Wall from "../ui/CollectionSpaceThree/Wall";
-import Player from "../ui/CollectionSpace/Player";
-import Spot from "../ui/World/3Dcanvas/Spot";
-import Door from "../ui/CollectionSpace/Door";
-import Video from "../ui/CollectionSpaceTwo/Video";
-import Tv from "../ui/CollectionSpaceTwo/Tv";
-import ImageFrame from "../ui/CollectionSpace/ImageFrame";
-import CollectImage from "../ui/CollectionSpace/CollectImage";
-import VisitText from "../ui/CollectionSpace/VisitText";
-import VisitCard from "../ui/CollectionSpace/VisitCard";
-import Bed from "../ui/CollectionSpaceThree/Bed";
-import Table from "../ui/CollectionSpaceThree/Table";
-import Camera from "../ui/CollectionSpaceTwo/Camera";
-import TvTable from "../ui/CollectionSpaceThree/TvTable";
-import Remote from "../ui/CollectionSpaceTwo/Remote";
-import Lug from "../ui/CollectionSpaceTwo/Lug";
-import Pencil from "../ui/CollectionSpaceTwo/Pencil";
-import Window from "../ui/CollectionSpaceThree/Window";
-import Closet from "../ui/CollectionSpaceThree/Closet";
-import Mirror from "../ui/CollectionSpaceThree/Mirror";
+import EnvSky from '../ui/CollectionSpace/EnvSky';
+import EnvStars from '../ui/CollectionSpace/EnvStars';
+import Floor from '../ui/CollectionSpaceThree/Floor';
+import Light from '../ui/CollectionSpaceTwo/Light';
+import Wall from '../ui/CollectionSpaceThree/Wall';
+import Player from '../ui/CollectionSpace/Player';
+import Spot from '../ui/World/3Dcanvas/Spot';
+import Door from '../ui/CollectionSpace/Door';
+import Video from '../ui/CollectionSpaceTwo/Video';
+import Tv from '../ui/CollectionSpaceTwo/Tv';
+import ImageFrame from '../ui/CollectionSpaceThree/ImageFrame';
+import CollectImage from '../ui/CollectionSpaceThree/CollectImage';
+import VisitText from '../ui/CollectionSpace/VisitText';
+import VisitCard from '../ui/CollectionSpace/VisitCard';
+import Bed from '../ui/CollectionSpaceThree/Bed';
+import Table from '../ui/CollectionSpaceThree/Table';
+import Camera from '../ui/CollectionSpaceTwo/Camera';
+import TvTable from '../ui/CollectionSpaceThree/TvTable';
+import Remote from '../ui/CollectionSpaceThree/Remote';
+import Rabbit from '../ui/CollectionSpaceThree/Rabbit';
+import Lug from '../ui/CollectionSpaceTwo/Lug';
+import Pencil from '../ui/CollectionSpaceTwo/Pencil';
+import Window from '../ui/CollectionSpaceThree/Window';
+import Closet from '../ui/CollectionSpaceThree/Closet';
+import Mirror from '../ui/CollectionSpaceThree/Mirror';
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -56,10 +57,10 @@ const CollectionSpaceThree = () => {
   return (
     <div
       style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        background: "#000",
+        position: 'relative',
+        width: '100vw',
+        height: '100vh',
+        background: '#000',
       }}
     >
       <Suspense fallback={null}>
@@ -90,6 +91,7 @@ const CollectionSpaceThree = () => {
           //   far: 1000,
           // }}
         >
+          <Rabbit />
           <EnvSky />
           <EnvStars />
           <Light />
@@ -142,8 +144,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? "visible"
-        : "hidden"}; // initial visibility is hidden
+        ? 'visible'
+        : 'hidden'}; // initial visibility is hidden
     `;
   }}
 `;
