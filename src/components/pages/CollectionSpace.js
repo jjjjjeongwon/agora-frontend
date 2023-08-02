@@ -113,7 +113,7 @@ const CollectionSpace = () => {
             aspect: aspect,
             near: 0.1,
             far: 100,
-            position: [2, 2, -4],
+            position: [2, 2.6, -4],
             zoom: 0.5,
           }}
           // orthographic
@@ -139,7 +139,7 @@ const CollectionSpace = () => {
           <CollectImage />
           <ImageFrame />
           <VisitText />
-          <VisitCard />
+          {/* <VisitCard /> */}
           <Camera />
           <TopLight />
           <Chair />
