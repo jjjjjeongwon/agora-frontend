@@ -2,23 +2,24 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import userAPI from '../../../apis/userAPI';
 
-const UploadVideoModal = () => {
-  // let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
+const UploadVideoModal = forwardRef((props, ref) => {
+  let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
 
-  // // 모달 끄기
-  // useEffect(() => {
-  //   console.log('ddd');
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // });
+  // 모달 끄기
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
 
-  // const handleClickOutside = (event) => {
-  //   if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-  //     props.setLetterModalOpen(false);
-  //   }
-  // };
+  const handleClickOutside = (event) => {
+    console.log(event);
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      props.setVideoModalOpen(false);
+      props.setVideoRemote(false);
+    }
+  };
   const [file, setFile] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
   // const userEmail = JSON.parse(sessionStorage.getItem('isLogin'))[
@@ -63,7 +64,7 @@ const UploadVideoModal = () => {
 
   return (
     <>
-      <Container onSubmit={handleSubmit}>
+      <Container ref={wrapperRef} onSubmit={handleSubmit}>
         <VisitListTitle>Video</VisitListTitle>
         <Content>
           <input
@@ -78,7 +79,7 @@ const UploadVideoModal = () => {
       </Container>
     </>
   );
-};
+});
 
 const Container = styled.form`
   width: 460px;

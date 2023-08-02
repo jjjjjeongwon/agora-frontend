@@ -6,19 +6,19 @@ const ViewImagePostModal = forwardRef((props, ref) => {
   let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
 
   // 모달 끄기
-  //   useEffect(() => {
-  //     console.log('ddd');
-  //     document.addEventListener('mousedown', handleClickOutside);
-  //     return () => {
-  //       document.removeEventListener('mousedown', handleClickOutside);
-  //     };
-  //   });
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
 
-  //   const handleClickOutside = (event) => {
-  //     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-  //       props.setLetterModalOpen(false);
-  //     }
-  //   };
+  const handleClickOutside = (event) => {
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      props.setAlbumModalOpen(false);
+      props.setAlbum(false);
+    }
+  };
 
   const [errorMsg, setErrorMsg] = useState('');
   const [file, setFile] = useState(null);
@@ -69,17 +69,17 @@ const ViewImagePostModal = forwardRef((props, ref) => {
 
   return (
     <>
-      <Container onSubmit={handleSubmit}>
+      <Container ref={wrapperRef} onSubmit={handleSubmit}>
         <PhotoPreview>
           <img src="/images/sample.png" alt="" />
         </PhotoPreview>
-        <CustomTitle>플레이 리스트!</CustomTitle>
+        <CustomTitle>나의 플레이 리스트 :)</CustomTitle>
 
         {/* <TitleName>contents</TitleName> */}
         <InputTitle>
-          가구/인테리어 인테리어소품 액자 퍼즐/그림/사진액자. 아트공간 3D 입체
-          관액자 5x7 우드. 로그인 필수 정보 가구/인테리어 인테리어소품 액자
-          퍼즐/그림/사진액자. 아트공간 3D 입체 관액자 5x7 우드. 로그인 필수 정보
+          제 플레이 리스트 사진입니다
+          <br />
+          어떤가용?! 놀러가고 싶다
         </InputTitle>
       </Container>
     </>

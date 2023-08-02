@@ -15,7 +15,7 @@ const VisitCard = () => {
     mesh.position.set(-3.2, 5, -5.5);
     mesh.rotation.set(0, Math.PI * 2, 0);
   });
-  return <primitive object={mesh} dispose={null} />;
+  return <primitive name={'visit_post'} object={mesh} dispose={null} />;
 };
 
 export default VisitCard;

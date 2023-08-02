@@ -1,6 +1,6 @@
-import * as THREE from "three";
-import { Suspense } from "react";
-import { useAspect, useVideoTexture, useTexture } from "@react-three/drei";
+import * as THREE from 'three';
+import { Suspense } from 'react';
+import { useAspect, useVideoTexture, useTexture } from '@react-three/drei';
 
 const Video = () => {
   return (
@@ -15,7 +15,7 @@ function Scene() {
     <mesh>
       <planeGeometry args={[5, 3]} />
       <Suspense fallback={<FallbackMaterial url="../images/test.jpeg" />}>
-        <VideoMaterial url="../videos/birthday.mp4" />
+        <VideoMaterial url="../videos/tvVideo.mp4" />
       </Suspense>
     </mesh>
   );

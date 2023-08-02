@@ -5,20 +5,19 @@ import userAPI from '../../../apis/userAPI';
 const UploadImagePostModal = forwardRef((props, ref) => {
   let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
 
-  // 모달 끄기
-  //   useEffect(() => {
-  //     console.log('ddd');
-  //     document.addEventListener('mousedown', handleClickOutside);
-  //     return () => {
-  //       document.removeEventListener('mousedown', handleClickOutside);
-  //     };
-  //   });
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
 
-  //   const handleClickOutside = (event) => {
-  //     if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-  //       props.setLetterModalOpen(false);
-  //     }
-  //   };
+  const handleClickOutside = (event) => {
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      props.setUploadImageModalOpen(false);
+      props.setCamera(false);
+    }
+  };
 
   const [errorMsg, setErrorMsg] = useState('');
   const [file, setFile] = useState(null);
@@ -73,7 +72,7 @@ const UploadImagePostModal = forwardRef((props, ref) => {
 
   return (
     <>
-      <Container onSubmit={handleSubmit}>
+      <Container ref={wrapperRef} onSubmit={handleSubmit}>
         <CustomTitle>Photo</CustomTitle>
         <TitleName>Photo</TitleName>
         {/* <FlexPhoto> */}

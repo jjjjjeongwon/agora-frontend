@@ -46,6 +46,39 @@ const CollectionSpace = () => {
 
   const [myPlayer, setMyPlayer] = useState({});
   const [isLocked, setIsLocked] = useState(false);
+  const [album, setAlbum] = useState(false);
+  const [camera, setCamera] = useState(false);
+  const [pencil, setPencil] = useState(false);
+  const [visitMemo, setVisitMemo] = useState(false);
+  const [videoRemote, setVideoRemote] = useState(false);
+
+  const [albumModalOpen, setAlbumModalOpen] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [uploadImageModalOpen, setUploadImageModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (album === true) {
+      setAlbumModalOpen(true);
+    } else {
+      setAlbumModalOpen(false);
+    }
+  }, [album]);
+
+  useEffect(() => {
+    if (camera === true) {
+      setUploadImageModalOpen(true);
+    } else {
+      setUploadImageModalOpen(false);
+    }
+  }, [camera]);
+
+  useEffect(() => {
+    if (videoRemote === true) {
+      setVideoModalOpen(true);
+    } else {
+      setVideoModalOpen(false);
+    }
+  }, [videoRemote]);
 
   useEffect(() => {
     if (
@@ -122,12 +155,33 @@ const CollectionSpace = () => {
             setMyPlayer={setMyPlayer}
             setIsLocked={setIsLocked}
             isLocked={isLocked}
+            setAlbum={setAlbum}
+            setCamera={setCamera}
+            setPencil={setPencil}
+            setVisitMemo={setVisitMemo}
+            setVideoRemote={setVideoRemote}
           />
         </Canvas>
       </Suspense>
-      {/* <UploadVideoModal /> */}
-      {/* <UploadImagePostModal /> */}
-      {/* <ViewImagePostModal /> */}
+      {uploadImageModalOpen && (
+        <UploadImagePostModal
+          setCamera={setCamera}
+          setUploadImageModalOpen={setUploadImageModalOpen}
+        />
+      )}
+
+      {videoModalOpen && (
+        <UploadVideoModal
+          setVideoRemote={setVideoRemote}
+          setVideoModalOpen={setVideoModalOpen}
+        />
+      )}
+      {albumModalOpen && (
+        <ViewImagePostModal
+          setAlbumModalOpen={setAlbumModalOpen}
+          setAlbum={setAlbum}
+        />
+      )}
       {/* <WriteVisitMemoModal /> */}
       <CrossHair isLocked={isLocked} />
     </div>

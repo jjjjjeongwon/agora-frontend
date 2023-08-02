@@ -31,6 +31,7 @@ const VisitText = () => {
   return (
     <>
       <mesh
+        name="visit_text"
         ref={meshRef}
         geometry={geometry}
         material={material}

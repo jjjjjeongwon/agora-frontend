@@ -3,7 +3,16 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
-function Player({ setMyPlayer, setIsLocked, isLocked }) {
+function Player({
+  setMyPlayer,
+  setIsLocked,
+  isLocked,
+  setAlbum,
+  setCamera,
+  setPencil,
+  setVisitMemo,
+  setVideoRemote,
+}) {
   const { camera, gl, scene, clock } = useThree();
 
   // culling 효과 true
@@ -33,6 +42,21 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
     const intersects = raycaster.intersectObjects(scene.children);
     for (const item of intersects) {
       console.log(item.object.name);
+      if (item.object.name === 'image_5') {
+        setAlbum(true);
+      }
+      if (item.object.name === 'camera') {
+        setCamera(true);
+      }
+      if (item.object.name === 'pencil') {
+        setPencil(true);
+      }
+      if (item.object.name === 'visit_post') {
+        setVisitMemo(true);
+      }
+      if (item.object.name === 'Remote') {
+        setVideoRemote(true);
+      }
     }
   };
 
