@@ -21,13 +21,15 @@ import CollectImage from "../ui/CollectionSpace/CollectImage";
 import VisitText from "../ui/CollectionSpace/VisitText";
 import VisitCard from "../ui/CollectionSpace/VisitCard";
 import Bed from "../ui/CollectionSpaceThree/Bed";
-import Table from "../ui/CollectionSpaceTwo/Table";
+import Table from "../ui/CollectionSpaceThree/Table";
 import Camera from "../ui/CollectionSpaceTwo/Camera";
-import TvTable from "../ui/CollectionSpaceTwo/TvTable";
+import TvTable from "../ui/CollectionSpaceThree/TvTable";
 import Remote from "../ui/CollectionSpaceTwo/Remote";
 import Lug from "../ui/CollectionSpaceTwo/Lug";
 import Pencil from "../ui/CollectionSpaceTwo/Pencil";
-import Window from "../ui/CollectionSpaceTwo/Window";
+import Window from "../ui/CollectionSpaceThree/Window";
+import Closet from "../ui/CollectionSpaceThree/Closet";
+import Mirror from "../ui/CollectionSpaceThree/Mirror";
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -102,12 +104,14 @@ const CollectionSpaceThree = () => {
           <VisitCard />
           {/* <Camera /> */}
           {/* <Pencil /> */}
-          {/* <Table /> */}
+          <Table />
           <Bed />
           <Door />
           <Video />
           <Wall />
           <Window />
+          <Closet />
+          {/* <Mirror /> */}
           <Spot spot={doorSpot} />
           <Player
             roomName={roomName}

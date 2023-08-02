@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { BoxGeometry, PlaneGeometry, MeshBasicMaterial } from "three";
 import * as THREE from "three";
 const Table = () => {
-  const glb = useGLTF("../models/table/desk.glb");
+  const glb = useGLTF("../models/table/dressing_table.glb");
   const table = glb.scene.children[0];
   useEffect(() => {
     if (!table) return;
@@ -15,11 +15,11 @@ const Table = () => {
       }
     });
     // table.position.y = 0;
-    table.position.set(-2.3, 1, 4.3);
-    table.rotation.z = Math.PI / 2;
-    table.scale.x = 2;
-    table.scale.y = 2;
-    table.scale.z = 2;
+    table.position.set(-4.6, 1.2, -4.9);
+
+    table.scale.x = 0.02;
+    table.scale.y = 0.02;
+    table.scale.z = 0.0255;
   }, []);
 
   return (

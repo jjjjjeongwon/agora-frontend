@@ -5,18 +5,18 @@ import { BoxGeometry, MeshBasicMaterial } from "three";
 import * as THREE from "three";
 
 const Window = () => {
-  const glb = useGLTF("../models/window/window.glb");
+  const glb = useGLTF("../models/window/double_door_window.glb");
   const _window = glb.scene.children[0];
   const { scene } = useThree();
   useEffect(() => {
     if (!_window) return;
 
-    _window.position.x = 0;
-    _window.position.y = 3;
-    _window.position.z = 8;
-    _window.scale.x = 2;
-    _window.scale.y = 3;
-    _window.scale.z = 2;
+    _window.position.x = 1.5;
+    _window.position.y = 2.3;
+    _window.position.z = 5.5;
+    _window.scale.x = 0.015;
+    _window.scale.y = 0.06;
+    _window.scale.z = 0.01;
     _window.rotation.z = Math.PI;
     // _window.rotation.z = Math.PI / 2;
     const mesh = new THREE.Mesh(

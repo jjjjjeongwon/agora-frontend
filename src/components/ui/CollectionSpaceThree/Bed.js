@@ -16,7 +16,7 @@ const Bed = () => {
       }
     });
     // bed.position.y = 0;
-    bed.position.set(-3, 0, 3);
+    bed.position.set(-3.65, 0, 3);
     // bed.position.set(0, 0, 0);
     bed.rotation.z = -Math.PI / 2;
     bed.scale.x = 1;
