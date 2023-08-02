@@ -109,24 +109,24 @@ const World = () => {
             autoUpdate: true,
             type: THREE.PCFSoftShadowMap,
           }}
-          camera={{
-            fov: 45,
-            aspect: aspectRatio,
-            near: 0.1,
-            far: 1000,
-            position: [0, 1.7, 26],
-          }}
-          // orthographic
           // camera={{
-          //   zoom: 50,
-          //   position: [1, 5, 5],
-          //   left: -1 * aspectRatio,
-          //   right: 1 * aspectRatio,
-          //   top: 1,
-          //   bottom: -1,
-          //   near: -1000,
+          //   fov: 45,
+          //   aspect: aspectRatio,
+          //   near: 0.1,
           //   far: 1000,
+          //   position: [0, 1.7, 26],
           // }}
+          orthographic
+          camera={{
+            zoom: 50,
+            position: [1, 5, 5],
+            left: -1 * aspectRatio,
+            right: 1 * aspectRatio,
+            top: 1,
+            bottom: -1,
+            near: -1000,
+            far: 1000,
+          }}
         >
           <EnvSky />
           <Light />

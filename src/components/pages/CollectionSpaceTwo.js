@@ -37,7 +37,7 @@ import Plant from '../ui/CollectionSpaceTwo/Plant';
 
 const CollectionSpaceTwo = () => {
   const aspect = window.innerWidth / window.innerHeight;
-  const doorSpot = { x: 2.1, y: 0.1, z: -5 };
+  const doorSpot = { x: 2.1, y: 0.1, z: -6 };
   const roomName = useParams().id;
   const navigate = useNavigate();
 
