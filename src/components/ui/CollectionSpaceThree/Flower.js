@@ -4,23 +4,23 @@ import React, { useEffect } from "react";
 import { BoxGeometry, MeshBasicMaterial } from "three";
 import * as THREE from "three";
 
-const CafeTable = () => {
-  const glb = useGLTF("../models/table/low_low_poly_table.glb");
-  const cafeTable = glb.scene.children[0];
+const Flower = () => {
+  const glb = useGLTF("../models/flower/flower_pot.glb");
+  const flower = glb.scene.children[0];
   const { scene } = useThree();
 
   useEffect(() => {
-    if (!cafeTable) return;
+    if (!flower) return;
     glb.scene.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = true;
         child.receiveShadow = true;
       }
     });
-    cafeTable.position.set(0.8, 0, -0.8);
-    cafeTable.scale.set(0.2, 0.2, 0.2);
+    flower.position.set(0.8, 1.2, -0.8);
+    flower.scale.set(0.2, 0.2, 0.2);
   });
-  return <primitive object={cafeTable} dispose={null} />;
+  return <primitive object={flower} dispose={null} />;
 };
 
-export default CafeTable;
+export default Flower;

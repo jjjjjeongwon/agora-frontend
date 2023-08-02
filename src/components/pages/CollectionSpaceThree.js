@@ -1,39 +1,40 @@
-import * as THREE from 'three';
-import { Canvas } from '@react-three/fiber';
-import { Preload } from '@react-three/drei';
-import { useState, useEffect, useRef, Suspense } from 'react';
-import styled, { css } from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
+import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import { Preload } from "@react-three/drei";
+import { useState, useEffect, useRef, Suspense } from "react";
+import styled, { css } from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
 
 // Components
-import EnvSky from '../ui/CollectionSpace/EnvSky';
-import EnvStars from '../ui/CollectionSpace/EnvStars';
-import Floor from '../ui/CollectionSpaceThree/Floor';
-import Light from '../ui/CollectionSpaceThree/Light';
-import Wall from '../ui/CollectionSpaceThree/Wall';
-import Player from '../ui/CollectionSpace/Player';
-import Spot from '../ui/World/3Dcanvas/Spot';
-import Door from '../ui/CollectionSpace/Door';
-import Video from '../ui/CollectionSpaceTwo/Video';
-import Tv from '../ui/CollectionSpaceTwo/Tv';
-import ImageFrame from '../ui/CollectionSpaceThree/ImageFrame';
-import CollectImage from '../ui/CollectionSpaceThree/CollectImage';
-import VisitText from '../ui/CollectionSpaceThree/VisitText';
-import VisitCard from '../ui/CollectionSpaceThree/VisitCard';
-import Bed from '../ui/CollectionSpaceThree/Bed';
-import Table from '../ui/CollectionSpaceThree/Table';
-import Camera from '../ui/CollectionSpaceThree/Camera';
-import TvTable from '../ui/CollectionSpaceThree/TvTable';
-import Remote from '../ui/CollectionSpaceThree/Remote';
-import Rabbit from '../ui/CollectionSpaceThree/Rabbit';
-import Lug from '../ui/CollectionSpaceTwo/Lug';
-import Pencil from '../ui/CollectionSpaceThree/Pencil';
-import Window from '../ui/CollectionSpaceThree/Window';
-import Closet from '../ui/CollectionSpaceThree/Closet';
-import Mirror from '../ui/CollectionSpaceThree/Mirror';
-import Piano from '../ui/CollectionSpaceThree/Piano';
-import CafeTable from '../ui/CollectionSpaceThree/CafeTable';
-import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
+import EnvSky from "../ui/CollectionSpace/EnvSky";
+import EnvStars from "../ui/CollectionSpace/EnvStars";
+import Floor from "../ui/CollectionSpaceThree/Floor";
+import Light from "../ui/CollectionSpaceThree/Light";
+import Wall from "../ui/CollectionSpaceThree/Wall";
+import Player from "../ui/CollectionSpace/Player";
+import Spot from "../ui/World/3Dcanvas/Spot";
+import Door from "../ui/CollectionSpace/Door";
+import Video from "../ui/CollectionSpaceTwo/Video";
+import Tv from "../ui/CollectionSpaceTwo/Tv";
+import ImageFrame from "../ui/CollectionSpaceThree/ImageFrame";
+import CollectImage from "../ui/CollectionSpaceThree/CollectImage";
+import VisitText from "../ui/CollectionSpaceThree/VisitText";
+import VisitCard from "../ui/CollectionSpaceThree/VisitCard";
+import Bed from "../ui/CollectionSpaceThree/Bed";
+import Table from "../ui/CollectionSpaceThree/Table";
+import Camera from "../ui/CollectionSpaceThree/Camera";
+import TvTable from "../ui/CollectionSpaceThree/TvTable";
+import Remote from "../ui/CollectionSpaceThree/Remote";
+import Rabbit from "../ui/CollectionSpaceThree/Rabbit";
+import Lug from "../ui/CollectionSpaceTwo/Lug";
+import Pencil from "../ui/CollectionSpaceThree/Pencil";
+import Window from "../ui/CollectionSpaceThree/Window";
+import Closet from "../ui/CollectionSpaceThree/Closet";
+import Mirror from "../ui/CollectionSpaceThree/Mirror";
+import Piano from "../ui/CollectionSpaceThree/Piano";
+import CafeTable from "../ui/CollectionSpaceThree/CafeTable";
+import WriteVisitMemoModal from "../ui/public/WriteVisitMemoModal";
+import Flower from "../ui/CollectionSpaceThree/Flower";
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -67,7 +68,7 @@ const CollectionSpaceThree = () => {
       Math.abs(doorSpot.z - myPlayer.z) < 1.5
     ) {
       setIsColletionVisible(true);
-      navigate('/world');
+      navigate("/world");
     } else {
       setIsColletionVisible(false);
     }
@@ -75,10 +76,10 @@ const CollectionSpaceThree = () => {
   return (
     <div
       style={{
-        position: 'relative',
-        width: '100vw',
-        height: '100vh',
-        background: '#000',
+        position: "relative",
+        width: "100vw",
+        height: "100vh",
+        background: "#000",
       }}
     >
       <Suspense fallback={null}>
@@ -120,7 +121,7 @@ const CollectionSpaceThree = () => {
           <CollectImage />
           <ImageFrame />
           <VisitText />
-          <VisitCard />
+          {/* <VisitCard /> */}
           <Camera />
           <Pencil />
           <Table />
@@ -132,6 +133,7 @@ const CollectionSpaceThree = () => {
           <Closet />
           <Piano />
           <CafeTable />
+          <Flower />
           {/* <Mirror /> */}
           <Spot spot={doorSpot} />
           <Player
@@ -176,8 +178,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? 'visible'
-        : 'hidden'}; // initial visibility is hidden
+        ? "visible"
+        : "hidden"}; // initial visibility is hidden
     `;
   }}
 `;

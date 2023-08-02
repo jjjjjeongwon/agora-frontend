@@ -1,10 +1,10 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import { BoxGeometry, PlaneGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import { BoxGeometry, PlaneGeometry, MeshBasicMaterial } from "three";
+import * as THREE from "three";
 const Table = () => {
-  const glb = useGLTF('../models/table/dressing_table.glb');
+  const glb = useGLTF("../models/table/dressing_table.glb");
   const table = glb.scene.children[0];
   useEffect(() => {
     if (!table) return;
@@ -26,7 +26,7 @@ const Table = () => {
     <>
       <mesh castShadow name="chair" position={[-4.5, 1, -5]}>
         <boxGeometry args={[2, 0.3, 1]} />
-        <meshStandardMaterial color={'white'} transparent opacity={0} />
+        <meshStandardMaterial color={"white"} transparent opacity={0} />
       </mesh>
       <mesh
         castShadow
@@ -36,7 +36,7 @@ const Table = () => {
       >
         <planeGeometry args={[3, 1]} />
         <meshStandardMaterial
-          color={'white'}
+          color={"white"}
           transparent
           opacity={1}
           side={THREE.DoubleSide}

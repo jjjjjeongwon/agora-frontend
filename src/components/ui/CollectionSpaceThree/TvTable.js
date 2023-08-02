@@ -1,10 +1,10 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import { BoxGeometry, MeshBasicMaterial } from "three";
+import * as THREE from "three";
 const TvTable = () => {
-  const glb = useGLTF('../models/table/white_tv_table.glb');
+  const glb = useGLTF("../models/table/white_tv_table.glb");
   const tvTable = glb.scene.children[0];
   const { scene } = useThree();
 
@@ -17,7 +17,7 @@ const TvTable = () => {
       }
     });
     // tvTable.position.y = 0;
-    tvTable.position.set(4.75, 0.1, 2.36);
+    tvTable.position.set(4.75, -0.1, 2.36);
     tvTable.scale.x = 0.025;
     tvTable.scale.y = 0.03;
     tvTable.scale.z = 0.045;
@@ -34,7 +34,7 @@ const TvTable = () => {
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
-        color: 'white',
+        color: "white",
         side: THREE.DoubleSide,
       })
     );

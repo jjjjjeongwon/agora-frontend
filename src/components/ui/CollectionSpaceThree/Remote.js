@@ -1,11 +1,11 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import { BoxGeometry, MeshBasicMaterial } from "three";
+import * as THREE from "three";
 
 const Remote = () => {
-  const glb = useGLTF('../models/remote/tv_remote.glb');
+  const glb = useGLTF("../models/remote/tv_remote.glb");
   const remote = glb.scene.children[0];
   const { scene } = useThree();
 
@@ -14,7 +14,7 @@ const Remote = () => {
     glb.scene.traverse((child) => {
       if (child.isMesh) child.castShadow = true;
     });
-    remote.position.set(4.4, 1.6, 2);
+    remote.position.set(4.4, 1.4, 2);
     remote.scale.set(0.03, 0.03, 0.03);
 
     const mesh = new THREE.Mesh(
