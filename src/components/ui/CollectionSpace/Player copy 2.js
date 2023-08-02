@@ -1,15 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useAnimations } from '@react-three/drei';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 useGLTF.preload('../models/ilbuni.glb');
 function Player({ setMyPlayer, setIsLocked, isLocked }) {
   const { camera, gl, scene } = useThree();
 
-  const glb = useGLTF('../models/ilbuni.glb');
-  const model = useRef(glb.scene);
+  // const glb = useGLTF('../models/ilbuni.glb');
+  const { nodes, animations } = useGLTF('../models/ilbuni.glb');
+  const model = useRef();
+  // console.log(nodes);
+  model.current = nodes.Scene;
+  // model = glb.scene;
   model.current.position.y = 0.5;
+
+  const { actions, names, mixer } = useAnimations(animations, model);
+  console.log(actions);
 
   const controlsRef = useRef();
   if (!controlsRef.current) {
@@ -94,23 +101,23 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
     return directionOffset;
   };
 
-  useEffect(() => {
-    if (model.current) {
-      mixerRef.current = new THREE.AnimationMixer(model.current);
-      const actionIdle = mixerRef.current.clipAction(glb.animations[0]);
-      const actionWalk = mixerRef.current.clipAction(glb.animations[1]);
+  // useEffect(() => {
+  //   if (model.current) {
+  //     mixerRef.current = new THREE.AnimationMixer(model.current);
+  //     const actionIdle = mixerRef.current.clipAction(glb.animations[0]);
+  //     const actionWalk = mixerRef.current.clipAction(glb.animations[1]);
 
-      model.current.animations = [actionIdle, actionWalk];
-    }
-  }, [model, glb]);
+  //     model.current.animations = [actionIdle, actionWalk];
+  //   }
+  // }, [model, glb]);
 
   useEffect(() => {
     if (!model.current) return;
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-      }
-    });
+    // glb.scene.traverse((child) => {
+    //   if (child.isMesh) {
+    //     child.castShadow = true;
+    //   }
+    // });
 
     const keyDownHandler = (e) => {
       switch (e.code) {
@@ -184,8 +191,8 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
   useFrame((delta) => {
     // mixerRef.current.update(delta);
     if (isPressed) {
-      model.current.animations[1].play(); // start walk animation
-      model.current.animations[0].stop(); // stop idle animation
+      // model.current.animations[1].play(); // start walk animation
+      // model.current.animations[0].stop(); // stop idle animation
 
       let angleYCameraDirection = Math.atan2(
         camera.position.x - model.current.position.x,
@@ -207,9 +214,13 @@ function Player({ setMyPlayer, setIsLocked, isLocked }) {
       model.current.position.x += moveX;
       model.current.position.z += moveZ;
       updateCameraTarget(moveX, moveZ);
+      actions[names[0]].stop();
+      actions[names[1]].play();
     } else {
-      model.current.animations[0].play(); // start idle animation
-      model.current.animations[1].stop(); // stop walk animation
+      actions[names[1]].stop();
+      actions[names[0]].play();
+      // model.current.animations[0].play(); // start idle animation
+      // model.current.animations[1].stop(); // stop walk animation
     }
   });
   return <primitive object={model.current} dispose={null} />;
