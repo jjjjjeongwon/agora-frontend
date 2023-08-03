@@ -60,10 +60,10 @@ const Login = () => {
   // };
 
   const checkLogin = async () => {
-    Swal.fire({
-      title: `반갑습니다!`,
-      confirmButtonColor: '#0e72ed',
-    });
+    // Swal.fire({
+    //   title: `반갑습니다!`,
+    //   confirmButtonColor: '#0e72ed',
+    // });
     navigate('/world');
   };
   return (
