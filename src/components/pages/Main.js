@@ -1,34 +1,71 @@
 //packages
 import React from 'react';
-import { styled } from 'styled-components';
+import { styled, keyframes } from 'styled-components';
 
 //route
 import { useNavigate } from 'react-router-dom';
 
-//components
-import LoginSignupTitle from '../ui/public/LoginSignupTitle';
-
 const Main = () => {
   const navigate = useNavigate();
   return (
-    <Container>
-      <LogoContainer>
-        <LoginSignupTitle>PoLY WoRD </LoginSignupTitle>
-        <Location>
-          <ButtonBackground />
-          <AccessButton
-            onClick={() => {
-              navigate('/login');
-            }}
-          >
-            START
-          </AccessButton>
-        </Location>
-      </LogoContainer>
-    </Container>
+    <MainContainer>
+      <Container>
+        <LogoContainer>
+          <Title>PoLY WoRD </Title>
+          <Location>
+            <ButtonBackground />
+            <AccessButton
+              onClick={() => {
+                navigate('/login');
+              }}
+            >
+              START
+            </AccessButton>
+          </Location>
+        </LogoContainer>
+      </Container>
+    </MainContainer>
   );
 };
 
+const rotationAnimation = keyframes`
+    from {
+        transform: rotate(-3deg);
+    } to{
+        transform: rotate(3deg);
+    }
+`;
+
+const MainContainer = styled.div`
+  background-image: url('/images/background_main.png');
+  background-size: cover;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Title = styled.div`
+  animation: ${rotationAnimation} 1s linear infinite alternate;
+  top: 20%;
+  color: white;
+  width: 300px;
+  height: 90px;
+  font-family: 'luckiest guy';
+
+  font-size: 140px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin: 40px auto 140px;
+  cursor: pointer;
+`;
 const Container = styled.div`
   margin: 300px auto;
   width: 70%;
