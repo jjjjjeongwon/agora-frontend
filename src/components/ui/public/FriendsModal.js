@@ -48,11 +48,10 @@ const FriendsModal = forwardRef((props, ref) => {
   //   };
   // });
 
-  // const handleClickOutside = (event) => {
-  //   if (wrapperRef && !wrapperRef.current.contains(event.target)) {
-  //     props.setLetterModalOpen(false);
-  //   }
-  // };
+  const handleClickOutside = () => {
+    props.setFriendModalOpen(false);
+    props.setFriend(false);
+  };
 
   const handleSearchEnter = (e) => {
     if (e.key === 'Enter') {
@@ -66,10 +65,10 @@ const FriendsModal = forwardRef((props, ref) => {
 
   return (
     <>
-      {/* <Container ref={wrapperRef}> */}
-      <Container>
+      <Container ref={wrapperRef}>
+        {/* <Container> */}
         <Wrap>
-          <IconX></IconX>
+          <IconX onClick={handleClickOutside}></IconX>
         </Wrap>
 
         <VisitListTitle>Search Email</VisitListTitle>
@@ -130,6 +129,7 @@ const IconX = styled.div`
   background-image: url('/images/xicon.png');
   background-size: cover;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const WrapSearch = styled.div`

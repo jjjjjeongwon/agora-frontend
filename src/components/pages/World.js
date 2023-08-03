@@ -43,7 +43,9 @@ const World = () => {
   const [myPlayer, setMyPlayer] = useState({});
   const [isCollectionVisible, setIsColletionVisible] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
+  const [friend, setFriend] = useState(false);
 
+  const [friendModalOpen, setFriendModalOpen] = useState(false);
   //globalState
   const joinExit = useRecoilValue(JoinExitState);
 
@@ -69,7 +71,15 @@ const World = () => {
   //     console.error('서버 오류:', error);
   //   }
   // };
+  console.log(friend);
 
+  useEffect(() => {
+    if (friend === true) {
+      setFriendModalOpen(true);
+    } else {
+      setFriendModalOpen(false);
+    }
+  }, [friend]);
   useEffect(() => {
     if (
       Math.abs(mySpot.x - myPlayer.x) < 1 &&
@@ -153,9 +163,14 @@ const World = () => {
         </Canvas>
       </Suspense>
       <RoomHonorAlert />
-      <Header />
+      <Header setFriend={setFriend} />
       <CrossHair isLocked={isLocked} />
-      {/* <FriendsModal /> */}
+      {friendModalOpen && (
+        <FriendsModal
+          setFriendModalOpen={setFriendModalOpen}
+          setFriend={setFriend}
+        />
+      )}
     </div>
   );
 };
