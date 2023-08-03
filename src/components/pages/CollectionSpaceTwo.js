@@ -18,8 +18,8 @@ import Door from '../ui/CollectionSpace/Door';
 import Video from '../ui/CollectionSpaceTwo/Video';
 import Tv from '../ui/CollectionSpaceTwo/Tv';
 import ImageFrame from '../ui/CollectionSpace/ImageFrame';
-import CollectImage from '../ui/CollectionSpace/CollectImage';
-import VisitText from '../ui/CollectionSpace/VisitText';
+import CollectImage from '../ui/CollectionSpaceTwo/CollectImage';
+import VisitText from '../ui/CollectionSpaceTwo/VisitText';
 import VisitCard from '../ui/CollectionSpace/VisitCard';
 import Bed from '../ui/CollectionSpaceTwo/Bed';
 import Table from '../ui/CollectionSpaceTwo/Table';
@@ -105,7 +105,7 @@ const CollectionSpaceTwo = () => {
           <CollectImage />
           <ImageFrame />
           <VisitText />
-          <VisitCard />
+          {/* <VisitCard /> */}
           <Camera />
           <Pencil />
           <Table />

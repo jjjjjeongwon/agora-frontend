@@ -284,12 +284,12 @@ const TagSelectWrap = styled.div`
 
 const TagImage = styled.img`
   background-color: transparent;
-  border-radius: 10px;
-  width: 45%;
-  height: 200px;
+  border-radius: 5px;
+  width: 75%;
+  height: 220px;
   object-fit: cover;
   margin-top: 2px;
-  margin-left: 40px;
+  /* margin-left: 40px; */
 `;
 
 const SelectPlaceDropBox = styled.select`
@@ -301,7 +301,7 @@ const SelectPlaceDropBox = styled.select`
   border-radius: 8px;
   padding: 0.5rem 1rem;
   box-sizing: border-box;
-  margin-right: 50px;
+  /* margin-right: 50px; */
   margin-bottom: 1rem;
 `;
 
