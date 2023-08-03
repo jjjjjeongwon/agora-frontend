@@ -81,14 +81,21 @@ const FriendsModal = forwardRef((props, ref) => {
             onKeyDown={handleSearchEnter}
           ></Search>
           <WrapSearch>
-            <SearchResult>psung9510</SearchResult>
-            <Plus></Plus>
+            {/* <SearchResult></SearchResult> */}
+            {/* <Plus></Plus> */}
           </WrapSearch>
         </Content>
         <VisitListTitle>Friends List</VisitListTitle>
 
         <Title>
-          <Friend></Friend>
+          <Friend>
+            <Name>JWON</Name>
+            <Button>GO</Button>
+          </Friend>
+          <Friend>
+            <Name>JUSang</Name>
+            <Button>GO</Button>
+          </Friend>
         </Title>
       </Container>
     </>
@@ -98,7 +105,7 @@ const FriendsModal = forwardRef((props, ref) => {
 const Container = styled.div`
   width: 380px;
   height: 550px;
-  right: 40%;
+  right: 10%;
   top: 5%;
   background-color: white;
   position: absolute;
@@ -185,10 +192,43 @@ const Content = styled.div`
 `;
 
 const Friend = styled.div`
+  justify-content: space-between;
+  padding-left: 25px;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  box-sizing: border-box;
   width: 98%;
   height: 50px;
-  background-color: #cecdc2;
+  background-color: #cfd0d3;
   /* border: 1px solid grey; */
-  border-radius: 15px;
+  border-radius: 25px;
 `;
+
+const Name = styled.div`
+  font-family: 'luckiest guy';
+  font-size: 20px;
+`;
+
+const Button = styled.div`
+  font-family: 'luckiest guy';
+
+  width: 50px;
+  height: 26px;
+  border-radius: 27px;
+  display: flex;
+  color: #36363a;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  background-color: transparent;
+  border: 1.2px solid #36363a;
+  cursor: pointer;
+  &:hover {
+    transition-duration: 0.3s;
+    background-color: white;
+  }
+`;
+
 export default FriendsModal;

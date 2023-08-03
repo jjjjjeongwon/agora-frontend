@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { NickNameState } from '../../../state/UserAtom';
 
-const Header = () => {
+const Header = ({ setFriend }) => {
   const navigate = useNavigate();
   const loginNickName = useRecoilValue(NickNameState);
 
@@ -29,7 +29,7 @@ const Header = () => {
       <Wrap>
         <NickName>UUJEEN</NickName>
         <IconWrap>
-          <Logout>
+          <Logout onClick={() => setFriend(true)}>
             <HoverWrap color="white" hoverColor="#BCC9C6">
               <TbUserSearch size={29} />
             </HoverWrap>

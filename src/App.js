@@ -14,6 +14,7 @@ import Test from './components/pages/Test';
 import GlobalWorld from './components/pages/GlobalWorld';
 import CollectionSpaceTwo from './components/pages/CollectionSpaceTwo';
 import CollectionSpaceThree from './components/pages/CollectionSpaceThree';
+import ImageEffect from './components/pages/ImageEffect';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path="/collectionspace/:id" element={<CollectionSpace />} />
       <Route path="/collectionspace_two" element={<CollectionSpaceTwo />} />
       <Route path="/collectionspace_three" element={<CollectionSpaceThree />} />
+      <Route path="/imageeffect" element={<ImageEffect />} />
     </Routes>
   );
 }
