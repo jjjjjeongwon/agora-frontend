@@ -115,7 +115,7 @@ const Container = styled.form`
   height: 43rem;
   right: 30%;
   /* bottom: 10%; */
-  top: 0;
+  top: 18%;
   /* background-color: transparent; */
   position: absolute;
   box-sizing: border-box;

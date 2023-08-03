@@ -163,30 +163,81 @@ const CollectionSpace = () => {
           />
         </Canvas>
       </Suspense>
-      {uploadImageModalOpen && (
-        <UploadImagePostModal
-          setCamera={setCamera}
-          setUploadImageModalOpen={setUploadImageModalOpen}
-        />
-      )}
 
-      {videoModalOpen && (
-        <UploadVideoModal
-          setVideoRemote={setVideoRemote}
-          setVideoModalOpen={setVideoModalOpen}
-        />
-      )}
-      {albumModalOpen && (
-        <ViewImagePostModal
-          setAlbumModalOpen={setAlbumModalOpen}
-          setAlbum={setAlbum}
-        />
-      )}
+      <ContainerImage uploadImageModalOpen={uploadImageModalOpen}>
+        {uploadImageModalOpen && (
+          <UploadImagePostModal
+            setCamera={setCamera}
+            setUploadImageModalOpen={setUploadImageModalOpen}
+          />
+        )}
+      </ContainerImage>
+      <ContainerRemote videoModalOpen={videoModalOpen}>
+        {videoModalOpen && (
+          <UploadVideoModal
+            setVideoRemote={setVideoRemote}
+            setVideoModalOpen={setVideoModalOpen}
+          />
+        )}
+      </ContainerRemote>
+
+      <ContainerVideo albumModalOpen={albumModalOpen}>
+        {albumModalOpen && (
+          <ViewImagePostModal
+            setAlbumModalOpen={setAlbumModalOpen}
+            setAlbum={setAlbum}
+          />
+        )}
+      </ContainerVideo>
       {/* <WriteVisitMemoModal /> */}
       <CrossHair isLocked={isLocked} />
     </div>
   );
 };
+
+const ContainerImage = styled.div`
+  ${({ uploadImageModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${uploadImageModalOpen ? 1 : -1};
+      background: ${uploadImageModalOpen
+        ? 'rgba(0, 0, 0, 0.4)'
+        : 'transparent'};
+    `;
+  }}
+`;
+
+const ContainerVideo = styled.div`
+  ${({ albumModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${albumModalOpen ? 1 : -1};
+      background: ${albumModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+    `;
+  }}
+`;
+
+const ContainerRemote = styled.div`
+  ${({ videoModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${videoModalOpen ? 1 : -1};
+      background: ${videoModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+    `;
+  }}
+`;
 const CrossHair = styled.div`
   ${({ isLocked }) => {
     return css`

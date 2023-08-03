@@ -87,11 +87,11 @@ const ViewImagePostModal = forwardRef((props, ref) => {
 });
 
 const Container = styled.form`
-  width: 440px;
-  height: 550px;
+  width: 520px;
+  height: 670px;
   right: 35%;
   /* bottom: 10%; */
-  top: 0px;
+  top: 5%;
   /* background-color: transparent; */
   position: absolute;
   box-sizing: border-box;
@@ -106,7 +106,7 @@ const PhotoPreview = styled.div`
   width: 100%;
   margin-right: 5px;
   margin-bottom: 10px;
-  height: 240px;
+  height: 290px;
   background-color: #bbbbbb;
   img {
     width: 100%;

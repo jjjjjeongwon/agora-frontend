@@ -84,8 +84,8 @@ const UploadVideoModal = forwardRef((props, ref) => {
 const Container = styled.form`
   width: 460px;
   height: 200px;
-  right: 5%;
-  bottom: 10%;
+  right: 15%;
+  bottom: 40%;
   position: absolute;
   box-sizing: border-box;
   margin: 5% auto;
