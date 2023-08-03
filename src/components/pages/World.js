@@ -126,7 +126,7 @@ const World = () => {
             aspect: aspectRatio,
             near: 0.1,
             far: 1000,
-            position: [10, 20, 26],
+            position: [0, 1.7, 26],
           }}
           // orthographic
           // camera={{
