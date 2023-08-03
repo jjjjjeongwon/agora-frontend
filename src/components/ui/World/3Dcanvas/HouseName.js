@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { Float } from '@react-three/drei';
 
-const GuestBook = () => {
+const HouseName = () => {
   const meshRef = useRef();
   const textRef = useRef();
   const texCanvas = document.createElement('canvas');
@@ -30,7 +31,12 @@ const GuestBook = () => {
     canvasTexture.needsUpdate = true;
   }, []);
   return (
-    <>
+    <Float
+      speed={10}
+      rotationIntensity={0.1}
+      floatIntensity={0.01}
+      floatingRange={[0, 0.1]}
+    >
       <mesh
         castShadow={false}
         ref={meshRef}
@@ -39,8 +45,8 @@ const GuestBook = () => {
         rotation={[0, Math.PI / 2, 0]}
         position={[-11, 1, -12]}
       ></mesh>
-    </>
+    </Float>
   );
 };
 
-export default GuestBook;
+export default HouseName;

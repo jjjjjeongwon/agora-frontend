@@ -1,15 +1,17 @@
 import { useGLTF } from '@react-three/drei';
 import React, { useEffect } from 'react';
+import { BoxGeometry, MeshBasicMaterial } from 'three';
 
 const House = () => {
-  const glb = useGLTF('../models/house/orange_building1.glb');
-  const house = glb.scene.children[0];
-  const { scene } = useGLTF('../models/house/small_house.gltf');
+  // const glb = useGLTF('../models/house/orange_building1.glb');
+  // const house = glb.scene.children[0];
+  const gltf = useGLTF('../models/house/small_house.gltf');
+  const house = gltf.scene.children[0];
 
   useEffect(() => {
     if (!house) return;
 
-    glb.scene.traverse((child) => {
+    gltf.scene.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = true;
         child.receiveShadow = true;
@@ -28,52 +30,57 @@ const House = () => {
         position={[-15, 0, -18]}
         scale={[6, 6, 6]}
         rotation={[0, Math.PI / 2, 0]}
-        object={scene.clone()}
+        object={house.clone()}
         dispose={null}
       />
+
       <primitive
         castShadow
         receiveShadow
         position={[15, 0, -18]}
         scale={[6, 6, 6]}
         rotation={[0, -Math.PI / 2, 0]}
-        object={scene.clone()}
+        object={house.clone()}
         dispose={null}
       />
+
       <primitive
         castShadow
         receiveShadow
         position={[15, 0, 0]}
         scale={[6, 6, 6]}
         rotation={[0, -Math.PI / 2, 0]}
-        object={scene.clone()}
+        object={house.clone()}
         dispose={null}
       />
+
       <primitive
         castShadow
         receiveShadow
         position={[-15, 0, 0]}
         scale={[6, 6, 6]}
         rotation={[0, Math.PI / 2, 0]}
-        object={scene.clone()}
+        object={house.clone()}
         dispose={null}
       />
+
       <primitive
         castShadow
         receiveShadow
         position={[15, 0, 18]}
         scale={[6, 6, 6]}
         rotation={[0, -Math.PI / 2, 0]}
-        object={scene.clone()}
+        object={house.clone()}
         dispose={null}
       />
+
       <primitive
         castShadow
         receiveShadow
         position={[-15, 0, 18]}
         scale={[6, 6, 6]}
         rotation={[0, Math.PI / 2, 0]}
-        object={scene.clone()}
+        object={house.clone()}
         dispose={null}
       />
     </>

@@ -8,14 +8,7 @@ const FloorFence = ({ myPlayer, postSpot }) => {
   useEffect(() => {
     if (!floorFence) return;
 
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.receiveShadow = true;
-        child.castShadow = true;
-      }
-    });
-
-    floorFence.position.set(-0.5, 0, -1.2);
+    floorFence.position.set(-0.5, -0.1, -1.2);
   });
 
   return <primitive object={floorFence} dispose={null} />;

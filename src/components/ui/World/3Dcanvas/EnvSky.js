@@ -4,7 +4,7 @@ const EnvSky = () => {
   return (
     <Sky
       // distance={4500}
-      sunPosition={[100, 100, 20]}
+      sunPosition={[100, 30, 100]}
       // inclination={0}
       // azimuth={0.25}
     />

@@ -28,6 +28,7 @@ const Player = ({ roomName, setMyPlayer, setIsLocked, isLocked }) => {
   });
 
   const { camera, gl } = useThree();
+  camera.frustumCulled = true;
 
   // Control 움직임이 일정하게 하기 위해 매번 재할당
   const controlsRef = useRef();
