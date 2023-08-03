@@ -1,10 +1,10 @@
-import * as THREE from 'three';
-import { Suspense } from 'react';
-import { useAspect, useVideoTexture, useTexture } from '@react-three/drei';
+import * as THREE from "three";
+import { Suspense } from "react";
+import { useAspect, useVideoTexture, useTexture } from "@react-three/drei";
 
 const Video = () => {
   return (
-    <mesh position={[5.32, 3.5, 2.5]} rotation={[0, Math.PI / 2, 0]}>
+    <mesh position={[5.32, 3.5, 2.5]} rotation={[0, -Math.PI / 2, 0]}>
       <Scene />
     </mesh>
   );

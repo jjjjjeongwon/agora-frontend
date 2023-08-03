@@ -14,7 +14,7 @@ import Wall from "../ui/CollectionSpaceThree/Wall";
 import Player from "../ui/CollectionSpace/Player";
 import Spot from "../ui/World/3Dcanvas/Spot";
 import Door from "../ui/CollectionSpace/Door";
-import Video from "../ui/CollectionSpaceTwo/Video";
+import Video from "../ui/CollectionSpaceThree/Video";
 import Tv from "../ui/CollectionSpaceTwo/Tv";
 import ImageFrame from "../ui/CollectionSpaceThree/ImageFrame";
 import CollectImage from "../ui/CollectionSpaceThree/CollectImage";

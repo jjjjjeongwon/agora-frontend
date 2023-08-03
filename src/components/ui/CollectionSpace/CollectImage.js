@@ -1,13 +1,13 @@
-import React from 'react';
-import * as THREE from 'three';
-import { useLoader } from '@react-three/fiber';
+import React from "react";
+import * as THREE from "three";
+import { useLoader } from "@react-three/fiber";
 
 const CollectImage = () => {
-  const image = useLoader(THREE.TextureLoader, '../images/room1_2.png');
-  const image2 = useLoader(THREE.TextureLoader, '../images/room1_6.png');
-  const image3 = useLoader(THREE.TextureLoader, '../images/room1_4.png');
-  const image4 = useLoader(THREE.TextureLoader, '../images/room1_3.png');
-  const image5 = useLoader(THREE.TextureLoader, '../images/room1_5.png');
+  const image = useLoader(THREE.TextureLoader, "../images/room1_2.png");
+  const image2 = useLoader(THREE.TextureLoader, "../images/room1_6.png");
+  const image3 = useLoader(THREE.TextureLoader, "../images/room1_4.png");
+  const image4 = useLoader(THREE.TextureLoader, "../images/room1_3.png");
+  const image5 = useLoader(THREE.TextureLoader, "../images/room1_5.png");
   const geometry = new THREE.PlaneGeometry(0.85, 1.25);
   const material = new THREE.MeshStandardMaterial({
     map: image,
@@ -45,7 +45,7 @@ const CollectImage = () => {
       <mesh
         name="image_2"
         position={[5.3, 2.9, -3.05]}
-        rotation={[0, Math.PI / 2, 0]}
+        rotation={[0, -Math.PI / 2, 0]}
         geometry={geometry}
         scale={[4, 3.3, 1]}
         material={material2}
