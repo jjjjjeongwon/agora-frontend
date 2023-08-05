@@ -18,13 +18,12 @@ const Piano = () => {
       }
     });
 
-    piano.position.x = -3.7;
-    piano.position.y = 1;
-    piano.position.z = 5.4;
+    piano.position.x = 3.7;
+    piano.position.y = 0;
+    piano.position.z = -1.15;
     piano.scale.x = 0.5;
-    piano.scale.y = 0.5;
-    piano.scale.z = 1;
-    piano.rotation.z = Math.PI;
+    piano.scale.y = 0.4;
+    piano.scale.z = 0.5;
     const mesh = new THREE.Mesh(
       new CylinderGeometry(0.05, 0.05, 0.05, 32),
       new MeshBasicMaterial({
