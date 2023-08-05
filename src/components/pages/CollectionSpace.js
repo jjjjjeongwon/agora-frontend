@@ -35,6 +35,7 @@ import Lug from "../ui/CollectionSpace/Lug";
 import Chair from "../ui/CollectionSpace/Chair";
 import Pencil from "../ui/CollectionSpace/Pencil";
 import PhotoBook from "../ui/CollectionSpace/PhotoBook";
+import Airpods from "../ui/CollectionSpace/Airpods";
 import WriteVisitMemoModal from "../ui/public/WriteVisitMemoModal";
 
 const CollectionSpace = () => {
@@ -151,6 +152,7 @@ const CollectionSpace = () => {
           <Video />
           <Wall />
           <PhotoBook />
+          <Airpods />
           <Spot spot={doorSpot} />
           <Player
             roomName={roomName}

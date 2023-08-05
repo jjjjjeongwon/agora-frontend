@@ -35,6 +35,8 @@ import Pencil from "../ui/CollectionSpaceTwo/Pencil";
 import Window from "../ui/CollectionSpaceTwo/Window";
 import Plant from "../ui/CollectionSpaceTwo/Plant";
 import PhotoBook from "../ui/CollectionSpaceTwo/PhotoBook";
+import BedsideTable from "../ui/CollectionSpaceTwo/BedsideTable";
+import MusicBox from "../ui/CollectionSpaceTwo/MusicBox";
 
 const CollectionSpaceTwo = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -117,6 +119,8 @@ const CollectionSpaceTwo = () => {
           <Window />
           <Plant />
           <PhotoBook />
+          <BedsideTable />
+          <MusicBox />
           <Spot spot={doorSpot} />
           <Player
             roomName={roomName}
