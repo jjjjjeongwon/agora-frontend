@@ -1,40 +1,69 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import * as THREE from "three";
 
-const ImageFrame = () => {
-  const glb = useGLTF('../models/imageframe/photoframe_blue.glb');
-  const frame = glb.scene.children[0];
+const ImageFrameChild = ({ glb, position, scale, rotation }) => {
+  const frame = glb.scene.clone().children[0]; // 클론을 사용해 독립적인 객체 생성
   const { scene } = useThree();
 
   useEffect(() => {
     if (!frame) return;
-    glb.scene.traverse((child) => {
+    frame.traverse((child) => {
       if (child.isframe) child.castShadow = true;
     });
-    frame.scale.x = 5;
-    frame.scale.y = 5;
-    frame.scale.z = 5;
+
+    frame.scale.set(...scale);
+    frame.position.set(...position);
 
     const mesh = new THREE.Mesh(
-      new BoxGeometry(0.2, 1.5, 1),
-      new MeshBasicMaterial({ transparent: true, opacity: 0 })
+      new THREE.BoxGeometry(0.2, 1.5, 1),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
-    frame.position.x = -5;
-    frame.position.y = 3.9;
-    frame.position.z = -3.1;
-
     mesh.castShadow = true;
-    mesh.position.x = -5.4;
-    mesh.position.y = 4;
-    mesh.position.z = -3.1;
     scene.add(mesh);
-  });
+  }, [frame, position, scale, scene]);
+
+  return <primitive rotation={rotation} object={frame} dispose={null} />;
+};
+
+const ImageFrame = () => {
+  const glb = useGLTF("../models/imageframe/wood_image_frame.glb");
+
+  const positions = [
+    [-3, 4.2, 5.0],
+    [-5, 4.0, 0],
+    [-5, 4.2, 3.5],
+    [-5, 3.9, -3.02],
+    [5.0, 3.3, -3.2],
+  ];
+
+  const scales = [
+    [8, 5, 10],
+    [10, 5, 12],
+    [5, 5, 10],
+    [5, 5, 5],
+    [12, 5, 15],
+  ];
+  const rotations = [
+    [0, Math.PI / 2, Math.PI / 2],
+    [0, 0, Math.PI / 2],
+    [0, 0, Math.PI / 2],
+    [0, 0, Math.PI / 2],
+    [0, -Math.PI, Math.PI / 2],
+  ];
+
   return (
     <>
-      <primitive rotation={[0, 0, Math.PI / 2]} object={frame} dispose={null} />
+      {positions.map((position, index) => (
+        <ImageFrameChild
+          key={index}
+          glb={glb}
+          position={position}
+          scale={scales[index]}
+          rotation={rotations[index]}
+        />
+      ))}
     </>
   );
 };
