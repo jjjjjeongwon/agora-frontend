@@ -44,35 +44,35 @@ const CollectImage = () => {
       {/* 침대 반대쪽 */}
       <mesh
         name="image_2"
-        position={[5.3, 2.9, -3.05]}
+        position={[5.355, 3.25, -3.06]}
         rotation={[0, -Math.PI / 2, 0]}
         geometry={geometry}
-        scale={[4, 3.3, 1]}
+        scale={[3.4, 2.5, 1]}
         material={material2}
       ></mesh>
 
       {/* 침대 옆 */}
       <mesh
         name="image_3"
-        position={[3.5, 4, 5.45]}
+        position={[2.15, 3.85, 5.38]}
         rotation={[0, 0, 0]}
-        scale={[3, 2.3, 1]}
+        scale={[2.5, 2, 1]}
         geometry={geometry}
         material={material3}
       ></mesh>
       <mesh
         name="image_4"
-        position={[0.8, 3.2, 5.45]}
+        position={[-1.9, 3.85, 5.368]}
         rotation={[0, 0, 0]}
-        scale={[2, 2.4, 1]}
+        scale={[2, 1.6, 1]}
         geometry={geometry}
         material={material4}
       ></mesh>
       <mesh
         name="image_5"
-        position={[3.5, 1.6, 5.45]}
+        position={[2.125, 1.6, 5.373]}
         rotation={[0, 0, 0]}
-        scale={[2.5, 0.7, 1]}
+        scale={[2.2, 0.55, 1]}
         geometry={geometry}
         material={material5}
       ></mesh>
