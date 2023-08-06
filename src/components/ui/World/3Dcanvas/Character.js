@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 
 useGLTF.preload('../models/men.gltf');
 const Character = (props) => {
@@ -9,9 +10,9 @@ const Character = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    actions['Run'].reset().fadeIn(0.2).play();
+    actions[props.moveState].reset().fadeIn(0.2).play();
     return () => {
-      actions['Run'].fadeOut(0.2);
+      actions[props.moveState].fadeOut(0.2);
     };
   }, [props.moveState]);
 

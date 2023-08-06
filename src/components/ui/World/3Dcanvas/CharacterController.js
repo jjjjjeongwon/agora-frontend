@@ -6,7 +6,7 @@ import { Controls } from '../../../pages/World';
 import Character from './Character';
 import * as THREE from 'three';
 
-const JUMP_FORCE = 2;
+const JUMP_FORCE = 0.5;
 const MOVEMENT_SPEED = 0.1;
 const MAX_VEL = 3;
 const RUN_VEL = 1.5;
@@ -93,7 +93,7 @@ export const CharacterController = () => {
       >
         <CapsuleCollider args={[0.8, 0.4]} position={[0, 1.2, 0]} />
         <group ref={character}>
-          <Character movaState={moveState} />
+          <Character moveState={moveState} />
         </group>
       </RigidBody>
     </group>
