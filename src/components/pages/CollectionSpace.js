@@ -124,76 +124,63 @@ const CollectionSpace = () => {
         }}
       >
         <Suspense fallback={null}>
-          <Canvas
-            gl={{ antialias: true }}
-            shadows={{
-              enabled: true,
-              autoUpdate: true,
-              type: THREE.PCFSoftShadowMap,
-            }}
-            camera={{
-              fov: 45,
-              aspect: aspect,
-              near: 0.1,
-              far: 100,
-              position: [2, 2.6, -4],
-              zoom: 0.5,
-            }}
-            // orthographic
-            // camera={{
-            //   zoom: 50,
-            //   position: [1, 10, 5],
-            //   left: -1 * aspect,
-            //   right: 1 * aspect,
-            //   top: 1,
-            //   bottom: -1,
-            //   near: 0.1,
-            //   far: 1000,
-            // }}
-          >
-            {showImageEffect ? (
-              <ImageEffect />
-            ) : (
-              <>
-                <EnvSky />
-                <EnvStars />
-                <Light />
-                <Lug />
-                <Floor />
-                <Tv />
-                <Remote />
-                <TvTable />
-                <CollectImage />
-                <ImageFrame />
-                <VisitText />
-                {/* <VisitCard /> */}
-                <Camera />
-                <TopLight />
-                <Chair />
-                <Pencil />
-                <Table />
-                <Bed />
-                <Door />
-                <Video />
-                <Wall />
-                <PhotoBook />
-                <Airpods />
-                <Spot spot={doorSpot} />
-                <Player
-                  roomName={roomName}
-                  setMyPlayer={setMyPlayer}
-                  setIsLocked={setIsLocked}
-                  isLocked={isLocked}
-                  setAlbum={setAlbum}
-                  setCamera={setCamera}
-                  setPencil={setPencil}
-                  setVisitMemo={setVisitMemo}
-                  setVideoRemote={setVideoRemote}
-                  setShowImageEffect={setShowImageEffect}
-                />
-              </>
-            )}
-          </Canvas>
+          {showImageEffect ? (
+            <ImageEffect />
+          ) : (
+            <Canvas
+              gl={{ antialias: true }}
+              shadows={{
+                enabled: true,
+                autoUpdate: true,
+                type: THREE.PCFSoftShadowMap,
+              }}
+              camera={{
+                fov: 45,
+                aspect: aspect,
+                near: 0.1,
+                far: 100,
+                position: [2, 2.6, -4],
+                zoom: 0.5,
+              }}
+            >
+              <EnvSky />
+              <EnvStars />
+              <Light />
+              <Lug />
+              <Floor />
+              <Tv />
+              <Remote />
+              <TvTable />
+              <CollectImage />
+              <ImageFrame />
+              <VisitText />
+              {/* <VisitCard /> */}
+              <Camera />
+              <TopLight />
+              <Chair />
+              <Pencil />
+              <Table />
+              <Bed />
+              <Door />
+              <Video />
+              <Wall />
+              <PhotoBook />
+              <Airpods />
+              <Spot spot={doorSpot} />
+              <Player
+                roomName={roomName}
+                setMyPlayer={setMyPlayer}
+                setIsLocked={setIsLocked}
+                isLocked={isLocked}
+                setAlbum={setAlbum}
+                setCamera={setCamera}
+                setPencil={setPencil}
+                setVisitMemo={setVisitMemo}
+                setVideoRemote={setVideoRemote}
+                setShowImageEffect={setShowImageEffect}
+              />
+            </Canvas>
+          )}
         </Suspense>
 
         <ContainerImage uploadImageModalOpen={uploadImageModalOpen}>
