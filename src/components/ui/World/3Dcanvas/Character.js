@@ -1,21 +1,28 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
 
 useGLTF.preload('../models/men.gltf');
-export default function Character(props) {
+const Character = (props) => {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF('../models/men.gltf');
   const { actions } = useAnimations(animations, group);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    actions[props.moveState].reset().fadeIn(0.2).play();
+    if (nodes && animations) {
+      setIsLoaded(true);
+    }
+  }, [nodes, animations]);
 
-    return () => {
-      actions[props.moveState].fadeOut(0.2);
-    };
+  useEffect(() => {
+    if (isLoaded) {
+      actions[props.moveState].reset().fadeIn(0.2).play();
+      return () => {
+        actions[props.moveState].fadeOut(0.2);
+      };
+    }
   }, [props.moveState]);
 
-  console.log(actions);
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
@@ -33,4 +40,6 @@ export default function Character(props) {
       </group>
     </group>
   );
-}
+};
+
+export default Character;
