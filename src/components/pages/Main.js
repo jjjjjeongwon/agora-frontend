@@ -11,7 +11,7 @@ const Main = () => {
     <MainContainer>
       <Container>
         <LogoContainer>
-          <Title>PoLY WoRD </Title>
+          <Title>PoLY WoRLD </Title>
           <Location>
             <ButtonBackground />
             <AccessButton

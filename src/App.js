@@ -1,6 +1,7 @@
 //packages
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { AnimatePresence } from 'framer-motion';
 
 //pages
 import Login from './components/pages/Login';
@@ -19,20 +20,25 @@ import ImageEffect from './components/pages/ImageEffect';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/globalworld" element={<GlobalWorld />} />
-      {/* <Route path="/world" element={<World />} /> */}
-      <Route path="/world" element={<MainWorld />} />
-      <Route path="/maplist" element={<MapList />} />
-      <Route path="/test" element={<Test />} />
-      <Route path="/collectionspace/:id" element={<CollectionSpace />} />
-      <Route path="/collectionspace_two" element={<CollectionSpaceTwo />} />
-      <Route path="/collectionspace_three" element={<CollectionSpaceThree />} />
-      <Route path="/imageeffect" element={<ImageEffect />} />
-    </Routes>
+    <AnimatePresence>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/globalworld" element={<GlobalWorld />} />
+        {/* <Route path="/world" element={<World />} /> */}
+        <Route path="/world" element={<MainWorld />} />
+        <Route path="/maplist" element={<MapList />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/collectionspace/:id" element={<CollectionSpace />} />
+        <Route path="/collectionspace_two" element={<CollectionSpaceTwo />} />
+        <Route
+          path="/collectionspace_three"
+          element={<CollectionSpaceThree />}
+        />
+        <Route path="/imageeffect" element={<ImageEffect />} />
+      </Routes>
+    </AnimatePresence>
   );
 }
 

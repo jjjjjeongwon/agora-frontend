@@ -3,6 +3,8 @@ import { Suspense, useEffect, useState, useRef, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
 //components
 import EnvSky from '../ui/World/3Dcanvas/EnvSky';
 import Floor from '../ui/World/3Dcanvas/Floor';
@@ -54,6 +56,16 @@ const World = () => {
   const [isCollectionVisible, setIsColletionVisible] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
   const [friend, setFriend] = useState(false);
+
+  const playTransitionSound = () => {
+    const audio = new Audio('/musics/doorsound.mp3');
+    audio.play();
+  };
+
+  const fadeIn = {
+    hidden: { opacity: 0 }, // 초기 상태
+    visible: { opacity: 1 }, // 최종 상태
+  };
 
   const [friendModalOpen, setFriendModalOpen] = useState(false);
   //globalState
@@ -108,96 +120,106 @@ const World = () => {
     ) {
       // setIsColletionVisible(true);
       navigate('/collectionspace/1');
+      playTransitionSound();
     } else if (
       Math.abs(friendSpot1.x - myPlayer.x) < 1 &&
       Math.abs(friendSpot1.z - myPlayer.z) < 1
     ) {
       // setIsColletionVisible(false);
       navigate('/collectionspace_three');
+      playTransitionSound();
     } else if (
       Math.abs(waveSpot.x - myPlayer.x) < 1 &&
       Math.abs(waveSpot.z - myPlayer.z) < 1
     ) {
       // setIsColletionVisible(false);
       navigate('/collectionspace_two');
+      playTransitionSound();
     }
   }, [myPlayer]);
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        position: 'relative',
-        width: '100vw',
-        height: '100vh',
-        background: '#000',
-      }}
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 1.5 }} // 이동 시간 설정
+      variants={fadeIn} // 애니메이션 variant
     >
-      <Suspense fallback={<LoadingSpinner />}>
-        <Canvas
-          ref={canvasRef}
-          gl={{ antialias: true }}
-          shadows={{
-            enabled: true,
-            autoUpdate: true,
-            type: THREE.PCFSoftShadowMap,
-          }}
-          camera={{
-            fov: 45,
-            aspect: aspectRatio,
-            near: 0.1,
-            far: 1000,
-            position: [0, 1.7, 26],
-          }}
-          // orthographic
-          // camera={{
-          //   zoom: 50,
-          //   position: [1, 5, 5],
-          //   left: -1 * aspectRatio,
-          //   right: 1 * aspectRatio,
-          //   top: 1,
-          //   bottom: -1,
-          //   near: -1000,
-          //   far: 1000,
-          // }}
-        >
-          <Physics>
-            <EnvSky />
-            <Light />
-            <Spot spot={mySpot} />
-            <Spot spot={friendSpot1} />
-            <Spot spot={waveSpot} />
+      <div
+        ref={containerRef}
+        style={{
+          position: 'relative',
+          width: '100vw',
+          height: '100vh',
+          background: '#000',
+        }}
+      >
+        <Suspense fallback={<LoadingSpinner />}>
+          <Canvas
+            ref={canvasRef}
+            gl={{ antialias: true }}
+            shadows={{
+              enabled: true,
+              autoUpdate: true,
+              type: THREE.PCFSoftShadowMap,
+            }}
+            camera={{
+              fov: 45,
+              aspect: aspectRatio,
+              near: 0.1,
+              far: 1000,
+              position: [0, 1.7, 26],
+            }}
+            // orthographic
+            // camera={{
+            //   zoom: 50,
+            //   position: [1, 5, 5],
+            //   left: -1 * aspectRatio,
+            //   right: 1 * aspectRatio,
+            //   top: 1,
+            //   bottom: -1,
+            //   near: -1000,
+            //   far: 1000,
+            // }}
+          >
+            <Physics>
+              <EnvSky />
+              <Light />
+              <Spot spot={mySpot} />
+              <Spot spot={friendSpot1} />
+              <Spot spot={waveSpot} />
 
-            <Lamp />
-            <Road />
-            <House />
-            <Car />
-            <FloorFence />
-            <Tree />
-            <HouseName />
-            {/* <PostOfficeBox myPlayer={myPlayer} friendSpot1={friendSpot1} /> */}
-            <Floor />
-            {/* <Player
+              <Lamp />
+              <Road />
+              <House />
+              <Car />
+              <FloorFence />
+              <Tree />
+              <HouseName />
+              {/* <PostOfficeBox myPlayer={myPlayer} friendSpot1={friendSpot1} /> */}
+              <Floor />
+              {/* <Player
               roomName={roomName}
               setMyPlayer={setMyPlayer}
               setIsLocked={setIsLocked}
               isLocked={isLocked}
             /> */}
-            <OrbitControls />
-            <Character />
-          </Physics>
-        </Canvas>
-      </Suspense>
-      <RoomHonorAlert />
-      <Header setFriend={setFriend} />
-      <CrossHair isLocked={isLocked} />
-      {friendModalOpen && (
-        <FriendsModal
-          setFriendModalOpen={setFriendModalOpen}
-          setFriend={setFriend}
-        />
-      )}
-    </div>
+              <OrbitControls />
+              <Character />
+            </Physics>
+          </Canvas>
+        </Suspense>
+        <RoomHonorAlert />
+        <Header setFriend={setFriend} />
+        <CrossHair isLocked={isLocked} />
+        {friendModalOpen && (
+          <FriendsModal
+            setFriendModalOpen={setFriendModalOpen}
+            setFriend={setFriend}
+          />
+        )}
+      </div>
+    </motion.div>
   );
 };
 

@@ -39,10 +39,10 @@ const fadeOut = keyframes`
 `;
 
 const Container = styled.div`
-  width: 420px;
-  height: 120px;
+  width: 520px;
+  height: 160px;
   top: 8%;
-  left: 35%;
+  left: 40%;
   /* background-color: transparent; */
   position: absolute;
   box-sizing: border-box;
@@ -60,11 +60,15 @@ const Container = styled.div`
 `;
 
 const TextBox = styled.div`
-  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
   font-family: 'jua';
   font-weight: 700;
   color: #393232;
   position: absolute;
+  line-height: 140%;
   top: 28%;
   left: 8%;
 `;

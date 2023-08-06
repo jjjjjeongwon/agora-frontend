@@ -1,42 +1,43 @@
-import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
-import { Preload } from "@react-three/drei";
-import { useState, useEffect, useRef, Suspense } from "react";
-import styled, { css } from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
+import * as THREE from 'three';
+import { Canvas } from '@react-three/fiber';
+import { Preload } from '@react-three/drei';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import styled, { css } from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 // Components
-import EnvSky from "../ui/CollectionSpace/EnvSky";
-import EnvStars from "../ui/CollectionSpace/EnvStars";
-import Floor from "../ui/CollectionSpace/Floor";
-import Light from "../ui/CollectionSpace/Light";
-import Wall from "../ui/CollectionSpace/Wall";
-import Player from "../ui/CollectionSpace/Player";
-import World from "./World";
-import Spot from "../ui/World/3Dcanvas/Spot";
-import Door from "../ui/CollectionSpace/Door";
-import Video from "../ui/CollectionSpace/Video";
-import Tv from "../ui/CollectionSpace/Tv";
-import ImageFrame from "../ui/CollectionSpace/ImageFrame";
-import CollectImage from "../ui/CollectionSpace/CollectImage";
-import VisitText from "../ui/CollectionSpace/VisitText";
-import VisitCard from "../ui/CollectionSpace/VisitCard";
-import Bed from "../ui/CollectionSpace/Bed";
-import Table from "../ui/CollectionSpace/Table";
-import LoadingSpinner from "../ui/public/LoadingSpinner";
-import TopLight from "../ui/CollectionSpace/TopLight";
-import Camera from "../ui/CollectionSpace/Camera";
-import TvTable from "../ui/CollectionSpace/TvTable";
-import UploadVideoModal from "../ui/public/UploadVideoModal";
-import UploadImagePostModal from "../ui/public/UploadImagePostModal";
-import ViewImagePostModal from "../ui/public/ViewImagePostModal";
-import Remote from "../ui/CollectionSpace/Remote";
-import Lug from "../ui/CollectionSpace/Lug";
-import Chair from "../ui/CollectionSpace/Chair";
-import Pencil from "../ui/CollectionSpace/Pencil";
-import PhotoBook from "../ui/CollectionSpace/PhotoBook";
-import Airpods from "../ui/CollectionSpace/Airpods";
-import WriteVisitMemoModal from "../ui/public/WriteVisitMemoModal";
+import EnvSky from '../ui/CollectionSpace/EnvSky';
+import EnvStars from '../ui/CollectionSpace/EnvStars';
+import Floor from '../ui/CollectionSpace/Floor';
+import Light from '../ui/CollectionSpace/Light';
+import Wall from '../ui/CollectionSpace/Wall';
+import Player from '../ui/CollectionSpace/Player';
+import World from './World';
+import Spot from '../ui/World/3Dcanvas/Spot';
+import Door from '../ui/CollectionSpace/Door';
+import Video from '../ui/CollectionSpace/Video';
+import Tv from '../ui/CollectionSpace/Tv';
+import ImageFrame from '../ui/CollectionSpace/ImageFrame';
+import CollectImage from '../ui/CollectionSpace/CollectImage';
+import VisitText from '../ui/CollectionSpace/VisitText';
+import VisitCard from '../ui/CollectionSpace/VisitCard';
+import Bed from '../ui/CollectionSpace/Bed';
+import Table from '../ui/CollectionSpace/Table';
+import LoadingSpinner from '../ui/public/LoadingSpinner';
+import TopLight from '../ui/CollectionSpace/TopLight';
+import Camera from '../ui/CollectionSpace/Camera';
+import TvTable from '../ui/CollectionSpace/TvTable';
+import UploadVideoModal from '../ui/public/UploadVideoModal';
+import UploadImagePostModal from '../ui/public/UploadImagePostModal';
+import ViewImagePostModal from '../ui/public/ViewImagePostModal';
+import Remote from '../ui/CollectionSpace/Remote';
+import Lug from '../ui/CollectionSpace/Lug';
+import Chair from '../ui/CollectionSpace/Chair';
+import Pencil from '../ui/CollectionSpace/Pencil';
+import PhotoBook from '../ui/CollectionSpace/PhotoBook';
+import Airpods from '../ui/CollectionSpace/Airpods';
+import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -57,6 +58,16 @@ const CollectionSpace = () => {
   const [albumModalOpen, setAlbumModalOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [uploadImageModalOpen, setUploadImageModalOpen] = useState(false);
+
+  const playTransitionSound = () => {
+    const audio = new Audio('/musics/doorsound.mp3');
+    audio.play();
+  };
+
+  const fadeIn = {
+    hidden: { opacity: 0 }, // 초기 상태
+    visible: { opacity: 1 }, // 최종 상태
+  };
 
   useEffect(() => {
     if (album === true) {
@@ -88,114 +99,122 @@ const CollectionSpace = () => {
       Math.abs(doorSpot.z - myPlayer.z) < 1
     ) {
       setIsColletionVisible(true);
-      navigate("/world");
+      navigate('/world');
+      playTransitionSound();
     } else {
       setIsColletionVisible(false);
     }
   }, [doorSpot]);
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        background: "#000",
-      }}
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 3, delay: 1 }} // 이동 시간 설정
+      variants={fadeIn} // 애니메이션 variant
     >
-      <Suspense fallback={null}>
-        <Canvas
-          gl={{ antialias: true }}
-          shadows={{
-            enabled: true,
-            autoUpdate: true,
-            type: THREE.PCFSoftShadowMap,
-          }}
-          camera={{
-            fov: 45,
-            aspect: aspect,
-            near: 0.1,
-            far: 100,
-            position: [2, 2.6, -4],
-            zoom: 0.5,
-          }}
-          // orthographic
-          // camera={{
-          //   zoom: 50,
-          //   position: [1, 10, 5],
-          //   left: -1 * aspect,
-          //   right: 1 * aspect,
-          //   top: 1,
-          //   bottom: -1,
-          //   near: 0.1,
-          //   far: 1000,
-          // }}
-        >
-          <EnvSky />
-          <EnvStars />
-          <Light />
-          <Lug />
-          <Floor />
-          <Tv />
-          <Remote />
-          <TvTable />
-          <CollectImage />
-          <ImageFrame />
-          <VisitText />
-          {/* <VisitCard /> */}
-          <Camera />
-          <TopLight />
-          <Chair />
-          <Pencil />
-          <Table />
-          <Bed />
-          <Door />
-          <Video />
-          <Wall />
-          <PhotoBook />
-          <Airpods />
-          <Spot spot={doorSpot} />
-          <Player
-            roomName={roomName}
-            setMyPlayer={setMyPlayer}
-            setIsLocked={setIsLocked}
-            isLocked={isLocked}
-            setAlbum={setAlbum}
-            setCamera={setCamera}
-            setPencil={setPencil}
-            setVisitMemo={setVisitMemo}
-            setVideoRemote={setVideoRemote}
-          />
-        </Canvas>
-      </Suspense>
+      <div
+        style={{
+          position: 'relative',
+          width: '100vw',
+          height: '100vh',
+          background: '#000',
+        }}
+      >
+        <Suspense fallback={null}>
+          <Canvas
+            gl={{ antialias: true }}
+            shadows={{
+              enabled: true,
+              autoUpdate: true,
+              type: THREE.PCFSoftShadowMap,
+            }}
+            camera={{
+              fov: 45,
+              aspect: aspect,
+              near: 0.1,
+              far: 100,
+              position: [2, 2.6, -4],
+              zoom: 0.5,
+            }}
+            // orthographic
+            // camera={{
+            //   zoom: 50,
+            //   position: [1, 10, 5],
+            //   left: -1 * aspect,
+            //   right: 1 * aspect,
+            //   top: 1,
+            //   bottom: -1,
+            //   near: 0.1,
+            //   far: 1000,
+            // }}
+          >
+            <EnvSky />
+            <EnvStars />
+            <Light />
+            <Lug />
+            <Floor />
+            <Tv />
+            <Remote />
+            <TvTable />
+            <CollectImage />
+            <ImageFrame />
+            <VisitText />
+            {/* <VisitCard /> */}
+            <Camera />
+            <TopLight />
+            <Chair />
+            <Pencil />
+            <Table />
+            <Bed />
+            <Door />
+            <Video />
+            <Wall />
+            <PhotoBook />
+            <Airpods />
+            <Spot spot={doorSpot} />
+            <Player
+              roomName={roomName}
+              setMyPlayer={setMyPlayer}
+              setIsLocked={setIsLocked}
+              isLocked={isLocked}
+              setAlbum={setAlbum}
+              setCamera={setCamera}
+              setPencil={setPencil}
+              setVisitMemo={setVisitMemo}
+              setVideoRemote={setVideoRemote}
+            />
+          </Canvas>
+        </Suspense>
 
-      <ContainerImage uploadImageModalOpen={uploadImageModalOpen}>
-        {uploadImageModalOpen && (
-          <UploadImagePostModal
-            setCamera={setCamera}
-            setUploadImageModalOpen={setUploadImageModalOpen}
-          />
-        )}
-      </ContainerImage>
-      <ContainerRemote videoModalOpen={videoModalOpen}>
-        {videoModalOpen && (
-          <UploadVideoModal
-            setVideoRemote={setVideoRemote}
-            setVideoModalOpen={setVideoModalOpen}
-          />
-        )}
-      </ContainerRemote>
+        <ContainerImage uploadImageModalOpen={uploadImageModalOpen}>
+          {uploadImageModalOpen && (
+            <UploadImagePostModal
+              setCamera={setCamera}
+              setUploadImageModalOpen={setUploadImageModalOpen}
+            />
+          )}
+        </ContainerImage>
+        <ContainerRemote videoModalOpen={videoModalOpen}>
+          {videoModalOpen && (
+            <UploadVideoModal
+              setVideoRemote={setVideoRemote}
+              setVideoModalOpen={setVideoModalOpen}
+            />
+          )}
+        </ContainerRemote>
 
-      <ContainerVideo albumModalOpen={albumModalOpen}>
-        {albumModalOpen && (
-          <ViewImagePostModal
-            setAlbumModalOpen={setAlbumModalOpen}
-            setAlbum={setAlbum}
-          />
-        )}
-      </ContainerVideo>
-      {/* <WriteVisitMemoModal /> */}
-      <CrossHair isLocked={isLocked} />
-    </div>
+        <ContainerVideo albumModalOpen={albumModalOpen}>
+          {albumModalOpen && (
+            <ViewImagePostModal
+              setAlbumModalOpen={setAlbumModalOpen}
+              setAlbum={setAlbum}
+            />
+          )}
+        </ContainerVideo>
+        {/* <WriteVisitMemoModal /> */}
+        <CrossHair isLocked={isLocked} />
+      </div>
+    </motion.div>
   );
 };
 
@@ -209,8 +228,8 @@ const ContainerImage = styled.div`
       left: 0;
       z-index: ${uploadImageModalOpen ? 1 : -1};
       background: ${uploadImageModalOpen
-        ? "rgba(0, 0, 0, 0.4)"
-        : "transparent"};
+        ? 'rgba(0, 0, 0, 0.4)'
+        : 'transparent'};
     `;
   }}
 `;
@@ -224,7 +243,7 @@ const ContainerVideo = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${albumModalOpen ? 1 : -1};
-      background: ${albumModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
+      background: ${albumModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
     `;
   }}
 `;
@@ -238,7 +257,7 @@ const ContainerRemote = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${videoModalOpen ? 1 : -1};
-      background: ${videoModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
+      background: ${videoModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
     `;
   }}
 `;
@@ -256,8 +275,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? "visible"
-        : "hidden"}; // initial visibility is hidden
+        ? 'visible'
+        : 'hidden'}; // initial visibility is hidden
     `;
   }}
 `;

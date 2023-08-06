@@ -1,18 +1,37 @@
 import styled from 'styled-components';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { TbUserSearch } from 'react-icons/tb';
+import { GoUnmute, GoMute } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { NickNameState } from '../../../state/UserAtom';
-
 const Header = ({ setFriend }) => {
   const navigate = useNavigate();
   const loginNickName = useRecoilValue(NickNameState);
+  const audioRef = useRef(null);
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  console.log(isPlaying);
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   console.log(loginNickName);
 
   const nickname = loginNickName;
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play();
+    }
+  }, []);
 
   const userLogout = () => {
     sessionStorage.removeItem('isLogin');
@@ -29,6 +48,30 @@ const Header = ({ setFriend }) => {
       <Wrap>
         <NickName>UUJEEN</NickName>
         <IconWrap>
+          <audio ref={audioRef} loop>
+            <source src="/musics/pongdang.mp3" type="audio/mpeg" />
+            Your browser does not support the audio tag.
+          </audio>
+          <Logout>
+            {isPlaying ? (
+              <HoverWrap
+                onClick={togglePlay}
+                color="white"
+                hoverColor="#BCC9C6"
+              >
+                <GoUnmute size={29} />
+              </HoverWrap>
+            ) : (
+              <HoverWrap
+                onClick={togglePlay}
+                color="white"
+                hoverColor="#BCC9C6"
+              >
+                <GoMute size={29} />
+              </HoverWrap>
+            )}
+          </Logout>
+          {/* <BackgroundMusic /> */}
           <Logout onClick={() => setFriend(true)}>
             <HoverWrap color="white" hoverColor="#BCC9C6">
               <TbUserSearch size={29} />
@@ -64,7 +107,7 @@ const Logo = styled.div`
 `;
 
 const Wrap = styled.div`
-  width: 330px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -93,7 +136,7 @@ const NickName = styled.div`
 `;
 
 const IconWrap = styled.div`
-  width: 165px;
+  width: 240px;
   align-items: center;
   justify-content: space-between;
   display: flex;
