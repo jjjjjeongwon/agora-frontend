@@ -1,6 +1,9 @@
 import { useGLTF } from '@react-three/drei';
+import { RigidBody } from '@react-three/rapier';
 import React, { useRef, useEffect } from 'react';
 
+useGLTF.preload('../models/road/Street_Straight.glb');
+useGLTF.preload('../models/road/Street_4Way.glb');
 const Road = () => {
   const glb = useGLTF('../models/road/Street_Straight.glb');
   const glb1 = useGLTF('../models/road/Street_4Way.glb');
@@ -27,8 +30,7 @@ const Road = () => {
     crossRoad.scale.set(2, 2, 2);
   }, []);
   return (
-    <>
-      {/* 일직선 도로 */}
+    <RigidBody type="fixed">
       <primitive
         position={[0, -0.1, 26]}
         rotation={[0, Math.PI / 2, 0]}
@@ -110,70 +112,68 @@ const Road = () => {
         object={road.clone()}
         dispose={null}
       />
-      {/* 꺾이는도로 */}
-      <>
-        <primitive
-          position={[4, -0.1, -18]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[8, -0.1, -18]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-4, -0.1, -18]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-8, -0.1, -18]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[4, -0.1, -2]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[8, -0.1, -2]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-4, -0.1, -2]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-8, -0.1, -2]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[4, -0.1, 18]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[8, -0.1, 18]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-4, -0.1, 18]}
-          object={road.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-8, -0.1, 18]}
-          object={road.clone()}
-          dispose={null}
-        />
-      </>
-    </>
+
+      <primitive
+        position={[4, -0.1, -18]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[8, -0.1, -18]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[-4, -0.1, -18]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[-8, -0.1, -18]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[4, -0.1, -2]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[8, -0.1, -2]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[-4, -0.1, -2]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[-8, -0.1, -2]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[4, -0.1, 18]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[8, -0.1, 18]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[-4, -0.1, 18]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive
+        position={[-8, -0.1, 18]}
+        object={road.clone()}
+        dispose={null}
+      />
+    </RigidBody>
   );
 };
 

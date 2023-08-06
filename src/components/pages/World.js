@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useEffect, useState, useRef } from 'react';
+import { Suspense, useEffect, useState, useRef, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +19,7 @@ import PostOfficeBox from '../ui/World/3Dcanvas/PostOfficeBox';
 import styled, { css } from 'styled-components';
 import VideoPlane from '../ui/World/3Dcanvas/VideoPlane';
 import LoadingSpinner from '../ui/public/LoadingSpinner';
-import GuestBook from '../ui/World/3Dcanvas/HouseName';
+import HouseName from '../ui/World/3Dcanvas/HouseName';
 import Tree from '../ui/World/3Dcanvas/Tree';
 import ImageCollection from '../ui/World/3Dcanvas/ImageCollection';
 import FloorFence from '../ui/World/3Dcanvas/FloorFence';
@@ -31,6 +31,16 @@ import FriendsModal from '../ui/public/FriendsModal';
 import Road from '../ui/World/3Dcanvas/Road';
 import Lamp from '../ui/World/3Dcanvas/Lamp';
 import Car from '../ui/World/3Dcanvas/Car';
+import { Physics } from '@react-three/rapier';
+import Character from '../ui/World/3Dcanvas/Character';
+
+export const Controls = {
+  forward: 'forward',
+  back: 'back',
+  left: 'left',
+  right: 'right',
+  jump: 'jump',
+};
 
 const World = () => {
   //route
@@ -55,6 +65,17 @@ const World = () => {
   const waveSpot = { x: 0, y: 0.005, z: -26 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
+
+  const map = useMemo(
+    () => [
+      { name: Controls.forward, keys: ['ArrowUp', 'KeyW'] },
+      { name: Controls.back, keys: ['ArrowDown', 'KeyS'] },
+      { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
+      { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
+      { name: Controls.jump, keys: ['Space'] },
+    ],
+    []
+  );
 
   // const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
 
@@ -140,26 +161,31 @@ const World = () => {
           //   far: 1000,
           // }}
         >
-          <EnvSky />
-          <Light />
-          <Spot spot={mySpot} />
-          <Spot spot={friendSpot1} />
-          <Spot spot={waveSpot} />
-          <Lamp />
-          <Road />
-          <House />
-          <Car />
-          <FloorFence />
-          <Tree />
-          <GuestBook />
-          {/* <PostOfficeBox myPlayer={myPlayer} friendSpot1={friendSpot1} /> */}
-          <Floor />
-          <Player
-            roomName={roomName}
-            setMyPlayer={setMyPlayer}
-            setIsLocked={setIsLocked}
-            isLocked={isLocked}
-          />
+          <Physics>
+            <EnvSky />
+            <Light />
+            <Spot spot={mySpot} />
+            <Spot spot={friendSpot1} />
+            <Spot spot={waveSpot} />
+
+            <Lamp />
+            <Road />
+            <House />
+            <Car />
+            <FloorFence />
+            <Tree />
+            <HouseName />
+            {/* <PostOfficeBox myPlayer={myPlayer} friendSpot1={friendSpot1} /> */}
+            <Floor />
+            {/* <Player
+              roomName={roomName}
+              setMyPlayer={setMyPlayer}
+              setIsLocked={setIsLocked}
+              isLocked={isLocked}
+            /> */}
+            <OrbitControls />
+            <Character />
+          </Physics>
         </Canvas>
       </Suspense>
       <RoomHonorAlert />

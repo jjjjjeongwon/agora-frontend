@@ -1,6 +1,12 @@
 import { useGLTF } from '@react-three/drei';
+import { RigidBody } from '@react-three/rapier';
 import React, { useRef, useEffect } from 'react';
 
+useGLTF.preload('../models/car/car.gltf');
+useGLTF.preload('../models/car/ice_cream_car.gltf');
+useGLTF.preload('../models/car/truck.gltf');
+useGLTF.preload('../models/car/suv.gltf');
+useGLTF.preload('../models/car/luxury_suv.gltf');
 const Car = () => {
   const glb = useGLTF('../models/car/car.gltf');
   const glb1 = useGLTF('../models/car/ice_cream_car.gltf');
@@ -33,7 +39,7 @@ const Car = () => {
   }, []);
 
   return (
-    <>
+    <RigidBody type="fixed">
       <primitive
         position={[-10, 0, 14]}
         rotation={[0, Math.PI / 2, 0]}
@@ -41,7 +47,7 @@ const Car = () => {
         dispose={null}
       />
       <primitive
-        position={[4, 0, -22]}
+        position={[4, 0.8, -22]}
         object={ice_cream_car.clone()}
         dispose={null}
       />
@@ -62,7 +68,7 @@ const Car = () => {
         object={luxury_suv.clone()}
         dispose={null}
       />
-    </>
+    </RigidBody>
   );
 };
 

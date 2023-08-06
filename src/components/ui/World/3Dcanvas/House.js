@@ -1,7 +1,9 @@
 import { useGLTF } from '@react-three/drei';
+import { RigidBody } from '@react-three/rapier';
 import React, { useEffect } from 'react';
 import { BoxGeometry, MeshBasicMaterial } from 'three';
 
+useGLTF.preload('../models/house/small_house.gltf');
 const House = () => {
   // const glb = useGLTF('../models/house/orange_building1.glb');
   // const house = glb.scene.children[0];
@@ -22,7 +24,7 @@ const House = () => {
   }, []);
 
   return (
-    <>
+    <RigidBody type="fixed">
       {/* <primitive name={'house'} castShadow object={house} dispose={null} /> */}
       <primitive
         castShadow
@@ -83,7 +85,7 @@ const House = () => {
         object={house.clone()}
         dispose={null}
       />
-    </>
+    </RigidBody>
   );
 };
 
