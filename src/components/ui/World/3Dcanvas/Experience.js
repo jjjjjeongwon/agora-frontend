@@ -12,13 +12,6 @@ import HouseName from './HouseName';
 const Experience = () => {
   return (
     <>
-      {/* <OrbitControls
-        enableDamping
-        enablePan={false}
-        minDistance={5}
-        maxDistance={15}
-        maxPolarAngle={Math.PI / 2 - 0.05}
-      /> */}
       <Light />
       <Floor />
       {/* <Road /> */}

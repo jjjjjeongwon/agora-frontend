@@ -1,4 +1,4 @@
-import { useKeyboardControls } from '@react-three/drei';
+import { Preload, useKeyboardControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { CapsuleCollider, RigidBody } from '@react-three/rapier';
 import { useEffect, useRef, useState } from 'react';
@@ -11,7 +11,7 @@ const MOVEMENT_SPEED = 0.1;
 const MAX_VEL = 3;
 const RUN_VEL = 1.5;
 
-export const CharacterController = () => {
+export const CharacterController = ({ setMyPlayer }) => {
   const jumpPressed = useKeyboardControls((state) => state[Controls.jump]);
   const leftPressed = useKeyboardControls((state) => state[Controls.left]);
   const rightPressed = useKeyboardControls((state) => state[Controls.right]);
@@ -26,7 +26,7 @@ export const CharacterController = () => {
 
   useEffect(() => {
     if (!rigidbody) return;
-  });
+  }, []);
   useFrame((state, delta) => {
     // Character Movement
     const impulse = { x: 0, y: 0, z: 0 };
@@ -85,6 +85,8 @@ export const CharacterController = () => {
       characterWorldPosition.z + 25
     );
 
+    setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
+
     state.camera.position.lerp(targetCameraPosition, delta * 2);
   });
 
@@ -92,6 +94,7 @@ export const CharacterController = () => {
     <group>
       <RigidBody
         position-y={3}
+        position={[0, 0, 24]}
         ref={rigidbody}
         colliders={false}
         scale={[0.5, 0.5, 0.5]}
@@ -105,6 +108,7 @@ export const CharacterController = () => {
           <Character moveState={moveState} />
         </group>
       </RigidBody>
+      <Preload add />
     </group>
   );
 };

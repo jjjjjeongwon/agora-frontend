@@ -12,7 +12,7 @@ const Header = ({ setFriend }) => {
   const audioRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
-  console.log(isPlaying);
+  // console.log(isPlaying);
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -23,7 +23,7 @@ const Header = ({ setFriend }) => {
     setIsPlaying(!isPlaying);
   };
 
-  console.log(loginNickName);
+  // console.log(loginNickName);
 
   const nickname = loginNickName;
 

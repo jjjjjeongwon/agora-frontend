@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { KeyboardControls, Preload } from '@react-three/drei';
+import { Physics } from '@react-three/rapier';
 
 //components
 import EnvSky from '../ui/World/3Dcanvas/EnvSky';
@@ -26,15 +28,15 @@ import Tree from '../ui/World/3Dcanvas/Tree';
 import ImageCollection from '../ui/World/3Dcanvas/ImageCollection';
 import FloorFence from '../ui/World/3Dcanvas/FloorFence';
 import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
-import { OrbitControls } from '@react-three/drei';
+
 import Header from '../ui/public/Header';
 import userAPI from '../../apis/userAPI';
 import FriendsModal from '../ui/public/FriendsModal';
 import Road from '../ui/World/3Dcanvas/Road';
 import Lamp from '../ui/World/3Dcanvas/Lamp';
 import Car from '../ui/World/3Dcanvas/Car';
-import { Physics } from '@react-three/rapier';
-import Character from '../ui/World/3Dcanvas/Character';
+
+import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
 
 export const Controls = {
   forward: 'forward',
@@ -104,7 +106,7 @@ const World = () => {
   //     console.error('서버 오류:', error);
   //   }
   // };
-  console.log(friend);
+  // console.log(friend);
 
   useEffect(() => {
     if (friend === true) {
@@ -154,7 +156,7 @@ const World = () => {
           background: '#000',
         }}
       >
-        <Suspense fallback={<LoadingSpinner />}>
+        <KeyboardControls map={map}>
           <Canvas
             ref={canvasRef}
             gl={{ antialias: true }}
@@ -164,54 +166,43 @@ const World = () => {
               type: THREE.PCFSoftShadowMap,
             }}
             camera={{
-              fov: 45,
+              fov: 42,
               aspect: aspectRatio,
               near: 0.1,
               far: 1000,
-              position: [0, 1.7, 26],
+              position: [0, 10, 25],
             }}
-            // orthographic
-            // camera={{
-            //   zoom: 50,
-            //   position: [1, 5, 5],
-            //   left: -1 * aspectRatio,
-            //   right: 1 * aspectRatio,
-            //   top: 1,
-            //   bottom: -1,
-            //   near: -1000,
-            //   far: 1000,
-            // }}
           >
-            <Physics>
-              <EnvSky />
-              <Light />
-              <Spot spot={mySpot} />
-              <Spot spot={friendSpot1} />
-              <Spot spot={waveSpot} />
+            <Suspense fallback={null}>
+              <Physics>
+                <EnvSky />
+                <Light />
+                <Spot spot={mySpot} />
+                <Spot spot={friendSpot1} />
+                <Spot spot={waveSpot} />
 
-              <Lamp />
-              <Road />
-              <House />
-              <Car />
-              <FloorFence />
-              <Tree />
-              <HouseName />
-              {/* <PostOfficeBox myPlayer={myPlayer} friendSpot1={friendSpot1} /> */}
-              <Floor />
-              {/* <Player
+                <Lamp />
+                <Road />
+                <House />
+                <Car />
+                {/* <FloorFence /> */}
+                <Tree />
+                <HouseName />
+                <Floor />
+                {/* <Player
               roomName={roomName}
               setMyPlayer={setMyPlayer}
               setIsLocked={setIsLocked}
               isLocked={isLocked}
             /> */}
-              <OrbitControls />
-              <Character />
-            </Physics>
+                <CharacterController setMyPlayer={setMyPlayer} />
+              </Physics>
+            </Suspense>
+            <Preload all />
           </Canvas>
-        </Suspense>
+        </KeyboardControls>
         <RoomHonorAlert />
         <Header setFriend={setFriend} />
-        <CrossHair isLocked={isLocked} />
         {friendModalOpen && (
           <FriendsModal
             setFriendModalOpen={setFriendModalOpen}
@@ -223,23 +214,4 @@ const World = () => {
   );
 };
 
-const CrossHair = styled.div`
-  ${({ isLocked }) => {
-    return css`
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 2px;
-      height: 2px;
-      background: #f00;
-      border: 10px solid #fff;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 10000;
-      visibility: ${isLocked
-        ? 'visible'
-        : 'hidden'}; // initial visibility is hidden
-    `;
-  }}
-`;
 export default World;

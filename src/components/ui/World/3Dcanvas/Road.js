@@ -32,144 +32,128 @@ const Road = () => {
   return (
     <RigidBody type="fixed">
       <primitive
-        position={[0, -0.1, 26]}
+        position={[0, 0.1, 26]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, 22]}
+        position={[0, 0.1, 22]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, 18]}
+        position={[0, 0.1, 18]}
         object={crossRoad.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, 14]}
+        position={[0, 0.1, 14]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, 10]}
+        position={[0, 0.1, 10]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, 6]}
+        position={[0, 0.1, 6]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, 2]}
+        position={[0, 0.1, 2]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, -2]}
+        position={[0, 0.1, -2]}
         object={crossRoad.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, -6]}
+        position={[0, 0.1, -6]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, -10]}
+        position={[0, 0.1, -10]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, -14]}
+        position={[0, 0.1, -14]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, -18]}
+        position={[0, 0.1, -18]}
         object={crossRoad.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, -22]}
+        position={[0, 0.1, -22]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[0, -0.1, -26]}
+        position={[0, 0.1, -26]}
         rotation={[0, Math.PI / 2, 0]}
         object={road.clone()}
         dispose={null}
       />
 
       <primitive
-        position={[4, -0.1, -18]}
+        position={[4, 0.1, -18]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[8, -0.1, -18]}
+        position={[8, 0.1, -18]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[-4, -0.1, -18]}
+        position={[-4, 0.1, -18]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[-8, -0.1, -18]}
+        position={[-8, 0.1, -18]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive position={[4, 0.1, -2]} object={road.clone()} dispose={null} />
+      <primitive position={[8, 0.1, -2]} object={road.clone()} dispose={null} />
+      <primitive
+        position={[-4, 0.1, -2]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[4, -0.1, -2]}
+        position={[-8, 0.1, -2]}
+        object={road.clone()}
+        dispose={null}
+      />
+      <primitive position={[4, 0.1, 18]} object={road.clone()} dispose={null} />
+      <primitive position={[8, 0.1, 18]} object={road.clone()} dispose={null} />
+      <primitive
+        position={[-4, 0.1, 18]}
         object={road.clone()}
         dispose={null}
       />
       <primitive
-        position={[8, -0.1, -2]}
-        object={road.clone()}
-        dispose={null}
-      />
-      <primitive
-        position={[-4, -0.1, -2]}
-        object={road.clone()}
-        dispose={null}
-      />
-      <primitive
-        position={[-8, -0.1, -2]}
-        object={road.clone()}
-        dispose={null}
-      />
-      <primitive
-        position={[4, -0.1, 18]}
-        object={road.clone()}
-        dispose={null}
-      />
-      <primitive
-        position={[8, -0.1, 18]}
-        object={road.clone()}
-        dispose={null}
-      />
-      <primitive
-        position={[-4, -0.1, 18]}
-        object={road.clone()}
-        dispose={null}
-      />
-      <primitive
-        position={[-8, -0.1, 18]}
+        position={[-8, 0.1, 18]}
         object={road.clone()}
         dispose={null}
       />

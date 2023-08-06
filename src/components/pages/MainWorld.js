@@ -24,7 +24,6 @@ const MainWorld = () => {
     []
   );
 
-  const { progress } = useProgress();
   return (
     <KeyboardControls map={map}>
       <Canvas shadows camera={{ position: [0, 10, 25], fov: 42 }}>
