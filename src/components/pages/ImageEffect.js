@@ -15,12 +15,17 @@ const ImagePanel = ({ imageSrc, x, y, z, positionArray }) => {
         x: positionArray[0],
         y: positionArray[1],
         z: positionArray[2],
+        onComplete: () => {
+          if (meshRef.current) {
+            meshRef.current.lookAt(0, 0, 0);
+          }
+        },
       });
     }
   }, [positionArray]);
 
   return (
-    <mesh ref={meshRef} position={[x, y, z]} lookAt={[0, 0, 0]}>
+    <mesh ref={meshRef} position={[x, y, z]}>
       <planeGeometry args={[0.3, 0.3]} />
       <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
     </mesh>
