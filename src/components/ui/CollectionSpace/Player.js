@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import * as THREE from "three";
-import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
+import React, { useEffect, useRef, useState } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import * as THREE from 'three';
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
 function Player({
   setMyPlayer,
@@ -37,28 +37,29 @@ function Player({
     controlsRef.current = new PointerLockControls(camera, gl.domElement);
   }
   const controls = controlsRef.current;
+  controls.pointerSpeed = 0.05;
 
   const checkIntersects = () => {
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(scene.children);
     for (const item of intersects) {
       // console.log(item.object.name);
-      if (item.object.name === "image_5") {
+      if (item.object.name === 'image_5') {
         setAlbum(true);
       }
-      if (item.object.name === "camera") {
+      if (item.object.name === 'camera') {
         setCamera(true);
       }
-      if (item.object.name === "pencil") {
+      if (item.object.name === 'pencil') {
         setPencil(true);
       }
-      if (item.object.name === "visit_post") {
+      if (item.object.name === 'visit_post') {
         setVisitMemo(true);
       }
-      if (item.object.name === "Remote") {
+      if (item.object.name === 'Remote') {
         setVideoRemote(true);
       }
-      if (item.object.name === "photoBook") {
+      if (item.object.name === 'photoBook') {
         setShowImageEffect(true);
       }
     }
@@ -71,11 +72,11 @@ function Player({
   };
 
   const handleLock = () => {
-    console.log("lock!");
+    console.log('lock!');
   };
 
   const handleUnlock = () => {
-    console.log("unlock!");
+    console.log('unlock!');
     setIsLocked(false);
   };
   console.log(camera.position);
@@ -83,20 +84,20 @@ function Player({
   useEffect(() => {
     const keyDownHandler = (e) => {
       switch (e.code) {
-        case "ArrowRight":
-        case "KeyD":
+        case 'ArrowRight':
+        case 'KeyD':
           setKeys((keys) => ({ ...keys, right: true }));
           break;
-        case "ArrowLeft":
-        case "KeyA":
+        case 'ArrowLeft':
+        case 'KeyA':
           setKeys((keys) => ({ ...keys, left: true }));
           break;
-        case "ArrowDown":
-        case "KeyS":
+        case 'ArrowDown':
+        case 'KeyS':
           setKeys((keys) => ({ ...keys, down: true }));
           break;
-        case "ArrowUp":
-        case "KeyW":
+        case 'ArrowUp':
+        case 'KeyW':
           setKeys((keys) => ({ ...keys, up: true }));
           break;
         default:
@@ -106,40 +107,41 @@ function Player({
 
     const keyUpHandler = (e) => {
       switch (e.code) {
-        case "ArrowRight":
-        case "KeyD":
+        case 'ArrowRight':
+        case 'KeyD':
           setKeys((keys) => ({ ...keys, right: false }));
           break;
-        case "ArrowLeft":
-        case "KeyA":
+        case 'ArrowLeft':
+        case 'KeyA':
           setKeys((keys) => ({ ...keys, left: false }));
           break;
-        case "ArrowDown":
-        case "KeyS":
+        case 'ArrowDown':
+        case 'KeyS':
           setKeys((keys) => ({ ...keys, down: false }));
           break;
-        case "ArrowUp":
-        case "KeyW":
+        case 'ArrowUp':
+        case 'KeyW':
           setKeys((keys) => ({ ...keys, up: false }));
           break;
         default:
           break;
       }
     };
-    controls.domElement.addEventListener("click", handleClick);
 
-    controls.addEventListener("lock", handleLock);
-    controls.addEventListener("unlock", handleUnlock);
+    controls.domElement.addEventListener('click', handleClick);
 
-    window.addEventListener("keydown", keyDownHandler);
-    window.addEventListener("keyup", keyUpHandler);
+    controls.addEventListener('lock', handleLock);
+    controls.addEventListener('unlock', handleUnlock);
+
+    window.addEventListener('keydown', keyDownHandler);
+    window.addEventListener('keyup', keyUpHandler);
 
     return () => {
-      window.removeEventListener("keydown", keyDownHandler);
-      window.removeEventListener("keyup", keyUpHandler);
-      controls.domElement.removeEventListener("click", handleClick);
-      controls.removeEventListener("lock", handleLock);
-      controls.removeEventListener("unlock", handleUnlock);
+      window.removeEventListener('keydown', keyDownHandler);
+      window.removeEventListener('keyup', keyUpHandler);
+      controls.domElement.removeEventListener('click', handleClick);
+      controls.removeEventListener('lock', handleLock);
+      controls.removeEventListener('unlock', handleUnlock);
     };
   }, []);
 
