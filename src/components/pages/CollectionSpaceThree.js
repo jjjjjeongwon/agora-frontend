@@ -1,42 +1,43 @@
-import * as THREE from 'three';
-import { Canvas } from '@react-three/fiber';
-import { Preload } from '@react-three/drei';
-import { useState, useEffect, useRef, Suspense } from 'react';
-import styled, { css } from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import { Preload } from "@react-three/drei";
+import { useState, useEffect, useRef, Suspense } from "react";
+import styled, { css } from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // Components
-import EnvSky from '../ui/CollectionSpace/EnvSky';
-import EnvStars from '../ui/CollectionSpace/EnvStars';
-import Floor from '../ui/CollectionSpaceThree/Floor';
-import Light from '../ui/CollectionSpaceThree/Light';
-import Wall from '../ui/CollectionSpaceThree/Wall';
-import Player from '../ui/CollectionSpace/Player';
-import Spot from '../ui/World/3Dcanvas/Spot';
-import Door from '../ui/CollectionSpace/Door';
-import Video from '../ui/CollectionSpaceThree/Video';
-import Tv from '../ui/CollectionSpaceTwo/Tv';
-import ImageFrame from '../ui/CollectionSpaceThree/ImageFrame';
-import CollectImage from '../ui/CollectionSpaceThree/CollectImage';
-import VisitText from '../ui/CollectionSpaceThree/VisitText';
-import VisitCard from '../ui/CollectionSpaceThree/VisitCard';
-import Bed from '../ui/CollectionSpaceThree/Bed';
-import Table from '../ui/CollectionSpaceThree/Table';
-import Camera from '../ui/CollectionSpaceThree/Camera';
-import TvTable from '../ui/CollectionSpaceThree/TvTable';
-import Remote from '../ui/CollectionSpaceThree/Remote';
-import Rabbit from '../ui/CollectionSpaceThree/Rabbit';
-import Lug from '../ui/CollectionSpaceTwo/Lug';
-import Pencil from '../ui/CollectionSpaceThree/Pencil';
-import Window from '../ui/CollectionSpaceThree/Window';
-import Closet from '../ui/CollectionSpaceThree/Closet';
-import Mirror from '../ui/CollectionSpaceThree/Mirror';
-import Piano from '../ui/CollectionSpaceThree/Piano';
-import CafeTable from '../ui/CollectionSpaceThree/CafeTable';
-import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
-import Flower from '../ui/CollectionSpaceThree/Flower';
-import PhotoBook from '../ui/CollectionSpaceThree/PhotoBook';
+import EnvSky from "../ui/CollectionSpace/EnvSky";
+import EnvStars from "../ui/CollectionSpace/EnvStars";
+import Floor from "../ui/CollectionSpaceThree/Floor";
+import Light from "../ui/CollectionSpaceThree/Light";
+import Wall from "../ui/CollectionSpaceThree/Wall";
+import Player from "../ui/CollectionSpace/Player";
+import Spot from "../ui/World/3Dcanvas/Spot";
+import Door from "../ui/CollectionSpace/Door";
+import Video from "../ui/CollectionSpaceThree/Video";
+import Tv from "../ui/CollectionSpaceTwo/Tv";
+import ImageFrame from "../ui/CollectionSpaceThree/ImageFrame";
+import CollectImage from "../ui/CollectionSpaceThree/CollectImage";
+import VisitText from "../ui/CollectionSpaceThree/VisitText";
+import VisitCard from "../ui/CollectionSpaceThree/VisitCard";
+import Bed from "../ui/CollectionSpaceThree/Bed";
+import Table from "../ui/CollectionSpaceThree/Table";
+import Camera from "../ui/CollectionSpaceThree/Camera";
+import TvTable from "../ui/CollectionSpaceThree/TvTable";
+import Remote from "../ui/CollectionSpaceThree/Remote";
+import Rabbit from "../ui/CollectionSpaceThree/Rabbit";
+import Lug from "../ui/CollectionSpaceTwo/Lug";
+import Pencil from "../ui/CollectionSpaceThree/Pencil";
+import Window from "../ui/CollectionSpaceThree/Window";
+import Closet from "../ui/CollectionSpaceThree/Closet";
+import Mirror from "../ui/CollectionSpaceThree/Mirror";
+import Piano from "../ui/CollectionSpaceThree/Piano";
+import CafeTable from "../ui/CollectionSpaceThree/CafeTable";
+import WriteVisitMemoModal from "../ui/public/WriteVisitMemoModal";
+import Flower from "../ui/CollectionSpaceThree/Flower";
+import PhotoBook from "../ui/CollectionSpaceThree/PhotoBook";
+import ImageEffect from "./ImageEffect";
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -55,9 +56,10 @@ const CollectionSpaceThree = () => {
   const [videoRemote, setVideoRemote] = useState(false);
 
   const [pencilModalOpen, setPencilModalOpen] = useState(false);
+  const [showImageEffect, setShowImageEffect] = useState(false);
 
   const playTransitionSound = () => {
-    const audio = new Audio('/musics/doorsound.mp3');
+    const audio = new Audio("/musics/doorsound.mp3");
     audio.play();
   };
 
@@ -80,7 +82,7 @@ const CollectionSpaceThree = () => {
       Math.abs(doorSpot.z - myPlayer.z) < 1.5
     ) {
       setIsColletionVisible(true);
-      navigate('/world');
+      navigate("/world");
       playTransitionSound();
     } else {
       setIsColletionVisible(false);
@@ -95,78 +97,83 @@ const CollectionSpaceThree = () => {
     >
       <div
         style={{
-          position: 'relative',
-          width: '100vw',
-          height: '100vh',
-          background: '#000',
+          position: "relative",
+          width: "100vw",
+          height: "100vh",
+          background: "#000",
         }}
       >
         <Suspense fallback={null}>
-          <Canvas
-            gl={{ antialias: true }}
-            shadows={{
-              enabled: true,
-              autoUpdate: true,
-              type: THREE.PCFSoftShadowMap,
-            }}
-            camera={{
-              fov: 45,
-              aspect: aspect,
-              near: 0.1,
-              far: 100,
-              position: [2, 2, -4],
-              zoom: 0.5,
-            }}
-            // orthographic
-            // camera={{
-            //   zoom: 50,
-            //   position: [1, 10, 5],
-            //   left: -1 * aspect,
-            //   right: 1 * aspect,
-            //   top: 1,
-            //   bottom: -1,
-            //   near: 0.1,
-            //   far: 1000,
-            // }}
-          >
-            <Rabbit />
-            <EnvSky />
-            <EnvStars />
-            <Light />
-            <Floor />
-            <Tv />
-            <Remote />
-            <TvTable />
-            <CollectImage />
-            <ImageFrame />
-            <VisitText />
-            {/* <VisitCard /> */}
-            <Camera />
-            <Pencil />
-            <Table />
-            <Bed />
-            <Door />
-            <Video />
-            <Wall />
-            <Window />
-            <Closet />
-            <Piano />
-            <CafeTable />
-            <Flower />
-            <PhotoBook />
-            <Spot spot={doorSpot} />
-            <Player
-              roomName={roomName}
-              setMyPlayer={setMyPlayer}
-              setIsLocked={setIsLocked}
-              isLocked={isLocked}
-              setAlbum={setAlbum}
-              setCamera={setCamera}
-              setPencil={setPencil}
-              setVisitMemo={setVisitMemo}
-              setVideoRemote={setVideoRemote}
-            />
-          </Canvas>
+          {showImageEffect ? (
+            <ImageEffect />
+          ) : (
+            <Canvas
+              gl={{ antialias: true }}
+              shadows={{
+                enabled: true,
+                autoUpdate: true,
+                type: THREE.PCFSoftShadowMap,
+              }}
+              camera={{
+                fov: 45,
+                aspect: aspect,
+                near: 0.1,
+                far: 100,
+                position: [2, 2, -4],
+                zoom: 0.5,
+              }}
+              // orthographic
+              // camera={{
+              //   zoom: 50,
+              //   position: [1, 10, 5],
+              //   left: -1 * aspect,
+              //   right: 1 * aspect,
+              //   top: 1,
+              //   bottom: -1,
+              //   near: 0.1,
+              //   far: 1000,
+              // }}
+            >
+              <Rabbit />
+              <EnvSky />
+              <EnvStars />
+              <Light />
+              <Floor />
+              <Tv />
+              <Remote />
+              <TvTable />
+              <CollectImage />
+              <ImageFrame />
+              <VisitText />
+              {/* <VisitCard /> */}
+              <Camera />
+              <Pencil />
+              <Table />
+              <Bed />
+              <Door />
+              <Video />
+              <Wall />
+              <Window />
+              <Closet />
+              <Piano />
+              <CafeTable />
+              <Flower />
+              <PhotoBook />
+              <Spot spot={doorSpot} />
+              <Player
+                roomName={roomName}
+                setMyPlayer={setMyPlayer}
+                setIsLocked={setIsLocked}
+                isLocked={isLocked}
+                setAlbum={setAlbum}
+                setCamera={setCamera}
+                setPencil={setPencil}
+                setVisitMemo={setVisitMemo}
+                setVideoRemote={setVideoRemote}
+                setShowImageEffect={setShowImageEffect}
+              />
+            </Canvas>
+          )}
         </Suspense>
         {/* <UploadVideoModal /> */}
         {/* <UploadImagePostModal /> */}
@@ -195,7 +202,7 @@ const Container = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${pencilModalOpen ? 1 : -1};
-      background: ${pencilModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${pencilModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -214,8 +221,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? 'visible'
-        : 'hidden'}; // initial visibility is hidden
+        ? "visible"
+        : "hidden"}; // initial visibility is hidden
     `;
   }}
 `;
