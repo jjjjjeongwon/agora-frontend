@@ -163,13 +163,18 @@ import React, {
   MeshBasicMaterial,
   PlaneGeometry,
   DoubleSide,
-} from 'react';
-import * as THREE from 'three';
+} from "react";
+import * as THREE from "three";
 
-import { Canvas, useThree, extend } from '@react-three/fiber';
-import { useTexture, OrbitControls } from '@react-three/drei';
-import gsap, { random } from 'gsap';
-import Light from '../layout/Light';
+import { Canvas, useThree, extend } from "@react-three/fiber";
+import {
+  useTexture,
+  OrbitControls,
+  Html,
+  PerspectiveCamera,
+} from "@react-three/drei";
+import gsap, { random } from "gsap";
+import Light from "../layout/Light";
 
 const ImagePanel = ({ imageSrc, x, y, z }) => {
   const meshRef = useRef();
@@ -230,7 +235,7 @@ export default function ImageEffect() {
       //     break;
       // }
       const array = randomPositionArray;
-      const type = 'random';
+      const type = "random";
       for (let i = 0; i < imagePanels.length; i++) {
         gsap.to(imagePanels[i].position, {
           duration: 2,
@@ -240,14 +245,14 @@ export default function ImageEffect() {
         });
 
         // 회전
-        if (type === 'random') {
+        if (type === "random") {
           gsap.to(imagePanels[i].rotation, {
             duration: 2,
             x: 0,
             y: 0,
             z: 0,
           });
-        } else if (type === 'sphere') {
+        } else if (type === "sphere") {
           gsap.to(imagePanels[i].rotation, {
             duration: 2,
             x: imagePanels[i].sphereRotationX,
@@ -273,63 +278,49 @@ export default function ImageEffect() {
       imagePanels.push(imagePanel);
     }
 
-    setShape('random');
+    setShape("random");
 
     return () => {};
   }, []);
 
   return (
     <>
-      <div
-        style={{
-          position: 'relative',
-          width: '100vw',
-          height: '100vh',
-          background: '#000',
-        }}
-      >
-        <Canvas
-          ref={canvasRef}
-          gl={{ antialias: true }}
-          camera={{
-            fov: 75,
-            aspect: aspect,
-            near: 0.1,
-            far: 1000,
-            position: [0, 1.5, 4],
+      <Light />
+      <PerspectiveCamera
+        fov={75}
+        far={1000}
+        near={0.1}
+        position={[0, 1.5, 4]}
+      />
+      <OrbitControls enableDamping />
+      {imagePanels.map((index) => (
+        <ImagePanel
+          key={index}
+          imageSrc={`/images/0${Math.ceil(Math.random() * 5)}.jpg`}
+          x={spherePositionArray[index * 3]}
+          y={spherePositionArray[index * 3 + 1]}
+          z={spherePositionArray[index * 3 + 2]}
+          ref={(mesh) => {
+            imagePanels[index].mesh = mesh;
           }}
-          id="three-canvas"
-        >
-          <Light />
-          <OrbitControls enableDamping />
-          {imagePanels.map((index) => (
-            <ImagePanel
-              key={index}
-              imageSrc={`/images/0${Math.ceil(Math.random() * 5)}.jpg`}
-              x={spherePositionArray[index * 3]}
-              y={spherePositionArray[index * 3 + 1]}
-              z={spherePositionArray[index * 3 + 2]}
-              ref={(mesh) => {
-                imagePanels[index].mesh = mesh;
-              }}
-            />
-          ))}
-        </Canvas>
+        />
+      ))}
+      <Html>
         <div className="btns">
           <button
             data-type="random"
-            style={{ position: 'absolute', left: '20px', top: '20px' }}
+            style={{ position: "absolute", left: "20px", top: "20px" }}
           >
             Random
           </button>
           <button
             data-type="sphere"
-            style={{ position: 'absolute', left: '20px', top: '50px' }}
+            style={{ position: "absolute", left: "20px", top: "50px" }}
           >
             Sphere
           </button>
         </div>
-      </div>
+      </Html>
     </>
   );
 }

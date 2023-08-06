@@ -1,7 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import React, { useEffect } from "react";
-import { CylinderGeometry, MeshBasicMaterial } from "three";
+import { BoxGeometry, MeshBasicMaterial } from "three";
 import * as THREE from "three";
 
 const PhotoBook = () => {
@@ -22,7 +22,7 @@ const PhotoBook = () => {
     photoBook.rotation.z = -Math.PI / 3;
 
     const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.1, 0.1, 0.2, 32),
+      new BoxGeometry(0.6, 0.2, 0.6),
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
@@ -32,7 +32,7 @@ const PhotoBook = () => {
     );
     mesh.name = "photoBook";
     mesh.castShadow = true;
-    mesh.position.set(-3.3, 1.9, -4.4);
+    mesh.position.set(-3.6, 1.9, -0.6);
     scene.add(mesh);
   });
   return <primitive object={photoBook} dispose={null} />;
