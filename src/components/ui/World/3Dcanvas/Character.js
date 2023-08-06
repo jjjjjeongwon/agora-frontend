@@ -9,18 +9,10 @@ const Character = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (nodes && animations) {
-      setIsLoaded(true);
-    }
-  }, [nodes, animations]);
-
-  useEffect(() => {
-    if (isLoaded) {
-      actions[props.moveState].reset().fadeIn(0.2).play();
-      return () => {
-        actions[props.moveState].fadeOut(0.2);
-      };
-    }
+    actions['Run'].reset().fadeIn(0.2).play();
+    return () => {
+      actions['Run'].fadeOut(0.2);
+    };
   }, [props.moveState]);
 
   return (
