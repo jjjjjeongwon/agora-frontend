@@ -1,12 +1,23 @@
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useEffect, useState } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { useTexture, OrbitControls } from "@react-three/drei";
 import gsap from "gsap";
 
-const ImagePanel = ({ imageSrc, x, y, z }) => {
+const ImagePanel = ({ imageSrc, x, y, z, positionArray }) => {
   const meshRef = useRef();
   const texture = useTexture(imageSrc);
+
+  useEffect(() => {
+    if (meshRef.current) {
+      gsap.to(meshRef.current.position, {
+        duration: 2,
+        x: positionArray[0],
+        y: positionArray[1],
+        z: positionArray[2],
+      });
+    }
+  }, [positionArray]);
 
   return (
     <mesh ref={meshRef} position={[x, y, z]} lookAt={[0, 0, 0]}>
@@ -19,6 +30,19 @@ const ImagePanel = ({ imageSrc, x, y, z }) => {
 export default function ImageEffect() {
   const sphereGeometry = useMemo(() => new THREE.SphereGeometry(1, 8, 8), []);
   const spherePositionArray = sphereGeometry.attributes.position.array;
+
+  const [positions, setPositions] = useState(spherePositionArray);
+  const handleButtonClick = (type) => {
+    const newPositionArray = [];
+    if (type === "sphere") {
+      newPositionArray.push(...spherePositionArray);
+    } else if (type === "random") {
+      for (let i = 0; i < spherePositionArray.length; i++) {
+        newPositionArray.push((Math.random() - 0.5) * 10);
+      }
+    }
+    setPositions(newPositionArray);
+  };
 
   const imagePanelProps = useMemo(() => {
     const props = [];
@@ -46,13 +70,23 @@ export default function ImageEffect() {
         <ambientLight intensity={0.5} />
         <directionalLight position={[1, 1, 2]} />
         {imagePanelProps.map((props, index) => (
-          <ImagePanel key={index} {...props} />
+          <ImagePanel
+            key={index}
+            {...props}
+            positionArray={positions.slice(index * 3, index * 3 + 3)}
+          />
         ))}
         <OrbitControls enableDamping />
       </Canvas>
       <div className="btns" style={{ position: "absolute", top: 10, left: 10 }}>
-        <button data-type="random">Random</button>
-        <button data-type="sphere" style={{ marginLeft: 10 }}>
+        <button data-type="random" onClick={() => handleButtonClick("random")}>
+          Random
+        </button>
+        <button
+          data-type="sphere"
+          onClick={() => handleButtonClick("sphere")}
+          style={{ marginLeft: 10 }}
+        >
           Sphere
         </button>
       </div>
