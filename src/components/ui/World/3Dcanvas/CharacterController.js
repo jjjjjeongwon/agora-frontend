@@ -1,12 +1,12 @@
 import { useKeyboardControls } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { CapsuleCollider, RigidBody } from '@react-three/rapier';
 import { useEffect, useRef, useState } from 'react';
 import { Controls } from '../../../pages/World';
 import Character from './Character';
 import * as THREE from 'three';
 
-const JUMP_FORCE = 0.5;
+const JUMP_FORCE = 0.75;
 const MOVEMENT_SPEED = 0.1;
 const MAX_VEL = 3;
 const RUN_VEL = 1.5;
@@ -27,7 +27,8 @@ export const CharacterController = () => {
   useEffect(() => {
     if (!rigidbody) return;
   });
-  useFrame(() => {
+  useFrame((state, delta) => {
+    // Character Movement
     const impulse = { x: 0, y: 0, z: 0 };
     if (jumpPressed && isOnFloor.current) {
       impulse.y += JUMP_FORCE;
@@ -73,10 +74,18 @@ export const CharacterController = () => {
       character.current.rotation.y = angle;
     }
 
-    // CAMERA FOLLOW
+    // Camera Follow
     const characterWorldPosition = character.current.getWorldPosition(
       new THREE.Vector3()
     );
+
+    const targetCameraPosition = new THREE.Vector3(
+      characterWorldPosition.x,
+      characterWorldPosition.y + 10,
+      characterWorldPosition.z + 25
+    );
+
+    state.camera.position.lerp(targetCameraPosition, delta * 2);
   });
 
   return (

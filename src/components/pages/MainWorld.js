@@ -30,7 +30,7 @@ const MainWorld = () => {
       <Canvas shadows camera={{ position: [0, 10, 25], fov: 42 }}>
         <color attach="background" args={['#e3daf7']} />
         <Suspense>
-          <Physics debug>
+          <Physics>
             <Experience />
           </Physics>
         </Suspense>
