@@ -23,9 +23,9 @@ const Header = ({ setFriend }) => {
     setIsPlaying(!isPlaying);
   };
 
-  // console.log(loginNickName);
+  console.log(loginNickName);
 
-  const nickname = loginNickName;
+  // const nickname = loginNickName;
 
   useEffect(() => {
     if (isPlaying) {
