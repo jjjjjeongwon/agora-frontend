@@ -13,6 +13,7 @@ import {
   LoginEmailState,
   NickNameState,
   IdState,
+  IdRecoilState,
 } from '../../state/UserAtom';
 
 import userAPI from '../../apis/userAPI';
@@ -24,6 +25,7 @@ const Login = () => {
   const setLoginEmail = useSetRecoilState(LoginEmailState);
   const setLoginNickName = useSetRecoilState(NickNameState);
   const setLoginId = useSetRecoilState(IdState);
+  const setRecoilLoginId = useSetRecoilState(IdRecoilState);
 
   const navigate = useNavigate();
 
@@ -44,6 +46,7 @@ const Login = () => {
       setLoginEmail(res.data.email);
       setLoginNickName(res.data.nickname);
       setLoginId(res.data._id);
+      setRecoilLoginId(res.data._id);
 
       // Swal.fire({
       //   title: `반갑습니다!`,

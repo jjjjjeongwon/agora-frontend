@@ -20,7 +20,7 @@ import Beach from '../ui/World/3Dcanvas/Beach';
 
 // global state
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { JoinExitState } from '../../state/UserAtom';
+import { JoinExitState, IdRecoilState } from '../../state/UserAtom';
 
 import RoomHonorAlert from '../layout/World/RoomHonorAlert';
 
@@ -74,6 +74,7 @@ const World = () => {
   const [friendModalOpen, setFriendModalOpen] = useState(false);
   //globalState
   const joinExit = useRecoilValue(JoinExitState);
+  const recoilLoginId = useRecoilValue(IdRecoilState);
 
   //spots
   const mySpot = { x: -10, y: 0.005, z: -4 };
@@ -93,13 +94,13 @@ const World = () => {
     []
   );
 
-  const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+  const userId = recoilLoginId;
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
 
     try {
-      const response = await userAPI.get(`/user/${userId}/content`);
+      const response = await userAPI.get(`/user/${recoilLoginId}/content`);
 
       console.log('서버 응답:', response.data);
       setSelectRoom(response.data.userHouseNum);

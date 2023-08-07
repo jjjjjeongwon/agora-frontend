@@ -18,10 +18,31 @@ const FriendsModal = forwardRef((props, ref) => {
   };
   // console.log(visitData);
 
+  // const sendVisitList = async () => {
+  //   // console.log(content);
+  //   await userAPI
+  //     .post('user/handleFriendRequest', visitData)
+  //     .then((res) => {
+  //       console.log(res);
+  //       Swal.fire({
+  //         title: '친구요청 성공!',
+  //         confirmButtonColor: '#0e72ed',
+  //       });
+
+  //       // navigate('/login');
+  //     })
+  //     .catch((err) => {
+  //       console.log('친구요청 오류', err);
+  //       Swal.fire({
+  //         title: '친구요청 실패!',
+  //         confirmButtonColor: 'red',
+  //       });
+  //     });
+  // };
   const sendVisitList = async () => {
     // console.log(content);
     await userAPI
-      .post('user/handleFriendRequest', visitData)
+      .get('user/surfing')
       .then((res) => {
         console.log(res);
         Swal.fire({

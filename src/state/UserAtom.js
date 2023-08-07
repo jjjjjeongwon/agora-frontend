@@ -35,6 +35,11 @@ export const IdState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const IdRecoilState = atom({
+  key: 'IdRecoilState',
+  default: 0,
+});
+
 export const JoinExitState = atom({
   key: 'JoinExitState',
   default: {},

@@ -9,9 +9,9 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
 
   const [content, setContent] = useState('');
   const roomHost = useParams().id;
-  // const email = JSON.parse(sessionStorage.getItem('isLogin'))[
-  //   'LoginEmailState'
-  // ];
+  const email = JSON.parse(sessionStorage.getItem('isLogin'))[
+    'LoginEmailState'
+  ];
 
   const fadeInAndScale = useSpring({
     from: { opacity: 0, transform: 'scale(0.5)' },
@@ -25,7 +25,7 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
   console.log(roomHost);
 
   const visitData = {
-    // email: email,
+    email: email,
     content: content,
   };
 

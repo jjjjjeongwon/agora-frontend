@@ -32,9 +32,9 @@ const UploadVideoModal = forwardRef((props, ref) => {
   };
   const [file, setFile] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
-  // const userEmail = JSON.parse(sessionStorage.getItem('isLogin'))[
-  //   'LoginEmailState'
-  // ];
+  const userEmail = JSON.parse(sessionStorage.getItem('isLogin'))[
+    'LoginEmailState'
+  ];
 
   const previewVideo = (file) => {
     const videoPreview = document.getElementById('videoPreview');
@@ -58,7 +58,7 @@ const UploadVideoModal = forwardRef((props, ref) => {
       console.log(file);
       const formData = new FormData();
       formData.append('file', file);
-      // formData.append('email', userEmail);
+      formData.append('email', userEmail);
       console.log(formData);
 
       const response = await userAPI.post('/board/video', formData, {
