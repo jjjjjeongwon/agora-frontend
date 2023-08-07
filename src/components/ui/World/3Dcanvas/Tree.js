@@ -95,9 +95,9 @@ const Tree = () => {
           dispose={null}
         />
         <primitive
-          position={[15, 0, 12]}
-          scale={[0.8, 0.8, 0.8]}
-          rotation={[0, Math.PI * 0.25, 0]}
+          position={[15, 0, 0]}
+          scale={[0.5, 0.5, 0.5]}
+          rotation={[0, Math.PI * 0.15, 0]}
           object={purpleBigTree.clone()}
           dispose={null}
         />

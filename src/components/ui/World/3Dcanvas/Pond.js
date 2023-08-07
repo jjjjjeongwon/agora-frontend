@@ -1,7 +1,6 @@
 import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import React, { useRef, useEffect } from 'react';
-import { radToDeg } from 'three/src/math/MathUtils';
 useGLTF.preload('../models/pond/cartoon_pond.glb');
 
 const Road = () => {
@@ -19,9 +18,8 @@ const Road = () => {
     });
   }, []);
   return (
-    <RigidBody type='fixed'>
+    <RigidBody type="fixed">
       <>
-        {/* 왼쪽 길 */}
         <primitive
           position={[-4, -0.02, 11]}
           scale={[0.2, 0.2, 0.2]}

@@ -1,26 +1,35 @@
 import { useGLTF } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
-import React, { useEffect, useRef } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
 import { RigidBody } from '@react-three/rapier';
-import * as THREE from 'three';
+import React, { useRef, useEffect } from 'react';
+useGLTF.preload('../models/beach/beach.glb');
 
 const Beach = () => {
   const glb = useGLTF('../models/beach/beach.glb');
   const beach = glb.scene.children[0];
-
+  const glbs = [];
+  glbs.push(glb);
   useEffect(() => {
     if (!beach) return;
-    glb.scene.traverse((child) => {
-      if (child.isMesh) child.castShadow = true;
+
+    glbs.map((glb) => {
+      glb.scene.traverse((child) => {
+        if (child.isMesh) child.receiveShadow = true;
+      });
     });
-  });
+  }, []);
   return (
-    <>
-      <RigidBody type="fixed">
-        <primitive position={[24, -1.2, 3]} object={beach} dispose={null} />
-      </RigidBody>
-    </>
+    <RigidBody type="fixed">
+      <>
+        <primitive
+          position={[20, 2, 0]}
+          scale={[0.5, 0.5, 0.5]}
+          // rotation={[0, Math.PI * 1.5, Math.PI / 2]}
+          rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
+          object={beach.clone()}
+          dispose={null}
+        />
+      </>
+    </RigidBody>
   );
 };
 

@@ -16,8 +16,8 @@ import Spot from '../ui/World/3Dcanvas/Spot';
 import Tree from '../ui/World/3Dcanvas/Tree';
 import Road from '../ui/World/3Dcanvas/Road';
 import House from '../ui/World/3Dcanvas/House';
-// import Beach from '../ui/World/3Dcanvas/Beach';
 import Pond from '../ui/World/3Dcanvas/Pond';
+// import Beach from '../ui/World/3Dcanvas/Beach';
 
 // global statew
 import { useRecoilState, useRecoilValue } from 'recoil';
