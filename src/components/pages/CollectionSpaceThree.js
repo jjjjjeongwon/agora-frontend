@@ -40,6 +40,7 @@ import PhotoBook from '../ui/CollectionSpaceThree/PhotoBook';
 import ImageEffect from './ImageEffect';
 import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
 import ExitFooter from '../ui/public/ExitFooter';
+import AudioPlayer from '../ui/public/AudioPlayer';
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -177,6 +178,7 @@ const CollectionSpaceThree = () => {
             </Canvas>
           )}
         </Suspense>
+        <AudioPlayer src="/musics/room3.mp3" />
 
         {showImageEffect ? <PhotoBoxHeader /> : ''}
         {showImageEffect ? <ExitFooter /> : ''}

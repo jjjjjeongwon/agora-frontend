@@ -41,6 +41,7 @@ import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
 import ImageEffect from './ImageEffect';
 import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
 import ExitFooter from '../ui/public/ExitFooter';
+import AudioPlayer from '../ui/public/AudioPlayer';
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -184,6 +185,8 @@ const CollectionSpace = () => {
             </Canvas>
           )}
         </Suspense>
+
+        <AudioPlayer src="/musics/room1.mp3" />
 
         {showImageEffect ? <PhotoBoxHeader /> : ''}
         {showImageEffect ? <ExitFooter /> : ''}

@@ -41,6 +41,7 @@ import MusicBox from '../ui/CollectionSpaceTwo/MusicBox';
 import ImageEffect from './ImageEffect';
 import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
 import ExitFooter from '../ui/public/ExitFooter';
+import AudioPlayer from '../ui/public/AudioPlayer';
 
 const CollectionSpaceTwo = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -197,6 +198,7 @@ const CollectionSpaceTwo = () => {
           )}
         </Suspense>
         {/* <WriteVisitMemoModal /> */}
+        <AudioPlayer src="/musics/room2.mp3" />
 
         {showImageEffect ? <PhotoBoxHeader /> : ''}
         {showImageEffect ? <ExitFooter /> : ''}
