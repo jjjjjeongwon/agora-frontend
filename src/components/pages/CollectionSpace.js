@@ -62,6 +62,7 @@ const CollectionSpace = () => {
   const [albumModalOpen, setAlbumModalOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [uploadImageModalOpen, setUploadImageModalOpen] = useState(false);
+  const [pencilModalOpen, setPencilModalOpen] = useState(false);
 
   const [showImageEffect, setShowImageEffect] = useState(false);
 
@@ -69,6 +70,8 @@ const CollectionSpace = () => {
     const audio = new Audio('/musics/doorsound.mp3');
     audio.play();
   };
+
+  console.log(pencil);
 
   const fadeIn = {
     hidden: { opacity: 0 }, // 초기 상태
@@ -98,6 +101,14 @@ const CollectionSpace = () => {
       setVideoModalOpen(false);
     }
   }, [videoRemote]);
+
+  useEffect(() => {
+    if (pencil === true) {
+      setPencilModalOpen(true);
+    } else {
+      setPencilModalOpen(false);
+    }
+  }, [pencil]);
 
   useEffect(() => {
     if (
@@ -216,12 +227,33 @@ const CollectionSpace = () => {
             />
           )}
         </ContainerVideo>
-        {/* <WriteVisitMemoModal /> */}
+        <Container pencilModalOpen={pencilModalOpen}>
+          {pencilModalOpen && (
+            <WriteVisitMemoModal
+              setPencilModalOpen={setPencilModalOpen}
+              setPencil={setPencil}
+            />
+          )}
+        </Container>
         <CrossHair isLocked={isLocked} />
       </div>
     </motion.div>
   );
 };
+
+const Container = styled.div`
+  ${({ pencilModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${pencilModalOpen ? 1 : -1};
+      background: ${pencilModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+    `;
+  }}
+`;
 
 const ContainerImage = styled.div`
   ${({ uploadImageModalOpen }) => {

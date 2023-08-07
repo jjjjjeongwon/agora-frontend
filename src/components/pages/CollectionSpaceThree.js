@@ -41,6 +41,9 @@ import ImageEffect from './ImageEffect';
 import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
 import ExitFooter from '../ui/public/ExitFooter';
 import AudioPlayer from '../ui/public/AudioPlayer';
+import UploadImagePostModal from '../ui/public/UploadImagePostModal';
+import UploadVideoModal from '../ui/public/UploadVideoModal';
+import ViewImagePostModal from '../ui/public/ViewImagePostModal';
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -58,6 +61,9 @@ const CollectionSpaceThree = () => {
   const [visitMemo, setVisitMemo] = useState(false);
   const [videoRemote, setVideoRemote] = useState(false);
 
+  const [albumModalOpen, setAlbumModalOpen] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [uploadImageModalOpen, setUploadImageModalOpen] = useState(false);
   const [pencilModalOpen, setPencilModalOpen] = useState(false);
   const [showImageEffect, setShowImageEffect] = useState(false);
 
@@ -70,6 +76,30 @@ const CollectionSpaceThree = () => {
     hidden: { opacity: 0 }, // 초기 상태
     visible: { opacity: 1 }, // 최종 상태
   };
+
+  useEffect(() => {
+    if (album === true) {
+      setAlbumModalOpen(true);
+    } else {
+      setAlbumModalOpen(false);
+    }
+  }, [album]);
+
+  useEffect(() => {
+    if (camera === true) {
+      setUploadImageModalOpen(true);
+    } else {
+      setUploadImageModalOpen(false);
+    }
+  }, [camera]);
+
+  useEffect(() => {
+    if (videoRemote === true) {
+      setVideoModalOpen(true);
+    } else {
+      setVideoModalOpen(false);
+    }
+  }, [videoRemote]);
 
   useEffect(() => {
     if (pencil === true) {
@@ -182,9 +212,31 @@ const CollectionSpaceThree = () => {
 
         {showImageEffect ? <PhotoBoxHeader /> : ''}
         {showImageEffect ? <ExitFooter /> : ''}
-        {/* <UploadVideoModal /> */}
-        {/* <UploadImagePostModal /> */}
-        {/* <ViewImagePostModal /> */}
+        <ContainerImage uploadImageModalOpen={uploadImageModalOpen}>
+          {uploadImageModalOpen && (
+            <UploadImagePostModal
+              setCamera={setCamera}
+              setUploadImageModalOpen={setUploadImageModalOpen}
+            />
+          )}
+        </ContainerImage>
+        <ContainerRemote videoModalOpen={videoModalOpen}>
+          {videoModalOpen && (
+            <UploadVideoModal
+              setVideoRemote={setVideoRemote}
+              setVideoModalOpen={setVideoModalOpen}
+            />
+          )}
+        </ContainerRemote>
+
+        <ContainerVideo albumModalOpen={albumModalOpen}>
+          {albumModalOpen && (
+            <ViewImagePostModal
+              setAlbumModalOpen={setAlbumModalOpen}
+              setAlbum={setAlbum}
+            />
+          )}
+        </ContainerVideo>
         <Container pencilModalOpen={pencilModalOpen}>
           {pencilModalOpen && (
             <WriteVisitMemoModal
@@ -210,6 +262,50 @@ const Container = styled.div`
       left: 0;
       z-index: ${pencilModalOpen ? 1 : -1};
       background: ${pencilModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+    `;
+  }}
+`;
+
+const ContainerImage = styled.div`
+  ${({ uploadImageModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${uploadImageModalOpen ? 1 : -1};
+      background: ${uploadImageModalOpen
+        ? 'rgba(0, 0, 0, 0.4)'
+        : 'transparent'};
+    `;
+  }}
+`;
+
+const ContainerVideo = styled.div`
+  ${({ albumModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${albumModalOpen ? 1 : -1};
+      background: ${albumModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+    `;
+  }}
+`;
+
+const ContainerRemote = styled.div`
+  ${({ videoModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${videoModalOpen ? 1 : -1};
+      background: ${videoModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
     `;
   }}
 `;

@@ -1,10 +1,10 @@
-import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
-import { BoxGeometry, PlaneGeometry, MeshBasicMaterial } from "three";
-import * as THREE from "three";
+import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import React, { useEffect } from 'react';
+import { BoxGeometry, PlaneGeometry, MeshBasicMaterial } from 'three';
+import * as THREE from 'three';
 const BedsideTable = () => {
-  const glb = useGLTF("../models/table/low_poly_dining_table.glb");
+  const glb = useGLTF('../models/table/low_poly_dining_table.glb');
   const bedsideTable = glb.scene.children[0];
   const { scene } = useThree();
   const mesh = new THREE.Mesh(
@@ -30,11 +30,11 @@ const BedsideTable = () => {
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
     const upMesh = new THREE.Mesh(
-      new PlaneGeometry(2, 6),
+      new PlaneGeometry(2, 1),
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
-        color: "white",
+        color: 'white',
         side: THREE.DoubleSide,
       })
     );

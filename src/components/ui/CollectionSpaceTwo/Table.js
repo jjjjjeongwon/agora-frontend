@@ -25,7 +25,7 @@ const Table = () => {
   return (
     <>
       <mesh castShadow name="chair" position={[-2.5, 1, 3]}>
-        <boxGeometry args={[1, 1, 1]} />
+        <boxGeometry args={[0.5, 1, 0.7]} />
         <meshStandardMaterial color={'white'} transparent opacity={0} />
       </mesh>
       <mesh
@@ -34,11 +34,11 @@ const Table = () => {
         position={[-4, 2, 5]}
         rotation={[Math.PI / 2, 0, Math.PI]}
       >
-        <planeGeometry args={[3, 1]} />
+        <planeGeometry args={[5, 3]} />
         <meshStandardMaterial
           color={'white'}
           transparent
-          opacity={1}
+          opacity={0}
           side={THREE.DoubleSide}
         />
       </mesh>

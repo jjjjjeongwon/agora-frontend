@@ -29,7 +29,7 @@ const Pencil = () => {
     pencil.scale.y = 0.17;
     pencil.scale.z = 0.17;
     const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.05, 0.05, 0.05, 32),
+      new CylinderGeometry(0.2, 0.2, 0.5, 32),
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
@@ -43,9 +43,9 @@ const Pencil = () => {
     mesh.position.x = pencil.position.x;
     mesh.position.y = pencil.position.y + 0.1;
     mesh.position.z = pencil.position.z;
-    mesh.rotation.x = pencil.rotation.x;
-    mesh.rotation.y = pencil.rotation.y;
-    mesh.rotation.z = pencil.rotation.z;
+    // mesh.rotation.x = pencil.rotation.x;
+    // mesh.rotation.y = pencil.rotation.y;
+    // mesh.rotation.z = pencil.rotation.z;
     scene.add(mesh);
   });
 
@@ -69,7 +69,7 @@ const Pencil = () => {
       >
         <mesh
           ref={coneRef}
-          position={[-2.4, 2.8, 4]}
+          position={[-2.4, 2.8, 4.2]}
           geometry={pointGeometry}
           material={pointMaterial}
         />

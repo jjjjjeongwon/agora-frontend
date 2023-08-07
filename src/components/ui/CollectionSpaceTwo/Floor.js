@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 const Floor = () => {
   return (
     <>
@@ -9,11 +9,11 @@ const Floor = () => {
         position={[0, 0.01, 0]}
       >
         <planeGeometry args={[12, 12]} />
-        <meshStandardMaterial color={"#7F5139"} />
+        <meshStandardMaterial color={'#59381F'} />
       </mesh>
       <mesh name="top" rotation={[Math.PI / 2, 0, 0]} position={[0, 6, 0]}>
         <planeGeometry args={[12, 12]} />
-        <meshStandardMaterial color={"#D8E0E3"} />;
+        <meshStandardMaterial color={'#D8E0E3'} />;
       </mesh>
     </>
   );

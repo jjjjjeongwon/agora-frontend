@@ -22,12 +22,11 @@ const Remote = () => {
     remote.scale.set(0.03, 0.03, 0.03);
 
     const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.1, 0.1, 0.1, 32),
-      new BoxGeometry(0.2, 0.2, 0.6),
+      new BoxGeometry(0.5, 0.3, 0.5),
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
 
-    mesh.castShadow = true;
+    mesh.name = 'Remote';
     mesh.position.x = remote.position.x;
     mesh.position.y = remote.position.y;
     mesh.position.z = remote.position.z;
@@ -54,7 +53,7 @@ const Remote = () => {
       >
         <mesh
           ref={coneRef}
-          position={[4.5, 2.5, -0.4]}
+          position={[4.5, 2, -0.6]}
           geometry={pointGeometry}
           material={pointMaterial}
         />

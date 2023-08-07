@@ -42,6 +42,7 @@ import ImageEffect from './ImageEffect';
 import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
 import ExitFooter from '../ui/public/ExitFooter';
 import AudioPlayer from '../ui/public/AudioPlayer';
+import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
 
 const CollectionSpaceTwo = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -62,6 +63,7 @@ const CollectionSpaceTwo = () => {
   const [albumModalOpen, setAlbumModalOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [uploadImageModalOpen, setUploadImageModalOpen] = useState(false);
+  const [pencilModalOpen, setPencilModalOpen] = useState(false);
 
   const [showImageEffect, setShowImageEffect] = useState(false);
 
@@ -98,6 +100,14 @@ const CollectionSpaceTwo = () => {
       setVideoModalOpen(false);
     }
   }, [videoRemote]);
+
+  useEffect(() => {
+    if (pencil === true) {
+      setPencilModalOpen(true);
+    } else {
+      setPencilModalOpen(false);
+    }
+  }, [pencil]);
 
   useEffect(() => {
     if (
@@ -197,7 +207,40 @@ const CollectionSpaceTwo = () => {
             </Canvas>
           )}
         </Suspense>
-        {/* <WriteVisitMemoModal /> */}
+        <ContainerImage uploadImageModalOpen={uploadImageModalOpen}>
+          {uploadImageModalOpen && (
+            <UploadImagePostModal
+              setCamera={setCamera}
+              setUploadImageModalOpen={setUploadImageModalOpen}
+            />
+          )}
+        </ContainerImage>
+
+        <ContainerRemote videoModalOpen={videoModalOpen}>
+          {videoModalOpen && (
+            <UploadVideoModal
+              setVideoRemote={setVideoRemote}
+              setVideoModalOpen={setVideoModalOpen}
+            />
+          )}
+        </ContainerRemote>
+
+        <ContainerVideo albumModalOpen={albumModalOpen}>
+          {albumModalOpen && (
+            <ViewImagePostModal
+              setAlbumModalOpen={setAlbumModalOpen}
+              setAlbum={setAlbum}
+            />
+          )}
+        </ContainerVideo>
+        <Container pencilModalOpen={pencilModalOpen}>
+          {pencilModalOpen && (
+            <WriteVisitMemoModal
+              setPencilModalOpen={setPencilModalOpen}
+              setPencil={setPencil}
+            />
+          )}
+        </Container>
         <AudioPlayer src="/musics/room2.mp3" />
 
         {showImageEffect ? <PhotoBoxHeader /> : ''}
@@ -207,6 +250,64 @@ const CollectionSpaceTwo = () => {
     </motion.div>
   );
 };
+
+const Container = styled.div`
+  ${({ pencilModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${pencilModalOpen ? 1 : -1};
+      background: ${pencilModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+    `;
+  }}
+`;
+
+const ContainerImage = styled.div`
+  ${({ uploadImageModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${uploadImageModalOpen ? 1 : -1};
+      background: ${uploadImageModalOpen
+        ? 'rgba(0, 0, 0, 0.4)'
+        : 'transparent'};
+    `;
+  }}
+`;
+
+const ContainerVideo = styled.div`
+  ${({ albumModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${albumModalOpen ? 1 : -1};
+      background: ${albumModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+    `;
+  }}
+`;
+
+const ContainerRemote = styled.div`
+  ${({ videoModalOpen }) => {
+    return css`
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: ${videoModalOpen ? 1 : -1};
+      background: ${videoModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+    `;
+  }}
+`;
 
 const CrossHair = styled.div`
   ${({ isLocked }) => {
