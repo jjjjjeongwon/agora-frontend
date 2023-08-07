@@ -1,10 +1,10 @@
-import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
-import { BoxGeometry, MeshBasicMaterial } from "three";
-import * as THREE from "three";
+import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import React, { useEffect } from 'react';
+import { BoxGeometry, MeshBasicMaterial } from 'three';
+import * as THREE from 'three';
 const TvTable = () => {
-  const glb = useGLTF("../models/table/low_poly_style_tv_stand.glb");
+  const glb = useGLTF('../models/table/low_poly_style_tv_stand.glb');
   const tvTable = glb.scene.children[0];
   const { scene } = useThree();
 
@@ -25,7 +25,7 @@ const TvTable = () => {
     tvTable.rotation.z = -Math.PI / 2;
     // tvTable.rotation.y = Math.PI / 2;
     const mesh = new THREE.Mesh(
-      new BoxGeometry(2, 1, 4),
+      new BoxGeometry(1.5, 1, 6),
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
 
@@ -34,7 +34,7 @@ const TvTable = () => {
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
-        color: "white",
+        color: 'white',
         side: THREE.DoubleSide,
       })
     );

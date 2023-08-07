@@ -1,10 +1,10 @@
-import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
-import { BoxGeometry, MeshBasicMaterial } from "three";
-import * as THREE from "three";
+import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import React, { useEffect } from 'react';
+import { BoxGeometry, MeshBasicMaterial } from 'three';
+import * as THREE from 'three';
 const Bed = () => {
-  const glb = useGLTF("../models/bed/bed_with_pillow.glb");
+  const glb = useGLTF('../models/bed/bed_with_pillow.glb');
   const { scene } = useThree();
   const bed = glb.scene.children[0];
   useEffect(() => {
@@ -23,7 +23,7 @@ const Bed = () => {
     bed.scale.y = 1;
     bed.scale.z = 1;
     const mesh = new THREE.Mesh(
-      new BoxGeometry(5, 1, 3),
+      new BoxGeometry(4, 1, 5),
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
     const upMesh = new THREE.Mesh(
@@ -31,7 +31,7 @@ const Bed = () => {
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
-        color: "white",
+        color: 'white',
         side: THREE.DoubleSide,
       })
     );

@@ -1,13 +1,17 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
+import { useGLTF, Float } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
+import React, { useEffect, useRef } from 'react';
 import { CylinderGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
 const Pencil = () => {
   const glb = useGLTF('../models/pencil/cup_with_pencils.glb');
   const pencil = glb.scene.children[0];
-  const { scene } = useThree();
+  const { scene, camera } = useThree();
+  const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
+  const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
+
+  const coneRef = useRef();
 
   useEffect(() => {
     if (!pencil) return;
@@ -33,7 +37,35 @@ const Pencil = () => {
     mesh.position.set(-3.3, 1.9, -4.4);
     scene.add(mesh);
   });
-  return <primitive object={pencil} dispose={null} />;
+
+  useFrame(() => {
+    if (
+      Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
+      Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
+    ) {
+      coneRef.current.visible = true;
+    } else {
+      coneRef.current.visible = false;
+    }
+  });
+  return (
+    <>
+      <Float
+        speed={30}
+        rotationIntensity={0.1}
+        floatIntensity={0.01}
+        floatingRange={[0, 0.1]}
+      >
+        <mesh
+          ref={coneRef}
+          position={[-3.3, 2.3, -4.4]}
+          geometry={pointGeometry}
+          material={pointMaterial}
+        />
+      </Float>
+      <primitive object={pencil} dispose={null} />
+    </>
+  );
 };
 
 export default Pencil;

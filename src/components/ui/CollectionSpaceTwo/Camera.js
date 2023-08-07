@@ -33,6 +33,8 @@ const Camera = () => {
       })
     );
     mesh.castShadow = true;
+    mesh.name = 'camera';
+
     mesh.position.x = cameraMesh.position.x;
     mesh.position.y = cameraMesh.position.y + 0.1;
     mesh.position.z = cameraMesh.position.z;

@@ -18,14 +18,14 @@ const Remote = () => {
     glb.scene.traverse((child) => {
       if (child.isMesh) child.castShadow = true;
     });
-    remote.position.set(4.4, 1.4, 2);
+    remote.position.set(4.4, 1.4, 1.5);
     remote.scale.set(0.03, 0.03, 0.03);
 
     const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.1, 0.1, 0.1, 32),
-      new BoxGeometry(0.2, 0.2, 0.6),
+      new BoxGeometry(1, 0.2, 0.8),
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
+    mesh.name = 'Remote';
 
     mesh.castShadow = true;
     mesh.position.x = remote.position.x;

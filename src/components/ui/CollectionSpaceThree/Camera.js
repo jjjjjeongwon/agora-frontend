@@ -32,6 +32,8 @@ const Camera = () => {
         side: THREE.DoubleSide,
       })
     );
+    mesh.name = 'camera';
+
     mesh.castShadow = true;
     mesh.position.x = cameraMesh.position.x;
     mesh.position.y = cameraMesh.position.y + 0.1;
