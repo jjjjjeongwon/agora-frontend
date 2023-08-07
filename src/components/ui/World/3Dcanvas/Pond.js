@@ -21,7 +21,7 @@ const Road = () => {
     <RigidBody type="fixed">
       <>
         <primitive
-          position={[-4, -0.02, 11]}
+          position={[-4, 0, 11]}
           scale={[0.2, 0.2, 0.2]}
           rotation={[-Math.PI / 2, 0, Math.PI / 12]}
           object={road.clone()}

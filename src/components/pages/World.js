@@ -77,7 +77,7 @@ const World = () => {
   //spots
   const mySpot = { x: -10, y: 0.005, z: -4 };
   const friendSpot1 = { x: -17, y: 0.005, z: 15 };
-  const waveSpot = { x: 17, y: 0.005, z: 3 };
+  const waveSpot = { x: 35, y: 0.005, z: 4.5 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
 
