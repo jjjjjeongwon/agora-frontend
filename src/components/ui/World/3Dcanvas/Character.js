@@ -7,7 +7,6 @@ const Character = (props) => {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF('../models/men.gltf');
   const { actions } = useAnimations(animations, group);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     actions[props.moveState].reset().fadeIn(0.2).play();
@@ -15,6 +14,9 @@ const Character = (props) => {
       actions[props.moveState].fadeOut(0.2);
     };
   }, [props.moveState]);
+  // useFrame((state, delta) => {
+  //   actions[props.moveState].play(); // Sync the animation on each frame
+  // });
 
   return (
     <group ref={group} {...props} dispose={null}>

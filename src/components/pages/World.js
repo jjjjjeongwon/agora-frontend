@@ -20,13 +20,8 @@ import { JoinExitState } from '../../state/UserAtom';
 import RoomHonorAlert from '../layout/World/RoomHonorAlert';
 import House from '../ui/World/3Dcanvas/House';
 import PostOfficeBox from '../ui/World/3Dcanvas/PostOfficeBox';
-import styled, { css } from 'styled-components';
-import VideoPlane from '../ui/World/3Dcanvas/VideoPlane';
-import LoadingSpinner from '../ui/public/LoadingSpinner';
 import HouseName from '../ui/World/3Dcanvas/HouseName';
 import Tree from '../ui/World/3Dcanvas/Tree';
-import ImageCollection from '../ui/World/3Dcanvas/ImageCollection';
-import FloorFence from '../ui/World/3Dcanvas/FloorFence';
 import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
 
 import Header from '../ui/public/Header';
@@ -35,6 +30,8 @@ import FriendsModal from '../ui/public/FriendsModal';
 import Road from '../ui/World/3Dcanvas/Road';
 import Lamp from '../ui/World/3Dcanvas/Lamp';
 import Car from '../ui/World/3Dcanvas/Car';
+import LoadingSpinner from '../ui/public/LoadingSpinner';
+import EnvStars from '../ui/CollectionSpace/EnvStars';
 
 import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
 
@@ -75,7 +72,7 @@ const World = () => {
 
   //spots
   const mySpot = { x: -12, y: 0.005, z: -16 };
-  const friendSpot1 = { x: -12, y: 0.005, z: 20 };
+  const friendSpot1 = { x: -17, y: 0.005, z: 15 };
   const waveSpot = { x: 0, y: 0.005, z: -26 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
@@ -157,37 +154,37 @@ const World = () => {
         }}
       >
         <KeyboardControls map={map}>
-          <Canvas
-            ref={canvasRef}
-            gl={{ antialias: true }}
-            shadows={{
-              enabled: true,
-              autoUpdate: true,
-              type: THREE.PCFSoftShadowMap,
-            }}
-            camera={{
-              fov: 42,
-              aspect: aspectRatio,
-              near: 0.1,
-              far: 1000,
-              position: [0, 10, 25],
-            }}
-          >
-            <Suspense fallback={null}>
-              <Physics>
+          <Suspense fallback={null}>
+            <Canvas
+              ref={canvasRef}
+              gl={{ antialias: true }}
+              shadows={{
+                enabled: true,
+                autoUpdate: true,
+                type: THREE.PCFSoftShadowMap,
+              }}
+              camera={{
+                fov: 42,
+                aspect: aspectRatio,
+                near: 0.1,
+                far: 1000,
+                position: [0, 10, 25],
+              }}
+            >
+              <Physics debug>
                 <EnvSky />
+                <EnvStars />
                 <Light />
                 <Spot spot={mySpot} />
                 <Spot spot={friendSpot1} />
                 <Spot spot={waveSpot} />
 
-                <Lamp />
+                {/* <Lamp /> */}
                 <Road />
                 <House />
-                <Car />
-                {/* <FloorFence /> */}
+                {/* <Car /> */}
                 <Tree />
-                <HouseName />
+                {/* <HouseName /> */}
                 <Floor />
                 {/* <Player
               roomName={roomName}
@@ -197,11 +194,11 @@ const World = () => {
             /> */}
                 <CharacterController setMyPlayer={setMyPlayer} />
               </Physics>
-            </Suspense>
-            <Preload all />
-          </Canvas>
+              <Preload all />
+            </Canvas>
+            <RoomHonorAlert />
+          </Suspense>
         </KeyboardControls>
-        <RoomHonorAlert />
         <Header setFriend={setFriend} />
         {friendModalOpen && (
           <FriendsModal

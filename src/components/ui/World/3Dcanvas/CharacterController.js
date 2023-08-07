@@ -24,10 +24,8 @@ export const CharacterController = ({ setMyPlayer }) => {
   const isOnFloor = useRef(true);
   const [moveState, setMoveState] = useState('Idle');
 
-  useEffect(() => {
-    if (!rigidbody) return;
-  }, []);
   useFrame((state, delta) => {
+    if (!rigidbody.current) return;
     // Character Movement
     const impulse = { x: 0, y: 0, z: 0 };
     if (jumpPressed && isOnFloor.current) {
@@ -82,11 +80,11 @@ export const CharacterController = ({ setMyPlayer }) => {
     const targetCameraPosition = new THREE.Vector3(
       characterWorldPosition.x,
       characterWorldPosition.y + 10,
-      characterWorldPosition.z + 25
+      characterWorldPosition.z + 15
     );
 
     setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
-
+    // console.log(characterWorldPosition.x, characterWorldPosition.z);
     state.camera.position.lerp(targetCameraPosition, delta * 2);
   });
 
@@ -94,7 +92,7 @@ export const CharacterController = ({ setMyPlayer }) => {
     <group>
       <RigidBody
         position-y={3}
-        position={[0, 0, 24]}
+        position={[0, 0, 26]}
         ref={rigidbody}
         colliders={false}
         scale={[0.5, 0.5, 0.5]}

@@ -1,88 +1,56 @@
 import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import React, { useEffect } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
 
-useGLTF.preload('../models/house/small_house.gltf');
+useGLTF.preload('../models/house/Store_House.glb');
+useGLTF.preload('../models/house/Red_Small_House.glb');
+useGLTF.preload('../models/house/Mushroom_House.glb');
 const House = () => {
-  // const glb = useGLTF('../models/house/orange_building1.glb');
-  // const house = glb.scene.children[0];
-  const gltf = useGLTF('../models/house/small_house.gltf');
-  const house = gltf.scene.children[0];
+  const glb = useGLTF('../models/house/Store_House.glb');
+  const glb2 = useGLTF('../models/house/Red_Small_House.glb');
+  const glb3 = useGLTF('../models/house/Mushroom_House.glb');
+  const store = glb.scene.children[0];
+  const redSmall = glb2.scene.children[0];
+  const mushroom = glb3.scene.children[0];
 
+  const glbs = [glb, glb2, glb3];
   useEffect(() => {
-    if (!house) return;
+    if (!store || !redSmall || !mushroom) return;
 
-    gltf.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
+    glbs.map((glb) => {
+      glb.scene.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      });
     });
-    house.position.set(5, 0.5, 2);
-    house.scale.set(0.8, 0.8, 0.8);
   }, []);
 
   return (
     <RigidBody type="fixed">
-      {/* <primitive name={'house'} castShadow object={house} dispose={null} /> */}
       <primitive
         castShadow
         receiveShadow
-        position={[-15, 0, -18]}
-        scale={[6, 6, 6]}
-        rotation={[0, Math.PI / 2, 0]}
-        object={house.clone()}
+        position={[-13, 0, -7]}
+        rotation={[0, -Math.PI * 0.25, 0]}
+        object={store.clone()}
         dispose={null}
       />
-
       <primitive
         castShadow
         receiveShadow
-        position={[15, 0, -18]}
-        scale={[6, 6, 6]}
-        rotation={[0, -Math.PI / 2, 0]}
-        object={house.clone()}
+        position={[-20, 0, 15]}
+        // rotation={[0, Math.PI / 2, 0]}
+        object={redSmall.clone()}
         dispose={null}
       />
-
       <primitive
         castShadow
         receiveShadow
-        position={[15, 0, 0]}
-        scale={[6, 6, 6]}
-        rotation={[0, -Math.PI / 2, 0]}
-        object={house.clone()}
-        dispose={null}
-      />
-
-      <primitive
-        castShadow
-        receiveShadow
-        position={[-15, 0, 0]}
-        scale={[6, 6, 6]}
-        rotation={[0, Math.PI / 2, 0]}
-        object={house.clone()}
-        dispose={null}
-      />
-
-      <primitive
-        castShadow
-        receiveShadow
-        position={[15, 0, 18]}
-        scale={[6, 6, 6]}
-        rotation={[0, -Math.PI / 2, 0]}
-        object={house.clone()}
-        dispose={null}
-      />
-
-      <primitive
-        castShadow
-        receiveShadow
-        position={[-15, 0, 18]}
-        scale={[6, 6, 6]}
-        rotation={[0, Math.PI / 2, 0]}
-        object={house.clone()}
+        position={[-7, 0, -10]}
+        rotation={[0, -Math.PI * 0.35, 0]}
+        object={mushroom.clone()}
         dispose={null}
       />
     </RigidBody>
