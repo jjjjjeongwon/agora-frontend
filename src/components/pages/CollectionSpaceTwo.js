@@ -1,44 +1,46 @@
-import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
-import { Preload } from "@react-three/drei";
-import { useState, useEffect, useRef, Suspense } from "react";
-import styled, { css } from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import * as THREE from 'three';
+import { Canvas } from '@react-three/fiber';
+import { Preload } from '@react-three/drei';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import styled, { css } from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 // Components
-import EnvSky from "../ui/CollectionSpace/EnvSky";
-import EnvStars from "../ui/CollectionSpace/EnvStars";
-import Floor from "../ui/CollectionSpaceTwo/Floor";
-import Light from "../ui/CollectionSpaceTwo/Light";
-import Wall from "../ui/CollectionSpaceTwo/Wall";
-import Player from "../ui/CollectionSpace/Player";
-import World from "./World";
-import Spot from "../ui/World/3Dcanvas/Spot";
-import Door from "../ui/CollectionSpace/Door";
-import Video from "../ui/CollectionSpaceTwo/Video";
-import Tv from "../ui/CollectionSpaceTwo/Tv";
-import ImageFrame from "../ui/CollectionSpaceTwo/ImageFrame";
-import CollectImage from "../ui/CollectionSpaceTwo/CollectImage";
-import VisitText from "../ui/CollectionSpaceTwo/VisitText";
-import VisitCard from "../ui/CollectionSpace/VisitCard";
-import Bed from "../ui/CollectionSpaceTwo/Bed";
-import Table from "../ui/CollectionSpaceTwo/Table";
-import LoadingSpinner from "../ui/public/LoadingSpinner";
-import Camera from "../ui/CollectionSpaceTwo/Camera";
-import TvTable from "../ui/CollectionSpaceTwo/TvTable";
-import UploadVideoModal from "../ui/public/UploadVideoModal";
-import UploadImagePostModal from "../ui/public/UploadImagePostModal";
-import ViewImagePostModal from "../ui/public/ViewImagePostModal";
-import Remote from "../ui/CollectionSpaceTwo/Remote";
-import Lug from "../ui/CollectionSpaceTwo/Lug";
-import Pencil from "../ui/CollectionSpaceTwo/Pencil";
-import Window from "../ui/CollectionSpaceTwo/Window";
-import Plant from "../ui/CollectionSpaceTwo/Plant";
-import PhotoBook from "../ui/CollectionSpaceTwo/PhotoBook";
-import BedsideTable from "../ui/CollectionSpaceTwo/BedsideTable";
-import MusicBox from "../ui/CollectionSpaceTwo/MusicBox";
-import ImageEffect from "./ImageEffect";
+import EnvSky from '../ui/CollectionSpace/EnvSky';
+import EnvStars from '../ui/CollectionSpace/EnvStars';
+import Floor from '../ui/CollectionSpaceTwo/Floor';
+import Light from '../ui/CollectionSpaceTwo/Light';
+import Wall from '../ui/CollectionSpaceTwo/Wall';
+import Player from '../ui/CollectionSpace/Player';
+import World from './World';
+import Spot from '../ui/World/3Dcanvas/Spot';
+import Door from '../ui/CollectionSpace/Door';
+import Video from '../ui/CollectionSpaceTwo/Video';
+import Tv from '../ui/CollectionSpaceTwo/Tv';
+import ImageFrame from '../ui/CollectionSpaceTwo/ImageFrame';
+import CollectImage from '../ui/CollectionSpaceTwo/CollectImage';
+import VisitText from '../ui/CollectionSpaceTwo/VisitText';
+import VisitCard from '../ui/CollectionSpace/VisitCard';
+import Bed from '../ui/CollectionSpaceTwo/Bed';
+import Table from '../ui/CollectionSpaceTwo/Table';
+import LoadingSpinner from '../ui/public/LoadingSpinner';
+import Camera from '../ui/CollectionSpaceTwo/Camera';
+import TvTable from '../ui/CollectionSpaceTwo/TvTable';
+import UploadVideoModal from '../ui/public/UploadVideoModal';
+import UploadImagePostModal from '../ui/public/UploadImagePostModal';
+import ViewImagePostModal from '../ui/public/ViewImagePostModal';
+import Remote from '../ui/CollectionSpaceTwo/Remote';
+import Lug from '../ui/CollectionSpaceTwo/Lug';
+import Pencil from '../ui/CollectionSpaceTwo/Pencil';
+import Window from '../ui/CollectionSpaceTwo/Window';
+import Plant from '../ui/CollectionSpaceTwo/Plant';
+import PhotoBook from '../ui/CollectionSpaceTwo/PhotoBook';
+import BedsideTable from '../ui/CollectionSpaceTwo/BedsideTable';
+import MusicBox from '../ui/CollectionSpaceTwo/MusicBox';
+import ImageEffect from './ImageEffect';
+import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
+import ExitFooter from '../ui/public/ExitFooter';
 
 const CollectionSpaceTwo = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -63,7 +65,7 @@ const CollectionSpaceTwo = () => {
   const [showImageEffect, setShowImageEffect] = useState(false);
 
   const playTransitionSound = () => {
-    const audio = new Audio("/musics/doorsound.mp3");
+    const audio = new Audio('/musics/doorsound.mp3');
     audio.play();
   };
 
@@ -102,7 +104,7 @@ const CollectionSpaceTwo = () => {
       Math.abs(doorSpot.z - myPlayer.z) < 1
     ) {
       setIsColletionVisible(true);
-      navigate("/world");
+      navigate('/world');
       playTransitionSound();
     } else {
       setIsColletionVisible(false);
@@ -117,10 +119,10 @@ const CollectionSpaceTwo = () => {
     >
       <div
         style={{
-          position: "relative",
-          width: "100vw",
-          height: "100vh",
-          background: "#000",
+          position: 'relative',
+          width: '100vw',
+          height: '100vh',
+          background: '#000',
         }}
       >
         <Suspense fallback={null}>
@@ -195,6 +197,9 @@ const CollectionSpaceTwo = () => {
           )}
         </Suspense>
         {/* <WriteVisitMemoModal /> */}
+
+        {showImageEffect ? <PhotoBoxHeader /> : ''}
+        {showImageEffect ? <ExitFooter /> : ''}
         <CrossHair isLocked={isLocked} />
       </div>
     </motion.div>
@@ -215,8 +220,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? "visible"
-        : "hidden"}; // initial visibility is hidden
+        ? 'visible'
+        : 'hidden'}; // initial visibility is hidden
     `;
   }}
 `;

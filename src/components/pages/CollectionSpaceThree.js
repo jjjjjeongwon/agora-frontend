@@ -1,43 +1,45 @@
-import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
-import { Preload } from "@react-three/drei";
-import { useState, useEffect, useRef, Suspense } from "react";
-import styled, { css } from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import * as THREE from 'three';
+import { Canvas } from '@react-three/fiber';
+import { Preload } from '@react-three/drei';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import styled, { css } from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 // Components
-import EnvSky from "../ui/CollectionSpace/EnvSky";
-import EnvStars from "../ui/CollectionSpace/EnvStars";
-import Floor from "../ui/CollectionSpaceThree/Floor";
-import Light from "../ui/CollectionSpaceThree/Light";
-import Wall from "../ui/CollectionSpaceThree/Wall";
-import Player from "../ui/CollectionSpace/Player";
-import Spot from "../ui/World/3Dcanvas/Spot";
-import Door from "../ui/CollectionSpace/Door";
-import Video from "../ui/CollectionSpaceThree/Video";
-import Tv from "../ui/CollectionSpaceTwo/Tv";
-import ImageFrame from "../ui/CollectionSpaceThree/ImageFrame";
-import CollectImage from "../ui/CollectionSpaceThree/CollectImage";
-import VisitText from "../ui/CollectionSpaceThree/VisitText";
-import VisitCard from "../ui/CollectionSpaceThree/VisitCard";
-import Bed from "../ui/CollectionSpaceThree/Bed";
-import Table from "../ui/CollectionSpaceThree/Table";
-import Camera from "../ui/CollectionSpaceThree/Camera";
-import TvTable from "../ui/CollectionSpaceThree/TvTable";
-import Remote from "../ui/CollectionSpaceThree/Remote";
-import Rabbit from "../ui/CollectionSpaceThree/Rabbit";
-import Lug from "../ui/CollectionSpaceTwo/Lug";
-import Pencil from "../ui/CollectionSpaceThree/Pencil";
-import Window from "../ui/CollectionSpaceThree/Window";
-import Closet from "../ui/CollectionSpaceThree/Closet";
-import Mirror from "../ui/CollectionSpaceThree/Mirror";
-import Piano from "../ui/CollectionSpaceThree/Piano";
-import CafeTable from "../ui/CollectionSpaceThree/CafeTable";
-import WriteVisitMemoModal from "../ui/public/WriteVisitMemoModal";
-import Flower from "../ui/CollectionSpaceThree/Flower";
-import PhotoBook from "../ui/CollectionSpaceThree/PhotoBook";
-import ImageEffect from "./ImageEffect";
+import EnvSky from '../ui/CollectionSpace/EnvSky';
+import EnvStars from '../ui/CollectionSpace/EnvStars';
+import Floor from '../ui/CollectionSpaceThree/Floor';
+import Light from '../ui/CollectionSpaceThree/Light';
+import Wall from '../ui/CollectionSpaceThree/Wall';
+import Player from '../ui/CollectionSpace/Player';
+import Spot from '../ui/World/3Dcanvas/Spot';
+import Door from '../ui/CollectionSpace/Door';
+import Video from '../ui/CollectionSpaceThree/Video';
+import Tv from '../ui/CollectionSpaceTwo/Tv';
+import ImageFrame from '../ui/CollectionSpaceThree/ImageFrame';
+import CollectImage from '../ui/CollectionSpaceThree/CollectImage';
+import VisitText from '../ui/CollectionSpaceThree/VisitText';
+import VisitCard from '../ui/CollectionSpaceThree/VisitCard';
+import Bed from '../ui/CollectionSpaceThree/Bed';
+import Table from '../ui/CollectionSpaceThree/Table';
+import Camera from '../ui/CollectionSpaceThree/Camera';
+import TvTable from '../ui/CollectionSpaceThree/TvTable';
+import Remote from '../ui/CollectionSpaceThree/Remote';
+import Rabbit from '../ui/CollectionSpaceThree/Rabbit';
+import Lug from '../ui/CollectionSpaceTwo/Lug';
+import Pencil from '../ui/CollectionSpaceThree/Pencil';
+import Window from '../ui/CollectionSpaceThree/Window';
+import Closet from '../ui/CollectionSpaceThree/Closet';
+import Mirror from '../ui/CollectionSpaceThree/Mirror';
+import Piano from '../ui/CollectionSpaceThree/Piano';
+import CafeTable from '../ui/CollectionSpaceThree/CafeTable';
+import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
+import Flower from '../ui/CollectionSpaceThree/Flower';
+import PhotoBook from '../ui/CollectionSpaceThree/PhotoBook';
+import ImageEffect from './ImageEffect';
+import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
+import ExitFooter from '../ui/public/ExitFooter';
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -59,7 +61,7 @@ const CollectionSpaceThree = () => {
   const [showImageEffect, setShowImageEffect] = useState(false);
 
   const playTransitionSound = () => {
-    const audio = new Audio("/musics/doorsound.mp3");
+    const audio = new Audio('/musics/doorsound.mp3');
     audio.play();
   };
 
@@ -82,7 +84,7 @@ const CollectionSpaceThree = () => {
       Math.abs(doorSpot.z - myPlayer.z) < 1.5
     ) {
       setIsColletionVisible(true);
-      navigate("/world");
+      navigate('/world');
       playTransitionSound();
     } else {
       setIsColletionVisible(false);
@@ -97,10 +99,10 @@ const CollectionSpaceThree = () => {
     >
       <div
         style={{
-          position: "relative",
-          width: "100vw",
-          height: "100vh",
-          background: "#000",
+          position: 'relative',
+          width: '100vw',
+          height: '100vh',
+          background: '#000',
         }}
       >
         <Suspense fallback={null}>
@@ -175,6 +177,9 @@ const CollectionSpaceThree = () => {
             </Canvas>
           )}
         </Suspense>
+
+        {showImageEffect ? <PhotoBoxHeader /> : ''}
+        {showImageEffect ? <ExitFooter /> : ''}
         {/* <UploadVideoModal /> */}
         {/* <UploadImagePostModal /> */}
         {/* <ViewImagePostModal /> */}
@@ -202,7 +207,7 @@ const Container = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${pencilModalOpen ? 1 : -1};
-      background: ${pencilModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
+      background: ${pencilModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
     `;
   }}
 `;
@@ -221,8 +226,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? "visible"
-        : "hidden"}; // initial visibility is hidden
+        ? 'visible'
+        : 'hidden'}; // initial visibility is hidden
     `;
   }}
 `;
