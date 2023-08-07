@@ -13,29 +13,33 @@ import Floor from '../ui/World/3Dcanvas/Floor';
 import Player from '../ui/CollectionSpace/Player';
 import Light from '../ui/World/3Dcanvas/Light';
 import Spot from '../ui/World/3Dcanvas/Spot';
+import Tree from '../ui/World/3Dcanvas/Tree';
+import Road from '../ui/World/3Dcanvas/Road';
+import House from '../ui/World/3Dcanvas/House';
+// import Beach from '../ui/World/3Dcanvas/Beach';
+// import Pond from '../ui/World/3Dcanvas/Pond';
+
 // global state
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { JoinExitState } from '../../state/UserAtom';
 
 import RoomHonorAlert from '../layout/World/RoomHonorAlert';
-import House from '../ui/World/3Dcanvas/House';
+
 import PostOfficeBox from '../ui/World/3Dcanvas/PostOfficeBox';
 import HouseName from '../ui/World/3Dcanvas/HouseName';
-import Tree from '../ui/World/3Dcanvas/Tree';
+
 import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
 
 import Header from '../ui/public/Header';
 import userAPI from '../../apis/userAPI';
 import FriendsModal from '../ui/public/FriendsModal';
-import Road from '../ui/World/3Dcanvas/Road';
+
 import Lamp from '../ui/World/3Dcanvas/Lamp';
 import Car from '../ui/World/3Dcanvas/Car';
 import LoadingSpinner from '../ui/public/LoadingSpinner';
 import EnvStars from '../ui/CollectionSpace/EnvStars';
 
 import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
-import Beach from '../ui/World/3Dcanvas/Beach';
-import Pond from '../ui/World/3Dcanvas/Pond';
 
 export const Controls = {
   forward: 'forward',
@@ -181,8 +185,8 @@ const World = () => {
                 <Spot spot={friendSpot1} />
                 <Spot spot={waveSpot} />
                 {/* <Lamp /> */}
-                <Beach />
-                <Pond />
+                {/* <Beach /> */}
+                {/* <Pond /> */}
                 <Road />
                 <House />
                 {/* <Car /> */}

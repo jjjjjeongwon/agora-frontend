@@ -79,8 +79,8 @@ export const CharacterController = ({ setMyPlayer }) => {
 
     const targetCameraPosition = new THREE.Vector3(
       characterWorldPosition.x,
-      characterWorldPosition.y + 10,
-      characterWorldPosition.z + 15
+      characterWorldPosition.y + 7,
+      characterWorldPosition.z + 10
     );
 
     setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });

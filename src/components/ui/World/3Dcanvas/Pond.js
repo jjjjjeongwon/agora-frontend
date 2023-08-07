@@ -5,8 +5,9 @@ import { BoxGeometry, MeshBasicMaterial } from 'three';
 import { RigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
 
+useGLTF.preload('../models/pond/Fairy_Pond.glb');
 const Pond = () => {
-  const glb = useGLTF('../models/pond/Little_Fish_Pond.glb');
+  const glb = useGLTF('../models/pond/Fairy_Pond.glb');
   const pond = glb.scene.children[0];
 
   useEffect(() => {
