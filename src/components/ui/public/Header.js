@@ -25,7 +25,7 @@ const Header = ({ setFriend }) => {
 
   // console.log(loginNickName);
 
-  // const nickname = loginNickName;
+  const nickname = loginNickName;
 
   useEffect(() => {
     if (isPlaying) {
@@ -46,26 +46,26 @@ const Header = ({ setFriend }) => {
         World
       </Logo>
       <Wrap>
-        <NickName>UUJEEN</NickName>
+        <NickName>{nickname}</NickName>
         <IconWrap>
           <audio ref={audioRef} loop>
-            <source src='/musics/pongdang.mp3' type='audio/mpeg' />
+            <source src="/musics/pongdang.mp3" type="audio/mpeg" />
             Your browser does not support the audio tag.
           </audio>
           <Logout>
             {isPlaying ? (
               <HoverWrap
                 onClick={togglePlay}
-                color='white'
-                hoverColor='#BCC9C6'
+                color="white"
+                hoverColor="#BCC9C6"
               >
                 <GoUnmute size={29} />
               </HoverWrap>
             ) : (
               <HoverWrap
                 onClick={togglePlay}
-                color='white'
-                hoverColor='#BCC9C6'
+                color="white"
+                hoverColor="#BCC9C6"
               >
                 <GoMute size={29} />
               </HoverWrap>
@@ -73,12 +73,12 @@ const Header = ({ setFriend }) => {
           </Logout>
           {/* <BackgroundMusic /> */}
           <Logout onClick={() => setFriend(true)}>
-            <HoverWrap color='white' hoverColor='#BCC9C6'>
+            <HoverWrap color="white" hoverColor="#BCC9C6">
               <TbUserSearch size={29} />
             </HoverWrap>
           </Logout>
           <Logout onClick={userLogout}>
-            <HoverWrap color='white' hoverColor='#BCC9C6'>
+            <HoverWrap color="white" hoverColor="#BCC9C6">
               <HiOutlineLogout size={29} />
             </HoverWrap>
           </Logout>

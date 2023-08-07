@@ -31,7 +31,7 @@ export const NickNameState = atom({
 
 export const IdState = atom({
   key: 'IdState',
-  default: '',
+  default: 0,
   effects_UNSTABLE: [persistAtom],
 });
 

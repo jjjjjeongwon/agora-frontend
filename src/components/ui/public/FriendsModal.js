@@ -2,41 +2,42 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import userAPI from '../../../apis/userAPI';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const FriendsModal = forwardRef((props, ref) => {
   let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
 
   const [content, setContent] = useState('');
-  const roomHost = useParams().id;
-  //   const email = JSON.parse(sessionStorage.getItem('isLogin'))[
-  //     'LoginEmailState'
-  //   ];
+  const email = JSON.parse(sessionStorage.getItem('isLogin'))[
+    'LoginEmailState'
+  ];
 
-  console.log(roomHost);
-
-  //   const visitData = {
-  //     email: email,
-  //     content: content,
-  //   };
+  const visitData = {
+    from: email,
+    to: content,
+  };
+  // console.log(visitData);
 
   const sendVisitList = async () => {
-    console.log(content);
-    // await userAPI
-    //   .post(`/user/${roomHost}/guestbook`, visitData)
-    //   .then((res) => {
-    //     console.log(res);
-    //     // Swal.fire({
-    //     //   title: '회원가입 성공하셨습니다!',
-    //     //   confirmButtonColor: '#0e72ed',
-    //     // });
-    //     window.alert('방명록 성공!');
+    // console.log(content);
+    await userAPI
+      .post('user/handleFriendRequest', visitData)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: '친구요청 성공!',
+          confirmButtonColor: '#0e72ed',
+        });
 
-    //     // navigate('/login');
-    //   })
-    //   .catch((err) => {
-    //     console.log('방명록 오류', err);
-    //     window.alert('방명록 실패!');
-    //   });
+        // navigate('/login');
+      })
+      .catch((err) => {
+        console.log('친구요청 오류', err);
+        Swal.fire({
+          title: '친구요청 실패!',
+          confirmButtonColor: 'red',
+        });
+      });
   };
 
   // 모달 끄기

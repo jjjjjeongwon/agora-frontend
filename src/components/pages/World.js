@@ -59,6 +59,7 @@ const World = () => {
   const [isCollectionVisible, setIsColletionVisible] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
   const [friend, setFriend] = useState(false);
+  const [selectRoom, setSelectRoom] = useState();
 
   const playTransitionSound = () => {
     const audio = new Audio('/musics/doorsound.mp3');
@@ -92,22 +93,40 @@ const World = () => {
     []
   );
 
-  // const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+  const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
 
-  //   try {
-  //     const response = await userAPI.get(`/user/${userId}/content`);
+    try {
+      const response = await userAPI.get(`/user/${userId}/content`);
 
-  //     console.log('서버 응답:', response.data);
+      console.log('서버 응답:', response.data);
+      setSelectRoom(response.data.userHouseNum);
 
-  //     // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
-  //   } catch (error) {
-  //     console.error('서버 오류:', error);
-  //   }
-  // };
-  // console.log(friend);
+      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+    } catch (error) {
+      console.error('서버 오류:', error);
+    }
+  };
+
+  const getRandomUser = async (e) => {
+    // e.preventDefault();
+
+    try {
+      const response = await userAPI.get('/user/surfing');
+
+      console.log('서버 응답:', response.data);
+
+      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+    } catch (error) {
+      console.error('서버 오류:', error);
+    }
+  };
+
+  useEffect(() => {
+    handleSubmit();
+  }, []);
 
   useEffect(() => {
     if (friend === true) {
@@ -121,23 +140,37 @@ const World = () => {
       Math.abs(mySpot.x - myPlayer.x) < 1 &&
       Math.abs(mySpot.z - myPlayer.z) < 1
     ) {
-      // setIsColletionVisible(true);
-      navigate('/collectionspace/1');
-      playTransitionSound();
+      if (selectRoom === 1) {
+        navigate(`/collectionspace/${userId}`);
+        playTransitionSound();
+      } else if (selectRoom === 2) {
+        navigate(`/collectionspace_two/${userId}`);
+        playTransitionSound();
+      } else if (selectRoom === 3) {
+        navigate(`/collectionspace_three/${userId}`);
+        playTransitionSound();
+      }
     } else if (
       Math.abs(friendSpot1.x - myPlayer.x) < 1 &&
       Math.abs(friendSpot1.z - myPlayer.z) < 1
     ) {
-      // setIsColletionVisible(false);
       navigate('/collectionspace_three');
       playTransitionSound();
     } else if (
       Math.abs(waveSpot.x - myPlayer.x) < 1 &&
       Math.abs(waveSpot.z - myPlayer.z) < 1
     ) {
-      // setIsColletionVisible(false);
-      navigate('/collectionspace_two');
-      playTransitionSound();
+      getRandomUser();
+      // if (selectRoom === 1) {
+      //   navigate(`/collectionspace/${userId}`);
+      //   playTransitionSound();
+      // } else if (selectRoom === 2) {
+      //   navigate(`/collectionspace_two/${userId}`);
+      //   playTransitionSound();
+      // } else if (selectRoom === 3) {
+      //   navigate(`/collectionspace_three/${userId}`);
+      //   playTransitionSound();
+      // }
     }
   }, [myPlayer]);
 

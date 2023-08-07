@@ -35,9 +35,11 @@ const UploadImagePostModal = forwardRef((props, ref) => {
 
   const [content, setContent] = useState('');
 
-  // const userEmail = JSON.parse(sessionStorage.getItem('isLogin'))[
-  //   'LoginEmailState'
-  // ];
+  const userEmail = JSON.parse(sessionStorage.getItem('isLogin'))[
+    'LoginEmailState'
+  ];
+
+  console.log(title, content, userEmail);
 
   const previewImage = (file) => {
     const reader = new FileReader();
@@ -66,7 +68,7 @@ const UploadImagePostModal = forwardRef((props, ref) => {
       formData.append('file', file);
       formData.append('title', title);
       formData.append('content', content);
-      // formData.append('email', userEmail);
+      formData.append('email', userEmail);
       console.log(formData);
 
       const response = await userAPI.post('/board', formData, {

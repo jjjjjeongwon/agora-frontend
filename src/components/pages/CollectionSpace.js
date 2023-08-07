@@ -42,6 +42,7 @@ import ImageEffect from './ImageEffect';
 import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
 import ExitFooter from '../ui/public/ExitFooter';
 import AudioPlayer from '../ui/public/AudioPlayer';
+import userAPI from '../../apis/userAPI';
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -65,6 +66,26 @@ const CollectionSpace = () => {
   const [pencilModalOpen, setPencilModalOpen] = useState(false);
 
   const [showImageEffect, setShowImageEffect] = useState(false);
+  const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
+
+    try {
+      const response = await userAPI.get(`/user/${userId}/content`);
+
+      console.log('서버 응답:', response.data);
+
+      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+    } catch (error) {
+      console.error('서버 오류:', error);
+    }
+  };
+  // console.log(friend);
+
+  useEffect(() => {
+    handleSubmit();
+  }, []);
 
   const playTransitionSound = () => {
     const audio = new Audio('/musics/doorsound.mp3');

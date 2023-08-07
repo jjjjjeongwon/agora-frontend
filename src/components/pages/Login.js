@@ -23,49 +23,49 @@ const Login = () => {
   const setIsLogin = useSetRecoilState(LoginState);
   const setLoginEmail = useSetRecoilState(LoginEmailState);
   const setLoginNickName = useSetRecoilState(NickNameState);
-  // const setLoginId = useSetRecoilState(IdState);
+  const setLoginId = useSetRecoilState(IdState);
 
   const navigate = useNavigate();
 
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  // const checkLogin = async () => {
-  //   try {
-  //     const res = await userAPI.post('user/login', {
-  //       email: emailRef.current.value,
-  //       password: passwordRef.current.value,
-  //     });
-
-  //     console.log(res);
-  //     console.log(res.data.nickname);
-
-  //     setIsLogin(true);
-  //     setLoginEmail(res.data.email);
-  //     setLoginNickName(res.data.nickname);
-  //     // setLoginId(res.data.id);
-
-  //     Swal.fire({
-  //       title: `반갑습니다!`,
-  //       confirmButtonColor: '#0e72ed',
-  //     });
-  //     navigate('/world');
-  //   } catch (err) {
-  //     console.log('포스트 요청 에러', err);
-  //     Swal.fire({
-  //       title: `아이디 또는 패스워드를 확인해주세요!`,
-  //       confirmButtonColor: '#0e72ed',
-  //     });
-  //   }
-  // };
-
   const checkLogin = async () => {
-    // Swal.fire({
-    //   title: `반갑습니다!`,
-    //   confirmButtonColor: '#0e72ed',
-    // });
-    navigate('/world');
+    try {
+      const res = await userAPI.post('user/login', {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
+
+      console.log(res);
+      console.log(res.data.nickname);
+
+      setIsLogin(true);
+      setLoginEmail(res.data.email);
+      setLoginNickName(res.data.nickname);
+      setLoginId(res.data._id);
+
+      // Swal.fire({
+      //   title: `반갑습니다!`,
+      //   confirmButtonColor: '#0e72ed',
+      // });
+      navigate('/world');
+    } catch (err) {
+      console.log('포스트 요청 에러', err);
+      Swal.fire({
+        title: `아이디 또는 패스워드를 확인해주세요!`,
+        confirmButtonColor: '#0e72ed',
+      });
+    }
   };
+
+  // const checkLogin = async () => {
+  //   // Swal.fire({
+  //   //   title: `반갑습니다!`,
+  //   //   confirmButtonColor: '#0e72ed',
+  //   // });
+  //   navigate('/world');
+  // };
   return (
     <LoginContainer>
       <LoginSignupTitle />
