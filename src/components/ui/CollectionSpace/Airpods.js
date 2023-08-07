@@ -64,7 +64,7 @@ const Airpods = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive castShadow object={airpods.clone()} dispose={null} />
+      <primitive object={airpods} dispose={null} />
     </>
   );
 };
