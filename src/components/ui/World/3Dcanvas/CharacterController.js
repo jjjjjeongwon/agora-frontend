@@ -101,8 +101,8 @@ export const CharacterController = ({ setMyPlayer }) => {
           isOnFloor.current = true;
         }}
       >
-        <CapsuleCollider args={[0.8, 0.4]} position={[0, 1.2, 0]} />
-        <group ref={character}>
+        <CapsuleCollider args={[0.9, 0.4]} position={[0, 0.9, 0]} />
+        <group castShadow ref={character}>
           <Character moveState={moveState} />
         </group>
       </RigidBody>

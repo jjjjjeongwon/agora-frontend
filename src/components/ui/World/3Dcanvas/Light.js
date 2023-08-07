@@ -17,11 +17,11 @@ const Light = () => {
   }, []);
   return (
     <>
-      <ambientLight color={'white'} intensity={0.4} />
+      <ambientLight color={'white'} intensity={0.3} />
       <directionalLight
         ref={lightRef}
         castShadow
-        intensity={0.5}
+        intensity={0.4}
         position={[5, 15, 5]}
       />
       ;

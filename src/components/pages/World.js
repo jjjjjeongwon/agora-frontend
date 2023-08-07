@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { KeyboardControls, Preload } from '@react-three/drei';
+import { KeyboardControls, Preload, Sparkles } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
 
 //components
@@ -35,7 +35,6 @@ import userAPI from '../../apis/userAPI';
 import FriendsModal from '../ui/public/FriendsModal';
 
 import Lamp from '../ui/World/3Dcanvas/Lamp';
-import Car from '../ui/World/3Dcanvas/Car';
 import LoadingSpinner from '../ui/public/LoadingSpinner';
 import EnvStars from '../ui/CollectionSpace/EnvStars';
 
@@ -145,8 +144,8 @@ const World = () => {
 
   return (
     <motion.div
-      initial='hidden'
-      animate='visible'
+      initial="hidden"
+      animate="visible"
       transition={{ duration: 1.5 }} // 이동 시간 설정
       variants={fadeIn} // 애니메이션 variant
     >
@@ -177,7 +176,7 @@ const World = () => {
                 position: [0, 10, 25],
               }}
             >
-              <Physics>
+              <Physics debug>
                 <EnvSky />
                 <EnvStars />
                 <Light />
@@ -186,10 +185,19 @@ const World = () => {
                 <Spot spot={waveSpot} />
                 {/* <Lamp /> */}
                 {/* <Beach /> */}
+                <Sparkles
+                  color="orange"
+                  position={[-10, 0.7, -4]}
+                  count={100}
+                  noise={1}
+                  opacity={3}
+                  size={10}
+                  scale={[0.5, 1, 0.5]}
+                  speed={0.8}
+                />
                 <Pond />
                 <Road />
                 <House />
-                {/* <Car /> */}
                 <Tree />
                 {/* <HouseName /> */}
                 <Floor />

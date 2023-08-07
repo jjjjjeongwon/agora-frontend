@@ -59,7 +59,7 @@ const Airpods = () => {
       >
         <mesh
           ref={coneRef}
-          position={[-3.5, 2.4, -0.7]}
+          position={[-3.5, 2.2, -3.3]}
           geometry={pointGeometry}
           material={pointMaterial}
         />

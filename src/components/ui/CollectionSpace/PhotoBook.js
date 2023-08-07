@@ -60,7 +60,7 @@ const PhotoBook = () => {
       >
         <mesh
           ref={coneRef}
-          position={[-3.5, 2.2, -3.3]}
+          position={[-3.5, 2.2, -0.7]}
           geometry={pointGeometry}
           material={pointMaterial}
         />
