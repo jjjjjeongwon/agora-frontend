@@ -21,10 +21,9 @@ const Beach = () => {
     <RigidBody type="fixed">
       <>
         <primitive
-          position={[20, 2, 0]}
-          scale={[0.5, 0.5, 0.5]}
-          // rotation={[0, Math.PI * 1.5, Math.PI / 2]}
-          rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
+          position={[35, 0, 5]}
+          scale={[0.3, 0.3, 0.3]}
+          rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
           object={beach.clone()}
           dispose={null}
         />

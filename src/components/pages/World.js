@@ -10,16 +10,15 @@ import { Physics } from '@react-three/rapier';
 //components
 import EnvSky from '../ui/World/3Dcanvas/EnvSky';
 import Floor from '../ui/World/3Dcanvas/Floor';
-import Player from '../ui/CollectionSpace/Player';
 import Light from '../ui/World/3Dcanvas/Light';
 import Spot from '../ui/World/3Dcanvas/Spot';
 import Tree from '../ui/World/3Dcanvas/Tree';
 import Road from '../ui/World/3Dcanvas/Road';
 import House from '../ui/World/3Dcanvas/House';
 import Pond from '../ui/World/3Dcanvas/Pond';
-// import Beach from '../ui/World/3Dcanvas/Beach';
+import Beach from '../ui/World/3Dcanvas/Beach';
 
-// global statew
+// global state
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { JoinExitState } from '../../state/UserAtom';
 
@@ -176,7 +175,7 @@ const World = () => {
                 position: [0, 10, 25],
               }}
             >
-              <Physics debug>
+              <Physics>
                 <EnvSky />
                 <EnvStars />
                 <Light />
@@ -184,7 +183,7 @@ const World = () => {
                 <Spot spot={friendSpot1} />
                 <Spot spot={waveSpot} />
                 {/* <Lamp /> */}
-                {/* <Beach /> */}
+                <Beach />
                 <Sparkles
                   color="orange"
                   position={[-10, 0.7, -4]}
@@ -201,12 +200,6 @@ const World = () => {
                 <Tree />
                 {/* <HouseName /> */}
                 <Floor />
-                {/* <Player
-              roomName={roomName}
-              setMyPlayer={setMyPlayer}
-              setIsLocked={setIsLocked}
-              isLocked={isLocked}
-            /> */}
                 <CharacterController setMyPlayer={setMyPlayer} />
               </Physics>
               <Preload all />
