@@ -83,7 +83,7 @@ export const CharacterController = ({ setMyPlayer }) => {
       characterWorldPosition.z + 15
     );
 
-    // setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
+    setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
     // console.log(characterWorldPosition.x, characterWorldPosition.z);
     state.camera.position.lerp(targetCameraPosition, delta * 2);
   });

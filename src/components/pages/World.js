@@ -34,6 +34,7 @@ import LoadingSpinner from '../ui/public/LoadingSpinner';
 import EnvStars from '../ui/CollectionSpace/EnvStars';
 
 import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
+import Beach from '../ui/World/3Dcanvas/Beach';
 
 export const Controls = {
   forward: 'forward',
@@ -73,7 +74,7 @@ const World = () => {
   //spots
   const mySpot = { x: -10, y: 0.005, z: -4 };
   const friendSpot1 = { x: -17, y: 0.005, z: 15 };
-  const waveSpot = { x: 0, y: 0.005, z: -26 };
+  const waveSpot = { x: 17, y: 0.005, z: 3 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
 
@@ -178,8 +179,8 @@ const World = () => {
                 <Spot spot={mySpot} />
                 <Spot spot={friendSpot1} />
                 <Spot spot={waveSpot} />
-
                 {/* <Lamp /> */}
+                <Beach />
                 <Road />
                 <House />
                 {/* <Car /> */}
