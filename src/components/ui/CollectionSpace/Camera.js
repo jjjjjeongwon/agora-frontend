@@ -6,7 +6,6 @@ import * as THREE from 'three';
 
 const Camera = () => {
   const glb = useGLTF('../models/camera/camera_3d.glb');
-  //   const glb = useGLTF('../models/cartoon_furniture.glb');
   const cameraMesh = glb.scene.children[0];
   const { scene, camera } = useThree();
   const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
@@ -16,12 +15,8 @@ const Camera = () => {
   useEffect(() => {
     if (!cameraMesh) return;
 
-    // camera.position.x = -2;
-    // camera.position.y = 1.2;
-    // camera.position.z = 4;
     cameraMesh.position.set(-2, 1.2, 4);
     cameraMesh.rotation.x = -Math.PI / 6;
-    // camera.rotation.y = Math.PI;
     cameraMesh.rotation.z = Math.PI / 2;
     cameraMesh.scale.x = 0.0003;
     cameraMesh.scale.y = 0.0003;
@@ -35,10 +30,6 @@ const Camera = () => {
       })
     );
     mesh.name = 'camera';
-    mesh.castShadow = true;
-    // mesh.position.x = camera.position.x;
-    // mesh.position.y = camera.position.y;
-    // mesh.position.z = camera.position.z;
     mesh.position.set(-2, 1.2, 4);
     scene.add(mesh);
   });
@@ -68,7 +59,12 @@ const Camera = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive object={cameraMesh} dispose={null} />
+      <primitive
+        castShadow
+        receiveShadow
+        object={cameraMesh.clone()}
+        dispose={null}
+      />
     </>
   );
 };

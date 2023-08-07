@@ -1,7 +1,7 @@
-import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
-import * as THREE from "three";
+import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import React, { useEffect } from 'react';
+import * as THREE from 'three';
 
 const ImageFrameChild = ({ glb, position, scale, rotation }) => {
   const frame = glb.scene.clone().children[0]; // 클론을 사용해 독립적인 객체 생성
@@ -28,7 +28,7 @@ const ImageFrameChild = ({ glb, position, scale, rotation }) => {
 };
 
 const ImageFrame = () => {
-  const glb = useGLTF("../models/imageframe/photoframe_blue.glb");
+  const glb = useGLTF('../models/imageframe/photoframe_blue.glb');
 
   const positions = [
     [-2, 3.9, 5],

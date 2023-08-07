@@ -16,18 +16,16 @@ const Rabbit = () => {
     rabbit.position.set(-1.55, 0.5, 5);
     rabbit.scale.set(0.5, 0.5, 0.5);
     rabbit.rotation.z = Math.PI;
-    const mesh = new THREE.Mesh(
-      new BoxGeometry(0.2, 0.2, 0.6),
-      new MeshBasicMaterial({ transparent: true, opacity: 0 })
-    );
-
-    mesh.castShadow = true;
-    mesh.position.x = rabbit.position.x;
-    mesh.position.y = rabbit.position.y;
-    mesh.position.z = rabbit.position.z;
-    scene.add(mesh);
+    // const mesh = new THREE.Mesh(
+    //   new BoxGeometry(0.2, 0.2, 0.6),
+    //   new MeshBasicMaterial({ transparent: true, opacity: 0 })
+    // );
+    // mesh.position.x = rabbit.position.x;
+    // mesh.position.y = rabbit.position.y;
+    // mesh.position.z = rabbit.position.z;
+    // scene.add(mesh);
   });
-  return <primitive object={rabbit} dispose={null} />;
+  return <primitive castShadow object={rabbit.clone()} dispose={null} />;
 };
 
 export default Rabbit;

@@ -28,15 +28,15 @@ const Tv = () => {
       new BoxGeometry(0.5, 3, 5),
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
-
-    mesh.castShadow = true;
     mesh.position.x = tv.position.x + 1.5;
     mesh.position.y = tv.position.y;
     mesh.position.z = tv.position.z + 2;
     scene.add(mesh);
   }, []);
 
-  return <primitive name={'tv'} castShadow object={tv} dispose={null} />;
+  return (
+    <primitive name={'tv'} castShadow object={tv.clone()} dispose={null} />
+  );
 };
 
 export default Tv;

@@ -31,11 +31,9 @@ const PhotoBook = () => {
         transparent: true,
         opacity: 0,
         color: 'white',
-        side: THREE.DoubleSide,
       })
     );
     mesh.name = 'photoBook';
-    mesh.castShadow = true;
     mesh.position.set(-5.1, 1.2, 2.4);
     scene.add(mesh);
   });
@@ -65,8 +63,8 @@ const PhotoBook = () => {
           material={pointMaterial}
           rotation={[0, 0, -Math.PI / 2]}
         />
-      </Float>{' '}
-      <primitive object={photoBook} dispose={null} />
+      </Float>
+      <primitive castShadow object={photoBook.clone()} dispose={null} />
     </>
   );
 };

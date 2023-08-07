@@ -1,11 +1,11 @@
-import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
-import { BoxGeometry, MeshBasicMaterial } from "three";
-import * as THREE from "three";
+import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import React, { useEffect } from 'react';
+import { BoxGeometry, MeshBasicMaterial } from 'three';
+import * as THREE from 'three';
 
 const Flower = () => {
-  const glb = useGLTF("../models/flower/flower_pot.glb");
+  const glb = useGLTF('../models/flower/flower_pot.glb');
   const flower = glb.scene.children[0];
   const { scene } = useThree();
 
@@ -20,7 +20,14 @@ const Flower = () => {
     flower.position.set(0.8, 1.2, -0.8);
     flower.scale.set(0.2, 0.2, 0.2);
   });
-  return <primitive object={flower} dispose={null} />;
+  return (
+    <primitive
+      castShadow
+      receiveShadow
+      object={flower.clone()}
+      dispose={null}
+    />
+  );
 };
 
 export default Flower;

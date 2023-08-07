@@ -25,33 +25,40 @@ const BedsideTable = () => {
     bedsideTable.scale.x = 0.002;
     bedsideTable.scale.y = 0.004;
     bedsideTable.scale.z = 0.004;
-    const mesh = new THREE.Mesh(
-      new BoxGeometry(2, 1, 6),
-      new MeshBasicMaterial({ transparent: true, opacity: 0 })
-    );
-    const upMesh = new THREE.Mesh(
-      new PlaneGeometry(2, 1),
-      new MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-        color: 'white',
-        side: THREE.DoubleSide,
-      })
-    );
-    upMesh.receiveShadow = true;
-    mesh.castShadow = true;
-    mesh.position.x = bedsideTable.position.x + 1;
-    mesh.position.y = bedsideTable.position.y + 1;
-    mesh.position.z = bedsideTable.position.z + 1;
+    // const mesh = new THREE.Mesh(
+    //   new BoxGeometry(2, 1, 6),
+    //   new MeshBasicMaterial({ transparent: true, opacity: 0 })
+    // );
+    // const upMesh = new THREE.Mesh(
+    //   new PlaneGeometry(2, 1),
+    //   new MeshBasicMaterial({
+    //     transparent: true,
+    //     opacity: 0,
+    //     color: 'white',
+    //     side: THREE.DoubleSide,
+    //   })
+    // );
+    // upMesh.receiveShadow = true;
+    // mesh.castShadow = true;
+    // mesh.position.x = bedsideTable.position.x + 1;
+    // mesh.position.y = bedsideTable.position.y + 1;
+    // mesh.position.z = bedsideTable.position.z + 1;
 
-    upMesh.position.x = -4;
-    upMesh.position.y = 1.854;
-    upMesh.position.z = -2;
-    upMesh.rotation.x = Math.PI / 2;
-    scene.add(mesh, upMesh);
+    // upMesh.position.x = -4;
+    // upMesh.position.y = 1.854;
+    // upMesh.position.z = -2;
+    // upMesh.rotation.x = Math.PI / 2;
+    // scene.add(mesh, upMesh);
   }, []);
 
-  return <primitive castShadow object={bedsideTable} dispose={null} />;
+  return (
+    <primitive
+      castShadow
+      receiveShadow
+      object={bedsideTable.clone()}
+      dispose={null}
+    />
+  );
 };
 
 export default BedsideTable;

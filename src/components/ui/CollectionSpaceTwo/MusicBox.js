@@ -35,31 +35,31 @@ const MusicBox = () => {
     musicBox.scale.set(0.5, 0.5, 0.5);
     musicBox.rotation.z = -Math.PI / 2;
 
-    const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.1, 0.1, 0.1, 32),
-      new BoxGeometry(2, 1, 6),
-      new MeshBasicMaterial({ transparent: true, opacity: 0 })
-    );
-    const upMesh = new THREE.Mesh(
-      new PlaneGeometry(2, 6),
-      new MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-        color: 'white',
-        side: THREE.DoubleSide,
-      })
-    );
-    upMesh.receiveShadow = true;
-    mesh.castShadow = true;
-    mesh.position.x = musicBox.position.x + 1;
-    mesh.position.y = musicBox.position.y + 1;
-    mesh.position.z = musicBox.position.z + 1;
+    // const mesh = new THREE.Mesh(
+    //   new CylinderGeometry(0.1, 0.1, 0.1, 32),
+    //   new BoxGeometry(2, 1, 6),
+    //   new MeshBasicMaterial({ transparent: true, opacity: 0 })
+    // );
+    // const upMesh = new THREE.Mesh(
+    //   new PlaneGeometry(2, 6),
+    //   new MeshBasicMaterial({
+    //     transparent: true,
+    //     opacity: 0,
+    //     color: 'white',
+    //     side: THREE.DoubleSide,
+    //   })
+    // );
+    // upMesh.receiveShadow = true;
+    // mesh.castShadow = true;
+    // mesh.position.x = musicBox.position.x + 1;
+    // mesh.position.y = musicBox.position.y + 1;
+    // mesh.position.z = musicBox.position.z + 1;
 
-    upMesh.position.x = -4;
-    upMesh.position.y = 1.854;
-    upMesh.position.z = -2;
-    upMesh.rotation.x = Math.PI / 2;
-    scene.add(mesh, upMesh);
+    // upMesh.position.x = -4;
+    // upMesh.position.y = 1.854;
+    // upMesh.position.z = -2;
+    // upMesh.rotation.x = Math.PI / 2;
+    // scene.add(mesh, upMesh);
   }, []);
 
   useFrame(() => {
@@ -88,7 +88,7 @@ const MusicBox = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive castShadow object={musicBox} dispose={null} />
+      <primitive castShadow object={musicBox.clone()} dispose={null} />
     </>
   );
 };

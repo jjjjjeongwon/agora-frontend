@@ -65,7 +65,7 @@ const PhotoBook = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive object={photoBook} dispose={null} />;
+      <primitive castShadow object={photoBook.clone()} dispose={null} />;
     </>
   );
 };

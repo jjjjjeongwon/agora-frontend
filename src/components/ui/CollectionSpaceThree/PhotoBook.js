@@ -37,7 +37,6 @@ const PhotoBook = () => {
       })
     );
     mesh.name = 'photoBook';
-    mesh.castShadow = true;
     mesh.position.set(0.7, 1.2, -1.45);
     scene.add(mesh);
   });
@@ -67,7 +66,7 @@ const PhotoBook = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive object={photoBook} dispose={null} />
+      <primitive castShadow object={photoBook.clone()} dispose={null} />
     </>
   );
 };

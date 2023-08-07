@@ -12,6 +12,7 @@ const Table = () => {
     glb.scene.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = true;
+        child.receiveShadow = true;
       }
     });
     // table.position.y = 0;
@@ -35,14 +36,14 @@ const Table = () => {
         rotation={[Math.PI / 2, 0, Math.PI]}
       >
         <planeGeometry args={[5, 3]} />
-        <meshStandardMaterial
-          color={'white'}
-          transparent
-          opacity={0}
-          side={THREE.DoubleSide}
-        />
+        <meshStandardMaterial color={'white'} transparent opacity={0} />
       </mesh>
-      <primitive castShadow object={table} dispose={null} />
+      <primitive
+        castShadow
+        recieveShadow
+        object={table.clone()}
+        dispose={null}
+      />
     </>
   );
 };

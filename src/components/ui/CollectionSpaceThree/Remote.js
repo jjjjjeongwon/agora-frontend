@@ -26,8 +26,6 @@ const Remote = () => {
       new MeshBasicMaterial({ transparent: true, opacity: 0 })
     );
     mesh.name = 'Remote';
-
-    mesh.castShadow = true;
     mesh.position.x = remote.position.x;
     mesh.position.y = remote.position.y;
     mesh.position.z = remote.position.z;
@@ -58,8 +56,8 @@ const Remote = () => {
           geometry={pointGeometry}
           material={pointMaterial}
         />
-      </Float>{' '}
-      <primitive object={remote} dispose={null} />
+      </Float>
+      <primitive castShadow object={remote.clone()} dispose={null} />
     </>
   );
 };

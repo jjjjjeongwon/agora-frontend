@@ -63,7 +63,7 @@ const Pencil = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive object={pencil} dispose={null} />
+      <primitive castShadow object={pencil.clone()} dispose={null} />
     </>
   );
 };

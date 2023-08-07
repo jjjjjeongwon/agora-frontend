@@ -19,7 +19,7 @@ const Chair = () => {
     chair.scale.set(2, 2, 2);
     chair.rotation.z = -Math.PI / 2;
   });
-  return <primitive object={chair} dispose={null} />;
+  return <primitive object={chair.clone()} dispose={null} />;
 };
 
 export default Chair;

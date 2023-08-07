@@ -27,9 +27,7 @@ const Pencil = () => {
     pencil.scale.y = 0.004;
     pencil.scale.z = 0.004;
     const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.1, 0.1, 0.1, 32),
-
-      new THREE.BoxGeometry(1, 1, 1),
+      new THREE.BoxGeometry(0.3, 0.3, 0.3),
       new THREE.MeshBasicMaterial({
         transparent: true,
         opacity: 0,
@@ -69,7 +67,7 @@ const Pencil = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive object={pencil} dispose={null} />
+      <primitive castShadow object={pencil.clone()} dispose={null} />
     </>
   );
 };

@@ -38,7 +38,6 @@ const Pencil = () => {
       })
     );
     mesh.name = 'pencil';
-    mesh.castShadow = true;
 
     mesh.position.x = pencil.position.x;
     mesh.position.y = pencil.position.y + 0.1;
@@ -74,7 +73,7 @@ const Pencil = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive object={pencil} dispose={null} />
+      <primitive castShadow object={pencil.clone()} dispose={null} />
     </>
   );
 };

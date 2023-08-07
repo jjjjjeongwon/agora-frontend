@@ -58,7 +58,7 @@ const Remote = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive object={remote} dispose={null} />
+      <primitive castShadow object={remote.clone()} dispose={null} />
     </>
   );
 };

@@ -24,6 +24,8 @@ function Player({
     left: false,
     right: false,
   });
+
+  const [isDelaying, setIsDelaying] = useState(false);
   // raycaster
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();

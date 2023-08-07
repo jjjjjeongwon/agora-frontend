@@ -32,7 +32,7 @@ const Lug = () => {
     // mesh.position.z = lug.position.z;
     // scene.add(mesh);
   });
-  return <primitive object={lug} dispose={null} />;
+  return <primitive castShadow receiveShadow object={lug} dispose={null} />;
 };
 
 export default Lug;

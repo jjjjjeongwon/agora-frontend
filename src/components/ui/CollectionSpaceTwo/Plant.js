@@ -1,15 +1,21 @@
-import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
-import { BoxGeometry, MeshBasicMaterial } from "three";
-import * as THREE from "three";
+import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import React, { useEffect } from 'react';
+import { BoxGeometry, MeshBasicMaterial } from 'three';
+import * as THREE from 'three';
 
 const Plant = () => {
-  const glb = useGLTF("../models/plant/low-poly_plant.glb");
+  const glb = useGLTF('../models/plant/low-poly_plant.glb');
   const plant = glb.scene.children[0];
   const { scene } = useThree();
   useEffect(() => {
     if (!plant) return;
+
+    glb.scene.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+      }
+    });
 
     plant.position.x = 3.2;
     plant.position.y = 0;
@@ -19,24 +25,23 @@ const Plant = () => {
     plant.scale.z = 8;
     plant.rotation.z = -(Math.PI / 2);
     // plant.rotation.z = Math.PI / 2;
-    const mesh = new THREE.Mesh(
-      new BoxGeometry(0.1, 0.2, 0.3),
-      new MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-        side: THREE.DoubleSide,
-      })
-    );
-    mesh.castShadow = true;
-    mesh.position.x = plant.position.x;
-    mesh.position.y = plant.position.y + 0.1;
-    mesh.position.z = plant.position.z;
-    mesh.rotation.x = plant.rotation.x;
-    mesh.rotation.y = plant.rotation.y;
-    mesh.rotation.z = plant.rotation.z;
-    scene.add(mesh);
+    // const mesh = new THREE.Mesh(
+    //   new BoxGeometry(0.1, 0.2, 0.3),
+    //   new MeshBasicMaterial({
+    //     transparent: true,
+    //     opacity: 0,
+    //     side: THREE.DoubleSide,
+    //   })
+    // );
+    // mesh.position.x = plant.position.x;
+    // mesh.position.y = plant.position.y + 0.1;
+    // mesh.position.z = plant.position.z;
+    // mesh.rotation.x = plant.rotation.x;
+    // mesh.rotation.y = plant.rotation.y;
+    // mesh.rotation.z = plant.rotation.z;
+    // scene.add(mesh);
   });
-  return <primitive object={plant} dispose={null} />;
+  return <primitive castShadow object={plant.clone()} dispose={null} />;
 };
 
 export default Plant;

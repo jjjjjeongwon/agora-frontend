@@ -24,15 +24,13 @@ const Camera = () => {
     cameraMesh.scale.z = 0.1;
     cameraMesh.rotation.z = Math.PI / 2;
     const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.1, 0.1, 0.1, 32),
-      new BoxGeometry(0.1, 0.2, 0.3),
+      new BoxGeometry(0.4, 0.3, 0.4),
       new MeshBasicMaterial({
         transparent: true,
         opacity: 0,
         side: THREE.DoubleSide,
       })
     );
-    mesh.castShadow = true;
     mesh.name = 'camera';
 
     mesh.position.x = cameraMesh.position.x;
@@ -70,7 +68,12 @@ const Camera = () => {
           material={pointMaterial}
         />
       </Float>
-      <primitive object={cameraMesh} dispose={null} />
+      <primitive
+        castShadow
+        receiveShadow
+        object={cameraMesh.clone()}
+        dispose={null}
+      />
     </>
   );
 };

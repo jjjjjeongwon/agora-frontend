@@ -33,8 +33,6 @@ const Camera = () => {
       })
     );
     mesh.name = 'camera';
-
-    mesh.castShadow = true;
     mesh.position.x = cameraMesh.position.x;
     mesh.position.y = cameraMesh.position.y + 0.1;
     mesh.position.z = cameraMesh.position.z;
@@ -67,8 +65,8 @@ const Camera = () => {
           geometry={pointGeometry}
           material={pointMaterial}
         />
-      </Float>{' '}
-      <primitive object={cameraMesh} dispose={null} />
+      </Float>
+      <primitive castShadow object={cameraMesh.clone()} dispose={null} />
     </>
   );
 };
