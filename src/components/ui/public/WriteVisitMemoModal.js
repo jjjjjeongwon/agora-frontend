@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import userAPI from '../../../apis/userAPI';
 import { useParams } from 'react-router-dom';
+import { useSpring, animated } from 'react-spring';
 
 const WriteVisitMemoModal = forwardRef((props, ref) => {
   let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
@@ -11,6 +12,15 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
   // const email = JSON.parse(sessionStorage.getItem('isLogin'))[
   //   'LoginEmailState'
   // ];
+
+  const fadeInAndScale = useSpring({
+    from: { opacity: 0, transform: 'scale(0.5)' },
+    to: { opacity: 1, transform: 'scale(1)' },
+    config: {
+      tension: 410,
+      friction: 20,
+    },
+  });
 
   console.log(roomHost);
 
@@ -55,7 +65,7 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
 
   return (
     <>
-      <Container ref={wrapperRef}>
+      <Container style={fadeInAndScale} ref={wrapperRef}>
         <ListTitle>guest book</ListTitle>
         <VisitListTitle>Content</VisitListTitle>
 
@@ -66,7 +76,7 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
   );
 });
 
-const Container = styled.div`
+const Container = styled(animated.form)`
   width: 300px;
   height: 300px;
   right: 40%;
