@@ -17,9 +17,9 @@ import Tree from '../ui/World/3Dcanvas/Tree';
 import Road from '../ui/World/3Dcanvas/Road';
 import House from '../ui/World/3Dcanvas/House';
 // import Beach from '../ui/World/3Dcanvas/Beach';
-// import Pond from '../ui/World/3Dcanvas/Pond';
+import Pond from '../ui/World/3Dcanvas/Pond';
 
-// global state
+// global statew
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { JoinExitState } from '../../state/UserAtom';
 
@@ -145,8 +145,8 @@ const World = () => {
 
   return (
     <motion.div
-      initial="hidden"
-      animate="visible"
+      initial='hidden'
+      animate='visible'
       transition={{ duration: 1.5 }} // 이동 시간 설정
       variants={fadeIn} // 애니메이션 variant
     >
@@ -186,7 +186,7 @@ const World = () => {
                 <Spot spot={waveSpot} />
                 {/* <Lamp /> */}
                 {/* <Beach /> */}
-                {/* <Pond /> */}
+                <Pond />
                 <Road />
                 <House />
                 {/* <Car /> */}

@@ -2,11 +2,10 @@ import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import React, { useRef, useEffect } from 'react';
 import { radToDeg } from 'three/src/math/MathUtils';
+useGLTF.preload('../models/pond/cartoon_pond.glb');
 
-useGLTF.preload('../models/portal/the_great_morpheus.glb');
-
-const Portal = () => {
-  const glb = useGLTF('../models/portal/the_great_morpheus.glb');
+const Road = () => {
+  const glb = useGLTF('../models/pond/cartoon_pond.glb');
   const road = glb.scene.children[0];
   const glbs = [];
   glbs.push(glb);
@@ -35,4 +34,4 @@ const Portal = () => {
   );
 };
 
-export default Portal;
+export default Road;
