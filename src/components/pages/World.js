@@ -71,7 +71,7 @@ const World = () => {
   const joinExit = useRecoilValue(JoinExitState);
 
   //spots
-  const mySpot = { x: -12, y: 0.005, z: -16 };
+  const mySpot = { x: -10, y: 0.005, z: -4 };
   const friendSpot1 = { x: -17, y: 0.005, z: 15 };
   const waveSpot = { x: 0, y: 0.005, z: -26 };
 
@@ -171,7 +171,7 @@ const World = () => {
                 position: [0, 10, 25],
               }}
             >
-              <Physics debug>
+              <Physics>
                 <EnvSky />
                 <EnvStars />
                 <Light />
