@@ -1,9 +1,19 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import userAPI from '../../../apis/userAPI';
+import { useSpring, animated } from 'react-spring';
 
 const UploadVideoModal = forwardRef((props, ref) => {
   let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
+
+  const fadeInAndScale = useSpring({
+    from: { opacity: 0, transform: 'scale(0.5)' },
+    to: { opacity: 1, transform: 'scale(1)' },
+    config: {
+      tension: 410,
+      friction: 20,
+    },
+  });
 
   // 모달 끄기
   useEffect(() => {
@@ -64,7 +74,11 @@ const UploadVideoModal = forwardRef((props, ref) => {
 
   return (
     <>
-      <Container ref={wrapperRef} onSubmit={handleSubmit}>
+      <Container
+        style={fadeInAndScale}
+        ref={wrapperRef}
+        onSubmit={handleSubmit}
+      >
         <VisitListTitle>Video</VisitListTitle>
         <Content>
           <input
@@ -81,7 +95,7 @@ const UploadVideoModal = forwardRef((props, ref) => {
   );
 });
 
-const Container = styled.form`
+const Container = styled(animated.form)`
   width: 460px;
   height: 200px;
   right: 15%;
