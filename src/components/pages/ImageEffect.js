@@ -1,11 +1,11 @@
-import React, { useRef, useMemo, useEffect, useState } from 'react';
-import * as THREE from 'three';
-import { Canvas } from '@react-three/fiber';
-import { useTexture, OrbitControls } from '@react-three/drei';
-import gsap from 'gsap';
-import styled from 'styled-components';
-import { ImSphere } from 'react-icons/im';
-import { TbArrowsRandom } from 'react-icons/tb';
+import React, { useRef, useMemo, useEffect, useState } from "react";
+import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import { useTexture, OrbitControls } from "@react-three/drei";
+import gsap from "gsap";
+import styled from "styled-components";
+import { ImSphere } from "react-icons/im";
+import { TbArrowsRandom } from "react-icons/tb";
 
 const ImagePanel = ({ imageSrc, x, y, z, positionArray }) => {
   const meshRef = useRef();
@@ -42,11 +42,11 @@ export default function ImageEffect() {
   const [positions, setPositions] = useState(spherePositionArray);
   const handleButtonClick = (type) => {
     const newPositionArray = [];
-    if (type === 'sphere') {
+    if (type === "sphere") {
       newPositionArray.push(...spherePositionArray);
-    } else if (type === 'random') {
+    } else if (type === "random") {
       for (let i = 0; i < spherePositionArray.length; i++) {
-        newPositionArray.push((Math.random() - 0.5) * 10);
+        newPositionArray.push((Math.random() - 0.5) * 3.7);
       }
     }
     setPositions(newPositionArray);
@@ -68,10 +68,10 @@ export default function ImageEffect() {
   return (
     <div
       style={{
-        position: 'relative',
-        width: '100vw',
-        height: '100vh',
-        background: '#000',
+        position: "relative",
+        width: "100vw",
+        height: "100vh",
+        background: "#000",
       }}
     >
       <Canvas camera={{ fov: 75, near: 0.1, far: 1000, position: [0, 1.5, 4] }}>
@@ -88,7 +88,7 @@ export default function ImageEffect() {
       </Canvas>
 
       <Wrap>
-        <TextWrap onClick={() => handleButtonClick('sphere')}>
+        <TextWrap onClick={() => handleButtonClick("sphere")}>
           <IconWrap>
             <Logout>
               <HoverWrap color="white" hoverColor="#BCC9C6">
@@ -98,7 +98,7 @@ export default function ImageEffect() {
           </IconWrap>
           <Text>Sphere</Text>
         </TextWrap>
-        <TextWrap onClick={() => handleButtonClick('random')}>
+        <TextWrap onClick={() => handleButtonClick("random")}>
           <IconWrap>
             <Logout>
               <HoverWrap color="white" hoverColor="#BCC9C6">
@@ -127,10 +127,10 @@ const HoverWrap = styled.div`
   justify-content: center;
   align-items: center;
   svg {
-    color: ${({ color }) => color ?? 'white'};
+    color: ${({ color }) => color ?? "white"};
   }
   svg:hover {
-    color: ${({ hoverColor }) => hoverColor ?? 'grey'};
+    color: ${({ hoverColor }) => hoverColor ?? "grey"};
   }
 `;
 
@@ -148,7 +148,7 @@ const TextWrap = styled.div`
 
 const Text = styled.div`
   margin-left: 15px;
-  font-family: 'luckiest guy';
+  font-family: "luckiest guy";
   color: white;
   font-size: 22px;
 `;
