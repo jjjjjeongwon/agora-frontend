@@ -41,8 +41,31 @@ const House = () => {
         castShadow
         receiveShadow
         position={[-20, 0, 15]}
-        // rotation={[0, Math.PI / 2, 0]}
         object={redSmall.clone()}
+        dispose={null}
+      />
+      <primitive
+        castShadow
+        receiveShadow
+        position={[5, 0, -10]}
+        rotation={[0, Math.PI * 1.3, 0]}
+        object={redSmall.clone()}
+        dispose={null}
+      />
+      <primitive
+        castShadow
+        receiveShadow
+        position={[12, 0, -5]}
+        rotation={[0, Math.PI * 1.25, 0]}
+        object={store.clone()}
+        dispose={null}
+      />
+      <primitive
+        castShadow
+        receiveShadow
+        position={[9, 0, 18]}
+        rotation={[0, -Math.PI * 1.25, 0]}
+        object={store.clone()}
         dispose={null}
       />
       <primitive
@@ -50,6 +73,14 @@ const House = () => {
         receiveShadow
         position={[-7, 0, -10]}
         rotation={[0, -Math.PI * 0.35, 0]}
+        object={mushroom.clone()}
+        dispose={null}
+      />
+      <primitive
+        castShadow
+        receiveShadow
+        position={[-13, 0, 4]}
+        rotation={[0, -Math.PI * 0.15, 0]}
         object={mushroom.clone()}
         dispose={null}
       />

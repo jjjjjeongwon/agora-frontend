@@ -35,6 +35,7 @@ import EnvStars from '../ui/CollectionSpace/EnvStars';
 
 import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
 import Beach from '../ui/World/3Dcanvas/Beach';
+import Pond from '../ui/World/3Dcanvas/Pond';
 
 export const Controls = {
   forward: 'forward',
@@ -181,6 +182,7 @@ const World = () => {
                 <Spot spot={waveSpot} />
                 {/* <Lamp /> */}
                 <Beach />
+                <Pond />
                 <Road />
                 <House />
                 {/* <Car /> */}
