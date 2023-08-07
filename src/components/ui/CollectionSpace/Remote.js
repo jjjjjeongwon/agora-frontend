@@ -1,15 +1,17 @@
 import { Float, useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import React, { useEffect, useRef } from 'react';
 import { BoxGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
 const Remote = () => {
   const glb = useGLTF('../models/remote/tv_remote.glb');
   const remote = glb.scene.children[0];
-  const { scene } = useThree();
+  const { scene, camera } = useThree();
   const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
   const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
+
+  const coneRef = useRef();
 
   useEffect(() => {
     if (!remote) return;
@@ -30,15 +32,27 @@ const Remote = () => {
     mesh.position.z = remote.position.z;
     scene.add(mesh);
   });
+
+  useFrame(() => {
+    if (
+      Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
+      Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
+    ) {
+      coneRef.current.visible = true;
+    } else {
+      coneRef.current.visible = false;
+    }
+  });
   return (
     <>
       <Float
-        speed={10}
+        speed={30}
         rotationIntensity={0.1}
         floatIntensity={0.01}
         floatingRange={[0, 0.1]}
       >
         <mesh
+          ref={coneRef}
           position={[4.6, 2, 3.5]}
           geometry={pointGeometry}
           material={pointMaterial}

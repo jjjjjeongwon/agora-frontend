@@ -1,24 +1,30 @@
-import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import React, { useEffect } from "react";
-import { BoxGeometry, MeshBasicMaterial } from "three";
-import * as THREE from "three";
+import { Float, useGLTF } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
+import React, { useEffect, useRef } from 'react';
+import { BoxGeometry, MeshBasicMaterial, CylinderGeometry } from 'three';
+import * as THREE from 'three';
 
 const Camera = () => {
-  const glb = useGLTF("../models/camera/low_poly_hand_camera.glb");
-  const camera = glb.scene.children[0];
-  const { scene } = useThree();
-  useEffect(() => {
-    if (!camera) return;
+  const glb = useGLTF('../models/camera/low_poly_hand_camera.glb');
+  const cameraMesh = glb.scene.children[0];
+  const { scene, camera } = useThree();
+  const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
+  const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
+  const coneRef = useRef();
 
-    camera.position.x = -5;
-    camera.position.y = 1.4;
-    camera.position.z = 3.3;
-    camera.scale.x = 0.1;
-    camera.scale.y = 0.1;
-    camera.scale.z = 0.1;
-    camera.rotation.z = Math.PI / 2;
+  useEffect(() => {
+    if (!cameraMesh) return;
+
+    cameraMesh.position.x = -5;
+    cameraMesh.position.y = 1.4;
+    cameraMesh.position.z = 3.3;
+    cameraMesh.scale.x = 0.1;
+    cameraMesh.scale.y = 0.1;
+    cameraMesh.scale.z = 0.1;
+    cameraMesh.rotation.z = Math.PI / 2;
     const mesh = new THREE.Mesh(
+      new CylinderGeometry(0.1, 0.1, 0.1, 32),
+
       new BoxGeometry(0.1, 0.2, 0.3),
       new MeshBasicMaterial({
         transparent: true,
@@ -27,15 +33,42 @@ const Camera = () => {
       })
     );
     mesh.castShadow = true;
-    mesh.position.x = camera.position.x;
-    mesh.position.y = camera.position.y + 0.1;
-    mesh.position.z = camera.position.z;
-    mesh.rotation.x = camera.rotation.x;
-    mesh.rotation.y = camera.rotation.y;
-    mesh.rotation.z = camera.rotation.z;
+    mesh.position.x = cameraMesh.position.x;
+    mesh.position.y = cameraMesh.position.y + 0.1;
+    mesh.position.z = cameraMesh.position.z;
+    mesh.rotation.x = cameraMesh.rotation.x;
+    mesh.rotation.y = cameraMesh.rotation.y;
+    mesh.rotation.z = cameraMesh.rotation.z;
     scene.add(mesh);
   });
-  return <primitive object={camera} dispose={null} />;
+  useFrame(() => {
+    if (
+      Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
+      Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
+    ) {
+      coneRef.current.visible = true;
+    } else {
+      coneRef.current.visible = false;
+    }
+  });
+  return (
+    <>
+      <Float
+        speed={30}
+        rotationIntensity={0.1}
+        floatIntensity={0.01}
+        floatingRange={[0, 0.1]}
+      >
+        <mesh
+          ref={coneRef}
+          position={[-5, 2, 3.3]}
+          geometry={pointGeometry}
+          material={pointMaterial}
+        />
+      </Float>{' '}
+      <primitive object={cameraMesh} dispose={null} />
+    </>
+  );
 };
 
 export default Camera;

@@ -37,7 +37,7 @@ function Player({
     controlsRef.current = new PointerLockControls(camera, gl.domElement);
   }
   const controls = controlsRef.current;
-  controls.pointerSpeed = 0.05;
+  controls.pointerSpeed = 0.1;
 
   const checkIntersects = () => {
     raycaster.setFromCamera(mouse, camera);

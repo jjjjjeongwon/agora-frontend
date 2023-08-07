@@ -41,10 +41,9 @@ const Airpods = () => {
   });
   useFrame(() => {
     if (
-      Math.abs(coneRef.current.position.x - camera.position.x) < 2 &&
-      Math.abs(coneRef.current.position.z - camera.position.z) < 2
+      Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
+      Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
     ) {
-      console.log('true');
       coneRef.current.visible = true;
     } else {
       coneRef.current.visible = false;
@@ -53,14 +52,14 @@ const Airpods = () => {
   return (
     <>
       <Float
-        speed={10}
+        speed={30}
         rotationIntensity={0.1}
         floatIntensity={0.01}
         floatingRange={[0, 0.1]}
       >
         <mesh
           ref={coneRef}
-          position={[-3.5, 2.2, -3.3]}
+          position={[-3.5, 2.4, -0.7]}
           geometry={pointGeometry}
           material={pointMaterial}
         />
