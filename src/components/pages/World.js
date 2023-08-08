@@ -260,7 +260,10 @@ const World = () => {
                 <Tree />
                 <Lamp />
                 <Floor />
-                <CharacterController setMyPlayer={setMyPlayer} />
+                <CharacterController
+                  setMyPlayer={setMyPlayer}
+                  friendModalOpen={friendModalOpen}
+                />
               </Physics>
               <Preload all />
             </Canvas>

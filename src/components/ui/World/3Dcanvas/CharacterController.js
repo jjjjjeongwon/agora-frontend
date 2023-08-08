@@ -11,7 +11,7 @@ const MOVEMENT_SPEED = 0.1;
 const MAX_VEL = 3;
 const RUN_VEL = 1.5;
 
-export const CharacterController = ({ setMyPlayer }) => {
+export const CharacterController = ({ setMyPlayer, friendModalOpen }) => {
   const jumpPressed = useKeyboardControls((state) => state[Controls.jump]);
   const leftPressed = useKeyboardControls((state) => state[Controls.left]);
   const rightPressed = useKeyboardControls((state) => state[Controls.right]);
@@ -27,35 +27,37 @@ export const CharacterController = ({ setMyPlayer }) => {
 
   useFrame((state, delta) => {
     if (!rigidbody.current) return;
-    // Character Movement
     const impulse = { x: 0, y: 0, z: 0 };
-    if (jumpPressed && isOnFloor.current) {
-      impulse.y += JUMP_FORCE;
-      isOnFloor.current = false;
-    }
     const linvel = rigidbody.current.linvel();
     let changeRotation = false;
-    if (rightPressed && linvel.x < MAX_VEL) {
-      impulse.x += MOVEMENT_SPEED;
-      changeRotation = true;
-    }
-    if (leftPressed && linvel.x > -MAX_VEL) {
-      impulse.x -= MOVEMENT_SPEED;
-      changeRotation = true;
-    }
-    if (backPressed && linvel.z < MAX_VEL) {
-      impulse.z += MOVEMENT_SPEED;
-      changeRotation = true;
-    }
-    if (forwardPressed && linvel.z > -MAX_VEL) {
-      impulse.z -= MOVEMENT_SPEED;
-      changeRotation = true;
-    }
+    if (!friendModalOpen) {
+      // Character Movement
+      if (jumpPressed && isOnFloor.current) {
+        impulse.y += JUMP_FORCE;
+        isOnFloor.current = false;
+      }
+      if (rightPressed && linvel.x < MAX_VEL) {
+        impulse.x += MOVEMENT_SPEED;
+        changeRotation = true;
+      }
+      if (leftPressed && linvel.x > -MAX_VEL) {
+        impulse.x -= MOVEMENT_SPEED;
+        changeRotation = true;
+      }
+      if (backPressed && linvel.z < MAX_VEL) {
+        impulse.z += MOVEMENT_SPEED;
+        changeRotation = true;
+      }
+      if (forwardPressed && linvel.z > -MAX_VEL) {
+        impulse.z -= MOVEMENT_SPEED;
+        changeRotation = true;
+      }
 
-    rigidbody.current.applyImpulse(impulse, true);
-    if (changeRotation) {
-      const angle = Math.atan2(linvel.x, linvel.z);
-      character.current.rotation.y = angle;
+      rigidbody.current.applyImpulse(impulse, true);
+      if (changeRotation) {
+        const angle = Math.atan2(linvel.x, linvel.z);
+        character.current.rotation.y = angle;
+      }
     }
 
     if (Math.abs(linvel.x) > RUN_VEL || Math.abs(linvel.z) > RUN_VEL) {
