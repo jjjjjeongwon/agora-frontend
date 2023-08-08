@@ -276,9 +276,14 @@ const Road = () => {
             object={road.clone()}
             dispose={null}
           />
-          <mesh rotation={[Math.PI / 2, 0, 0]} position={[32, -0.35, 4]}>
+          <mesh rotation={[Math.PI / 2, 0, 0]} position={[32, -0.2, 4]}>
             <planeGeometry args={[6, 2]} />
-            <meshBasicMaterial color={'white'} side={DoubleSide} />
+            <meshBasicMaterial
+              color={'white'}
+              side={DoubleSide}
+              transparent
+              opacity={0}
+            />
           </mesh>
         </>
       </RigidBody>
