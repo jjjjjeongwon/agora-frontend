@@ -1,50 +1,48 @@
-import * as THREE from 'three';
-import { Canvas } from '@react-three/fiber';
-import { Preload } from '@react-three/drei';
-import { useState, useEffect, useRef, Suspense } from 'react';
-import styled, { css } from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import { Preload } from "@react-three/drei";
+import { useState, useEffect, useRef, Suspense } from "react";
+import styled, { css } from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // Components
-import EnvSky from '../ui/CollectionSpace/EnvSky';
-import EnvStars from '../ui/CollectionSpace/EnvStars';
-import Floor from '../ui/CollectionSpaceThree/Floor';
-import Light from '../ui/CollectionSpaceThree/Light';
-import Wall from '../ui/CollectionSpaceThree/Wall';
-import Player from '../ui/CollectionSpace/Player';
-import Spot from '../ui/World/3Dcanvas/Spot';
-import Door from '../ui/CollectionSpace/Door';
-import Video from '../ui/CollectionSpaceThree/Video';
-import Tv from '../ui/CollectionSpaceTwo/Tv';
-import ImageFrame from '../ui/CollectionSpaceThree/ImageFrame';
-import CollectImage from '../ui/CollectionSpaceThree/CollectImage';
-import VisitText from '../ui/CollectionSpaceThree/VisitText';
-import VisitCard from '../ui/CollectionSpaceThree/VisitCard';
-import Bed from '../ui/CollectionSpaceThree/Bed';
-import Table from '../ui/CollectionSpaceThree/Table';
-import Camera from '../ui/CollectionSpaceThree/Camera';
-import TvTable from '../ui/CollectionSpaceThree/TvTable';
-import Remote from '../ui/CollectionSpaceThree/Remote';
-import Rabbit from '../ui/CollectionSpaceThree/Rabbit';
-import Lug from '../ui/CollectionSpaceTwo/Lug';
-import Pencil from '../ui/CollectionSpaceThree/Pencil';
-import Window from '../ui/CollectionSpaceThree/Window';
-import Closet from '../ui/CollectionSpaceThree/Closet';
-import Mirror from '../ui/CollectionSpaceThree/Mirror';
-import Piano from '../ui/CollectionSpaceThree/Piano';
-import CafeTable from '../ui/CollectionSpaceThree/CafeTable';
-import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
-import Flower from '../ui/CollectionSpaceThree/Flower';
-import PhotoBook from '../ui/CollectionSpaceThree/PhotoBook';
-import ImageEffect from './ImageEffect';
-import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
-import ExitFooter from '../ui/public/ExitFooter';
-import AudioPlayer from '../ui/public/AudioPlayer';
-import UploadImagePostModal from '../ui/public/UploadImagePostModal';
-import UploadVideoModal from '../ui/public/UploadVideoModal';
-import ViewImagePostModal from '../ui/public/ViewImagePostModal';
-import userAPI from '../../apis/userAPI';
+import EnvSky from "../ui/CollectionSpace/EnvSky";
+import EnvStars from "../ui/CollectionSpace/EnvStars";
+import Floor from "../ui/CollectionSpaceThree/Floor";
+import Light from "../ui/CollectionSpaceThree/Light";
+import Wall from "../ui/CollectionSpaceThree/Wall";
+import Player from "../ui/CollectionSpace/Player";
+import Spot from "../ui/World/3Dcanvas/Spot";
+import Door from "../ui/CollectionSpace/Door";
+import Video from "../ui/CollectionSpaceThree/Video";
+import Tv from "../ui/CollectionSpaceTwo/Tv";
+import ImageFrame from "../ui/CollectionSpaceThree/ImageFrame";
+import CollectImage from "../ui/CollectionSpaceThree/CollectImage";
+import VisitText from "../ui/CollectionSpaceThree/VisitText";
+import VisitCard from "../ui/CollectionSpaceThree/VisitCard";
+import Bed from "../ui/CollectionSpaceThree/Bed";
+import Table from "../ui/CollectionSpaceThree/Table";
+import Camera from "../ui/CollectionSpaceThree/Camera";
+import TvTable from "../ui/CollectionSpaceThree/TvTable";
+import Remote from "../ui/CollectionSpaceThree/Remote";
+import Rabbit from "../ui/CollectionSpaceThree/Rabbit";
+import Pencil from "../ui/CollectionSpaceThree/Pencil";
+import Window from "../ui/CollectionSpaceThree/Window";
+import Closet from "../ui/CollectionSpaceThree/Closet";
+import Piano from "../ui/CollectionSpaceThree/Piano";
+import CafeTable from "../ui/CollectionSpaceThree/CafeTable";
+import WriteVisitMemoModal from "../ui/public/WriteVisitMemoModal";
+import Flower from "../ui/CollectionSpaceThree/Flower";
+import PhotoBook from "../ui/CollectionSpaceThree/PhotoBook";
+import ImageEffect from "./ImageEffect";
+import PhotoBoxHeader from "../ui/public/PhotoBoxHeader";
+import ExitFooter from "../ui/public/ExitFooter";
+import AudioPlayer from "../ui/public/AudioPlayer";
+import UploadImagePostModal from "../ui/public/UploadImagePostModal";
+import UploadVideoModal from "../ui/public/UploadVideoModal";
+import ViewImagePostModal from "../ui/public/ViewImagePostModal";
+import userAPI from "../../apis/userAPI";
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -69,9 +67,85 @@ const CollectionSpaceThree = () => {
   const [showImageEffect, setShowImageEffect] = useState(false);
   const [tvVideo, setTvVideo] = useState();
 
+  const [isCameraReady, setIsCameraReady] = useState(false);
+  const [isBedReady, setIsBedReady] = useState(false);
+  const [isFrameReady, setIsFrameReady] = useState(false);
+  const [isCafetableReady, setIsCafetableReady] = useState(false);
+  const [isPianoReady, setIsPianoReady] = useState(false);
+  const [isPencilReady, setIsPencilReady] = useState(false);
+  const [isPhotoBookReady, setIsPhotoBookReady] = useState(false);
+  const [isRemoteReady, setIsRemoteReady] = useState(false);
+  const [isTableReady, setIsTableReady] = useState(false);
+  const [isTvReady, setIsTvReady] = useState(false);
+  const [isTvTableReady, setIsTvTableReady] = useState(false);
+  const [isMeshReady, setIsMeshReady] = useState(false);
+  const [isDoorReady, setIsDoorReady] = useState(false);
+  const [isClosetReady, setIsClosetReady] = useState(false);
+  const [isFlowerReady, setIsFlowerReady] = useState(false);
+  const [isWindowReady, setIsWindowReady] = useState(false);
+  const [isRabbitReady, setIsRabbitReady] = useState(false);
+
+  const handleComponentLoad = (componentName) => {
+    switch (componentName) {
+      case "Camera":
+        setIsCameraReady(true);
+        break;
+      case "Bed":
+        setIsBedReady(true);
+        break;
+      case "Cafetable":
+        setIsCafetableReady(true);
+        break;
+      case "ImageFrame":
+        setIsFrameReady(true);
+        break;
+      case "Closet":
+        setIsClosetReady(true);
+        break;
+      case "Flower":
+        setIsFlowerReady(true);
+        break;
+      case "Piano":
+        setIsPianoReady(true);
+        break;
+      case "Rabbit":
+        setIsRabbitReady(true);
+        break;
+      case "Pencil":
+        setIsPencilReady(true);
+        break;
+      case "PhotoBook":
+        setIsPhotoBookReady(true);
+        break;
+      case "Remote":
+        setIsRemoteReady(true);
+        break;
+      case "Table":
+        setIsTableReady(true);
+        break;
+      case "Tv":
+        setIsTvReady(true);
+        break;
+      case "TvTable":
+        setIsTvTableReady(true);
+        break;
+      case "Mesh":
+        setIsMeshReady(true);
+        break;
+      case "Door":
+        setIsDoorReady(true);
+        break;
+      case "Window":
+        setIsWindowReady(true);
+        break;
+      default:
+        break;
+    }
+  };
+
   const params = useParams().id;
 
-  const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+  const userId = JSON.parse(sessionStorage.getItem("isLogin"))["IdState"];
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
@@ -79,11 +153,11 @@ const CollectionSpaceThree = () => {
     try {
       const response = await userAPI.get(`/user/${params}/content`);
 
-      console.log('서버 응답:', response.data);
+      console.log("서버 응답:", response.data);
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
-      console.error('서버 오류:', error);
+      console.error("서버 오류:", error);
     }
   };
   // console.log(friend);
@@ -93,7 +167,7 @@ const CollectionSpaceThree = () => {
   }, []);
 
   const playTransitionSound = () => {
-    const audio = new Audio('/musics/doorsound.mp3');
+    const audio = new Audio("/musics/doorsound.mp3");
     audio.play();
   };
 
@@ -140,7 +214,7 @@ const CollectionSpaceThree = () => {
       Math.abs(doorSpot.z - myPlayer.z) < 1.5
     ) {
       setIsColletionVisible(true);
-      navigate('/world');
+      navigate("/world");
       playTransitionSound();
     } else {
       setIsColletionVisible(false);
@@ -155,10 +229,10 @@ const CollectionSpaceThree = () => {
     >
       <div
         style={{
-          position: 'relative',
-          width: '100vw',
-          height: '100vh',
-          background: '#000',
+          position: "relative",
+          width: "100vw",
+          height: "100vh",
+          background: "#000",
         }}
       >
         <Suspense fallback={null}>
@@ -192,31 +266,47 @@ const CollectionSpaceThree = () => {
               //   far: 1000,
               // }}
             >
-              <Rabbit />
               <EnvSky />
               <EnvStars />
               <Light />
               <Floor />
-              <Tv />
-              <Remote userId={userId} params={params} />
-              <TvTable />
+              <Rabbit onLoad={() => handleComponentLoad("Rabbit")} />
+              <Tv onLoad={() => handleComponentLoad("Tv")} />
+              <Remote
+                userId={userId}
+                params={params}
+                onLoad={() => handleComponentLoad("Remote")}
+              />
+              <TvTable onLoad={() => handleComponentLoad("TvTable")} />
               <CollectImage />
-              <ImageFrame />
+              <ImageFrame onLoad={() => handleComponentLoad("ImageFrame")} />
               <VisitText />
-              {/* <VisitCard /> */}
-              <Camera userId={userId} params={params} />
-              <Pencil userId={userId} params={params} />
-              <Table />
-              <Bed />
+              {/* <VisitCard onLoad={() => handleComponentLoad("Mesh")} /> */}
+              <Camera
+                userId={userId}
+                params={params}
+                onLoad={() => handleComponentLoad("Camera")}
+              />
+              <Pencil
+                userId={userId}
+                params={params}
+                onLoad={() => handleComponentLoad("Pencil")}
+              />
+              <Table onLoad={() => handleComponentLoad("Table")} />
+              <Bed onLoad={() => handleComponentLoad("Bed")} />
               <Door />
               <Video tvVideo={tvVideo} />
               <Wall />
-              <Window />
-              <Closet />
-              <Piano userId={userId} params={params} />
-              <CafeTable />
-              <Flower />
-              <PhotoBook />
+              <Window onLoad={() => handleComponentLoad("Window")} />
+              <Closet onLoad={() => handleComponentLoad("Closet")} />
+              <Piano
+                userId={userId}
+                params={params}
+                onLoad={() => handleComponentLoad("Piano")}
+              />
+              <CafeTable onLoad={() => handleComponentLoad("Cafetable")} />
+              <Flower onLoad={() => handleComponentLoad("Flower")} />
+              <PhotoBook onLoad={() => handleComponentLoad("PhotoBook")} />
               <Spot spot={doorSpot} />
               <Player
                 roomName={roomName}
@@ -235,8 +325,8 @@ const CollectionSpaceThree = () => {
         </Suspense>
         <AudioPlayer src="/musics/room3.mp3" />
 
-        {showImageEffect ? <PhotoBoxHeader /> : ''}
-        {showImageEffect ? <ExitFooter /> : ''}
+        {showImageEffect ? <PhotoBoxHeader /> : ""}
+        {showImageEffect ? <ExitFooter /> : ""}
         <ContainerImage uploadImageModalOpen={uploadImageModalOpen}>
           {uploadImageModalOpen && (
             <UploadImagePostModal
@@ -287,7 +377,7 @@ const Container = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${pencilModalOpen ? 1 : -1};
-      background: ${pencilModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${pencilModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -302,8 +392,8 @@ const ContainerImage = styled.div`
       left: 0;
       z-index: ${uploadImageModalOpen ? 1 : -1};
       background: ${uploadImageModalOpen
-        ? 'rgba(0, 0, 0, 0.4)'
-        : 'transparent'};
+        ? "rgba(0, 0, 0, 0.4)"
+        : "transparent"};
     `;
   }}
 `;
@@ -317,7 +407,7 @@ const ContainerVideo = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${albumModalOpen ? 1 : -1};
-      background: ${albumModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${albumModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -331,7 +421,7 @@ const ContainerRemote = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${videoModalOpen ? 1 : -1};
-      background: ${videoModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${videoModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -350,8 +440,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? 'visible'
-        : 'hidden'}; // initial visibility is hidden
+        ? "visible"
+        : "hidden"}; // initial visibility is hidden
     `;
   }}
 `;

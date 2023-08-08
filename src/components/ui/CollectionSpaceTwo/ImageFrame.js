@@ -1,34 +1,49 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import * as THREE from "three";
 
-const ImageFrameChild = ({ glb, position, scale, rotation }) => {
+const ImageFrameChild = ({
+  glb,
+  position,
+  scale,
+  rotation,
+  onLoad = () => {},
+}) => {
   const frame = glb.scene.clone().children[0]; // 클론을 사용해 독립적인 객체 생성
   const { scene } = useThree();
 
   useEffect(() => {
-    if (!frame) return;
-    frame.traverse((child) => {
-      if (child.isframe) child.castShadow = true;
-    });
+    if (frame) {
+      frame.traverse((child) => {
+        if (child.isframe) child.castShadow = true;
+      });
 
-    frame.scale.set(...scale);
-    frame.position.set(...position);
+      frame.scale.set(...scale);
+      frame.position.set(...position);
 
-    const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(0.2, 1.5, 1),
-      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
-    );
-    mesh.castShadow = true;
-    scene.add(mesh);
-  }, [frame, position, scale, scene]);
+      const mesh = new THREE.Mesh(
+        new THREE.BoxGeometry(0.2, 1.5, 1),
+        new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })
+      );
+      mesh.castShadow = true;
+      scene.add(mesh);
 
-  return <primitive rotation={rotation} object={frame} dispose={null} />;
+      if (typeof onLoad === "function") {
+        onLoad();
+      }
+    }
+  }, [frame, position, scale, scene, onLoad]);
+
+  if (!frame) return null;
+
+  return (
+    <primitive rotation={rotation} object={frame.clone()} dispose={null} />
+  );
 };
 
 const ImageFrame = () => {
-  const glb = useGLTF('../models/imageframe/wood_image_frame.glb');
+  const glb = useGLTF("../models/imageframe/wood_image_frame.glb");
 
   const positions = [
     [-3, 4.2, 5.0],

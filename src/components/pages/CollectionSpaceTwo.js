@@ -1,50 +1,50 @@
-import * as THREE from 'three';
-import { Canvas } from '@react-three/fiber';
-import { Preload } from '@react-three/drei';
-import { useState, useEffect, useRef, Suspense } from 'react';
-import styled, { css } from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import { Preload } from "@react-three/drei";
+import { useState, useEffect, useRef, Suspense } from "react";
+import styled, { css } from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // Components
-import EnvSky from '../ui/CollectionSpace/EnvSky';
-import EnvStars from '../ui/CollectionSpace/EnvStars';
-import Floor from '../ui/CollectionSpaceTwo/Floor';
-import Light from '../ui/CollectionSpaceTwo/Light';
-import Wall from '../ui/CollectionSpaceTwo/Wall';
-import Player from '../ui/CollectionSpace/Player';
-import World from './World';
-import Spot from '../ui/World/3Dcanvas/Spot';
-import Korea from '../ui/CollectionSpaceTwo/Korea';
-import Door from '../ui/CollectionSpace/Door';
-import Video from '../ui/CollectionSpaceTwo/Video';
-import Tv from '../ui/CollectionSpaceTwo/Tv';
-import ImageFrame from '../ui/CollectionSpaceTwo/ImageFrame';
-import CollectImage from '../ui/CollectionSpaceTwo/CollectImage';
-import VisitText from '../ui/CollectionSpaceTwo/VisitText';
-import VisitCard from '../ui/CollectionSpace/VisitCard';
-import Bed from '../ui/CollectionSpaceTwo/Bed';
-import Table from '../ui/CollectionSpaceTwo/Table';
-import LoadingSpinner from '../ui/public/LoadingSpinner';
-import Camera from '../ui/CollectionSpaceTwo/Camera';
-import TvTable from '../ui/CollectionSpaceTwo/TvTable';
-import UploadVideoModal from '../ui/public/UploadVideoModal';
-import UploadImagePostModal from '../ui/public/UploadImagePostModal';
-import ViewImagePostModal from '../ui/public/ViewImagePostModal';
-import Remote from '../ui/CollectionSpaceTwo/Remote';
-import Lug from '../ui/CollectionSpaceTwo/Lug';
-import Pencil from '../ui/CollectionSpaceTwo/Pencil';
-import Window from '../ui/CollectionSpaceTwo/Window';
-import Plant from '../ui/CollectionSpaceTwo/Plant';
-import PhotoBook from '../ui/CollectionSpaceTwo/PhotoBook';
-import BedsideTable from '../ui/CollectionSpaceTwo/BedsideTable';
-import MusicBox from '../ui/CollectionSpaceTwo/MusicBox';
-import ImageEffect from './ImageEffect';
-import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
-import ExitFooter from '../ui/public/ExitFooter';
-import AudioPlayer from '../ui/public/AudioPlayer';
-import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
-import userAPI from '../../apis/userAPI';
+import EnvSky from "../ui/CollectionSpace/EnvSky";
+import EnvStars from "../ui/CollectionSpace/EnvStars";
+import Floor from "../ui/CollectionSpaceTwo/Floor";
+import Light from "../ui/CollectionSpaceTwo/Light";
+import Wall from "../ui/CollectionSpaceTwo/Wall";
+import Player from "../ui/CollectionSpace/Player";
+import World from "./World";
+import Spot from "../ui/World/3Dcanvas/Spot";
+import Korea from "../ui/CollectionSpaceTwo/Korea";
+import Door from "../ui/CollectionSpace/Door";
+import Video from "../ui/CollectionSpaceTwo/Video";
+import Tv from "../ui/CollectionSpaceTwo/Tv";
+import ImageFrame from "../ui/CollectionSpaceTwo/ImageFrame";
+import CollectImage from "../ui/CollectionSpaceTwo/CollectImage";
+import VisitText from "../ui/CollectionSpaceTwo/VisitText";
+import VisitCard from "../ui/CollectionSpace/VisitCard";
+import Bed from "../ui/CollectionSpaceTwo/Bed";
+import Table from "../ui/CollectionSpaceTwo/Table";
+import LoadingSpinner from "../ui/public/LoadingSpinner";
+import Camera from "../ui/CollectionSpaceTwo/Camera";
+import TvTable from "../ui/CollectionSpaceTwo/TvTable";
+import UploadVideoModal from "../ui/public/UploadVideoModal";
+import UploadImagePostModal from "../ui/public/UploadImagePostModal";
+import ViewImagePostModal from "../ui/public/ViewImagePostModal";
+import Remote from "../ui/CollectionSpaceTwo/Remote";
+import Lug from "../ui/CollectionSpaceTwo/Lug";
+import Pencil from "../ui/CollectionSpaceTwo/Pencil";
+import Window from "../ui/CollectionSpaceTwo/Window";
+import Plant from "../ui/CollectionSpaceTwo/Plant";
+import PhotoBook from "../ui/CollectionSpaceTwo/PhotoBook";
+import BedsideTable from "../ui/CollectionSpaceTwo/BedsideTable";
+import MusicBox from "../ui/CollectionSpaceTwo/MusicBox";
+import ImageEffect from "./ImageEffect";
+import PhotoBoxHeader from "../ui/public/PhotoBoxHeader";
+import ExitFooter from "../ui/public/ExitFooter";
+import AudioPlayer from "../ui/public/AudioPlayer";
+import WriteVisitMemoModal from "../ui/public/WriteVisitMemoModal";
+import userAPI from "../../apis/userAPI";
 
 const CollectionSpaceTwo = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -70,9 +70,82 @@ const CollectionSpaceTwo = () => {
   const [showImageEffect, setShowImageEffect] = useState(false);
   const [tvVideo, setTvVideo] = useState();
 
-  const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+  const [isCameraReady, setIsCameraReady] = useState(false);
+  const [isBedReady, setIsBedReady] = useState(false);
+  const [isBedTableReady, setIsBedTableReady] = useState(false);
+  const [isFrameReady, setIsFrameReady] = useState(false);
+  const [isKoreaReady, setIsKoreaReady] = useState(false);
+  const [isLugReady, setIsLugReady] = useState(false);
+  const [isMusicBoxReady, setIsMusicBoxReady] = useState(false);
+  const [isPencilReady, setIsPencilReady] = useState(false);
+  const [isPhotoBookReady, setIsPhotoBookReady] = useState(false);
+  const [isPlantReady, setIsPlantReady] = useState(false);
+  const [isRemoteReady, setIsRemoteReady] = useState(false);
+  const [isTableReady, setIsTableReady] = useState(false);
+  const [isTvReady, setIsTvReady] = useState(false);
+  const [isTvTableReady, setIsTvTableReady] = useState(false);
+  const [isMeshReady, setIsMeshReady] = useState(false);
+  const [isWindowReady, setIsWindowReady] = useState(false);
+  const [isDoorReady, setIsDoorReady] = useState(false);
 
-  console.log(tvVideo);
+  const handleComponentLoad = (componentName) => {
+    switch (componentName) {
+      case "Camera":
+        setIsCameraReady(true);
+        break;
+      case "BedTable":
+        setIsBedTableReady(true);
+        break;
+      case "Bed":
+        setIsBedReady(true);
+        break;
+      case "ImageFrame":
+        setIsFrameReady(true);
+        break;
+      case "Korea":
+        setIsKoreaReady(true);
+        break;
+      case "Lug":
+        setIsLugReady(true);
+        break;
+      case "MusicBox":
+        setIsMusicBoxReady(true);
+        break;
+      case "Pencil":
+        setIsPencilReady(true);
+        break;
+      case "PhotoBook":
+        setIsPhotoBookReady(true);
+        break;
+      case "Plant":
+        setIsPlantReady(true);
+        break;
+      case "Remote":
+        setIsRemoteReady(true);
+        break;
+      case "Table":
+        setIsTableReady(true);
+        break;
+      case "Tv":
+        setIsTvReady(true);
+        break;
+      case "TvTable":
+        setIsTvTableReady(true);
+        break;
+      case "Mesh":
+        setIsMeshReady(true);
+        break;
+      case "Window":
+        setIsWindowReady(true);
+        break;
+      case "Door":
+        setIsDoorReady(true);
+        break;
+      default:
+        break;
+    }
+  };
+  const userId = JSON.parse(sessionStorage.getItem("isLogin"))["IdState"];
 
   const params = useParams().id;
 
@@ -82,11 +155,11 @@ const CollectionSpaceTwo = () => {
     try {
       const response = await userAPI.get(`/user/${params}/content`);
 
-      console.log('서버 응답:', response.data);
+      console.log("서버 응답:", response.data);
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
-      console.error('서버 오류:', error);
+      console.error("서버 오류:", error);
     }
   };
   // console.log(friend);
@@ -96,7 +169,7 @@ const CollectionSpaceTwo = () => {
   }, []);
 
   const playTransitionSound = () => {
-    const audio = new Audio('/musics/doorsound.mp3');
+    const audio = new Audio("/musics/doorsound.mp3");
     audio.play();
   };
 
@@ -143,7 +216,7 @@ const CollectionSpaceTwo = () => {
       Math.abs(doorSpot.z - myPlayer.z) < 1
     ) {
       setIsColletionVisible(true);
-      navigate('/world');
+      navigate("/world");
       playTransitionSound();
     } else {
       setIsColletionVisible(false);
@@ -158,13 +231,13 @@ const CollectionSpaceTwo = () => {
     >
       <div
         style={{
-          position: 'relative',
-          width: '100vw',
-          height: '100vh',
-          background: '#000',
+          position: "relative",
+          width: "100vw",
+          height: "100vh",
+          background: "#000",
         }}
       >
-        <Suspense fallback={null}>
+        <Suspense fallback={LoadingSpinner}>
           {showImageEffect ? (
             <ImageEffect />
           ) : (
@@ -198,28 +271,44 @@ const CollectionSpaceTwo = () => {
               <EnvSky />
               <EnvStars />
               <Light />
-              <Lug />
+              <Lug onLoad={() => handleComponentLoad("Lug")} />
               <Floor />
-              <Korea />
-              <Tv />
-              <Remote userId={userId} params={params} />
-              <TvTable />
+              <Korea onLoad={() => handleComponentLoad("Korea")} />
+              <Tv onLoad={() => handleComponentLoad("Tv")} />
+              <Remote
+                userId={userId}
+                params={params}
+                onLoad={() => handleComponentLoad("Remote")}
+              />
+              <TvTable onLoad={() => handleComponentLoad("TvTable")} />
               <CollectImage />
-              <ImageFrame />
+              <ImageFrame onLoad={() => handleComponentLoad("ImageFrame")} />
               <VisitText />
-              {/* <VisitCard /> */}
-              <Camera userId={userId} params={params} />
-              <Pencil userId={userId} params={params} />
-              <Table />
-              <Bed />
-              <Door />
+              {/* <VisitCard onLoad={() => handleComponentLoad("Mesh")} /> */}
+              <Camera
+                userId={userId}
+                params={params}
+                onLoad={() => handleComponentLoad("Camera")}
+              />
+              <Pencil
+                userId={userId}
+                params={params}
+                onLoad={() => handleComponentLoad("Pencil")}
+              />
+              <Table onLoad={() => handleComponentLoad("Table")} />
+              <Bed onLoad={() => handleComponentLoad("Bed")} />
+              <Door onLoad={() => handleComponentLoad("Door")} />
               <Video tvVideo={tvVideo} />
               <Wall />
-              <Window />
-              <Plant />
-              <PhotoBook />
-              <BedsideTable />
-              <MusicBox userId={userId} params={params} />
+              <Window onLoad={() => handleComponentLoad("Window")} />
+              <Plant onLoad={() => handleComponentLoad("Plant")} />
+              <PhotoBook onLoad={() => handleComponentLoad("PhotoBook")} />
+              <BedsideTable onLoad={() => handleComponentLoad("BedTable")} />
+              <MusicBox
+                userId={userId}
+                params={params}
+                onLoad={() => handleComponentLoad("MusicBox")}
+              />
               <Spot spot={doorSpot} />
               <Player
                 roomName={roomName}
@@ -273,8 +362,8 @@ const CollectionSpaceTwo = () => {
         </Container>
         <AudioPlayer src="/musics/room2.mp3" />
 
-        {showImageEffect ? <PhotoBoxHeader /> : ''}
-        {showImageEffect ? <ExitFooter /> : ''}
+        {showImageEffect ? <PhotoBoxHeader /> : ""}
+        {showImageEffect ? <ExitFooter /> : ""}
         <CrossHair isLocked={isLocked} />
       </div>
     </motion.div>
@@ -290,7 +379,7 @@ const Container = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${pencilModalOpen ? 1 : -1};
-      background: ${pencilModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${pencilModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -305,8 +394,8 @@ const ContainerImage = styled.div`
       left: 0;
       z-index: ${uploadImageModalOpen ? 1 : -1};
       background: ${uploadImageModalOpen
-        ? 'rgba(0, 0, 0, 0.4)'
-        : 'transparent'};
+        ? "rgba(0, 0, 0, 0.4)"
+        : "transparent"};
     `;
   }}
 `;
@@ -320,7 +409,7 @@ const ContainerVideo = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${albumModalOpen ? 1 : -1};
-      background: ${albumModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${albumModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -334,7 +423,7 @@ const ContainerRemote = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${videoModalOpen ? 1 : -1};
-      background: ${videoModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${videoModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -353,8 +442,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? 'visible'
-        : 'hidden'}; // initial visibility is hidden
+        ? "visible"
+        : "hidden"}; // initial visibility is hidden
     `;
   }}
 `;

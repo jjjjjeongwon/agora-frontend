@@ -1,44 +1,35 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import React, { useEffect } from "react";
 
-const Korea = () => {
-  const glb = useGLTF('../models/korea/korea_pearl.glb');
+const Korea = ({ onLoad = () => {} }) => {
+  const glb = useGLTF("../models/korea/korea_pearl.glb");
   const korea = glb.scene.children[0];
-  const { scene } = useThree();
 
   useEffect(() => {
-    if (!korea) return;
+    if (korea) {
+      glb.scene.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+        }
+      });
 
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
+      korea.position.set(0.3, 0.8, 4.5);
+      korea.scale.x = 15;
+      korea.scale.z = 20;
+      korea.scale.y = 10;
+      korea.rotation.x = Math.PI / 2;
+
+      if (typeof onLoad === "function") {
+        onLoad();
       }
-    });
-    // korea.position.y = 0;
-    korea.position.set(0.3, 0.8, 4.5);
-    korea.scale.x = 15;
-    korea.scale.z = 20;
-    korea.scale.y = 10;
-    korea.rotation.x = Math.PI / 2;
-    // korea.rotation.y = 0;
-    // korea.rotation.z = Math.PI / 2;
-    // const mesh = new THREE.Mesh(
-    //   new BoxGeometry(0.5, 3, 5),
-    //   new MeshBasicMaterial({ transparent: true, opacity: 0 })
-    // );
+    }
+  }, [korea, onLoad]);
 
-    // mesh.position.x = korea.position.x + 1.5;
-    // mesh.position.y = korea.position.y;
-    // mesh.position.z = korea.position.z + 2;
-    // scene.add(mesh);
-  }, []);
+  if (!korea) return null;
 
   return (
     <primitive
-      name={'korea'}
+      name={"korea"}
       castShadow
       object={korea.clone()}
       dispose={null}

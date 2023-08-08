@@ -1,45 +1,50 @@
-import { Float, useGLTF } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
-import React, { useEffect, useRef } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { Float, useGLTF } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
+import React, { useEffect, useRef } from "react";
+import { BoxGeometry, MeshBasicMaterial } from "three";
+import * as THREE from "three";
 
-const Piano = ({ userId, params }) => {
-  const glb = useGLTF('../models/piano/low_poly_piano.glb');
+const Piano = ({ userId, params, onLoad = () => {} }) => {
+  const glb = useGLTF("../models/piano/low_poly_piano.glb");
   const piano = glb.scene.children[0];
   const { scene, camera } = useThree();
 
   const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
-  const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
+  const pointMaterial = new THREE.MeshStandardMaterial({ color: "red" });
 
   const coneRef = useRef();
 
   useEffect(() => {
-    if (!piano) return;
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
+    if (piano) {
+      glb.scene.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      });
 
-    piano.position.x = 3.7;
-    piano.position.y = 0;
-    piano.position.z = -1.15;
-    piano.scale.x = 0.5;
-    piano.scale.y = 0.4;
-    piano.scale.z = 0.5;
-    const mesh = new THREE.Mesh(
-      new BoxGeometry(2, 3, 3),
-      new MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-        color: 'white',
-      })
-    );
-    mesh.position.set(5, 1, -3);
-    scene.add(mesh);
-  });
+      piano.position.x = 3.7;
+      piano.position.y = 0;
+      piano.position.z = -1.15;
+      piano.scale.x = 0.5;
+      piano.scale.y = 0.4;
+      piano.scale.z = 0.5;
+      const mesh = new THREE.Mesh(
+        new BoxGeometry(2, 3, 3),
+        new MeshBasicMaterial({
+          transparent: true,
+          opacity: 0,
+          color: "white",
+        })
+      );
+      mesh.position.set(5, 1, -3);
+      scene.add(mesh);
+
+      if (typeof onLoad === "function") {
+        onLoad();
+      }
+    }
+  }, [piano, onLoad]);
 
   useFrame(() => {
     if (params !== userId) return;
@@ -53,6 +58,8 @@ const Piano = ({ userId, params }) => {
       coneRef.current.visible = false;
     }
   });
+
+  if (!piano) return null;
 
   if (params !== userId)
     return <primitive castShadow object={piano.clone()} dispose={null} />;

@@ -1,42 +1,47 @@
-import { useGLTF, Float } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
-import React, { useEffect, useRef } from 'react';
-import { CylinderGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF, Float } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
+import React, { useEffect, useRef } from "react";
+import { CylinderGeometry, MeshBasicMaterial } from "three";
+import * as THREE from "three";
 
-const Pencil = ({ userId, params }) => {
-  const glb = useGLTF('../models/pencil/cup_with_pencils.glb');
+const Pencil = ({ userId, params, onLoad = () => {} }) => {
+  const glb = useGLTF("../models/pencil/cup_with_pencils.glb");
   const pencil = glb.scene.children[0];
   const { scene, camera } = useThree();
   const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
-  const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
+  const pointMaterial = new THREE.MeshStandardMaterial({ color: "red" });
 
   const coneRef = useRef();
 
   useEffect(() => {
-    if (!pencil) return;
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-    pencil.position.set(-3.3, 1.855, -4.4);
+    if (pencil) {
+      glb.scene.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      });
+      pencil.position.set(-3.3, 1.855, -4.4);
 
-    const mesh = new THREE.Mesh(
-      new CylinderGeometry(0.1, 0.1, 0.2, 32),
-      new MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-        color: 'white',
-        side: THREE.DoubleSide,
-      })
-    );
-    mesh.name = 'pencil';
-    mesh.castShadow = true;
-    mesh.position.set(-3.3, 1.9, -4.4);
-    scene.add(mesh);
-  });
+      const mesh = new THREE.Mesh(
+        new CylinderGeometry(0.1, 0.1, 0.2, 32),
+        new MeshBasicMaterial({
+          transparent: true,
+          opacity: 0,
+          color: "white",
+          side: THREE.DoubleSide,
+        })
+      );
+      mesh.name = "pencil";
+      mesh.castShadow = true;
+      mesh.position.set(-3.3, 1.9, -4.4);
+      scene.add(mesh);
+
+      if (typeof onLoad === "function") {
+        onLoad();
+      }
+    }
+  }, [pencil, onLoad]);
 
   useFrame(() => {
     if (params === userId) return;
@@ -49,6 +54,9 @@ const Pencil = ({ userId, params }) => {
       coneRef.current.visible = false;
     }
   });
+
+  if (!pencil) return null;
+
   if (params === userId)
     return <primitive castShadow object={pencil.clone()} dispose={null} />;
   return (

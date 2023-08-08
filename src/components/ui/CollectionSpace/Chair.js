@@ -1,24 +1,28 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import React, { useEffect } from "react";
 
-const Chair = () => {
-  const glb = useGLTF('../models/chair/office_chair.glb');
+const Chair = ({ onLoad = () => {} }) => {
+  const glb = useGLTF("../models/chair/office_chair.glb");
   const chair = glb.scene.children[0];
-
   useEffect(() => {
-    if (!chair) return;
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
+    if (chair) {
+      glb.scene.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+        }
+      });
+      chair.position.set(-2, 0, -2);
+      chair.scale.set(2, 2, 2);
+      chair.rotation.z = -Math.PI / 2;
+
+      if (typeof onLoad === "function") {
+        onLoad();
       }
-    });
-    chair.position.set(-2, 0, -2);
-    chair.scale.set(2, 2, 2);
-    chair.rotation.z = -Math.PI / 2;
-  });
+    }
+  }, [chair, onLoad]);
+
+  if (!chair) return null;
+
   return <primitive object={chair.clone()} dispose={null} />;
 };
 

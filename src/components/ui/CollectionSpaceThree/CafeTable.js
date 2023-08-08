@@ -1,25 +1,29 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import React, { useEffect } from "react";
 
-const CafeTable = () => {
-  const glb = useGLTF('../models/table/low_low_poly_table.glb');
+const CafeTable = ({ onLoad = () => {} }) => {
+  const glb = useGLTF("../models/table/low_low_poly_table.glb");
   const cafeTable = glb.scene.children[0];
-  const { scene } = useThree();
 
   useEffect(() => {
-    if (!cafeTable) return;
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
+    if (cafeTable) {
+      glb.scene.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      });
+      cafeTable.position.set(0.8, 0, -0.8);
+      cafeTable.scale.set(0.2, 0.2, 0.2);
+
+      if (typeof onLoad === "function") {
+        onLoad();
       }
-    });
-    cafeTable.position.set(0.8, 0, -0.8);
-    cafeTable.scale.set(0.2, 0.2, 0.2);
-  });
+    }
+  }, [cafeTable, onLoad]);
+
+  if (!cafeTable) return null;
+
   return (
     <primitive
       castShadow

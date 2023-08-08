@@ -1,25 +1,29 @@
-import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import React, { useEffect } from 'react';
-import { BoxGeometry, MeshBasicMaterial } from 'three';
-import * as THREE from 'three';
+import { useGLTF } from "@react-three/drei";
+import React, { useEffect } from "react";
 
-const Flower = () => {
-  const glb = useGLTF('../models/flower/flower_pot.glb');
+const Flower = ({ onLoad = () => {} }) => {
+  const glb = useGLTF("../models/flower/flower_pot.glb");
   const flower = glb.scene.children[0];
-  const { scene } = useThree();
 
   useEffect(() => {
-    if (!flower) return;
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
+    if (flower) {
+      glb.scene.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
+      });
+      flower.position.set(0.8, 1.2, -0.8);
+      flower.scale.set(0.2, 0.2, 0.2);
+
+      if (typeof onLoad === "function") {
+        onLoad();
       }
-    });
-    flower.position.set(0.8, 1.2, -0.8);
-    flower.scale.set(0.2, 0.2, 0.2);
-  });
+    }
+  }, [flower, onLoad]);
+
+  if (!flower) return null;
+
   return (
     <primitive
       castShadow

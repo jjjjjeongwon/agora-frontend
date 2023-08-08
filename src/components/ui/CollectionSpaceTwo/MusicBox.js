@@ -1,19 +1,15 @@
-import { useGLTF, Float } from '@react-three/drei';
-import { useThree, useFrame } from '@react-three/fiber';
-import React, { useEffect, useRef } from 'react';
-import {
-  BoxGeometry,
-  PlaneGeometry,
-  MeshBasicMaterial,
-  CylinderGeometry,
-} from 'three';
-import * as THREE from 'three';
-const MusicBox = ({ userId, params }) => {
-  const glb = useGLTF('../models/musicBox/phonograph.glb');
+import { useGLTF, Float } from "@react-three/drei";
+import { useThree, useFrame } from "@react-three/fiber";
+import React, { useEffect, useRef, useState } from "react";
+import { BoxGeometry, MeshBasicMaterial } from "three";
+import * as THREE from "three";
+
+const MusicBox = ({ userId, params, onLoad = () => {} }) => {
+  const glb = useGLTF("../models/musicBox/phonograph.glb");
   const musicBox = glb.scene.children[0];
   const { scene, camera } = useThree();
   const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
-  const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
+  const pointMaterial = new THREE.MeshStandardMaterial({ color: "red" });
 
   const mesh = new THREE.Mesh(
     new BoxGeometry(2, 1, 6),
@@ -23,44 +19,47 @@ const MusicBox = ({ userId, params }) => {
   const coneRef = useRef();
 
   useEffect(() => {
-    if (!musicBox) return;
+    if (musicBox) {
+      glb.scene.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+        }
+      });
 
-    glb.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
+      // const mesh = new THREE.Mesh(
+      //   new CylinderGeometry(0.1, 0.1, 0.1, 32),
+      //   new BoxGeometry(2, 1, 6),
+      //   new MeshBasicMaterial({ transparent: true, opacity: 0 })
+      // );
+      // const upMesh = new THREE.Mesh(
+      //   new PlaneGeometry(2, 6),
+      //   new MeshBasicMaterial({
+      //     transparent: true,
+      //     opacity: 0,
+      //     color: 'white',
+      //     side: THREE.DoubleSide,
+      //   })
+      // );
+      // upMesh.receiveShadow = true;
+      // mesh.castShadow = true;
+      // mesh.position.x = musicBox.position.x + 1;
+      // mesh.position.y = musicBox.position.y + 1;
+      // mesh.position.z = musicBox.position.z + 1;
+
+      // upMesh.position.x = -4;
+      // upMesh.position.y = 1.854;
+      // upMesh.position.z = -2;
+      // upMesh.rotation.x = Math.PI / 2;
+      // scene.add(mesh, upMesh);
+
+      musicBox.position.set(-4.75, 1, -1.12);
+      musicBox.scale.set(0.5, 0.5, 0.5);
+      musicBox.rotation.z = -Math.PI / 2;
+      if (typeof onLoad === "function") {
+        onLoad();
       }
-    });
-
-    musicBox.position.set(-4.75, 1, -1.12);
-    musicBox.scale.set(0.5, 0.5, 0.5);
-    musicBox.rotation.z = -Math.PI / 2;
-
-    // const mesh = new THREE.Mesh(
-    //   new CylinderGeometry(0.1, 0.1, 0.1, 32),
-    //   new BoxGeometry(2, 1, 6),
-    //   new MeshBasicMaterial({ transparent: true, opacity: 0 })
-    // );
-    // const upMesh = new THREE.Mesh(
-    //   new PlaneGeometry(2, 6),
-    //   new MeshBasicMaterial({
-    //     transparent: true,
-    //     opacity: 0,
-    //     color: 'white',
-    //     side: THREE.DoubleSide,
-    //   })
-    // );
-    // upMesh.receiveShadow = true;
-    // mesh.castShadow = true;
-    // mesh.position.x = musicBox.position.x + 1;
-    // mesh.position.y = musicBox.position.y + 1;
-    // mesh.position.z = musicBox.position.z + 1;
-
-    // upMesh.position.x = -4;
-    // upMesh.position.y = 1.854;
-    // upMesh.position.z = -2;
-    // upMesh.rotation.x = Math.PI / 2;
-    // scene.add(mesh, upMesh);
-  }, []);
+    }
+  }, [musicBox, onLoad]);
 
   useFrame(() => {
     if (params !== userId) return;
@@ -74,6 +73,8 @@ const MusicBox = ({ userId, params }) => {
       coneRef.current.visible = false;
     }
   });
+
+  if (!musicBox) return null;
 
   if (params !== userId)
     return <primitive castShadow object={musicBox.clone()} dispose={null} />;
