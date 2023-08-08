@@ -8,15 +8,12 @@ const Character = (props) => {
   const { nodes, materials, animations } = useGLTF('../models/men.gltf');
   const { actions } = useAnimations(animations, group);
 
-  // useEffect(() => {
-  //   actions[props.moveState].reset().fadeIn(0.2).play();
-  //   return () => {
-  //     actions[props.moveState].fadeOut(0.2);
-  //   };
-  // }, [props.moveState]);
-  useFrame((state, delta) => {
-    actions[props.moveState].play(); // Sync the animation on each frame
-  });
+  useEffect(() => {
+    actions[props.moveState].reset().fadeIn(0.2).play();
+    return () => {
+      actions[props.moveState]?.fadeOut(0.2);
+    };
+  }, [props.moveState]);
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -26,6 +23,7 @@ const Character = (props) => {
           <primitive object={nodes.RightFootCtrl} />
           <primitive object={nodes.HipsCtrl} />
           <skinnedMesh
+            castShadow
             name="characterMedium"
             geometry={nodes.characterMedium.geometry}
             material={materials['skin.001']}

@@ -22,6 +22,7 @@ export const CharacterController = ({ setMyPlayer }) => {
   const rigidbody = useRef();
   const isOnFloor = useRef(true);
   const [moveState, setMoveState] = useState('Idle');
+  const [isPressed, setIsPressed] = useState(false);
   const [resetState, setResetState] = useState(false);
 
   useFrame((state, delta) => {
@@ -60,10 +61,12 @@ export const CharacterController = ({ setMyPlayer }) => {
     if (Math.abs(linvel.x) > RUN_VEL || Math.abs(linvel.z) > RUN_VEL) {
       if (moveState !== 'Run') {
         setMoveState('Run');
+        setIsPressed(true);
       }
     } else {
       if (moveState !== 'Idle') {
         setMoveState('Idle');
+        setIsPressed(false);
       }
     }
 
@@ -83,7 +86,7 @@ export const CharacterController = ({ setMyPlayer }) => {
       characterWorldPosition.z + 10
     );
 
-    setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
+    // setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
     // console.log(characterWorldPosition.x, characterWorldPosition.z);
     state.camera.position.lerp(targetCameraPosition, delta * 2);
 
@@ -102,6 +105,13 @@ export const CharacterController = ({ setMyPlayer }) => {
     }
   }, [resetState]);
 
+  useEffect(() => {
+    const characterWorldPosition = character.current.getWorldPosition(
+      new THREE.Vector3()
+    );
+    setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
+  }, [isPressed]);
+
   return (
     <group>
       <RigidBody
@@ -116,8 +126,8 @@ export const CharacterController = ({ setMyPlayer }) => {
         }}
       >
         <CapsuleCollider args={[0.9, 0.4]} position={[0, 0.9, 0]} />
-        <group castShadow ref={character}>
-          <Character castShadow moveState={moveState} />
+        <group ref={character}>
+          <Character moveState={moveState} isPressed={isPressed} />
         </group>
       </RigidBody>
       <Preload add />

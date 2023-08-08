@@ -13,7 +13,10 @@ const Road = () => {
 
     glbs.map((glb) => {
       glb.scene.traverse((child) => {
-        if (child.isMesh) child.receiveShadow = true;
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
       });
     });
   }, []);
@@ -21,8 +24,10 @@ const Road = () => {
     <RigidBody type="fixed">
       <>
         <primitive
-          position={[-4, 0, 11]}
+          position={[-4, -0.2, 11]}
           scale={[0.2, 0.2, 0.2]}
+          castShadow
+          receiveShadow
           rotation={[-Math.PI / 2, 0, Math.PI / 12]}
           object={road.clone()}
           dispose={null}
