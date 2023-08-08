@@ -44,7 +44,7 @@ const ReceiveEmailButton = styled.div`
   width: 100px;
   height: 48px;
   cursor: pointer;
-  background-color: #3c4d18;
+  background-color: #00c6a7;
   font-family: 'luckiest guy';
 
   display: flex;

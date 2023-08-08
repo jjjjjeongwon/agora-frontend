@@ -31,9 +31,12 @@ function App() {
         <Route path="/maplist" element={<MapList />} />
         <Route path="/test" element={<Test />} />
         <Route path="/collectionspace/:id" element={<CollectionSpace />} />
-        <Route path="/collectionspace_two" element={<CollectionSpaceTwo />} />
         <Route
-          path="/collectionspace_three"
+          path="/collectionspace_two/:id"
+          element={<CollectionSpaceTwo />}
+        />
+        <Route
+          path="/collectionspace_three/:id"
           element={<CollectionSpaceThree />}
         />
         <Route path="/imageeffect" element={<ImageEffect />} />

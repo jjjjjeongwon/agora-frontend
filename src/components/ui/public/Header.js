@@ -9,29 +9,29 @@ import { NickNameState } from '../../../state/UserAtom';
 const Header = ({ setFriend }) => {
   const navigate = useNavigate();
   const loginNickName = useRecoilValue(NickNameState);
-  const audioRef = useRef(null);
+  // const audioRef = useRef(null);
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
   // console.log(isPlaying);
 
-  const togglePlay = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
+  // const togglePlay = () => {
+  //   if (isPlaying) {
+  //     audioRef.current.pause();
+  //   } else {
+  //     audioRef.current.play();
+  //   }
+  //   setIsPlaying(!isPlaying);
+  // };
 
   // console.log(loginNickName);
 
   const nickname = loginNickName;
 
-  useEffect(() => {
-    if (isPlaying) {
-      audioRef.current.play();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isPlaying) {
+  //     audioRef.current.play();
+  //   }
+  // }, []);
 
   const userLogout = () => {
     sessionStorage.removeItem('isLogin');
@@ -48,28 +48,28 @@ const Header = ({ setFriend }) => {
       <Wrap>
         <NickName>{nickname}</NickName>
         <IconWrap>
-          <audio ref={audioRef} loop>
+          {/* <audio ref={audioRef} loop>
             <source src="/musics/pongdang.mp3" type="audio/mpeg" />
             Your browser does not support the audio tag.
-          </audio>
+          </audio> */}
           <Logout>
-            {isPlaying ? (
-              <HoverWrap
-                onClick={togglePlay}
-                color="white"
-                hoverColor="#BCC9C6"
-              >
-                <GoUnmute size={29} />
-              </HoverWrap>
-            ) : (
-              <HoverWrap
-                onClick={togglePlay}
-                color="white"
-                hoverColor="#BCC9C6"
-              >
-                <GoMute size={29} />
-              </HoverWrap>
-            )}
+            {/* {isPlaying ? ( */}
+            <HoverWrap
+              // onClick={togglePlay}
+              color="white"
+              hoverColor="#BCC9C6"
+            >
+              <GoUnmute size={29} />
+            </HoverWrap>
+            {/* ) : (
+            <HoverWrap
+              // onClick={togglePlay}
+              color="white"
+              hoverColor="#BCC9C6"
+            >
+              <GoMute size={29} />
+            </HoverWrap>
+             )} */}
           </Logout>
           {/* <BackgroundMusic /> */}
           <Logout onClick={() => setFriend(true)}>

@@ -1,13 +1,15 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import userAPI from '../../../apis/userAPI';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const FriendsModal = forwardRef((props, ref) => {
   let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
 
   const [content, setContent] = useState('');
+
+  const navigate = useNavigate();
   const email = JSON.parse(sessionStorage.getItem('isLogin'))[
     'LoginEmailState'
   ];
@@ -62,15 +64,6 @@ const FriendsModal = forwardRef((props, ref) => {
   //     });
   // };
 
-  // 모달 끄기
-  // useEffect(() => {
-  //   console.log('ddd');
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // });
-
   const handleClickOutside = () => {
     props.setFriendModalOpen(false);
     props.setFriend(false);
@@ -86,8 +79,20 @@ const FriendsModal = forwardRef((props, ref) => {
     }
   };
 
+  const handleGoMap = (num, id) => {
+    console.log(num, id);
+    if (num === 1) {
+      navigate(`/collectionspace/${id}`);
+    }
+    if (num === 2) {
+      navigate(`/collectionspace_two/${id}`);
+    }
+    if (num === 3) {
+      navigate(`/collectionspace_three/${id}`);
+    }
+  };
+
   console.log(props.friendsInfo);
-  const friends = props.friendsInfo;
 
   return (
     <>
@@ -116,7 +121,9 @@ const FriendsModal = forwardRef((props, ref) => {
           {props.friendsInfo.map((friend, idx) => (
             <Friend>
               <Name>{friend.nickname}</Name>
-              <Button>GO</Button>
+              <Button onClick={() => handleGoMap(friend.houseNum, friend._id)}>
+                GO
+              </Button>
             </Friend>
           ))}
         </Title>

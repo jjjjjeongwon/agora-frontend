@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { BoxGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
-const Piano = () => {
+const Piano = ({ userId, params }) => {
   const glb = useGLTF('../models/piano/low_poly_piano.glb');
   const piano = glb.scene.children[0];
   const { scene, camera } = useThree();
@@ -42,6 +42,8 @@ const Piano = () => {
   });
 
   useFrame(() => {
+    if (params !== userId) return;
+
     if (
       Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
       Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
@@ -51,6 +53,9 @@ const Piano = () => {
       coneRef.current.visible = false;
     }
   });
+
+  if (params !== userId)
+    return <primitive castShadow object={piano.clone()} dispose={null} />;
   return (
     <>
       <Float

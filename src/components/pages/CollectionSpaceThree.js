@@ -44,6 +44,7 @@ import AudioPlayer from '../ui/public/AudioPlayer';
 import UploadImagePostModal from '../ui/public/UploadImagePostModal';
 import UploadVideoModal from '../ui/public/UploadVideoModal';
 import ViewImagePostModal from '../ui/public/ViewImagePostModal';
+import userAPI from '../../apis/userAPI';
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -66,6 +67,30 @@ const CollectionSpaceThree = () => {
   const [uploadImageModalOpen, setUploadImageModalOpen] = useState(false);
   const [pencilModalOpen, setPencilModalOpen] = useState(false);
   const [showImageEffect, setShowImageEffect] = useState(false);
+  const [tvVideo, setTvVideo] = useState();
+
+  const params = useParams().id;
+
+  const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
+
+    try {
+      const response = await userAPI.get(`/user/${params}/content`);
+
+      console.log('서버 응답:', response.data);
+
+      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+    } catch (error) {
+      console.error('서버 오류:', error);
+    }
+  };
+  // console.log(friend);
+
+  useEffect(() => {
+    handleSubmit();
+  }, []);
 
   const playTransitionSound = () => {
     const audio = new Audio('/musics/doorsound.mp3');
@@ -173,22 +198,22 @@ const CollectionSpaceThree = () => {
               <Light />
               <Floor />
               <Tv />
-              <Remote />
+              <Remote userId={userId} params={params} />
               <TvTable />
               <CollectImage />
               <ImageFrame />
               <VisitText />
               {/* <VisitCard /> */}
-              <Camera />
-              <Pencil />
+              <Camera userId={userId} params={params} />
+              <Pencil userId={userId} params={params} />
               <Table />
               <Bed />
               <Door />
-              <Video />
+              <Video tvVideo={tvVideo} />
               <Wall />
               <Window />
               <Closet />
-              <Piano />
+              <Piano userId={userId} params={params} />
               <CafeTable />
               <Flower />
               <PhotoBook />
@@ -225,6 +250,7 @@ const CollectionSpaceThree = () => {
             <UploadVideoModal
               setVideoRemote={setVideoRemote}
               setVideoModalOpen={setVideoModalOpen}
+              setTvVideo={setTvVideo}
             />
           )}
         </ContainerRemote>

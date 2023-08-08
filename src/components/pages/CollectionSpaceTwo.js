@@ -44,6 +44,7 @@ import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
 import ExitFooter from '../ui/public/ExitFooter';
 import AudioPlayer from '../ui/public/AudioPlayer';
 import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
+import userAPI from '../../apis/userAPI';
 
 const CollectionSpaceTwo = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -67,6 +68,32 @@ const CollectionSpaceTwo = () => {
   const [pencilModalOpen, setPencilModalOpen] = useState(false);
 
   const [showImageEffect, setShowImageEffect] = useState(false);
+  const [tvVideo, setTvVideo] = useState();
+
+  const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+
+  console.log(tvVideo);
+
+  const params = useParams().id;
+
+  const handleSubmit = async (e) => {
+    // e.preventDefault();
+
+    try {
+      const response = await userAPI.get(`/user/${params}/content`);
+
+      console.log('서버 응답:', response.data);
+
+      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+    } catch (error) {
+      console.error('서버 오류:', error);
+    }
+  };
+  // console.log(friend);
+
+  useEffect(() => {
+    handleSubmit();
+  }, []);
 
   const playTransitionSound = () => {
     const audio = new Audio('/musics/doorsound.mp3');
@@ -124,8 +151,8 @@ const CollectionSpaceTwo = () => {
   }, [doorSpot]);
   return (
     <motion.div
-      initial='hidden'
-      animate='visible'
+      initial="hidden"
+      animate="visible"
       transition={{ duration: 3, delay: 1 }} // 이동 시간 설정
       variants={fadeIn} // 애니메이션 variant
     >
@@ -175,24 +202,24 @@ const CollectionSpaceTwo = () => {
               <Floor />
               <Korea />
               <Tv />
-              <Remote />
+              <Remote userId={userId} params={params} />
               <TvTable />
               <CollectImage />
               <ImageFrame />
               <VisitText />
               {/* <VisitCard /> */}
-              <Camera />
-              <Pencil />
+              <Camera userId={userId} params={params} />
+              <Pencil userId={userId} params={params} />
               <Table />
               <Bed />
               <Door />
-              <Video />
+              <Video tvVideo={tvVideo} />
               <Wall />
               <Window />
               <Plant />
               <PhotoBook />
               <BedsideTable />
-              <MusicBox />
+              <MusicBox userId={userId} params={params} />
               <Spot spot={doorSpot} />
               <Player
                 roomName={roomName}
@@ -223,6 +250,7 @@ const CollectionSpaceTwo = () => {
             <UploadVideoModal
               setVideoRemote={setVideoRemote}
               setVideoModalOpen={setVideoModalOpen}
+              setTvVideo={setTvVideo}
             />
           )}
         </ContainerRemote>
@@ -243,7 +271,7 @@ const CollectionSpaceTwo = () => {
             />
           )}
         </Container>
-        <AudioPlayer src='/musics/room2.mp3' />
+        <AudioPlayer src="/musics/room2.mp3" />
 
         {showImageEffect ? <PhotoBoxHeader /> : ''}
         {showImageEffect ? <ExitFooter /> : ''}

@@ -39,6 +39,7 @@ import userAPI from '../../apis/userAPI';
 import FriendsModal from '../ui/public/FriendsModal';
 
 import LoadingSpinner from '../ui/public/LoadingSpinner';
+import AudioPlayer from '../ui/public/AudioPlayer';
 
 export const Controls = {
   forward: 'forward',
@@ -107,7 +108,13 @@ const World = () => {
     []
   );
 
-  const userId = recoilLoginId;
+  const userId = () => {
+    if (recoilLoginId !== 0) {
+      return recoilLoginId;
+    } else {
+      return loginId;
+    }
+  };
 
   const enterRandomMap = () => {
     console.log('MapMap');
@@ -116,7 +123,8 @@ const World = () => {
       confirmButtonColor: '#0e72ed',
     }).then((result) => {
       if (result.isConfirmed) {
-        randomMapSound();
+        getRandomUser();
+        // randomMapSound();
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info');
       }
@@ -125,30 +133,17 @@ const World = () => {
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
-    if (recoilLoginId !== 0) {
-      try {
-        const response = await userAPI.get(`/user/${recoilLoginId}/content`);
 
-        console.log('서버 응답:', response.data);
-        setSelectRoom(response.data.userHouseNum);
-        setFriendsInfo(response.data.friendsInfoArray);
+    try {
+      const response = await userAPI.get(`/user/${userId()}/content`);
 
-        // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
-      } catch (error) {
-        console.error('서버 오류:', error);
-      }
-    } else {
-      try {
-        const response = await userAPI.get(`/user/${loginId}/content`);
+      console.log('서버 응답:', response.data);
+      setSelectRoom(response.data.userHouseNum);
+      setFriendsInfo(response.data.friendsInfoArray);
 
-        console.log('서버 응답:', response.data);
-        setSelectRoom(response.data.userHouseNum);
-        setFriendsInfo(response.data.friendsInfoArray);
-
-        // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
-      } catch (error) {
-        console.error('서버 오류:', error);
-      }
+      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+    } catch (error) {
+      console.error('서버 오류:', error);
     }
   };
 
@@ -159,6 +154,15 @@ const World = () => {
       const response = await userAPI.get('/user/surfing');
 
       console.log('서버 응답:', response.data);
+      if (response.data.houseNum === 1) {
+        navigate(`/collectionspace/${response.data._id}`);
+      }
+      if (response.data.houseNum === 2) {
+        navigate(`/collectionspace_two/${response.data._id}`);
+      }
+      if (response.data.houseNum === 3) {
+        navigate(`/collectionspace_three/${response.data._id}`);
+      }
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
@@ -183,13 +187,13 @@ const World = () => {
       Math.abs(mySpot.z - myPlayer.z) < 1
     ) {
       if (selectRoom === 1) {
-        navigate(`/collectionspace/${userId}`);
+        navigate(`/collectionspace/${userId()}`);
         playTransitionSound();
       } else if (selectRoom === 2) {
-        navigate(`/collectionspace_two/${userId}`);
+        navigate(`/collectionspace_two/${userId()}`);
         playTransitionSound();
       } else if (selectRoom === 3) {
-        navigate(`/collectionspace_three/${userId}`);
+        navigate(`/collectionspace_three/${userId()}`);
         playTransitionSound();
       }
     } else if (
@@ -280,6 +284,8 @@ const World = () => {
             <RoomHonorAlert />
           </Suspense>
         </KeyboardControls>
+        <AudioPlayer src="/musics/pongdang.mp3" />
+
         <Header setFriend={setFriend} />
         {friendModalOpen && (
           <FriendsModal

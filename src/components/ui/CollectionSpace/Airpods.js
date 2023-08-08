@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { CylinderGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
-const Airpods = () => {
+const Airpods = ({ userId, params }) => {
   const glb = useGLTF('../models/airpods/airpods_low_poly.glb');
   const airpods = glb.scene.children[0];
   const { scene, camera } = useThree();
@@ -40,6 +40,8 @@ const Airpods = () => {
     scene.add(mesh);
   });
   useFrame(() => {
+    if (params !== userId) return;
+
     if (
       Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
       Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
@@ -49,6 +51,9 @@ const Airpods = () => {
       coneRef.current.visible = false;
     }
   });
+
+  if (params !== userId) return <primitive object={airpods} dispose={null} />;
+
   return (
     <>
       <Float

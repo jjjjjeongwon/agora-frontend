@@ -8,7 +8,7 @@ import {
   CylinderGeometry,
 } from 'three';
 import * as THREE from 'three';
-const MusicBox = () => {
+const MusicBox = ({ userId, params }) => {
   const glb = useGLTF('../models/musicBox/phonograph.glb');
   const musicBox = glb.scene.children[0];
   const { scene, camera } = useThree();
@@ -63,6 +63,8 @@ const MusicBox = () => {
   }, []);
 
   useFrame(() => {
+    if (params !== userId) return;
+
     if (
       Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
       Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
@@ -72,6 +74,9 @@ const MusicBox = () => {
       coneRef.current.visible = false;
     }
   });
+
+  if (params !== userId)
+    return <primitive castShadow object={musicBox.clone()} dispose={null} />;
 
   return (
     <>

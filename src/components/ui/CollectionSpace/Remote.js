@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { BoxGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
-const Remote = () => {
+const Remote = ({ userId, params }) => {
   const glb = useGLTF('../models/remote/tv_remote.glb');
   const remote = glb.scene.children[0];
   const { scene, camera } = useThree();
@@ -12,6 +12,8 @@ const Remote = () => {
   const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
 
   const coneRef = useRef();
+
+  console.log(userId, params);
 
   useEffect(() => {
     if (!remote) return;
@@ -33,6 +35,7 @@ const Remote = () => {
   });
 
   useFrame(() => {
+    if (params !== userId) return;
     if (
       Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
       Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
@@ -42,6 +45,9 @@ const Remote = () => {
       coneRef.current.visible = false;
     }
   });
+  if (params !== userId)
+    return <primitive castShadow object={remote.clone()} dispose={null} />;
+
   return (
     <>
       <Float

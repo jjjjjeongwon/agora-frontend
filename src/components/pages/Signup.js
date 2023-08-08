@@ -13,6 +13,8 @@ import home from '../../assets/images/map1.png';
 import postbox from '../../assets/images/map2.png';
 import constructTool from '../../assets/images/map3.png';
 import letter from '../../assets/images/map1.png';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export const Signup = () => {
   const nicknameRef = useRef();
@@ -21,6 +23,7 @@ export const Signup = () => {
   const passwordRef = useRef();
   const passwordCheckRef = useRef();
   const emailAuthNumRef = useRef();
+  const navigate = useNavigate();
 
   const completeSignUp = async (SignupData) => {
     await userAPI
@@ -31,9 +34,12 @@ export const Signup = () => {
         //   title: '회원가입 성공하셨습니다!',
         //   confirmButtonColor: '#0e72ed',
         // });
-        window.alert('회원가입 성공!');
+        Swal.fire({
+          title: '회원가입 성공!',
+          confirmButtonColor: '#00c6a7',
+        });
 
-        // navigate('/login');
+        navigate('/login');
       })
       .catch((err) => {
         console.log('회원가입 오류', err);

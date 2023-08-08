@@ -1,21 +1,21 @@
-import * as THREE from "three";
-import { Suspense } from "react";
-import { useAspect, useVideoTexture, useTexture } from "@react-three/drei";
+import * as THREE from 'three';
+import { Suspense } from 'react';
+import { useAspect, useVideoTexture, useTexture } from '@react-three/drei';
 
-const Video = () => {
+const Video = ({ tvVideo }) => {
   return (
     <mesh position={[5.32, 3.5, 2.2]} rotation={[0, -Math.PI / 2, 0]}>
-      <Scene />
+      <Scene tvVideo={tvVideo} />
     </mesh>
   );
 };
 
-function Scene() {
+function Scene({ tvVideo }) {
   return (
     <mesh>
       <planeGeometry args={[5, 3]} />
       <Suspense fallback={<FallbackMaterial url="../images/test.jpeg" />}>
-        <VideoMaterial url="../videos/princessVideo.mp4" />
+        <VideoMaterial url={tvVideo} />
         ../videos/birthday.mp4
       </Suspense>
     </mesh>

@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import userAPI from '../../../apis/userAPI';
 import { useSpring, animated } from 'react-spring';
+import Swal from 'sweetalert2';
 
 const UploadImagePostModal = forwardRef((props, ref) => {
   let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
@@ -76,6 +77,10 @@ const UploadImagePostModal = forwardRef((props, ref) => {
       });
 
       console.log('서버 응답:', response.data);
+      Swal.fire({
+        title: '사진 게시 성공!',
+        confirmButtonColor: '#0e72ed',
+      });
     } catch (error) {
       setErrorMsg('게시물 업로드에 실패했습니다.');
       console.error('서버 오류:', error);

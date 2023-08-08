@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { CylinderGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
-const Pencil = () => {
+const Pencil = ({ userId, params }) => {
   const glb = useGLTF('../models/pencil/cup_with_pencils.glb');
   const pencil = glb.scene.children[0];
   const { scene, camera } = useThree();
@@ -49,6 +49,8 @@ const Pencil = () => {
   });
 
   useFrame(() => {
+    if (params === userId) return;
+
     if (
       Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
       Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
@@ -58,6 +60,9 @@ const Pencil = () => {
       coneRef.current.visible = false;
     }
   });
+
+  if (params === userId)
+    return <primitive castShadow object={pencil.clone()} dispose={null} />;
   return (
     <>
       <Float

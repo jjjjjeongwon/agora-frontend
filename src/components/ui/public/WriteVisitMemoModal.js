@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import userAPI from '../../../apis/userAPI';
 import { useParams } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
+import Swal from 'sweetalert2';
 
 const WriteVisitMemoModal = forwardRef((props, ref) => {
   let wrapperRef = useRef(); //모달창 가장 바깥쪽 태그를 감싸주는 역할
@@ -34,11 +35,10 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
       .post(`/user/${roomHost}/guestbook`, visitData)
       .then((res) => {
         console.log(res);
-        // Swal.fire({
-        //   title: '회원가입 성공하셨습니다!',
-        //   confirmButtonColor: '#0e72ed',
-        // });
-        window.alert('방명록 성공!');
+        Swal.fire({
+          title: '방명록 성공!',
+          confirmButtonColor: '#0e72ed',
+        });
 
         // navigate('/login');
       })

@@ -10,6 +10,7 @@ const LoginSignupTitle = () => {
 const LoginText = styled.div`
   top: 15%;
   color: white;
+  /* #00C6A7 */
   width: 300px;
   height: 90px;
   font-family: 'luckiest guy';

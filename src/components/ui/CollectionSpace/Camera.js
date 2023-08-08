@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { BoxGeometry, MeshBasicMaterial } from 'three';
 import * as THREE from 'three';
 
-const Camera = () => {
+const Camera = ({ userId, params }) => {
   const glb = useGLTF('../models/camera/camera_3d.glb');
   const cameraMesh = glb.scene.children[0];
   const { scene, camera } = useThree();
@@ -35,6 +35,7 @@ const Camera = () => {
   });
 
   useFrame(() => {
+    if (params !== userId) return;
     if (
       Math.abs(coneRef.current.position.x - camera.position.x) < 3.5 &&
       Math.abs(coneRef.current.position.z - camera.position.z) < 3.5
@@ -44,6 +45,16 @@ const Camera = () => {
       coneRef.current.visible = false;
     }
   });
+
+  if (params !== userId)
+    return (
+      <primitive
+        castShadow
+        receiveShadow
+        object={cameraMesh.clone()}
+        dispose={null}
+      />
+    );
   return (
     <>
       <Float

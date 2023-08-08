@@ -64,15 +64,18 @@ const CollectionSpace = () => {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [uploadImageModalOpen, setUploadImageModalOpen] = useState(false);
   const [pencilModalOpen, setPencilModalOpen] = useState(false);
+  const [tvVideo, setTvVideo] = useState();
 
   const [showImageEffect, setShowImageEffect] = useState(false);
   const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+
+  const params = useParams().id;
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
 
     try {
-      const response = await userAPI.get(`/user/${userId}/content`);
+      const response = await userAPI.get(`/user/${params}/content`);
 
       console.log('서버 응답:', response.data);
 
@@ -184,23 +187,23 @@ const CollectionSpace = () => {
               <Lug />
               <Floor />
               <Tv />
-              <Remote />
+              <Remote userId={userId} params={params} />
               <TvTable />
               <CollectImage />
               <ImageFrame />
               <VisitText />
               {/* <VisitCard /> */}
-              <Camera />
+              <Camera userId={userId} params={params} />
               <TopLight />
               <Chair />
-              <Pencil />
+              <Pencil userId={userId} params={params} />
               <Table />
               <Bed />
               <Door />
-              <Video />
+              <Video tvVideo={tvVideo} />
               <Wall />
               <PhotoBook />
-              <Airpods />
+              <Airpods userId={userId} params={params} />
               <Spot spot={doorSpot} />
               <Player
                 roomName={roomName}
@@ -236,6 +239,7 @@ const CollectionSpace = () => {
             <UploadVideoModal
               setVideoRemote={setVideoRemote}
               setVideoModalOpen={setVideoModalOpen}
+              setTvVideo={setTvVideo}
             />
           )}
         </ContainerRemote>
