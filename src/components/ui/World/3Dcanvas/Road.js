@@ -19,7 +19,10 @@ const Road = () => {
 
     glbs.map((glb) => {
       glb.scene.traverse((child) => {
-        if (child.isMesh) child.receiveShadow = true;
+        if (child.isMesh) {
+          child.receiveShadow = true;
+          child.castShadow = true;
+        }
       });
     });
   }, []);
@@ -202,9 +205,30 @@ const Road = () => {
           dispose={null}
         />
         <primitive
-          position={[12.5, -0.25, 2.8]}
+          position={[13, -0.25, 3.2]}
           scale={[3, 3, 3]}
-          rotation={[-Math.PI / 2, 0, -Math.PI * 1.4]}
+          rotation={[-Math.PI / 2, 0, -Math.PI * 1.5]}
+          object={road.clone()}
+          dispose={null}
+        />
+        <primitive
+          position={[16, -0.25, 3]}
+          scale={[3, 3, 3]}
+          rotation={[-Math.PI / 2, 0, -Math.PI * 1.5]}
+          object={road.clone()}
+          dispose={null}
+        />
+        <primitive
+          position={[19, -0.25, 3]}
+          scale={[3, 3, 3]}
+          rotation={[-Math.PI / 2, 0, -Math.PI * 1.55]}
+          object={road.clone()}
+          dispose={null}
+        />
+        <primitive
+          position={[22, -0.25, 3.1]}
+          scale={[3, 3, 3]}
+          rotation={[-Math.PI / 2, 0, -Math.PI * 1.6]}
           object={road.clone()}
           dispose={null}
         />

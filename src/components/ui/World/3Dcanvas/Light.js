@@ -1,28 +1,20 @@
 import { useEffect, useRef } from 'react';
 
 const Light = () => {
-  const lightRef = useRef();
-  useEffect(() => {
-    const light = lightRef.current;
-    if (light) {
-      light.shadow.mapSize.width = 2048;
-      light.shadow.mapSize.height = 2048;
-      light.shadow.camera.left = -100;
-      light.shadow.camera.right = 100;
-      light.shadow.camera.top = 100;
-      light.shadow.camera.bottom = -100;
-      light.shadow.camera.near = -100;
-      light.shadow.camera.far = 100;
-    }
-  }, []);
   return (
     <>
-      <ambientLight color={'white'} intensity={0.3} />
+      {/* <ambientLight color={'white'} intensity={0.4} /> */}
       <directionalLight
-        ref={lightRef}
         castShadow
-        intensity={0.4}
-        position={[5, 15, 5]}
+        intensity={0.9}
+        color={'#9e69da'}
+        shadow-camera-left={-100}
+        shadow-camera-right={100}
+        shadow-camera-top={100}
+        shadow-camera-bottom={-100}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+        position={[30, 30, 30]}
       />
       ;
     </>

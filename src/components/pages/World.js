@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { KeyboardControls, Preload, Sparkles } from '@react-three/drei';
+import { KeyboardControls, Preload } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
 
 //components
@@ -17,6 +17,13 @@ import Road from '../ui/World/3Dcanvas/Road';
 import House from '../ui/World/3Dcanvas/House';
 import Pond from '../ui/World/3Dcanvas/Pond';
 import Beach from '../ui/World/3Dcanvas/Beach';
+import Stuff from '../ui/World/3Dcanvas/Stuff';
+import Milestone from '../ui/World/3Dcanvas/Milestone';
+import Sparkle from '../ui/World/3Dcanvas/Sparkle';
+import HouseName from '../ui/World/3Dcanvas/HouseName';
+import EnvStars from '../ui/CollectionSpace/EnvStars';
+import Lamp from '../ui/World/3Dcanvas/Lamp';
+import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
 
 // global state
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -24,20 +31,13 @@ import { JoinExitState, IdRecoilState } from '../../state/UserAtom';
 
 import RoomHonorAlert from '../layout/World/RoomHonorAlert';
 
-import PostOfficeBox from '../ui/World/3Dcanvas/PostOfficeBox';
-import HouseName from '../ui/World/3Dcanvas/HouseName';
-
 import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
 
 import Header from '../ui/public/Header';
 import userAPI from '../../apis/userAPI';
 import FriendsModal from '../ui/public/FriendsModal';
 
-import Lamp from '../ui/World/3Dcanvas/Lamp';
 import LoadingSpinner from '../ui/public/LoadingSpinner';
-import EnvStars from '../ui/CollectionSpace/EnvStars';
-
-import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
 
 export const Controls = {
   forward: 'forward',
@@ -209,30 +209,23 @@ const World = () => {
                 position: [0, 10, 25],
               }}
             >
+              <EnvSky />
+              <EnvStars />
+              <Light />
+              <Spot spot={mySpot} />
+              <Spot spot={friendSpot1} />
+              <Spot spot={waveSpot} />
+              <Sparkle />
+              {/* <HouseName /> */}
               <Physics>
-                <EnvSky />
-                <EnvStars />
-                <Light />
-                <Spot spot={mySpot} />
-                <Spot spot={friendSpot1} />
-                <Spot spot={waveSpot} />
-                {/* <Lamp /> */}
                 <Beach />
-                <Sparkles
-                  color="orange"
-                  position={[-10, 0.7, -4]}
-                  count={100}
-                  noise={1}
-                  opacity={3}
-                  size={10}
-                  scale={[0.5, 1, 0.5]}
-                  speed={0.8}
-                />
                 <Pond />
                 <Road />
+                <Milestone />
+                <Stuff />
                 <House />
                 <Tree />
-                {/* <HouseName /> */}
+                <Lamp />
                 <Floor />
                 <CharacterController setMyPlayer={setMyPlayer} />
               </Physics>

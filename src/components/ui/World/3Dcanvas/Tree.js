@@ -37,6 +37,8 @@ const Tree = () => {
   glbs.push(glb6);
   glbs.push(glb7);
 
+  const group = useRef();
+
   useEffect(() => {
     if (
       !tree ||
@@ -62,7 +64,7 @@ const Tree = () => {
 
   return (
     <RigidBody type="fixed">
-      <group>
+      <group ref={group} castShadow>
         <primitive
           position={[0, 0, -28]}
           rotation={[0, -Math.PI / 2, 0]}
@@ -102,7 +104,7 @@ const Tree = () => {
           dispose={null}
         />
         <primitive
-          position={[0, 0, 0]}
+          position={[0, -0.3, 0]}
           object={silverBigTree.clone()}
           scale={[0.8, 0.8, 0.8]}
           dispose={null}

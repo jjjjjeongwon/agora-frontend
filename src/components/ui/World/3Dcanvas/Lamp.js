@@ -13,6 +13,7 @@ const Lamp = ({ myPlayer, postSpot }) => {
     glb.scene.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = true;
+        child.receiveShadow = true;
       }
     });
   });
@@ -21,74 +22,9 @@ const Lamp = ({ myPlayer, postSpot }) => {
     <RigidBody type="fixed">
       <group ref={group}>
         <primitive
-          position={[-3, 0, 21]}
+          position={[-8.5, -0.1, 15.5]}
           castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[3, 0, 21]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-3, 0, 15]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[3, 0, 15]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-3, 0, 1]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[3, 0, 1]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-3, 0, -5]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[3, 0, -5]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-3, 0, -15]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[3, 0, -15]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[-3, 0, -21]}
-          castShadow
-          object={lamp.clone()}
-          dispose={null}
-        />
-        <primitive
-          position={[3, 0, -21]}
-          castShadow
+          receivShadow
           object={lamp.clone()}
           dispose={null}
         />

@@ -1,6 +1,6 @@
 import { Preload, useKeyboardControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { CapsuleCollider, RigidBody } from '@react-three/rapier';
+import { CapsuleCollider, RigidBody, vec3 } from '@react-three/rapier';
 import { useEffect, useRef, useState } from 'react';
 import { Controls } from '../../../pages/World';
 import Character from './Character';
@@ -19,10 +19,10 @@ export const CharacterController = ({ setMyPlayer }) => {
   const forwardPressed = useKeyboardControls(
     (state) => state[Controls.forward]
   );
-  const character = useRef();
   const rigidbody = useRef();
   const isOnFloor = useRef(true);
   const [moveState, setMoveState] = useState('Idle');
+  const [resetState, setResetState] = useState(false);
 
   useFrame((state, delta) => {
     if (!rigidbody.current) return;
@@ -86,7 +86,21 @@ export const CharacterController = ({ setMyPlayer }) => {
     setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
     // console.log(characterWorldPosition.x, characterWorldPosition.z);
     state.camera.position.lerp(targetCameraPosition, delta * 2);
+
+    if (characterWorldPosition.y <= -15) {
+      setResetState(true);
+    }
   });
+
+  const character = useRef();
+
+  useEffect(() => {
+    if (resetState) {
+      rigidbody.current.setTranslation(vec3({ x: 0, y: 3, z: 26 }));
+      rigidbody.current.setLinvel(vec3({ x: 0, y: 0, z: 0 }));
+      setResetState(false);
+    }
+  }, [resetState]);
 
   return (
     <group>
@@ -103,7 +117,7 @@ export const CharacterController = ({ setMyPlayer }) => {
       >
         <CapsuleCollider args={[0.9, 0.4]} position={[0, 0.9, 0]} />
         <group castShadow ref={character}>
-          <Character moveState={moveState} />
+          <Character castShadow moveState={moveState} />
         </group>
       </RigidBody>
       <Preload add />

@@ -12,8 +12,8 @@ const Bed = () => {
 
     glb.scene.traverse((child) => {
       if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
+        // child.castShadow = true;
+        // child.receiveShadow = true;
       }
     });
     // bed.position.y = 0;
@@ -50,9 +50,7 @@ const Bed = () => {
     // scene.add(mesh, upMesh);
   }, []);
 
-  return (
-    <primitive castShadow receiveShadow object={bed.clone()} dispose={null} />
-  );
+  return <primitive castshadow object={bed.clone()} dispose={null} />;
 };
 
 export default Bed;
