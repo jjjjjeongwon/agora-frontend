@@ -18,10 +18,31 @@ const FriendsModal = forwardRef((props, ref) => {
   };
   // console.log(visitData);
 
+  const sendVisitList = async () => {
+    // console.log(content);
+    await userAPI
+      .post('user/handleFriendRequest', visitData)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: '친구추가 성공!',
+          confirmButtonColor: '#0e72ed',
+        });
+
+        // navigate('/login');
+      })
+      .catch((err) => {
+        console.log('친구요청 오류', err);
+        Swal.fire({
+          title: '친구요청 실패!',
+          confirmButtonColor: 'red',
+        });
+      });
+  };
   // const sendVisitList = async () => {
   //   // console.log(content);
   //   await userAPI
-  //     .post('user/handleFriendRequest', visitData)
+  //     .get('user/surfing')
   //     .then((res) => {
   //       console.log(res);
   //       Swal.fire({
@@ -39,27 +60,6 @@ const FriendsModal = forwardRef((props, ref) => {
   //       });
   //     });
   // };
-  const sendVisitList = async () => {
-    // console.log(content);
-    await userAPI
-      .get('user/surfing')
-      .then((res) => {
-        console.log(res);
-        Swal.fire({
-          title: '친구요청 성공!',
-          confirmButtonColor: '#0e72ed',
-        });
-
-        // navigate('/login');
-      })
-      .catch((err) => {
-        console.log('친구요청 오류', err);
-        Swal.fire({
-          title: '친구요청 실패!',
-          confirmButtonColor: 'red',
-        });
-      });
-  };
 
   // 모달 끄기
   // useEffect(() => {
@@ -85,6 +85,9 @@ const FriendsModal = forwardRef((props, ref) => {
     }
   };
 
+  console.log(props.friendsInfo);
+  const friends = props.friendsInfo;
+
   return (
     <>
       <Container ref={wrapperRef}>
@@ -109,14 +112,12 @@ const FriendsModal = forwardRef((props, ref) => {
         <VisitListTitle>Friends List</VisitListTitle>
 
         <Title>
-          <Friend>
-            <Name>JWON</Name>
-            <Button>GO</Button>
-          </Friend>
-          <Friend>
-            <Name>JUSang</Name>
-            <Button>GO</Button>
-          </Friend>
+          {friends.map((friend, idx) => (
+            <Friend>
+              <Name>{friend.nickname}</Name>
+              <Button>GO</Button>
+            </Friend>
+          ))}
         </Title>
       </Container>
     </>
@@ -202,6 +203,7 @@ const Title = styled.div`
   border-radius: 3px;
   background-image: url('/images/list.png');
   background-size: cover;
+  overflow-y: auto;
 `;
 
 const Content = styled.div`

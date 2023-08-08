@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { KeyboardControls, Preload } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
+import Swal from 'sweetalert2';
 
 //components
 import EnvSky from '../ui/World/3Dcanvas/EnvSky';
@@ -60,9 +61,24 @@ const World = () => {
   const [isLocked, setIsLocked] = useState(false);
   const [friend, setFriend] = useState(false);
   const [selectRoom, setSelectRoom] = useState();
+  const [flag, setFlag] = useState(true);
+  const [friendsInfo, setFriendsInfo] = useState();
 
-  const playTransitionSound = () => {
+  const playTransitionSound = (link) => {
     const audio = new Audio('/musics/doorsound.mp3');
+
+    audio.addEventListener('ended', () => {
+      navigate('/collectionspace/1');
+    });
+
+    audio.play();
+  };
+  const randomMapSound = () => {
+    const audio = new Audio('/musics/beachsound.mp3');
+
+    audio.addEventListener('ended', () => {
+      navigate('/collectionspace_two');
+    });
     audio.play();
   };
 
@@ -96,6 +112,20 @@ const World = () => {
 
   const userId = recoilLoginId;
 
+  const enterRandomMap = () => {
+    console.log('MapMap');
+    Swal.fire({
+      title: '파도타기 맵에 입장하시겠습니까?',
+      confirmButtonColor: '#0e72ed',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        randomMapSound();
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
+    });
+  };
+
   const handleSubmit = async (e) => {
     // e.preventDefault();
 
@@ -104,6 +134,7 @@ const World = () => {
 
       console.log('서버 응답:', response.data);
       setSelectRoom(response.data.userHouseNum);
+      setFriendsInfo(response.data.friendsInfoArray);
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
@@ -159,9 +190,11 @@ const World = () => {
       playTransitionSound();
     } else if (
       Math.abs(waveSpot.x - myPlayer.x) < 1 &&
-      Math.abs(waveSpot.z - myPlayer.z) < 1
+      Math.abs(waveSpot.z - myPlayer.z) < 1 &&
+      flag
     ) {
-      getRandomUser();
+      enterRandomMap();
+      setFlag(false);
       // if (selectRoom === 1) {
       //   navigate(`/collectionspace/${userId}`);
       //   playTransitionSound();
@@ -239,6 +272,7 @@ const World = () => {
           <FriendsModal
             setFriendModalOpen={setFriendModalOpen}
             setFriend={setFriend}
+            friendsInfo={friendsInfo}
           />
         )}
       </div>
