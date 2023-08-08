@@ -232,6 +232,13 @@ const Road = () => {
           object={road.clone()}
           dispose={null}
         />
+        <primitive
+          position={[25, -0.25, 3.5]}
+          scale={[3, 3, 3]}
+          rotation={[-Math.PI / 2, 0, -Math.PI * 1.6]}
+          object={road.clone()}
+          dispose={null}
+        />
         <>
           {/* 오른쪽-왼쪽 길 */}
           <primitive
