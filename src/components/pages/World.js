@@ -1,51 +1,51 @@
-import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useState, useRef, useMemo } from "react";
-import { useParams } from "react-router-dom";
-import * as THREE from "three";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { KeyboardControls, Preload } from "@react-three/drei";
-import { Physics } from "@react-three/rapier";
-import Swal from "sweetalert2";
+import { Canvas } from '@react-three/fiber';
+import { Suspense, useEffect, useState, useRef, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import * as THREE from 'three';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { KeyboardControls, Preload } from '@react-three/drei';
+import { Physics } from '@react-three/rapier';
+import Swal from 'sweetalert2';
 
 //components
-import EnvSky from "../ui/World/3Dcanvas/EnvSky";
-import Floor from "../ui/World/3Dcanvas/Floor";
-import Light from "../ui/World/3Dcanvas/Light";
-import Spot from "../ui/World/3Dcanvas/Spot";
-import Tree from "../ui/World/3Dcanvas/Tree";
-import Road from "../ui/World/3Dcanvas/Road";
-import House from "../ui/World/3Dcanvas/House";
-import Pond from "../ui/World/3Dcanvas/Pond";
-import Beach from "../ui/World/3Dcanvas/Beach";
-import Stuff from "../ui/World/3Dcanvas/Stuff";
-import Milestone from "../ui/World/3Dcanvas/Milestone";
-import Sparkle from "../ui/World/3Dcanvas/Sparkle";
-import HouseName from "../ui/World/3Dcanvas/HouseName";
-import EnvStars from "../ui/CollectionSpace/EnvStars";
-import Lamp from "../ui/World/3Dcanvas/Lamp";
-import { CharacterController } from "../ui/World/3Dcanvas/CharacterController";
+import EnvSky from '../ui/World/3Dcanvas/EnvSky';
+import Floor from '../ui/World/3Dcanvas/Floor';
+import Light from '../ui/World/3Dcanvas/Light';
+import Spot from '../ui/World/3Dcanvas/Spot';
+import Tree from '../ui/World/3Dcanvas/Tree';
+import Road from '../ui/World/3Dcanvas/Road';
+import House from '../ui/World/3Dcanvas/House';
+import Pond from '../ui/World/3Dcanvas/Pond';
+import Beach from '../ui/World/3Dcanvas/Beach';
+import Stuff from '../ui/World/3Dcanvas/Stuff';
+import Milestone from '../ui/World/3Dcanvas/Milestone';
+import Portal from '../ui/World/3Dcanvas/Portal';
+import HouseName from '../ui/World/3Dcanvas/HouseName';
+import EnvStars from '../ui/CollectionSpace/EnvStars';
+import Lamp from '../ui/World/3Dcanvas/Lamp';
+import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
 
 // global state
-import { useRecoilState, useRecoilValue } from "recoil";
-import { JoinExitState, IdRecoilState, IdState } from "../../state/UserAtom";
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { JoinExitState, IdRecoilState, IdState } from '../../state/UserAtom';
 
-import RoomHonorAlert from "../layout/World/RoomHonorAlert";
+import RoomHonorAlert from '../layout/World/RoomHonorAlert';
 
-import VisitListWriteModal from "../ui/Three/ui/VisitListWriteModal";
+import VisitListWriteModal from '../ui/Three/ui/VisitListWriteModal';
 
-import Header from "../ui/public/Header";
-import userAPI from "../../apis/userAPI";
-import FriendsModal from "../ui/public/FriendsModal";
+import Header from '../ui/public/Header';
+import userAPI from '../../apis/userAPI';
+import FriendsModal from '../ui/public/FriendsModal';
 
-import LoadingSpinner from "../ui/public/LoadingSpinner";
+import LoadingSpinner from '../ui/public/LoadingSpinner';
 
 export const Controls = {
-  forward: "forward",
-  back: "back",
-  left: "left",
-  right: "right",
-  jump: "jump",
+  forward: 'forward',
+  back: 'back',
+  left: 'left',
+  right: 'right',
+  jump: 'jump',
 };
 
 const World = () => {
@@ -65,15 +65,15 @@ const World = () => {
   const [friendsInfo, setFriendsInfo] = useState();
 
   const playTransitionSound = (link) => {
-    const audio = new Audio("/musics/doorsound.mp3");
+    const audio = new Audio('/musics/doorsound.mp3');
 
     audio.play();
   };
   const randomMapSound = () => {
-    const audio = new Audio("/musics/beachsound.mp3");
+    const audio = new Audio('/musics/beachsound.mp3');
 
-    audio.addEventListener("ended", () => {
-      navigate("/collectionspace_two");
+    audio.addEventListener('ended', () => {
+      navigate('/collectionspace_two');
     });
     audio.play();
   };
@@ -98,11 +98,11 @@ const World = () => {
 
   const map = useMemo(
     () => [
-      { name: Controls.forward, keys: ["ArrowUp", "KeyW"] },
-      { name: Controls.back, keys: ["ArrowDown", "KeyS"] },
-      { name: Controls.left, keys: ["ArrowLeft", "KeyA"] },
-      { name: Controls.right, keys: ["ArrowRight", "KeyD"] },
-      { name: Controls.jump, keys: ["Space"] },
+      { name: Controls.forward, keys: ['ArrowUp', 'KeyW'] },
+      { name: Controls.back, keys: ['ArrowDown', 'KeyS'] },
+      { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
+      { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
+      { name: Controls.jump, keys: ['Space'] },
     ],
     []
   );
@@ -110,15 +110,15 @@ const World = () => {
   const userId = recoilLoginId;
 
   const enterRandomMap = () => {
-    console.log("MapMap");
+    console.log('MapMap');
     Swal.fire({
-      title: "파도타기 맵에 입장하시겠습니까?",
-      confirmButtonColor: "#0e72ed",
+      title: '파도타기 맵에 입장하시겠습니까?',
+      confirmButtonColor: '#0e72ed',
     }).then((result) => {
       if (result.isConfirmed) {
         randomMapSound();
       } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
+        Swal.fire('Changes are not saved', '', 'info');
       }
     });
   };
@@ -129,25 +129,25 @@ const World = () => {
       try {
         const response = await userAPI.get(`/user/${recoilLoginId}/content`);
 
-        console.log("서버 응답:", response.data);
+        console.log('서버 응답:', response.data);
         setSelectRoom(response.data.userHouseNum);
         setFriendsInfo(response.data.friendsInfoArray);
 
         // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
       } catch (error) {
-        console.error("서버 오류:", error);
+        console.error('서버 오류:', error);
       }
     } else {
       try {
         const response = await userAPI.get(`/user/${loginId}/content`);
 
-        console.log("서버 응답:", response.data);
+        console.log('서버 응답:', response.data);
         setSelectRoom(response.data.userHouseNum);
         setFriendsInfo(response.data.friendsInfoArray);
 
         // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
       } catch (error) {
-        console.error("서버 오류:", error);
+        console.error('서버 오류:', error);
       }
     }
   };
@@ -156,13 +156,13 @@ const World = () => {
     // e.preventDefault();
 
     try {
-      const response = await userAPI.get("/user/surfing");
+      const response = await userAPI.get('/user/surfing');
 
-      console.log("서버 응답:", response.data);
+      console.log('서버 응답:', response.data);
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
-      console.error("서버 오류:", error);
+      console.error('서버 오류:', error);
     }
   };
 
@@ -196,7 +196,7 @@ const World = () => {
       Math.abs(friendSpot1.x - myPlayer.x) < 1 &&
       Math.abs(friendSpot1.z - myPlayer.z) < 1
     ) {
-      navigate("/collectionspace_three");
+      navigate('/collectionspace_three');
       playTransitionSound();
     } else if (
       Math.abs(waveSpot.x - myPlayer.x) < 1 &&
@@ -228,10 +228,10 @@ const World = () => {
       <div
         ref={containerRef}
         style={{
-          position: "relative",
-          width: "100vw",
-          height: "100vh",
-          background: "#000",
+          position: 'relative',
+          width: '100vw',
+          height: '100vh',
+          background: '#000',
         }}
       >
         <KeyboardControls map={map}>
@@ -258,7 +258,7 @@ const World = () => {
               <Spot spot={mySpot} />
               <Spot spot={friendSpot1} />
               <Spot spot={waveSpot} />
-              <Sparkle />
+              <Portal />
               {/* <HouseName /> */}
               <Physics>
                 <Beach />
