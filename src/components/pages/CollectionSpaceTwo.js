@@ -15,6 +15,7 @@ import Wall from '../ui/CollectionSpaceTwo/Wall';
 import Player from '../ui/CollectionSpace/Player';
 import World from './World';
 import Spot from '../ui/World/3Dcanvas/Spot';
+import Korea from '../ui/CollectionSpaceTwo/Korea';
 import Door from '../ui/CollectionSpace/Door';
 import Video from '../ui/CollectionSpaceTwo/Video';
 import Tv from '../ui/CollectionSpaceTwo/Tv';
@@ -123,8 +124,8 @@ const CollectionSpaceTwo = () => {
   }, [doorSpot]);
   return (
     <motion.div
-      initial="hidden"
-      animate="visible"
+      initial='hidden'
+      animate='visible'
       transition={{ duration: 3, delay: 1 }} // 이동 시간 설정
       variants={fadeIn} // 애니메이션 variant
     >
@@ -172,6 +173,7 @@ const CollectionSpaceTwo = () => {
               <Light />
               <Lug />
               <Floor />
+              <Korea />
               <Tv />
               <Remote />
               <TvTable />
@@ -241,7 +243,7 @@ const CollectionSpaceTwo = () => {
             />
           )}
         </Container>
-        <AudioPlayer src="/musics/room2.mp3" />
+        <AudioPlayer src='/musics/room2.mp3' />
 
         {showImageEffect ? <PhotoBoxHeader /> : ''}
         {showImageEffect ? <ExitFooter /> : ''}
