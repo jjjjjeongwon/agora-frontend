@@ -28,7 +28,7 @@ import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
 
 // global state
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { JoinExitState, IdRecoilState } from '../../state/UserAtom';
+import { JoinExitState, IdRecoilState, IdState } from '../../state/UserAtom';
 
 import RoomHonorAlert from '../layout/World/RoomHonorAlert';
 
@@ -67,10 +67,6 @@ const World = () => {
   const playTransitionSound = (link) => {
     const audio = new Audio('/musics/doorsound.mp3');
 
-    audio.addEventListener('ended', () => {
-      navigate('/collectionspace/1');
-    });
-
     audio.play();
   };
   const randomMapSound = () => {
@@ -91,6 +87,7 @@ const World = () => {
   //globalState
   const joinExit = useRecoilValue(JoinExitState);
   const recoilLoginId = useRecoilValue(IdRecoilState);
+  const loginId = useRecoilValue(IdState);
 
   //spots
   const mySpot = { x: -10, y: 0.005, z: -4 };
@@ -128,17 +125,30 @@ const World = () => {
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
+    if (recoilLoginId !== 0) {
+      try {
+        const response = await userAPI.get(`/user/${recoilLoginId}/content`);
 
-    try {
-      const response = await userAPI.get(`/user/${recoilLoginId}/content`);
+        console.log('서버 응답:', response.data);
+        setSelectRoom(response.data.userHouseNum);
+        setFriendsInfo(response.data.friendsInfoArray);
 
-      console.log('서버 응답:', response.data);
-      setSelectRoom(response.data.userHouseNum);
-      setFriendsInfo(response.data.friendsInfoArray);
+        // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+      } catch (error) {
+        console.error('서버 오류:', error);
+      }
+    } else {
+      try {
+        const response = await userAPI.get(`/user/${loginId}/content`);
 
-      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
-    } catch (error) {
-      console.error('서버 오류:', error);
+        console.log('서버 응답:', response.data);
+        setSelectRoom(response.data.userHouseNum);
+        setFriendsInfo(response.data.friendsInfoArray);
+
+        // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+      } catch (error) {
+        console.error('서버 오류:', error);
+      }
     }
   };
 
