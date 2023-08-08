@@ -24,6 +24,7 @@ const FriendsModal = forwardRef((props, ref) => {
       .post('user/handleFriendRequest', visitData)
       .then((res) => {
         console.log(res);
+        props.setFriendsInfo(res.data);
         Swal.fire({
           title: '친구추가 성공!',
           confirmButtonColor: '#0e72ed',
@@ -112,7 +113,7 @@ const FriendsModal = forwardRef((props, ref) => {
         <VisitListTitle>Friends List</VisitListTitle>
 
         <Title>
-          {friends.map((friend, idx) => (
+          {props.friendsInfo.map((friend, idx) => (
             <Friend>
               <Name>{friend.nickname}</Name>
               <Button>GO</Button>

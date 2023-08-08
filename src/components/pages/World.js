@@ -286,6 +286,7 @@ const World = () => {
             setFriendModalOpen={setFriendModalOpen}
             setFriend={setFriend}
             friendsInfo={friendsInfo}
+            setFriendsInfo={setFriendsInfo}
           />
         )}
       </div>
