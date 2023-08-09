@@ -89,55 +89,38 @@ const CollectionSpaceThree = () => {
     switch (componentName) {
       case "Camera":
         setIsCameraReady(true);
-        break;
       case "Bed":
         setIsBedReady(true);
-        break;
       case "Cafetable":
         setIsCafetableReady(true);
-        break;
       case "ImageFrame":
         setIsFrameReady(true);
-        break;
       case "Closet":
         setIsClosetReady(true);
-        break;
       case "Flower":
         setIsFlowerReady(true);
-        break;
       case "Piano":
         setIsPianoReady(true);
-        break;
       case "Rabbit":
         setIsRabbitReady(true);
-        break;
       case "Pencil":
         setIsPencilReady(true);
-        break;
       case "PhotoBook":
         setIsPhotoBookReady(true);
-        break;
       case "Remote":
         setIsRemoteReady(true);
-        break;
       case "Table":
         setIsTableReady(true);
-        break;
       case "Tv":
         setIsTvReady(true);
-        break;
       case "TvTable":
         setIsTvTableReady(true);
-        break;
       case "Mesh":
         setIsMeshReady(true);
-        break;
       case "Door":
         setIsDoorReady(true);
-        break;
       case "Window":
         setIsWindowReady(true);
-        break;
       default:
         break;
     }

@@ -87,46 +87,32 @@ const CollectionSpace = () => {
     switch (componentName) {
       case "Camera":
         setIsCameraReady(true);
-        break;
       case "Bed":
         setIsBedReady(true);
-        break;
       case "ImageFrame":
         setIsFrameReady(true);
-        break;
       case "Lug":
         setIsLugReady(true);
-        break;
       case "Airpods":
         setIsAirpodsReady(true);
-        break;
       case "Pencil":
         setIsPencilReady(true);
-        break;
       case "PhotoBook":
         setIsPhotoBookReady(true);
-        break;
       case "Remote":
         setIsRemoteReady(true);
-        break;
       case "Table":
         setIsTableReady(true);
-        break;
       case "Tv":
         setIsTvReady(true);
-        break;
       case "TvTable":
         setIsTvTableReady(true);
-        break;
       case "Mesh":
         setIsMeshReady(true);
-        break;
       case "Door":
         setIsDoorReady(true);
-        break;
       case "Chair":
         setIsChairReady(true);
-        break;
       default:
         break;
     }

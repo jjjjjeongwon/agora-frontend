@@ -92,55 +92,38 @@ const CollectionSpaceTwo = () => {
     switch (componentName) {
       case "Camera":
         setIsCameraReady(true);
-        break;
       case "BedTable":
         setIsBedTableReady(true);
-        break;
       case "Bed":
         setIsBedReady(true);
-        break;
       case "ImageFrame":
         setIsFrameReady(true);
-        break;
       case "Korea":
         setIsKoreaReady(true);
-        break;
       case "Lug":
         setIsLugReady(true);
-        break;
       case "MusicBox":
         setIsMusicBoxReady(true);
-        break;
       case "Pencil":
         setIsPencilReady(true);
-        break;
       case "PhotoBook":
         setIsPhotoBookReady(true);
-        break;
       case "Plant":
         setIsPlantReady(true);
-        break;
       case "Remote":
         setIsRemoteReady(true);
-        break;
       case "Table":
         setIsTableReady(true);
-        break;
       case "Tv":
         setIsTvReady(true);
-        break;
       case "TvTable":
         setIsTvTableReady(true);
-        break;
       case "Mesh":
         setIsMeshReady(true);
-        break;
       case "Window":
         setIsWindowReady(true);
-        break;
       case "Door":
         setIsDoorReady(true);
-        break;
       default:
         break;
     }
