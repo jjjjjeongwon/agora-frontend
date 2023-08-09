@@ -1,15 +1,14 @@
-import { useGLTF } from "@react-three/drei";
-import React, { useEffect } from "react";
+import { useGLTF } from '@react-three/drei';
+import React, { useEffect } from 'react';
 
 const Window = ({ onLoad = () => {} }) => {
-  const glb = useGLTF("../models/window/window.glb");
+  const glb = useGLTF('../models/window/window.glb');
   const _window = glb.scene.children[0];
 
   useEffect(() => {
     if (_window) {
       glb.scene.traverse((child) => {
         if (child.isMesh) {
-          child.castShadow = true;
         }
       });
 
@@ -21,7 +20,7 @@ const Window = ({ onLoad = () => {} }) => {
       _window.scale.z = 2;
       _window.rotation.z = Math.PI;
 
-      if (typeof onLoad === "function") {
+      if (typeof onLoad === 'function') {
         onLoad();
       }
     }

@@ -97,6 +97,12 @@ const Tree = () => {
           dispose={null}
         />
         <primitive
+          position={[-14.3, -0.5, 8.2]}
+          scale={[0.8, 0.8, 0.8]}
+          object={cactus.clone()}
+          dispose={null}
+        />
+        <primitive
           position={[15, -0.5, 0]}
           scale={[0.5, 0.5, 0.5]}
           rotation={[0, Math.PI * 0.15, 0]}
@@ -104,9 +110,9 @@ const Tree = () => {
           dispose={null}
         />
         <primitive
-          position={[0, -0.5, 0]}
+          position={[0, -0.5, 0.5]}
           object={silverBigTree.clone()}
-          scale={[0.8, 0.8, 0.8]}
+          scale={[0.7, 0.7, 0.7]}
           dispose={null}
         />
       </group>

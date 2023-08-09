@@ -18,7 +18,7 @@ const House = () => {
   const bridge = glb4.scene.children[0];
   const group = useRef();
 
-  const glbs = [glb, glb2, glb3];
+  const glbs = [glb, glb2, glb3, glb4];
   useEffect(() => {
     if (!store || !redSmall || !mushroom || !bridge) return;
 
@@ -53,7 +53,7 @@ const House = () => {
         <primitive
           castShadow
           receiveShadow
-          position={[3, -1.2, -12]}
+          position={[3, 0, -12]}
           scale={[0.5, 0.5, 0.5]}
           object={bridge.clone()}
           dispose={null}

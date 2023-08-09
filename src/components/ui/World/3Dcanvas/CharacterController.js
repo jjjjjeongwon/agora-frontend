@@ -7,7 +7,7 @@ import Character from './Character';
 import * as THREE from 'three';
 
 const JUMP_FORCE = 0.75;
-const MOVEMENT_SPEED = 0.1;
+const MOVEMENT_SPEED = 0.2;
 const MAX_VEL = 3;
 const RUN_VEL = 1.5;
 

@@ -24,6 +24,7 @@ import Portal from '../ui/World/3Dcanvas/Portal';
 import HouseName from '../ui/World/3Dcanvas/HouseName';
 import EnvStars from '../ui/CollectionSpace/EnvStars';
 import Lamp from '../ui/World/3Dcanvas/Lamp';
+import Npc from '../ui/World/3Dcanvas/Npc';
 import { CharacterController } from '../ui/World/3Dcanvas/CharacterController';
 
 // global state
@@ -64,8 +65,6 @@ const World = () => {
   const [flag, setFlag] = useState(true);
   const [friendsInfo, setFriendsInfo] = useState();
 
-  console.log(friendsInfo);
-
   const playTransitionSound = (link) => {
     const audio = new Audio('/musics/doorsound.mp3');
 
@@ -92,7 +91,7 @@ const World = () => {
   const loginId = useRecoilValue(IdState);
 
   //spots
-  const mySpot = { x: -10, y: 0.005, z: -4 };
+  const mySpot = { x: -4.2, y: 0.005, z: -6.8 };
   const waveSpot = { x: 35, y: 0.005, z: 4.5 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
@@ -111,7 +110,6 @@ const World = () => {
   const userId = recoilLoginId;
 
   const enterRandomMap = () => {
-    console.log('MapMap');
     Swal.fire({
       title: '파도타기 맵에 입장하시겠습니까?',
       confirmButtonColor: '#0e72ed',
@@ -130,7 +128,7 @@ const World = () => {
       try {
         const response = await userAPI.get(`/user/${recoilLoginId}/content`);
 
-        console.log('서버 응답:', response.data);
+        // console.log('서버 응답:', response.data);
         setSelectRoom(response.data.userHouseNum);
         setFriendsInfo(response.data.friendsInfoArray);
 
@@ -142,7 +140,7 @@ const World = () => {
       try {
         const response = await userAPI.get(`/user/${loginId}/content`);
 
-        console.log('서버 응답:', response.data);
+        // console.log('서버 응답:', response.data);
         setSelectRoom(response.data.userHouseNum);
         setFriendsInfo(response.data.friendsInfoArray);
 
@@ -159,7 +157,7 @@ const World = () => {
     try {
       const response = await userAPI.get(`user/${loginId}/surfing`);
 
-      console.log('서버 응답:', response.data);
+      // console.log('서버 응답:', response.data);
       const id = response.data._id;
       const num = response.data.houseNum;
       const nickname = response.data.nickname;
@@ -190,7 +188,13 @@ const World = () => {
   }, [friend]);
 
   // 친구 집 위치 저장
-  const friendsSpots = [{ x: -17, y: 0.005, z: 15 }];
+  const friendsSpots = [
+    { x: -17, y: 0.005, z: 15 },
+    { x: -11.7, y: 0.005, z: 5.5 },
+    { x: -4.2, y: 0.005, z: 6.8 },
+    { x: -10, y: 0.005, z: -4 },
+    { x: 10, y: 0.005, z: -2.7 },
+  ];
 
   useEffect(() => {
     //내 집
@@ -297,6 +301,7 @@ const World = () => {
                 <Tree />
                 <Lamp />
                 <Floor />
+                <Npc />
                 <CharacterController
                   setMyPlayer={setMyPlayer}
                   friendModalOpen={friendModalOpen}
