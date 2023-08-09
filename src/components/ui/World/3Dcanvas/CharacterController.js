@@ -127,7 +127,7 @@ export const CharacterController = ({ setMyPlayer, friendModalOpen }) => {
           isOnFloor.current = true;
         }}
       >
-        <CapsuleCollider args={[0.9, 0.4]} position={[0, 0.9, 0]} />
+        <CapsuleCollider args={[0.9, 0.4]} position={[0, 1.2, 0]} />
         <group ref={character}>
           <Character moveState={moveState} isPressed={isPressed} />
         </group>
