@@ -7,7 +7,7 @@ const Spot = ({ spot }) => {
       receiveShadow
     >
       <circleGeometry args={[0.3, 64, 64]} />
-      <meshStandardMaterial color={'yellow'} transparent opacity={0.2} />
+      <meshStandardMaterial color={'white'} transparent opacity={0} />
     </mesh>
   );
 };

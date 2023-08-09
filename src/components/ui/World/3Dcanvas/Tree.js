@@ -66,45 +66,45 @@ const Tree = () => {
     <RigidBody type="fixed">
       <group ref={group} castShadow>
         <primitive
-          position={[0, 0, -28]}
+          position={[0, -0.5, -28]}
           rotation={[0, -Math.PI / 2, 0]}
           object={roundGroupTree.clone()}
           dispose={null}
         />
         <primitive
-          position={[23, 0, -15]}
+          position={[23, -0.5, -15]}
           rotation={[0, -Math.PI * 0.75, 0]}
           scale={[0.8, 0.8, 0.8]}
           object={roundGroupTree.clone()}
           dispose={null}
         />
         <primitive
-          position={[-21, 0, -17]}
+          position={[-21, -0.5, -17]}
           rotation={[0, -Math.PI * 0.25, 0]}
           scale={[0.8, 0.8, 0.8]}
           object={roundGroupTree.clone()}
           dispose={null}
         />
         <primitive
-          position={[-17, 0, 10]}
+          position={[-17, -0.5, 10]}
           object={purpleTree.clone()}
           dispose={null}
         />
         <primitive
-          position={[2, 0, 12]}
+          position={[2, -0.5, 12]}
           scale={[0.8, 0.8, 0.8]}
           object={cactus.clone()}
           dispose={null}
         />
         <primitive
-          position={[15, 0, 0]}
+          position={[15, -0.5, 0]}
           scale={[0.5, 0.5, 0.5]}
           rotation={[0, Math.PI * 0.15, 0]}
           object={purpleBigTree.clone()}
           dispose={null}
         />
         <primitive
-          position={[0, -0.3, 0]}
+          position={[0, -0.5, 0]}
           object={silverBigTree.clone()}
           scale={[0.8, 0.8, 0.8]}
           dispose={null}

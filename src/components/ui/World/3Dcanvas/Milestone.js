@@ -24,7 +24,13 @@ const Milestone = () => {
       <>
         <primitive
           castShadow
-          position={[-2, -0.1, 22.5]}
+          position={[-2, -0.5, 22.5]}
+          object={mileStone.clone()}
+          dispose={null}
+        />
+        <primitive
+          castShadow
+          position={[12, -0.5, 6]}
           object={mileStone.clone()}
           dispose={null}
         />

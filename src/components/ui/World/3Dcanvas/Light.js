@@ -3,7 +3,7 @@ const Light = () => {
     <>
       <directionalLight
         castShadow
-        intensity={0.4}
+        intensity={0.7}
         color={'white'}
         shadow-camera-left={-100}
         shadow-camera-right={100}

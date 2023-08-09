@@ -22,7 +22,42 @@ const Lamp = ({ myPlayer, postSpot }) => {
     <RigidBody type="fixed">
       <group ref={group}>
         <primitive
-          position={[-8.5, -0.1, 15.5]}
+          position={[-8.5, -0.5, 15.5]}
+          castShadow
+          receivShadow
+          object={lamp.clone()}
+          dispose={null}
+        />
+        <primitive
+          position={[-12.4, -0.5, 13]}
+          castShadow
+          receivShadow
+          object={lamp.clone()}
+          dispose={null}
+        />
+        <primitive
+          position={[9.4, -0.5, 2.75]}
+          castShadow
+          receivShadow
+          object={lamp.clone()}
+          dispose={null}
+        />
+        <primitive
+          position={[12.6, -0.5, 2]}
+          castShadow
+          receivShadow
+          object={lamp.clone()}
+          dispose={null}
+        />
+        <primitive
+          position={[26.6, -0.5, 1.6]}
+          castShadow
+          receivShadow
+          object={lamp.clone()}
+          dispose={null}
+        />
+        <primitive
+          position={[26.6, -0.5, 5.5]}
           castShadow
           receivShadow
           object={lamp.clone()}

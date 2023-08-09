@@ -26,13 +26,14 @@ const Stuff = () => {
     <RigidBody type="fixed">
       <>
         <primitive
-          position={[-3, 0, 21]}
+          position={[-2.5, -0.3, 21]}
           castShadow
+          rotation={[0, -Math.PI / 2, 0]}
           object={boxStuff.clone()}
           dispose={null}
         />
         <primitive
-          position={[-16, 0, 20]}
+          position={[-16, -0.5, 20]}
           castShadow
           object={woodStuff.clone()}
           dispose={null}

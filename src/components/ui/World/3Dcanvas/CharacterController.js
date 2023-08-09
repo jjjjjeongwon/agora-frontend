@@ -112,6 +112,7 @@ export const CharacterController = ({ setMyPlayer, friendModalOpen }) => {
       new THREE.Vector3()
     );
     setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
+    console.log(characterWorldPosition.x, characterWorldPosition.z);
   }, [isPressed]);
 
   return (
@@ -127,7 +128,7 @@ export const CharacterController = ({ setMyPlayer, friendModalOpen }) => {
           isOnFloor.current = true;
         }}
       >
-        <CapsuleCollider args={[0.9, 0.4]} position={[0, 1.2, 0]} />
+        <CapsuleCollider args={[0.9, 0.4]} position={[0, 1.35, 0]} />
         <group ref={character}>
           <Character moveState={moveState} isPressed={isPressed} />
         </group>
