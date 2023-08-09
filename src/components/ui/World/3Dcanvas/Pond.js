@@ -1,15 +1,16 @@
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useAnimations } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import React, { useRef, useEffect } from 'react';
+
 useGLTF.preload('../models/pond/cartoon_pond.glb');
 
-const Road = () => {
+const Pond = () => {
   const glb = useGLTF('../models/pond/cartoon_pond.glb');
-  const road = glb.scene.children[0];
+  const pond = glb.scene.children[0];
   const glbs = [];
   glbs.push(glb);
   useEffect(() => {
-    if (!road) return;
+    if (!pond) return;
 
     glbs.map((glb) => {
       glb.scene.traverse((child) => {
@@ -29,7 +30,7 @@ const Road = () => {
           castShadow
           receiveShadow
           rotation={[-Math.PI / 2, 0, Math.PI / 12]}
-          object={road.clone()}
+          object={pond.clone()}
           dispose={null}
         />
       </>
@@ -37,4 +38,4 @@ const Road = () => {
   );
 };
 
-export default Road;
+export default Pond;

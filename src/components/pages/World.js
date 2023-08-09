@@ -290,7 +290,7 @@ const World = () => {
               <Spot spot={friendsSpots[0]} />
               <Spot spot={waveSpot} />
               <Portal />
-              {/* <HouseName /> */}
+              <HouseName />
               <Physics>
                 <Beach />
                 <Pond />
