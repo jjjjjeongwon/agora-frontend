@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import * as THREE from 'three';
-import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import React, { useEffect, useRef, useState } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import * as THREE from "three";
+import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 
 function Player({
   setMyPlayer,
@@ -26,7 +26,7 @@ function Player({
     right: false,
   });
 
-  const [isDelaying, setIsDelaying] = useState(false);
+  const [isLockingDelayed, setIsLockingDelayed] = useState(false);
   // raycaster
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
@@ -48,23 +48,23 @@ function Player({
     for (const item of intersects) {
       console.log(item.object.name.length);
 
-      if (item.object.name === 'camera') {
+      if (item.object.name === "camera") {
         setCamera(true);
       }
-      if (item.object.name === 'pencil') {
+      if (item.object.name === "pencil") {
         setPencil(true);
       }
-      if (item.object.name === 'visit_post') {
+      if (item.object.name === "visit_post") {
         setVisitMemo(true);
       }
-      if (item.object.name === 'Remote') {
+      if (item.object.name === "Remote") {
         setVideoRemote(true);
       }
-      if (item.object.name === 'photoBook') {
+      if (item.object.name === "photoBook") {
         setShowImageEffect(true);
       }
       if (
-        item.object.name !== 'family_photo1_lambert9_0' &&
+        item.object.name !== "family_photo1_lambert9_0" &&
         item.object.name.length === 24
       ) {
         setAlbum(true);
@@ -74,38 +74,49 @@ function Player({
   };
 
   const handleClick = (e) => {
-    controls.lock();
-    checkIntersects();
-    setIsLocked(true);
+    if (isLocked || isLockingDelayed) return;
+
+    setTimeout(() => {
+      if (!controls.isLocked) {
+        controls.lock();
+        checkIntersects();
+        setIsLocked(true);
+      }
+    }, 200);
   };
 
   const handleLock = () => {
-    console.log('lock!');
+    console.log("lock!");
   };
 
   const handleUnlock = () => {
-    console.log('unlock!');
+    console.log("unlock!");
     setIsLocked(false);
+    setIsLockingDelayed(true);
+
+    setTimeout(() => {
+      setIsLockingDelayed(false);
+    }, 1000);
   };
   console.log(camera.position);
 
   useEffect(() => {
     const keyDownHandler = (e) => {
       switch (e.code) {
-        case 'ArrowRight':
-        case 'KeyD':
+        case "ArrowRight":
+        case "KeyD":
           setKeys((keys) => ({ ...keys, right: true }));
           break;
-        case 'ArrowLeft':
-        case 'KeyA':
+        case "ArrowLeft":
+        case "KeyA":
           setKeys((keys) => ({ ...keys, left: true }));
           break;
-        case 'ArrowDown':
-        case 'KeyS':
+        case "ArrowDown":
+        case "KeyS":
           setKeys((keys) => ({ ...keys, down: true }));
           break;
-        case 'ArrowUp':
-        case 'KeyW':
+        case "ArrowUp":
+        case "KeyW":
           setKeys((keys) => ({ ...keys, up: true }));
           break;
         default:
@@ -115,20 +126,20 @@ function Player({
 
     const keyUpHandler = (e) => {
       switch (e.code) {
-        case 'ArrowRight':
-        case 'KeyD':
+        case "ArrowRight":
+        case "KeyD":
           setKeys((keys) => ({ ...keys, right: false }));
           break;
-        case 'ArrowLeft':
-        case 'KeyA':
+        case "ArrowLeft":
+        case "KeyA":
           setKeys((keys) => ({ ...keys, left: false }));
           break;
-        case 'ArrowDown':
-        case 'KeyS':
+        case "ArrowDown":
+        case "KeyS":
           setKeys((keys) => ({ ...keys, down: false }));
           break;
-        case 'ArrowUp':
-        case 'KeyW':
+        case "ArrowUp":
+        case "KeyW":
           setKeys((keys) => ({ ...keys, up: false }));
           break;
         default:
@@ -136,22 +147,34 @@ function Player({
       }
     };
 
-    controls.domElement.addEventListener('click', handleClick);
+    const handlePointerLockError = () => {
+      console.error("Pointer lock failed.");
+    };
 
-    controls.addEventListener('lock', handleLock);
-    controls.addEventListener('unlock', handleUnlock);
+    if (controls && controls.domElement) {
+      controls.domElement.addEventListener("click", handleClick);
+    }
 
-    window.addEventListener('keydown', keyDownHandler);
-    window.addEventListener('keyup', keyUpHandler);
+    document.addEventListener("pointerlockerror", handlePointerLockError);
+
+    controls.addEventListener("lock", handleLock);
+    controls.addEventListener("unlock", handleUnlock);
+
+    window.addEventListener("keydown", keyDownHandler);
+    window.addEventListener("keyup", keyUpHandler);
 
     return () => {
-      window.removeEventListener('keydown', keyDownHandler);
-      window.removeEventListener('keyup', keyUpHandler);
-      controls.domElement.removeEventListener('click', handleClick);
-      controls.removeEventListener('lock', handleLock);
-      controls.removeEventListener('unlock', handleUnlock);
+      document.removeEventListener("pointerlockerror", handlePointerLockError);
+      if (controls && controls.domElement) {
+        controls.domElement.removeEventListener("click", handleClick);
+      }
+      window.removeEventListener("keydown", keyDownHandler);
+      window.removeEventListener("keyup", keyUpHandler);
+
+      controls.removeEventListener("lock", handleLock);
+      controls.removeEventListener("unlock", handleUnlock);
     };
-  }, []);
+  }, [controls, handleClick, handleLock, handleUnlock]);
 
   useEffect(() => {
     setMyPlayer({ x: camera.position.x, z: camera.position.z });
@@ -177,7 +200,7 @@ function Player({
     }
   });
 
-  return;
+  return null;
 }
 
 export default Player;
