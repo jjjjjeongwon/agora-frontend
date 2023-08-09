@@ -15,12 +15,14 @@ const ImageFrameChild = ({
 
   useEffect(() => {
     if (frame) {
+      console.log("Frame loaded!"); // 로그 출력
       frame.traverse((child) => {
         if (child.isframe) child.castShadow = true;
       });
 
       frame.scale.set(...scale);
       frame.position.set(...position);
+      scene.add(frame);
 
       const mesh = new THREE.Mesh(
         new THREE.BoxGeometry(0.2, 1.5, 1),
@@ -32,14 +34,16 @@ const ImageFrameChild = ({
       if (typeof onLoad === "function") {
         onLoad();
       }
+
+      return () => {
+        if (frame) scene.remove(frame);
+      };
     }
   }, [frame, position, scale, scene, onLoad]);
 
   if (!frame) return null;
 
-  return (
-    <primitive rotation={rotation} object={frame.clone()} dispose={null} />
-  );
+  return <primitive rotation={rotation} object={frame} dispose={null} />;
 };
 
 const ImageFrame = () => {

@@ -1,49 +1,49 @@
-import * as THREE from 'three';
-import { Canvas } from '@react-three/fiber';
-import { Preload } from '@react-three/drei';
-import { useState, useEffect, useRef, Suspense } from 'react';
-import styled, { css } from 'styled-components';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import { Preload } from "@react-three/drei";
+import { useState, useEffect, useRef, Suspense } from "react";
+import styled, { css } from "styled-components";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // Components
-import EnvSky from '../ui/CollectionSpace/EnvSky';
-import EnvStars from '../ui/CollectionSpace/EnvStars';
-import Floor from '../ui/CollectionSpace/Floor';
-import Light from '../ui/CollectionSpace/Light';
-import Wall from '../ui/CollectionSpace/Wall';
-import Player from '../ui/CollectionSpace/Player';
-import World from './World';
-import Spot from '../ui/World/3Dcanvas/Spot';
-import Door from '../ui/CollectionSpace/Door';
-import Video from '../ui/CollectionSpace/Video';
-import Tv from '../ui/CollectionSpace/Tv';
-import ImageFrame from '../ui/CollectionSpace/ImageFrame';
-import CollectImage from '../ui/CollectionSpace/CollectImage';
-import VisitText from '../ui/CollectionSpace/VisitText';
-import VisitCard from '../ui/CollectionSpace/VisitCard';
-import Bed from '../ui/CollectionSpace/Bed';
-import Table from '../ui/CollectionSpace/Table';
-import LoadingSpinner from '../ui/public/LoadingSpinner';
-import TopLight from '../ui/CollectionSpace/TopLight';
-import Camera from '../ui/CollectionSpace/Camera';
-import TvTable from '../ui/CollectionSpace/TvTable';
-import UploadVideoModal from '../ui/public/UploadVideoModal';
-import UploadImagePostModal from '../ui/public/UploadImagePostModal';
-import ViewImagePostModal from '../ui/public/ViewImagePostModal';
-import Remote from '../ui/CollectionSpace/Remote';
-import Lug from '../ui/CollectionSpace/Lug';
-import Chair from '../ui/CollectionSpace/Chair';
-import Pencil from '../ui/CollectionSpace/Pencil';
-import PhotoBook from '../ui/CollectionSpace/PhotoBook';
-import Airpods from '../ui/CollectionSpace/Airpods';
-import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
-import ImageEffect from './ImageEffect';
-import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
-import ExitFooter from '../ui/public/ExitFooter';
-import AudioPlayer from '../ui/public/AudioPlayer';
-import userAPI from '../../apis/userAPI';
-import RoomHonorAlert from '../layout/World/RoomHonorAlert';
+import EnvSky from "../ui/CollectionSpace/EnvSky";
+import EnvStars from "../ui/CollectionSpace/EnvStars";
+import Floor from "../ui/CollectionSpace/Floor";
+import Light from "../ui/CollectionSpace/Light";
+import Wall from "../ui/CollectionSpace/Wall";
+import Player from "../ui/CollectionSpace/Player";
+import World from "./World";
+import Spot from "../ui/World/3Dcanvas/Spot";
+import Door from "../ui/CollectionSpace/Door";
+import Video from "../ui/CollectionSpace/Video";
+import Tv from "../ui/CollectionSpace/Tv";
+import ImageFrame from "../ui/CollectionSpace/ImageFrame";
+import CollectImage from "../ui/CollectionSpace/CollectImage";
+import VisitText from "../ui/CollectionSpace/VisitText";
+import VisitCard from "../ui/CollectionSpace/VisitCard";
+import Bed from "../ui/CollectionSpace/Bed";
+import Table from "../ui/CollectionSpace/Table";
+import LoadingSpinner from "../ui/public/LoadingSpinner";
+import TopLight from "../ui/CollectionSpace/TopLight";
+import Camera from "../ui/CollectionSpace/Camera";
+import TvTable from "../ui/CollectionSpace/TvTable";
+import UploadVideoModal from "../ui/public/UploadVideoModal";
+import UploadImagePostModal from "../ui/public/UploadImagePostModal";
+import ViewImagePostModal from "../ui/public/ViewImagePostModal";
+import Remote from "../ui/CollectionSpace/Remote";
+import Lug from "../ui/CollectionSpace/Lug";
+import Chair from "../ui/CollectionSpace/Chair";
+import Pencil from "../ui/CollectionSpace/Pencil";
+import PhotoBook from "../ui/CollectionSpace/PhotoBook";
+import Airpods from "../ui/CollectionSpace/Airpods";
+import WriteVisitMemoModal from "../ui/public/WriteVisitMemoModal";
+import ImageEffect from "./ImageEffect";
+import PhotoBoxHeader from "../ui/public/PhotoBoxHeader";
+import ExitFooter from "../ui/public/ExitFooter";
+import AudioPlayer from "../ui/public/AudioPlayer";
+import userAPI from "../../apis/userAPI";
+import RoomHonorAlert from "../layout/World/RoomHonorAlert";
 
 const CollectionSpace = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -88,7 +88,7 @@ const CollectionSpace = () => {
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const nickname = queryParams.get('nickname');
+  const nickname = queryParams.get("nickname");
 
   const [boardDetail, setBoardDetail] = useState();
 
@@ -98,52 +98,52 @@ const CollectionSpace = () => {
     try {
       const response = await userAPI.get(`/board/${albumDetail}`);
 
-      console.log('서버 응답:', response.data);
+      console.log("서버 응답:", response.data);
       setBoardDetail(response.data);
       setAlbumModalOpen(true);
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
-      console.error('서버 오류:', error);
+      console.error("서버 오류:", error);
     }
   };
 
   const handleComponentLoad = (componentName) => {
     switch (componentName) {
-      case 'Camera':
+      case "Camera":
         setIsCameraReady(true);
-      case 'Bed':
+      case "Bed":
         setIsBedReady(true);
-      case 'ImageFrame':
+      case "ImageFrame":
         setIsFrameReady(true);
-      case 'Lug':
+      case "Lug":
         setIsLugReady(true);
-      case 'Airpods':
+      case "Airpods":
         setIsAirpodsReady(true);
-      case 'Pencil':
+      case "Pencil":
         setIsPencilReady(true);
-      case 'PhotoBook':
+      case "PhotoBook":
         setIsPhotoBookReady(true);
-      case 'Remote':
+      case "Remote":
         setIsRemoteReady(true);
-      case 'Table':
+      case "Table":
         setIsTableReady(true);
-      case 'Tv':
+      case "Tv":
         setIsTvReady(true);
-      case 'TvTable':
+      case "TvTable":
         setIsTvTableReady(true);
-      case 'Mesh':
+      case "Mesh":
         setIsMeshReady(true);
-      case 'Door':
+      case "Door":
         setIsDoorReady(true);
-      case 'Chair':
+      case "Chair":
         setIsChairReady(true);
       default:
         break;
     }
   };
 
-  const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
+  const userId = JSON.parse(sessionStorage.getItem("isLogin"))["IdState"];
 
   const params = useParams().id;
 
@@ -153,12 +153,12 @@ const CollectionSpace = () => {
     try {
       const response = await userAPI.get(`/user/${params}/content`);
 
-      console.log('서버 응답:', response.data);
+      console.log("서버 응답:", response.data);
       setImages(response.data.imageBoards);
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
-      console.error('서버 오류:', error);
+      console.error("서버 오류:", error);
     }
   };
   // console.log(friend);
@@ -168,7 +168,7 @@ const CollectionSpace = () => {
   }, []);
 
   const playTransitionSound = () => {
-    const audio = new Audio('/musics/doorsound.mp3');
+    const audio = new Audio("/musics/doorsound.mp3");
     audio.play();
   };
 
@@ -217,7 +217,7 @@ const CollectionSpace = () => {
       Math.abs(doorSpot.z - myPlayer.z) < 1
     ) {
       setIsColletionVisible(true);
-      navigate('/world');
+      navigate("/world");
       playTransitionSound();
     } else {
       setIsColletionVisible(false);
@@ -232,10 +232,10 @@ const CollectionSpace = () => {
     >
       <div
         style={{
-          position: 'relative',
-          width: '100vw',
-          height: '100vh',
-          background: '#000',
+          position: "relative",
+          width: "100vw",
+          height: "100vh",
+          background: "#000",
         }}
       >
         <Suspense fallback={null}>
@@ -261,41 +261,46 @@ const CollectionSpace = () => {
               <EnvSky />
               <EnvStars />
               <Light />
-              <Lug onLoad={() => handleComponentLoad('Lug')} />
+              <Lug onLoad={() => handleComponentLoad("Lug")} />
               <Floor />
-              <Tv onLoad={() => handleComponentLoad('Tv')} />
+              <Tv onLoad={() => handleComponentLoad("Tv")} />
               <Remote
                 userId={userId}
                 params={params}
-                onLoad={() => handleComponentLoad('Remote')}
+                onLoad={() => handleComponentLoad("Remote")}
               />
-              <TvTable onLoad={() => handleComponentLoad('TvTable')} />
+              <TvTable onLoad={() => handleComponentLoad("TvTable")} />
               <CollectImage images={images} />
-              <ImageFrame onLoad={() => handleComponentLoad('ImageFrame')} />
+              {isFrameReady ? (
+                <ImageFrame
+                  key="frame-ready"
+                  onLoad={() => handleComponentLoad("ImageFrame")}
+                />
+              ) : null}
               <VisitText />
               {/* <VisitCard onLoad={() => handleComponentLoad("Mesh")} /> */}
               <Camera
                 userId={userId}
                 params={params}
-                onLoad={() => handleComponentLoad('Camera')}
+                onLoad={() => handleComponentLoad("Camera")}
               />
               <TopLight />
-              <Chair onLoad={() => handleComponentLoad('Chair')} />
+              <Chair onLoad={() => handleComponentLoad("Chair")} />
               <Pencil
                 userId={userId}
                 params={params}
-                onLoad={() => handleComponentLoad('Pencil')}
+                onLoad={() => handleComponentLoad("Pencil")}
               />
-              <Table onLoad={() => handleComponentLoad('Table')} />
-              <Bed onLoad={() => handleComponentLoad('Bed')} />
-              <Door onLoad={() => handleComponentLoad('Door')} />
+              <Table onLoad={() => handleComponentLoad("Table")} />
+              <Bed onLoad={() => handleComponentLoad("Bed")} />
+              <Door onLoad={() => handleComponentLoad("Door")} />
               <Video tvVideo={tvVideo} />
               <Wall />
-              <PhotoBook onLoad={() => handleComponentLoad('PhotoBook')} />
+              <PhotoBook onLoad={() => handleComponentLoad("PhotoBook")} />
               <Airpods
                 userId={userId}
                 params={params}
-                onLoad={() => handleComponentLoad('Airpods')}
+                onLoad={() => handleComponentLoad("Airpods")}
               />
               <Spot spot={doorSpot} />
               <Player
@@ -317,8 +322,8 @@ const CollectionSpace = () => {
 
         <AudioPlayer src="/musics/room1.mp3" />
 
-        {showImageEffect ? <PhotoBoxHeader /> : ''}
-        {showImageEffect ? <ExitFooter /> : ''}
+        {showImageEffect ? <PhotoBoxHeader /> : ""}
+        {showImageEffect ? <ExitFooter /> : ""}
 
         <ContainerImage uploadImageModalOpen={uploadImageModalOpen}>
           {uploadImageModalOpen && (
@@ -372,7 +377,7 @@ const Container = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${pencilModalOpen ? 1 : -1};
-      background: ${pencilModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${pencilModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -387,8 +392,8 @@ const ContainerImage = styled.div`
       left: 0;
       z-index: ${uploadImageModalOpen ? 1 : -1};
       background: ${uploadImageModalOpen
-        ? 'rgba(0, 0, 0, 0.4)'
-        : 'transparent'};
+        ? "rgba(0, 0, 0, 0.4)"
+        : "transparent"};
     `;
   }}
 `;
@@ -402,7 +407,7 @@ const ContainerVideo = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${albumModalOpen ? 1 : -1};
-      background: ${albumModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${albumModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -416,7 +421,7 @@ const ContainerRemote = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${videoModalOpen ? 1 : -1};
-      background: ${videoModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+      background: ${videoModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
     `;
   }}
 `;
@@ -434,8 +439,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? 'visible'
-        : 'hidden'}; // initial visibility is hidden
+        ? "visible"
+        : "hidden"}; // initial visibility is hidden
     `;
   }}
 `;
