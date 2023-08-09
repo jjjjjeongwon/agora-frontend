@@ -173,7 +173,6 @@ import * as THREE from 'three';
 import { Float } from '@react-three/drei';
 
 const HouseName = ({ friendsInfo }) => {
-  const meshRef = useRef();
   const positions = [
     [-15, 3, 15],
     [-9.7, 2, 5.5],
@@ -192,7 +191,7 @@ const HouseName = ({ friendsInfo }) => {
     [0, Math.PI / 4, 0],
   ];
 
-  const canvasRefs = friendsInfo.map(() => {
+  const canvasRefs = friendsInfo?.map(() => {
     const canvas = document.createElement('canvas');
     canvas.width = 500;
     canvas.height = 500;
@@ -200,7 +199,7 @@ const HouseName = ({ friendsInfo }) => {
   });
 
   useFrame(() => {
-    canvasRefs.forEach((canvas, index) => {
+    canvasRefs?.forEach((canvas, index) => {
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = 'white';
@@ -209,8 +208,8 @@ const HouseName = ({ friendsInfo }) => {
     });
   });
 
-  const textures = canvasRefs.map((canvas) => new THREE.CanvasTexture(canvas));
-  const materials = textures.map((texture) => {
+  const textures = canvasRefs?.map((canvas) => new THREE.CanvasTexture(canvas));
+  const materials = textures?.map((texture) => {
     return new THREE.MeshBasicMaterial({
       map: texture,
       transparent: true,
@@ -228,7 +227,7 @@ const HouseName = ({ friendsInfo }) => {
       floatIntensity={0.01}
       floatingRange={[0, 0.1]}
     >
-      {materials.map((material, index) => (
+      {materials?.map((material, index) => (
         <mesh
           key={index}
           castShadow={false}

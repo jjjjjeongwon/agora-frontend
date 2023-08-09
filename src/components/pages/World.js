@@ -304,7 +304,7 @@ const World = () => {
                 <Tree />
                 <Lamp />
                 <Floor />
-                <Npc />
+                <Npc myPlayer={myPlayer} />
                 <CharacterController
                   setMyPlayer={setMyPlayer}
                   friendModalOpen={friendModalOpen}

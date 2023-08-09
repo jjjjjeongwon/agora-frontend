@@ -66,7 +66,7 @@ const Portal = ({ friendsInfo }) => {
       />
 
       {/* 친구 집 들 */}
-      {friendsInfo.map((friendPosition, idx) => (
+      {friendsInfo?.map((friendPosition, idx) => (
         // 각 친구의 위치에 대해 두 개의 Sparkles 컴포넌트 렌더링
         <React.Fragment key={idx}>
           <Sparkles

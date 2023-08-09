@@ -91,7 +91,7 @@ const Tree = () => {
           dispose={null}
         />
         <primitive
-          position={[2, -0.5, 12]}
+          position={[5.3, -0.5, 21.2]}
           scale={[0.8, 0.8, 0.8]}
           object={cactus.clone()}
           dispose={null}

@@ -88,8 +88,6 @@ export const CharacterController = ({ setMyPlayer, friendModalOpen }) => {
       characterWorldPosition.z + 10
     );
 
-    // setMyPlayer({ x: characterWorldPosition.x, z: characterWorldPosition.z });
-    // console.log(characterWorldPosition.x, characterWorldPosition.z);
     state.camera.position.lerp(targetCameraPosition, delta * 2);
 
     if (characterWorldPosition.y <= -15) {
