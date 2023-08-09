@@ -83,10 +83,30 @@ const CollectionSpace = () => {
   const [isMeshReady, setIsMeshReady] = useState(false);
   const [isDoorReady, setIsDoorReady] = useState(false);
   const [isChairReady, setIsChairReady] = useState(false);
+  const [albumDetail, setAlbumDetail] = useState();
+  const [images, setImages] = useState();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const nickname = queryParams.get('nickname');
+
+  const [boardDetail, setBoardDetail] = useState();
+
+  const getImageDetail = async (e) => {
+    // e.preventDefault();
+
+    try {
+      const response = await userAPI.get(`/board/${albumDetail}`);
+
+      console.log('서버 응답:', response.data);
+      setBoardDetail(response.data);
+      setAlbumModalOpen(true);
+
+      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+    } catch (error) {
+      console.error('서버 오류:', error);
+    }
+  };
 
   const handleComponentLoad = (componentName) => {
     switch (componentName) {
@@ -134,6 +154,7 @@ const CollectionSpace = () => {
       const response = await userAPI.get(`/user/${params}/content`);
 
       console.log('서버 응답:', response.data);
+      setImages(response.data.imageBoards);
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
@@ -160,7 +181,7 @@ const CollectionSpace = () => {
 
   useEffect(() => {
     if (album === true) {
-      setAlbumModalOpen(true);
+      getImageDetail();
     } else {
       setAlbumModalOpen(false);
     }
@@ -219,7 +240,7 @@ const CollectionSpace = () => {
       >
         <Suspense fallback={null}>
           {showImageEffect ? (
-            <ImageEffect />
+            <ImageEffect images={images} />
           ) : (
             <Canvas
               gl={{ antialias: true }}
@@ -249,7 +270,7 @@ const CollectionSpace = () => {
                 onLoad={() => handleComponentLoad('Remote')}
               />
               <TvTable onLoad={() => handleComponentLoad('TvTable')} />
-              <CollectImage />
+              <CollectImage images={images} />
               <ImageFrame onLoad={() => handleComponentLoad('ImageFrame')} />
               <VisitText />
               {/* <VisitCard onLoad={() => handleComponentLoad("Mesh")} /> */}
@@ -288,6 +309,7 @@ const CollectionSpace = () => {
                 setVisitMemo={setVisitMemo}
                 setVideoRemote={setVideoRemote}
                 setShowImageEffect={setShowImageEffect}
+                setAlbumDetail={setAlbumDetail}
               />
             </Canvas>
           )}
@@ -303,6 +325,7 @@ const CollectionSpace = () => {
             <UploadImagePostModal
               setCamera={setCamera}
               setUploadImageModalOpen={setUploadImageModalOpen}
+              setImages={setImages}
             />
           )}
         </ContainerImage>
@@ -321,6 +344,7 @@ const CollectionSpace = () => {
             <ViewImagePostModal
               setAlbumModalOpen={setAlbumModalOpen}
               setAlbum={setAlbum}
+              boardDetail={boardDetail}
             />
           )}
         </ContainerVideo>

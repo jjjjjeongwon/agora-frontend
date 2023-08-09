@@ -81,6 +81,7 @@ const UploadImagePostModal = forwardRef((props, ref) => {
         title: '사진 게시 성공!',
         confirmButtonColor: '#0e72ed',
       });
+      props.setImages(response.data);
     } catch (error) {
       setErrorMsg('게시물 업로드에 실패했습니다.');
       console.error('서버 오류:', error);
