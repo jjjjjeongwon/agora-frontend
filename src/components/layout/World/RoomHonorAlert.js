@@ -1,7 +1,7 @@
 import styled, { keyframes, css } from 'styled-components';
 import { useState, useEffect } from 'react';
 
-const RoomHonorAlert = ({ roomHonor }) => {
+const RoomHonorAlert = ({ roomHonor, text }) => {
   const [visible, setVisible] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -20,9 +20,8 @@ const RoomHonorAlert = ({ roomHonor }) => {
       <Container visible={visible}>
         <img src="/images/campfireAlert.png" alt="" />
         <TextBox>
-          UUJEEN님의 맵에 오신것을 환영합니다!
-          <br />
-          방향키를 조작해 자유롭게 이동해보세요
+          {roomHonor && `${roomHonor}님의 방에 오신것을 환영합니다!`}
+          {text}
         </TextBox>
       </Container>
     </>

@@ -79,16 +79,16 @@ const FriendsModal = forwardRef((props, ref) => {
     }
   };
 
-  const handleGoMap = (num, id) => {
+  const handleGoMap = (num, id, nickname) => {
     console.log(num, id);
     if (num === 1) {
-      navigate(`/collectionspace/${id}`);
+      navigate(`/collectionspace/${id}?nickname=${nickname}`);
     }
     if (num === 2) {
-      navigate(`/collectionspace_two/${id}`);
+      navigate(`/collectionspace_two/${id}?nickname=${nickname}`);
     }
     if (num === 3) {
-      navigate(`/collectionspace_three/${id}`);
+      navigate(`/collectionspace_three/${id}?nickname=${nickname}`);
     }
   };
 
@@ -121,7 +121,11 @@ const FriendsModal = forwardRef((props, ref) => {
           {props.friendsInfo.map((friend, idx) => (
             <Friend>
               <Name>{friend.nickname}</Name>
-              <Button onClick={() => handleGoMap(friend.houseNum, friend._id)}>
+              <Button
+                onClick={() =>
+                  handleGoMap(friend.houseNum, friend._id, friend.nickname)
+                }
+              >
                 GO
               </Button>
             </Friend>

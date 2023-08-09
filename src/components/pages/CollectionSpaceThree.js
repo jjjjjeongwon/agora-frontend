@@ -1,48 +1,49 @@
-import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
-import { Preload } from "@react-three/drei";
-import { useState, useEffect, useRef, Suspense } from "react";
-import styled, { css } from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import * as THREE from 'three';
+import { Canvas } from '@react-three/fiber';
+import { Preload } from '@react-three/drei';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import styled, { css } from 'styled-components';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 // Components
-import EnvSky from "../ui/CollectionSpace/EnvSky";
-import EnvStars from "../ui/CollectionSpace/EnvStars";
-import Floor from "../ui/CollectionSpaceThree/Floor";
-import Light from "../ui/CollectionSpaceThree/Light";
-import Wall from "../ui/CollectionSpaceThree/Wall";
-import Player from "../ui/CollectionSpace/Player";
-import Spot from "../ui/World/3Dcanvas/Spot";
-import Door from "../ui/CollectionSpace/Door";
-import Video from "../ui/CollectionSpaceThree/Video";
-import Tv from "../ui/CollectionSpaceTwo/Tv";
-import ImageFrame from "../ui/CollectionSpaceThree/ImageFrame";
-import CollectImage from "../ui/CollectionSpaceThree/CollectImage";
-import VisitText from "../ui/CollectionSpaceThree/VisitText";
-import VisitCard from "../ui/CollectionSpaceThree/VisitCard";
-import Bed from "../ui/CollectionSpaceThree/Bed";
-import Table from "../ui/CollectionSpaceThree/Table";
-import Camera from "../ui/CollectionSpaceThree/Camera";
-import TvTable from "../ui/CollectionSpaceThree/TvTable";
-import Remote from "../ui/CollectionSpaceThree/Remote";
-import Rabbit from "../ui/CollectionSpaceThree/Rabbit";
-import Pencil from "../ui/CollectionSpaceThree/Pencil";
-import Window from "../ui/CollectionSpaceThree/Window";
-import Closet from "../ui/CollectionSpaceThree/Closet";
-import Piano from "../ui/CollectionSpaceThree/Piano";
-import CafeTable from "../ui/CollectionSpaceThree/CafeTable";
-import WriteVisitMemoModal from "../ui/public/WriteVisitMemoModal";
-import Flower from "../ui/CollectionSpaceThree/Flower";
-import PhotoBook from "../ui/CollectionSpaceThree/PhotoBook";
-import ImageEffect from "./ImageEffect";
-import PhotoBoxHeader from "../ui/public/PhotoBoxHeader";
-import ExitFooter from "../ui/public/ExitFooter";
-import AudioPlayer from "../ui/public/AudioPlayer";
-import UploadImagePostModal from "../ui/public/UploadImagePostModal";
-import UploadVideoModal from "../ui/public/UploadVideoModal";
-import ViewImagePostModal from "../ui/public/ViewImagePostModal";
-import userAPI from "../../apis/userAPI";
+import EnvSky from '../ui/CollectionSpace/EnvSky';
+import EnvStars from '../ui/CollectionSpace/EnvStars';
+import Floor from '../ui/CollectionSpaceThree/Floor';
+import Light from '../ui/CollectionSpaceThree/Light';
+import Wall from '../ui/CollectionSpaceThree/Wall';
+import Player from '../ui/CollectionSpace/Player';
+import Spot from '../ui/World/3Dcanvas/Spot';
+import Door from '../ui/CollectionSpace/Door';
+import Video from '../ui/CollectionSpaceThree/Video';
+import Tv from '../ui/CollectionSpaceTwo/Tv';
+import ImageFrame from '../ui/CollectionSpaceThree/ImageFrame';
+import CollectImage from '../ui/CollectionSpaceThree/CollectImage';
+import VisitText from '../ui/CollectionSpaceThree/VisitText';
+import VisitCard from '../ui/CollectionSpaceThree/VisitCard';
+import Bed from '../ui/CollectionSpaceThree/Bed';
+import Table from '../ui/CollectionSpaceThree/Table';
+import Camera from '../ui/CollectionSpaceThree/Camera';
+import TvTable from '../ui/CollectionSpaceThree/TvTable';
+import Remote from '../ui/CollectionSpaceThree/Remote';
+import Rabbit from '../ui/CollectionSpaceThree/Rabbit';
+import Pencil from '../ui/CollectionSpaceThree/Pencil';
+import Window from '../ui/CollectionSpaceThree/Window';
+import Closet from '../ui/CollectionSpaceThree/Closet';
+import Piano from '../ui/CollectionSpaceThree/Piano';
+import CafeTable from '../ui/CollectionSpaceThree/CafeTable';
+import WriteVisitMemoModal from '../ui/public/WriteVisitMemoModal';
+import Flower from '../ui/CollectionSpaceThree/Flower';
+import PhotoBook from '../ui/CollectionSpaceThree/PhotoBook';
+import ImageEffect from './ImageEffect';
+import PhotoBoxHeader from '../ui/public/PhotoBoxHeader';
+import ExitFooter from '../ui/public/ExitFooter';
+import AudioPlayer from '../ui/public/AudioPlayer';
+import UploadImagePostModal from '../ui/public/UploadImagePostModal';
+import UploadVideoModal from '../ui/public/UploadVideoModal';
+import ViewImagePostModal from '../ui/public/ViewImagePostModal';
+import userAPI from '../../apis/userAPI';
+import RoomHonorAlert from '../layout/World/RoomHonorAlert';
 
 const CollectionSpaceThree = () => {
   const aspect = window.innerWidth / window.innerHeight;
@@ -85,41 +86,50 @@ const CollectionSpaceThree = () => {
   const [isWindowReady, setIsWindowReady] = useState(false);
   const [isRabbitReady, setIsRabbitReady] = useState(false);
 
+  const [images, setImages] = useState();
+  const [guestBooks, setGuestBooks] = useState();
+  const [albumDetail, setAlbumDetail] = useState();
+  console.log(albumDetail);
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const nickname = queryParams.get('nickname');
+
   const handleComponentLoad = (componentName) => {
     switch (componentName) {
-      case "Camera":
+      case 'Camera':
         setIsCameraReady(true);
-      case "Bed":
+      case 'Bed':
         setIsBedReady(true);
-      case "Cafetable":
+      case 'Cafetable':
         setIsCafetableReady(true);
-      case "ImageFrame":
+      case 'ImageFrame':
         setIsFrameReady(true);
-      case "Closet":
+      case 'Closet':
         setIsClosetReady(true);
-      case "Flower":
+      case 'Flower':
         setIsFlowerReady(true);
-      case "Piano":
+      case 'Piano':
         setIsPianoReady(true);
-      case "Rabbit":
+      case 'Rabbit':
         setIsRabbitReady(true);
-      case "Pencil":
+      case 'Pencil':
         setIsPencilReady(true);
-      case "PhotoBook":
+      case 'PhotoBook':
         setIsPhotoBookReady(true);
-      case "Remote":
+      case 'Remote':
         setIsRemoteReady(true);
-      case "Table":
+      case 'Table':
         setIsTableReady(true);
-      case "Tv":
+      case 'Tv':
         setIsTvReady(true);
-      case "TvTable":
+      case 'TvTable':
         setIsTvTableReady(true);
-      case "Mesh":
+      case 'Mesh':
         setIsMeshReady(true);
-      case "Door":
+      case 'Door':
         setIsDoorReady(true);
-      case "Window":
+      case 'Window':
         setIsWindowReady(true);
       default:
         break;
@@ -128,7 +138,7 @@ const CollectionSpaceThree = () => {
 
   const params = useParams().id;
 
-  const userId = JSON.parse(sessionStorage.getItem("isLogin"))["IdState"];
+  const userId = JSON.parse(sessionStorage.getItem('isLogin'))['IdState'];
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
@@ -136,11 +146,15 @@ const CollectionSpaceThree = () => {
     try {
       const response = await userAPI.get(`/user/${params}/content`);
 
-      console.log("서버 응답:", response.data);
+      console.log('서버 응답:', response.data);
+      setImages(response.data.imageBoards);
+      setGuestBooks(response.data.guestbooks);
+      response.data.mp4Boards[0] &&
+        setTvVideo(response.data.mp4Boards[0].fileUrl);
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
-      console.error("서버 오류:", error);
+      console.error('서버 오류:', error);
     }
   };
   // console.log(friend);
@@ -150,7 +164,7 @@ const CollectionSpaceThree = () => {
   }, []);
 
   const playTransitionSound = () => {
-    const audio = new Audio("/musics/doorsound.mp3");
+    const audio = new Audio('/musics/doorsound.mp3');
     audio.play();
   };
 
@@ -159,9 +173,27 @@ const CollectionSpaceThree = () => {
     visible: { opacity: 1 }, // 최종 상태
   };
 
+  const [boardDetail, setBoardDetail] = useState();
+
+  const getImageDetail = async (e) => {
+    // e.preventDefault();
+
+    try {
+      const response = await userAPI.get(`/board/${albumDetail}`);
+
+      console.log('서버 응답:', response.data);
+      setBoardDetail(response.data);
+      setAlbumModalOpen(true);
+
+      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+    } catch (error) {
+      console.error('서버 오류:', error);
+    }
+  };
+
   useEffect(() => {
     if (album === true) {
-      setAlbumModalOpen(true);
+      getImageDetail();
     } else {
       setAlbumModalOpen(false);
     }
@@ -197,7 +229,7 @@ const CollectionSpaceThree = () => {
       Math.abs(doorSpot.z - myPlayer.z) < 1.5
     ) {
       setIsColletionVisible(true);
-      navigate("/world");
+      navigate('/world');
       playTransitionSound();
     } else {
       setIsColletionVisible(false);
@@ -212,15 +244,15 @@ const CollectionSpaceThree = () => {
     >
       <div
         style={{
-          position: "relative",
-          width: "100vw",
-          height: "100vh",
-          background: "#000",
+          position: 'relative',
+          width: '100vw',
+          height: '100vh',
+          background: '#000',
         }}
       >
         <Suspense fallback={null}>
           {showImageEffect ? (
-            <ImageEffect />
+            <ImageEffect images={images} />
           ) : (
             <Canvas
               gl={{ antialias: true }}
@@ -253,43 +285,43 @@ const CollectionSpaceThree = () => {
               <EnvStars />
               <Light />
               <Floor />
-              <Rabbit onLoad={() => handleComponentLoad("Rabbit")} />
-              <Tv onLoad={() => handleComponentLoad("Tv")} />
+              <Rabbit onLoad={() => handleComponentLoad('Rabbit')} />
+              <Tv onLoad={() => handleComponentLoad('Tv')} />
               <Remote
                 userId={userId}
                 params={params}
-                onLoad={() => handleComponentLoad("Remote")}
+                onLoad={() => handleComponentLoad('Remote')}
               />
-              <TvTable onLoad={() => handleComponentLoad("TvTable")} />
-              <CollectImage />
-              <ImageFrame onLoad={() => handleComponentLoad("ImageFrame")} />
-              <VisitText />
+              <TvTable onLoad={() => handleComponentLoad('TvTable')} />
+              <CollectImage images={images} />
+              <ImageFrame onLoad={() => handleComponentLoad('ImageFrame')} />
+              <VisitText guestBooks={guestBooks} />
               {/* <VisitCard onLoad={() => handleComponentLoad("Mesh")} /> */}
               <Camera
                 userId={userId}
                 params={params}
-                onLoad={() => handleComponentLoad("Camera")}
+                onLoad={() => handleComponentLoad('Camera')}
               />
               <Pencil
                 userId={userId}
                 params={params}
-                onLoad={() => handleComponentLoad("Pencil")}
+                onLoad={() => handleComponentLoad('Pencil')}
               />
-              <Table onLoad={() => handleComponentLoad("Table")} />
-              <Bed onLoad={() => handleComponentLoad("Bed")} />
+              <Table onLoad={() => handleComponentLoad('Table')} />
+              <Bed onLoad={() => handleComponentLoad('Bed')} />
               <Door />
               <Video tvVideo={tvVideo} />
               <Wall />
-              <Window onLoad={() => handleComponentLoad("Window")} />
-              <Closet onLoad={() => handleComponentLoad("Closet")} />
+              <Window onLoad={() => handleComponentLoad('Window')} />
+              <Closet onLoad={() => handleComponentLoad('Closet')} />
               <Piano
                 userId={userId}
                 params={params}
-                onLoad={() => handleComponentLoad("Piano")}
+                onLoad={() => handleComponentLoad('Piano')}
               />
-              <CafeTable onLoad={() => handleComponentLoad("Cafetable")} />
-              <Flower onLoad={() => handleComponentLoad("Flower")} />
-              <PhotoBook onLoad={() => handleComponentLoad("PhotoBook")} />
+              <CafeTable onLoad={() => handleComponentLoad('Cafetable')} />
+              <Flower onLoad={() => handleComponentLoad('Flower')} />
+              <PhotoBook onLoad={() => handleComponentLoad('PhotoBook')} />
               <Spot spot={doorSpot} />
               <Player
                 roomName={roomName}
@@ -302,19 +334,21 @@ const CollectionSpaceThree = () => {
                 setVisitMemo={setVisitMemo}
                 setVideoRemote={setVideoRemote}
                 setShowImageEffect={setShowImageEffect}
+                setAlbumDetail={setAlbumDetail}
               />
             </Canvas>
           )}
         </Suspense>
         <AudioPlayer src="/musics/room3.mp3" />
 
-        {showImageEffect ? <PhotoBoxHeader /> : ""}
-        {showImageEffect ? <ExitFooter /> : ""}
+        {showImageEffect ? <PhotoBoxHeader /> : ''}
+        {showImageEffect ? <ExitFooter /> : ''}
         <ContainerImage uploadImageModalOpen={uploadImageModalOpen}>
           {uploadImageModalOpen && (
             <UploadImagePostModal
               setCamera={setCamera}
               setUploadImageModalOpen={setUploadImageModalOpen}
+              setImages={setImages}
             />
           )}
         </ContainerImage>
@@ -333,6 +367,7 @@ const CollectionSpaceThree = () => {
             <ViewImagePostModal
               setAlbumModalOpen={setAlbumModalOpen}
               setAlbum={setAlbum}
+              boardDetail={boardDetail}
             />
           )}
         </ContainerVideo>
@@ -341,9 +376,11 @@ const CollectionSpaceThree = () => {
             <WriteVisitMemoModal
               setPencilModalOpen={setPencilModalOpen}
               setPencil={setPencil}
+              setGuestBooks={setGuestBooks}
             />
           )}
         </Container>
+        {nickname && <RoomHonorAlert roomHonor={nickname} />}
 
         <CrossHair isLocked={isLocked} />
       </div>
@@ -360,7 +397,7 @@ const Container = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${pencilModalOpen ? 1 : -1};
-      background: ${pencilModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
+      background: ${pencilModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
     `;
   }}
 `;
@@ -375,8 +412,8 @@ const ContainerImage = styled.div`
       left: 0;
       z-index: ${uploadImageModalOpen ? 1 : -1};
       background: ${uploadImageModalOpen
-        ? "rgba(0, 0, 0, 0.4)"
-        : "transparent"};
+        ? 'rgba(0, 0, 0, 0.4)'
+        : 'transparent'};
     `;
   }}
 `;
@@ -390,7 +427,7 @@ const ContainerVideo = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${albumModalOpen ? 1 : -1};
-      background: ${albumModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
+      background: ${albumModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
     `;
   }}
 `;
@@ -404,7 +441,7 @@ const ContainerRemote = styled.div`
       bottom: 0;
       left: 0;
       z-index: ${videoModalOpen ? 1 : -1};
-      background: ${videoModalOpen ? "rgba(0, 0, 0, 0.4)" : "transparent"};
+      background: ${videoModalOpen ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
     `;
   }}
 `;
@@ -423,8 +460,8 @@ const CrossHair = styled.div`
       pointer-events: none;
       z-index: 10000;
       visibility: ${isLocked
-        ? "visible"
-        : "hidden"}; // initial visibility is hidden
+        ? 'visible'
+        : 'hidden'}; // initial visibility is hidden
     `;
   }}
 `;

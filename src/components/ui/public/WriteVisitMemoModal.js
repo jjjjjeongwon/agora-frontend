@@ -35,6 +35,7 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
       .post(`/user/${roomHost}/guestbook`, visitData)
       .then((res) => {
         console.log(res);
+        props.setGuestBooks(res.data);
         Swal.fire({
           title: '방명록 성공!',
           confirmButtonColor: '#0e72ed',

@@ -13,6 +13,7 @@ function Player({
   setVisitMemo,
   setVideoRemote,
   setShowImageEffect, // 추가
+  setAlbumDetail,
 }) {
   const { camera, gl, scene, clock } = useThree();
 
@@ -46,9 +47,7 @@ function Player({
     const intersects = raycaster.intersectObjects(scene.children);
     for (const item of intersects) {
       console.log(item.object.name);
-      if (item.object.name === 'image_5') {
-        setAlbum(true);
-      }
+
       if (item.object.name === 'camera') {
         setCamera(true);
       }
@@ -63,6 +62,10 @@ function Player({
       }
       if (item.object.name === 'photoBook') {
         setShowImageEffect(true);
+      }
+      if (item.object.name.length === 24) {
+        setAlbum(true);
+        setAlbumDetail(item.object.name);
       }
     }
   };

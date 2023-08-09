@@ -1,71 +1,75 @@
-import React from "react";
-import * as THREE from "three";
-import { useLoader } from "@react-three/fiber";
+import React from 'react';
+import * as THREE from 'three';
+import { useLoader } from '@react-three/fiber';
+import useTextures from '../../../hooks/useTextures';
 
-const CollectImage = () => {
-  const image = useLoader(THREE.TextureLoader, "../images/room3_2.png");
-  const image2 = useLoader(THREE.TextureLoader, "../images/room3_1.png");
-  const image3 = useLoader(THREE.TextureLoader, "../images/room3_6.png");
-  const image4 = useLoader(THREE.TextureLoader, "../images/room3_3.png");
-  const image5 = useLoader(THREE.TextureLoader, "../images/room3_5.png");
+const CollectImage = ({ images }) => {
+  // const urls = images.map((img) => img.fileUrl);
+  // const textures = useTextures(urls);
+
+  const textureUrls = [
+    images?.[0]?.fileUrl,
+    images?.[1]?.fileUrl,
+    images?.[2]?.fileUrl,
+    images?.[3]?.fileUrl,
+    images?.[4]?.fileUrl,
+  ].filter(Boolean);
+
+  const textures = useTextures(textureUrls);
+
+  // const textures = [
+  //   useLoader(THREE.TextureLoader, `${images[0]?.fileUrl}`),
+  //   useLoader(THREE.TextureLoader, `${images[1]?.fileUrl}`),
+  //   useLoader(THREE.TextureLoader, `${images[2]?.fileUrl}`),
+  //   useLoader(THREE.TextureLoader, `${images[3]?.fileUrl}`),
+  //   useLoader(THREE.TextureLoader, `${images[4]?.fileUrl}`),
+  // ];
   const geometry = new THREE.PlaneGeometry(0.85, 1.25);
-  const material = new THREE.MeshStandardMaterial({
-    map: image,
-    side: THREE.DoubleSide,
-  });
-  const material2 = new THREE.MeshStandardMaterial({
-    map: image2,
-    side: THREE.DoubleSide,
-  });
-  const material3 = new THREE.MeshStandardMaterial({
-    map: image3,
-    side: THREE.DoubleSide,
-  });
-  const material4 = new THREE.MeshStandardMaterial({
-    map: image4,
-    side: THREE.DoubleSide,
-  });
-  const material5 = new THREE.MeshStandardMaterial({
-    map: image5,
-    side: THREE.DoubleSide,
-  });
+  const materials = textures.map(
+    (texture) =>
+      new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+      })
+  );
+
+  const positions = [
+    [5.38, 3.93, -3],
+    [-5.38, 2.9, 0.8],
+    [-5.38, 4.3, 3],
+    [-5.38, 3.5, -2],
+    [-3.7, 3.8, 5.38],
+  ];
+
+  const rotations = [
+    [0, -Math.PI / 2, 0],
+    [0, Math.PI / 2, 0],
+    [0, Math.PI / 2, 0],
+    [0, Math.PI / 2, 0],
+    [0, Math.PI, 0],
+  ];
+
+  const scales = [
+    [2.95, 1.25, 1],
+    [1, 1, 1],
+    [1, 1, 1],
+    [1.5, 2, 1],
+    [3.1, 1.3, 1],
+  ];
+
   return (
     <>
-      <mesh
-        position={[5.38, 3.93, -3]}
-        rotation={[0, -Math.PI / 2, 0]}
-        scale={[2.95, 1.25, 1]}
-        geometry={geometry}
-        material={material2}
-      ></mesh>
-      <mesh
-        position={[-5.38, 2.9, 0.8]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={[1, 1, 1]}
-        geometry={geometry}
-        material={material3}
-      ></mesh>
-      <mesh
-        position={[-5.38, 4.3, 3]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={[1, 1, 1]}
-        geometry={geometry}
-        material={material4}
-      ></mesh>
-      <mesh
-        position={[-5.38, 3.5, -2]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={[1.5, 2, 1]}
-        geometry={geometry}
-        material={material}
-      ></mesh>
-      <mesh
-        position={[-3.7, 3.8, 5.38]}
-        rotation={[0, Math.PI, 0]}
-        scale={[3.1, 1.3, 1]}
-        geometry={geometry}
-        material={material5}
-      ></mesh>
+      {positions.map((position, index) => (
+        <mesh
+          name={images?.[index]?._id}
+          key={index}
+          position={position}
+          rotation={rotations[index]}
+          scale={scales[index]}
+          geometry={geometry}
+          material={materials[index]}
+        />
+      ))}
     </>
   );
 };

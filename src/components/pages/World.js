@@ -64,6 +64,8 @@ const World = () => {
   const [flag, setFlag] = useState(true);
   const [friendsInfo, setFriendsInfo] = useState();
 
+  console.log(friendsInfo);
+
   const playTransitionSound = (link) => {
     const audio = new Audio('/musics/doorsound.mp3');
 
@@ -73,7 +75,7 @@ const World = () => {
     const audio = new Audio('/musics/beachsound.mp3');
 
     audio.addEventListener('ended', () => {
-      navigate('/collectionspace_two');
+      getRandomUser();
     });
     audio.play();
   };
@@ -91,7 +93,6 @@ const World = () => {
 
   //spots
   const mySpot = { x: -10, y: 0.005, z: -4 };
-  const friendSpot1 = { x: -17, y: 0.005, z: 15 };
   const waveSpot = { x: 35, y: 0.005, z: 4.5 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
@@ -156,9 +157,19 @@ const World = () => {
     // e.preventDefault();
 
     try {
-      const response = await userAPI.get('/user/surfing');
+      const response = await userAPI.get(`user/${loginId}/surfing`);
 
       console.log('서버 응답:', response.data);
+      const id = response.data._id;
+      const num = response.data.houseNum;
+      const nickname = response.data.nickname;
+      if (num === 1) {
+        navigate(`/collectionspace/${id}?nickname=${nickname}`);
+      } else if (num === 2) {
+        navigate(`/collectionspace_two/${id}?nickname=${nickname}`);
+      } else if (num === 3) {
+        navigate(`/collectionspace_three/${id}?nickname=${nickname}`);
+      }
 
       // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
     } catch (error) {
@@ -177,44 +188,60 @@ const World = () => {
       setFriendModalOpen(false);
     }
   }, [friend]);
+
+  // 친구 집 위치 저장
+  const friendsSpots = [{ x: -17, y: 0.005, z: 15 }];
+
   useEffect(() => {
+    //내 집
     if (
       Math.abs(mySpot.x - myPlayer.x) < 1 &&
       Math.abs(mySpot.z - myPlayer.z) < 1
     ) {
       if (selectRoom === 1) {
-        navigate(`/collectionspace/${userId}`);
+        navigate(`/collectionspace/${loginId}`);
         playTransitionSound();
       } else if (selectRoom === 2) {
-        navigate(`/collectionspace_two/${userId}`);
+        navigate(`/collectionspace_two/${loginId}`);
         playTransitionSound();
       } else if (selectRoom === 3) {
-        navigate(`/collectionspace_three/${userId}`);
+        navigate(`/collectionspace_three/${loginId}`);
         playTransitionSound();
       }
-    } else if (
-      Math.abs(friendSpot1.x - myPlayer.x) < 1 &&
-      Math.abs(friendSpot1.z - myPlayer.z) < 1
-    ) {
-      navigate('/collectionspace_three');
-      playTransitionSound();
-    } else if (
+    }
+
+    //친구 집
+    for (let i = 0; i < friendsSpots.length; i++) {
+      if (
+        Math.abs(friendsSpots[i].x - myPlayer.x) < 1 &&
+        Math.abs(friendsSpots[i].z - myPlayer.z) < 1
+      ) {
+        const num = friendsInfo[i]?.houseNum;
+        const id = friendsInfo[i]?._id;
+        const nickname = friendsInfo[i]?.nickname;
+        if (num) {
+          if (num === 1) {
+            navigate(`/collectionspace/${id}?nickname=${nickname}`);
+            playTransitionSound();
+          } else if (num === 2) {
+            navigate(`/collectionspace_two/${id}?nickname=${nickname}`);
+            playTransitionSound();
+          } else if (num === 3) {
+            navigate(`/collectionspace_three/${id}?nickname=${nickname}`);
+            playTransitionSound();
+          }
+        }
+        break;
+      }
+    }
+    // 파도타기 집
+    if (
       Math.abs(waveSpot.x - myPlayer.x) < 1 &&
       Math.abs(waveSpot.z - myPlayer.z) < 1 &&
       flag
     ) {
       enterRandomMap();
       setFlag(false);
-      // if (selectRoom === 1) {
-      //   navigate(`/collectionspace/${userId}`);
-      //   playTransitionSound();
-      // } else if (selectRoom === 2) {
-      //   navigate(`/collectionspace_two/${userId}`);
-      //   playTransitionSound();
-      // } else if (selectRoom === 3) {
-      //   navigate(`/collectionspace_three/${userId}`);
-      //   playTransitionSound();
-      // }
     }
   }, [myPlayer]);
 
@@ -256,7 +283,7 @@ const World = () => {
               <EnvStars />
               <Light />
               <Spot spot={mySpot} />
-              <Spot spot={friendSpot1} />
+              <Spot spot={friendsSpots[0]} />
               <Spot spot={waveSpot} />
               <Portal />
               {/* <HouseName /> */}
@@ -277,7 +304,7 @@ const World = () => {
               </Physics>
               <Preload all />
             </Canvas>
-            <RoomHonorAlert />
+            <RoomHonorAlert text="방향키를 조작해 자유롭게 이동해보세요!" />
           </Suspense>
         </KeyboardControls>
         <Header setFriend={setFriend} />
@@ -286,6 +313,7 @@ const World = () => {
             setFriendModalOpen={setFriendModalOpen}
             setFriend={setFriend}
             friendsInfo={friendsInfo}
+            setFriendsInfo={setFriendsInfo}
           />
         )}
       </div>
