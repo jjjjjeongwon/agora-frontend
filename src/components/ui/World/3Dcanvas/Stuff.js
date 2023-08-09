@@ -4,13 +4,13 @@ import React, { useRef, useEffect } from 'react';
 import { radToDeg } from 'three/src/math/MathUtils';
 useGLTF.preload('../models/stuff/Box_stuff.glb');
 useGLTF.preload('../models/stuff/Big_Wood_stuff.glb');
-useGLTF.preload('../models/stuff/Bench.glb');
+useGLTF.preload('../models/stuff/White_Bench.glb');
 useGLTF.preload('../models/stuff/Human_Car.glb');
 
 const Stuff = () => {
   const glb = useGLTF('../models/stuff/Box_stuff.glb');
   const glb1 = useGLTF('../models/stuff/Big_Wood_stuff.glb');
-  const glb2 = useGLTF('../models/stuff/Bench.glb');
+  const glb2 = useGLTF('../models/stuff/White_Bench.glb');
   const glb3 = useGLTF('../models/stuff/Human_Car.glb');
 
   const boxStuff = glb.scene.children[0];
