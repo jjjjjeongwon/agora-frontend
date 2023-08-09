@@ -91,7 +91,7 @@ const World = () => {
   const loginId = useRecoilValue(IdState);
 
   //spots
-  const mySpot = { x: -4.2, y: 0.005, z: -6.8 };
+  const mySpot = { x: 3.2, y: 0.005, z: -8.1 };
   const waveSpot = { x: 35, y: 0.005, z: 4.5 };
 
   const aspectRatio = window.innerWidth / window.innerHeight;
