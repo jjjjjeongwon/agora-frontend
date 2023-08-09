@@ -46,7 +46,7 @@ function Player({
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(scene.children);
     for (const item of intersects) {
-      console.log(item.object.name);
+      console.log(item.object.name.length);
 
       if (item.object.name === 'camera') {
         setCamera(true);
@@ -63,7 +63,10 @@ function Player({
       if (item.object.name === 'photoBook') {
         setShowImageEffect(true);
       }
-      if (item.object.name.length === 24) {
+      if (
+        item.object.name !== 'family_photo1_lambert9_0' &&
+        item.object.name.length === 24
+      ) {
         setAlbum(true);
         setAlbumDetail(item.object.name);
       }

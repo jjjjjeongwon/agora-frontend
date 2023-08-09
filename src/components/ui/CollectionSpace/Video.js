@@ -11,6 +11,7 @@ const Video = ({ tvVideo }) => {
 };
 
 function Scene({ tvVideo }) {
+  console.log(tvVideo);
   return (
     <mesh>
       <planeGeometry args={[5, 3]} />

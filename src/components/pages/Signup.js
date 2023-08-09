@@ -110,7 +110,6 @@ export const Signup = () => {
     1: home,
     2: postbox,
     3: constructTool,
-    4: letter,
   };
 
   const handleTagSelect = (e) => {
@@ -218,7 +217,6 @@ export const Signup = () => {
               <option value="1">1 </option>
               <option value="2">2</option>
               <option value="3">3 </option>
-              <option value="4">4 </option>
             </SelectPlaceDropBox>
           </TagSelectWrap>
           <SignupInputTitle title="닉네임" />
