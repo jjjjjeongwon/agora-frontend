@@ -38,7 +38,7 @@ const WriteVisitMemoModal = forwardRef((props, ref) => {
         props.setGuestBooks(res.data);
         Swal.fire({
           title: '방명록 성공!',
-          confirmButtonColor: '#0e72ed',
+          confirmButtonColor: '#C59EAC',
         });
 
         // navigate('/login');

@@ -169,26 +169,27 @@ const World = () => {
 
   const getRandomUser = async (e) => {
     // e.preventDefault();
+    navigate('/collectionspace_two/64d4525623aa8d0d3a048e2f');
 
-    try {
-      const response = await userAPI.get(`user/${loginId}/surfing`);
+    // try {
+    //   const response = await userAPI.get(`user/${loginId}/surfing`);
 
-      // console.log('서버 응답:', response.data);
-      const id = response.data._id;
-      const num = response.data.houseNum;
-      const nickname = response.data.nickname;
-      if (num === 1) {
-        navigate(`/collectionspace/${id}?nickname=${nickname}`);
-      } else if (num === 2) {
-        navigate(`/collectionspace_two/${id}?nickname=${nickname}`);
-      } else if (num === 3) {
-        navigate(`/collectionspace_three/${id}?nickname=${nickname}`);
-      }
+    //   // console.log('서버 응답:', response.data);
+    //   const id = response.data._id;
+    //   const num = response.data.houseNum;
+    //   const nickname = response.data.nickname;
+    //   if (num === 1) {
+    //     navigate(`/collectionspace/${id}?nickname=${nickname}`);
+    //   } else if (num === 2) {
+    //     navigate(`/collectionspace_two/${id}?nickname=${nickname}`);
+    //   } else if (num === 3) {
+    //     navigate(`/collectionspace_three/${id}?nickname=${nickname}`);
+    //   }
 
-      // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
-    } catch (error) {
-      console.error('서버 오류:', error);
-    }
+    //   // 성공적으로 게시물을 생성한 후에 추가적인 처리를 할 수 있습니다.
+    // } catch (error) {
+    //   console.error('서버 오류:', error);
+    // }
   };
 
   useEffect(() => {

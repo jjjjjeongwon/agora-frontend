@@ -79,7 +79,7 @@ const UploadImagePostModal = forwardRef((props, ref) => {
       console.log('서버 응답:', response.data);
       Swal.fire({
         title: '사진 게시 성공!',
-        confirmButtonColor: '#0e72ed',
+        confirmButtonColor: '#C59EAC',
       });
       props.setImages(response.data);
     } catch (error) {

@@ -70,7 +70,7 @@ const UploadVideoModal = forwardRef((props, ref) => {
       props.setTvVideo(response.data);
       Swal.fire({
         title: '영상 업로드 성공!',
-        confirmButtonColor: '#0e72ed',
+        confirmButtonColor: '#C59EAC',
       });
     } catch (error) {
       setErrorMsg('게시물 업로드에 실패했습니다.');
