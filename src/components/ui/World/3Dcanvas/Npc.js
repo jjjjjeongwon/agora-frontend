@@ -51,17 +51,15 @@ const Npc = (props) => {
       });
   }, []);
   useEffect(() => {
-    if (isAnimating) {
+    if (props.npcTalk) {
       gsap.to(camera.position, {
         duration: 1,
         x: 6,
         y: 5,
         z: 14,
       });
-    } else {
-      setIsAnimating(false);
     }
-  }, [isAnimating]);
+  }, [props.npcTalk]);
   return (
     <>
       <RigidBody

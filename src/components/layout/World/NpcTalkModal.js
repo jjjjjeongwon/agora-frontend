@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { BiSolidDownArrow } from 'react-icons/bi';
 import { BsFillChatRightDotsFill } from 'react-icons/bs';
 
-const NpcTalkModal = ({ setNpcTalkOpen }) => {
+const NpcTalkModal = ({ setNpcTalkOpen, setNpcTalk }) => {
   return (
     <>
       <Container>
@@ -16,7 +16,7 @@ const NpcTalkModal = ({ setNpcTalkOpen }) => {
           <br />
           오른쪽으로 가면 파도를 타고 새로운 친구를 만나볼 수 있어!
         </TextBox>
-        <IconWrap onClick={() => setNpcTalkOpen(false)}>
+        <IconWrap onClick={() => setNpcTalk(false)}>
           <BiSolidDownArrow size={28} color="#F2676E" />
         </IconWrap>
       </Container>
@@ -53,8 +53,8 @@ const Container = styled.div`
   display: flex;
   width: 610px;
   height: 200px;
-  top: 12%;
-  left: 30%;
+  top: 20%;
+  left: 35%;
   /* background-color: transparent; */
   position: absolute;
   box-sizing: border-box;

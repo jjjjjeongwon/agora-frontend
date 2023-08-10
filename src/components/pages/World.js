@@ -69,18 +69,15 @@ const World = () => {
   const [friendsInfo, setFriendsInfo] = useState();
   const [showOverlay, setShowOverlay] = useState(false);
 
-  const [npctalk, setNpcTalk] = useState(true);
-  const [npcTalkOpen, setNpcTalkOpen] = useState(true);
-
-  console.log(npctalk, npcTalkOpen);
+  const [npcTalk, setNpcTalk] = useState(false);
 
   useEffect(() => {
-    if (npcTalkOpen === true) {
+    if (npcTalk === true) {
       setNpcTalk(true);
     } else {
       setNpcTalk(false);
     }
-  }, [npcTalkOpen]);
+  }, [npcTalk]);
 
   const playTransitionSound = (link) => {
     const audio = new Audio('/musics/doorsound.mp3');
@@ -323,10 +320,15 @@ const World = () => {
                 <Tree />
                 <Lamp />
                 <Floor />
-                <Npc myPlayer={myPlayer} />
+                <Npc
+                  myPlayer={myPlayer}
+                  setNpcTalk={setNpcTalk}
+                  npcTalk={npcTalk}
+                />
                 <CharacterController
                   setMyPlayer={setMyPlayer}
                   friendModalOpen={friendModalOpen}
+                  npcTalk={npcTalk}
                 />
               </Physics>
               <Preload all />
@@ -336,7 +338,7 @@ const World = () => {
           <AudioPlayer src="/musics/pongdang.mp3" />
         </KeyboardControls>
         <Header setFriend={setFriend} />
-        {npctalk && <NpcTalkModal setNpcTalkOpen={setNpcTalkOpen} />}
+        {npcTalk && <NpcTalkModal setNpcTalk={setNpcTalk} />}
         {friendModalOpen && (
           <FriendsModal
             setFriendModalOpen={setFriendModalOpen}
