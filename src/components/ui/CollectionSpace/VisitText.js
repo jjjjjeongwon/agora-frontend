@@ -192,7 +192,7 @@ const VisitText = ({ guestBooks }) => {
 
   return (
     <>
-      {materials.map((material, i) => (
+      {materials?.map((material, i) => (
         <mesh
           key={i}
           name={`visit_text_${i}`}
