@@ -2,63 +2,10 @@ import * as THREE from 'three';
 import React, { useRef, useEffect, useState } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { CapsuleCollider, RigidBody } from '@react-three/rapier';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
 
 useGLTF.preload('../models/TigerCharacter.gltf');
-
-const NpcText = (props) => {
-  const meshRef = useRef();
-  const visibleRef = useRef(false);
-
-  const texCanvas = document.createElement('canvas');
-
-  const texContext = texCanvas.getContext('2d');
-
-  texCanvas.width = 600;
-  texCanvas.height = 600;
-
-  const canvasTexture = new THREE.CanvasTexture(texCanvas);
-
-  const geometry = new THREE.PlaneGeometry(6, 6);
-  const material = new THREE.MeshBasicMaterial({
-    map: canvasTexture,
-    transparent: true,
-    opacity: 1,
-    side: THREE.DoubleSide,
-  });
-
-  useFrame(() => {
-    // Draw on the canvas
-    texContext.clearRect(0, 0, texCanvas.width, texCanvas.height);
-    texContext.fillStyle = 'white';
-    texContext.font = 'bold 15px Noto Sans KR';
-    texContext.fillText('안녕! 만나서 반가워! 나는 정오미야!', 0, 200);
-    texContext.fillStyle = 'white';
-    texContext.font = 'bold 15px Noto Sans KR';
-    texContext.fillText(
-      '오른쪽으로 가면 파도를 타고 새로운 친구를 만나볼 수 있어!',
-      0,
-      220
-    );
-    if (props.isAnimating) {
-      visibleRef.current = true;
-    } else {
-      visibleRef.current = false;
-    }
-  }, []);
-  return (
-    <>
-      <mesh
-        castShadow={false}
-        visible={visibleRef.current}
-        geometry={geometry}
-        material={material}
-        position={[5, 1, 5]}
-      />
-    </>
-  );
-};
 
 const Npc = (props) => {
   const rigidbody = useRef();
@@ -68,39 +15,65 @@ const Npc = (props) => {
   );
   const { actions } = useAnimations(animations, group);
   const [isAnimating, setIsAnimating] = useState(false);
+  const { scene, gl, camera } = useThree();
+
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
 
   useEffect(() => {
     if (!rigidbody.current) return;
     else {
       actions?.Idle.play();
     }
+    function checkIntersects() {
+      raycaster.setFromCamera(mouse, camera);
+
+      const intersects = raycaster.intersectObjects(scene.children);
+      for (const item of intersects) {
+        if (item.object.parent?.parent?.parent?.name === 'Npc') {
+          setIsAnimating(true);
+          props.setNpcTalk(true);
+        }
+        break;
+      }
+    }
+
+    gl.domElement.addEventListener('click', (e) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
+      checkIntersects();
+    });
+    return () =>
+      gl.domElement.addEventListener('click', (e) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
+        checkIntersects();
+      });
   }, []);
-  useFrame((state) => {
-    if (
-      Math.abs(6 - props.myPlayer.x) < 2 &&
-      Math.abs(8 - props.myPlayer.z) < 2
-    ) {
-      setIsAnimating(true);
-      //   gsap.to(state.camera.position, {
-      //     y: 3,
-      //     z: 15,
-      //   });
+  useEffect(() => {
+    if (isAnimating) {
+      gsap.to(camera.position, {
+        duration: 1,
+        x: 6,
+        y: 5,
+        z: 14,
+      });
     } else {
       setIsAnimating(false);
     }
-  });
+  }, [isAnimating]);
   return (
     <>
-      <NpcText isAnimating={isAnimating} />
       <RigidBody
         position={[6, -0.2, 5]}
         ref={rigidbody}
         colliders={false}
+        name="Npc"
         scale={[0.5, 0.5, 0.5]}
         type="fixed"
       >
         <CapsuleCollider args={[0.9, 0.4]} position={[0, 0.9, 0]} />
-        <group ref={group} {...props} dispose={null}>
+        <group ref={group} name="Npc" {...props} dispose={null}>
           <group name="Scene">
             <group name="Armature" position={[0, 0.536, 0]} scale={0.535}>
               <primitive object={nodes.Bone} />

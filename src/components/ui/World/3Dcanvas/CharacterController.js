@@ -11,7 +11,11 @@ const MOVEMENT_SPEED = 0.2;
 const MAX_VEL = 3;
 const RUN_VEL = 1.5;
 
-export const CharacterController = ({ setMyPlayer, friendModalOpen }) => {
+export const CharacterController = ({
+  setMyPlayer,
+  friendModalOpen,
+  npcTalk,
+}) => {
   const jumpPressed = useKeyboardControls((state) => state[Controls.jump]);
   const leftPressed = useKeyboardControls((state) => state[Controls.left]);
   const rightPressed = useKeyboardControls((state) => state[Controls.right]);
@@ -88,7 +92,9 @@ export const CharacterController = ({ setMyPlayer, friendModalOpen }) => {
       characterWorldPosition.z + 10
     );
 
-    state.camera.position.lerp(targetCameraPosition, delta * 2);
+    if (!npcTalk) {
+      state.camera.position.lerp(targetCameraPosition, delta * 2);
+    }
 
     if (characterWorldPosition.y <= -15) {
       setResetState(true);
