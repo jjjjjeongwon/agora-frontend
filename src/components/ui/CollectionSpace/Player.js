@@ -74,18 +74,15 @@ function Player({
   };
 
   const handleClick = (e) => {
-    if (isLocked || isLockingDelayed) return;
+    if (isLockingDelayed) return;
 
-    setTimeout(() => {
-      if (!controls.isLocked) {
-        controls.lock();
-        checkIntersects();
-        setIsLocked(true);
-      }
-    }, 200);
+    controls.lock();
+    checkIntersects();
+    setIsLocked(true);
   };
 
   const handleLock = () => {
+    if (isLockingDelayed) return;
     console.log("lock!");
   };
 
