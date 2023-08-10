@@ -1,15 +1,15 @@
-import { useGLTF, Float } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import React, { useEffect, useRef } from "react";
-import { BoxGeometry, MeshBasicMaterial, CylinderGeometry } from "three";
-import * as THREE from "three";
+import { useGLTF, Float } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
+import React, { useEffect, useRef } from 'react';
+import { BoxGeometry, MeshBasicMaterial, CylinderGeometry } from 'three';
+import * as THREE from 'three';
 
 const PhotoBook = ({ onLoad = () => {} }) => {
-  const glb = useGLTF("../models/photoBook/book_low_poly.glb");
+  const glb = useGLTF('../models/photoBook/book_low_poly.glb');
   const photoBook = glb.scene.children[0];
   const { scene, camera } = useThree();
   const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
-  const pointMaterial = new THREE.MeshStandardMaterial({ color: "red" });
+  const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
 
   const coneRef = useRef();
 
@@ -31,16 +31,16 @@ const PhotoBook = ({ onLoad = () => {} }) => {
         new MeshBasicMaterial({
           transparent: true,
           opacity: 0,
-          color: "white",
+          color: 'white',
           side: THREE.DoubleSide,
         })
       );
-      mesh.name = "photoBook";
+      mesh.name = 'photoBook';
       mesh.castShadow = true;
       mesh.position.set(-3.6, 1.9, -0.6);
       scene.add(mesh);
 
-      if (typeof onLoad === "function") {
+      if (typeof onLoad === 'function') {
         onLoad();
       }
     }
@@ -69,7 +69,7 @@ const PhotoBook = ({ onLoad = () => {} }) => {
       >
         <mesh
           ref={coneRef}
-          position={[-3.5, 2.2, -0.7]}
+          position={[-3.5, 2.5, -0.7]}
           geometry={pointGeometry}
           material={pointMaterial}
         />

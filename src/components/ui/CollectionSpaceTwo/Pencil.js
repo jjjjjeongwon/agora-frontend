@@ -1,15 +1,15 @@
-import { useGLTF, Float } from "@react-three/drei";
-import { useThree, useFrame } from "@react-three/fiber";
-import React, { useEffect, useRef } from "react";
-import { CylinderGeometry, MeshBasicMaterial } from "three";
-import * as THREE from "three";
+import { useGLTF, Float } from '@react-three/drei';
+import { useThree, useFrame } from '@react-three/fiber';
+import React, { useEffect, useRef } from 'react';
+import { CylinderGeometry, MeshBasicMaterial } from 'three';
+import * as THREE from 'three';
 
 const Pencil = ({ userId, params, onLoad = () => {} }) => {
-  const glb = useGLTF("../models/pencil/cup_with_pencils.glb");
+  const glb = useGLTF('../models/pencil/cup_with_pencils.glb');
   const pencil = glb.scene.children[0];
   const { scene, camera } = useThree();
   const pointGeometry = new THREE.CylinderGeometry(0.14, 0, 0.3, 32);
-  const pointMaterial = new THREE.MeshStandardMaterial({ color: "red" });
+  const pointMaterial = new THREE.MeshStandardMaterial({ color: 'red' });
 
   const coneRef = useRef();
 
@@ -33,18 +33,18 @@ const Pencil = ({ userId, params, onLoad = () => {} }) => {
         new MeshBasicMaterial({
           transparent: true,
           opacity: 0,
-          color: "white",
+          color: 'white',
           side: THREE.DoubleSide,
         })
       );
-      mesh.name = "pencil";
+      mesh.name = 'pencil';
 
       mesh.position.x = pencil.position.x;
       mesh.position.y = pencil.position.y + 0.1;
       mesh.position.z = pencil.position.z;
       scene.add(mesh);
 
-      if (typeof onLoad === "function") {
+      if (typeof onLoad === 'function') {
         onLoad();
       }
     }
@@ -77,7 +77,7 @@ const Pencil = ({ userId, params, onLoad = () => {} }) => {
       >
         <mesh
           ref={coneRef}
-          position={[-2.4, 2.8, 4.2]}
+          position={[-2.5, 2.6, 4.2]}
           geometry={pointGeometry}
           material={pointMaterial}
         />
