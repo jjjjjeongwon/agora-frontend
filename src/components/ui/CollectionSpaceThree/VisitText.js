@@ -192,7 +192,7 @@ const VisitText = ({ guestBooks }) => {
   const colors = ['#FE32A5', '#1BB00B', '#FFFB06'];
 
   useFrame(() => {
-    contexts.forEach((context, i) => {
+    contexts?.forEach((context, i) => {
       context.clearRect(0, 0, context.canvas.width, context.canvas.height);
       context.fillStyle = colors[i % colors.length];
       context.fillRect(0, 0, context.canvas.width, context.canvas.height);

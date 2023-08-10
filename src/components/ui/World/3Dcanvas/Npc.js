@@ -81,10 +81,10 @@ const Npc = (props) => {
       Math.abs(8 - props.myPlayer.z) < 2
     ) {
       setIsAnimating(true);
-      //   gsap.to(state.camera.position, {
-      //     y: 3,
-      //     z: 15,
-      //   });
+      gsap.to(state.camera.position, {
+        y: 3,
+        z: 15,
+      });
     } else {
       setIsAnimating(false);
     }

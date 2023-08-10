@@ -41,6 +41,8 @@ import FriendsModal from '../ui/public/FriendsModal';
 
 import LoadingSpinner from '../ui/public/LoadingSpinner';
 import AudioPlayer from '../ui/public/AudioPlayer';
+import { keyframes, styled } from 'styled-components';
+import NpcTalkModal from '../layout/World/NpcTalkModal';
 
 export const Controls = {
   forward: 'forward',
@@ -65,6 +67,20 @@ const World = () => {
   const [selectRoom, setSelectRoom] = useState();
   const [flag, setFlag] = useState(true);
   const [friendsInfo, setFriendsInfo] = useState();
+  const [showOverlay, setShowOverlay] = useState(false);
+
+  const [npctalk, setNpcTalk] = useState(true);
+  const [npcTalkOpen, setNpcTalkOpen] = useState(true);
+
+  console.log(npctalk, npcTalkOpen);
+
+  useEffect(() => {
+    if (npcTalkOpen === true) {
+      setNpcTalk(true);
+    } else {
+      setNpcTalk(false);
+    }
+  }, [npcTalkOpen]);
 
   const playTransitionSound = (link) => {
     const audio = new Audio('/musics/doorsound.mp3');
@@ -72,9 +88,11 @@ const World = () => {
     audio.play();
   };
   const randomMapSound = () => {
+    setShowOverlay(true);
     const audio = new Audio('/musics/beachsound.mp3');
 
     audio.addEventListener('ended', () => {
+      setShowOverlay(false);
       getRandomUser();
     });
     audio.play();
@@ -259,6 +277,7 @@ const World = () => {
       transition={{ duration: 1.5 }} // 이동 시간 설정
       variants={fadeIn} // 애니메이션 variant
     >
+      {showOverlay && <ShrinkingOverlay className="active" />}
       <div
         ref={containerRef}
         style={{
@@ -317,6 +336,7 @@ const World = () => {
           <AudioPlayer src="/musics/pongdang.mp3" />
         </KeyboardControls>
         <Header setFriend={setFriend} />
+        {npctalk && <NpcTalkModal setNpcTalkOpen={setNpcTalkOpen} />}
         {friendModalOpen && (
           <FriendsModal
             setFriendModalOpen={setFriendModalOpen}
@@ -329,5 +349,28 @@ const World = () => {
     </motion.div>
   );
 };
+
+const shrinkIn = keyframes`
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+`;
+
+const ShrinkingOverlay = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200vw;
+  height: 200vw;
+  background-color: black;
+  border-radius: 50%;
+  transform: scale(1);
+  transform-origin: center center;
+  animation: ${shrinkIn} 1s forwards;
+  z-index: 1000;
+`;
 
 export default World;
