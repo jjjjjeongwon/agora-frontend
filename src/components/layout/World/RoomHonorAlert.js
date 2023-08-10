@@ -39,7 +39,7 @@ const fadeOut = keyframes`
 
 const Container = styled.div`
   width: 520px;
-  height: 160px;
+  height: 140px;
   top: 8%;
   left: 40%;
   /* background-color: transparent; */
@@ -62,14 +62,14 @@ const TextBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 30px;
   font-family: 'jua';
   font-weight: 700;
   color: #393232;
   position: absolute;
   line-height: 140%;
-  top: 28%;
-  left: 8%;
+  top: 35%;
+  left: 4%;
 `;
 
 export default RoomHonorAlert;

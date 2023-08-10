@@ -137,16 +137,16 @@ const VisitText = ({ guestBooks }) => {
   const meshRef = useRef();
 
   // Dynamically create canvases, contexts, textures, and materials
-  const canvases = guestBooks.map(() => document.createElement('canvas'));
-  const contexts = canvases.map((canvas) => {
+  const canvases = guestBooks?.map(() => document.createElement('canvas'));
+  const contexts = canvases?.map((canvas) => {
     canvas.width = 100;
     canvas.height = 100;
     return canvas.getContext('2d');
   });
 
-  const textures = canvases.map((canvas) => new THREE.CanvasTexture(canvas));
+  const textures = canvases?.map((canvas) => new THREE.CanvasTexture(canvas));
 
-  const materials = textures.map(
+  const materials = textures?.map(
     (texture) =>
       new THREE.MeshBasicMaterial({
         map: texture,
