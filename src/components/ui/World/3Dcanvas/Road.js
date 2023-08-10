@@ -283,7 +283,28 @@ const Road = () => {
             object={road.clone()}
             dispose={null}
           />
+          <mesh
+            // rotation={[Math.PI / 2,0, 0]}
+            position={[32, 1.2, 3]}
+          >
+            <planeGeometry args={[6, 2]} />
+            <meshBasicMaterial
+              color={'white'}
+              side={DoubleSide}
+              transparent
+              opacity={0}
+            />
+          </mesh>
           <mesh rotation={[Math.PI / 2, 0, 0]} position={[32, -0.2, 4]}>
+            <planeGeometry args={[6, 2]} />
+            <meshBasicMaterial
+              color={'white'}
+              side={DoubleSide}
+              transparent
+              opacity={0}
+            />
+          </mesh>
+          <mesh rotation={[Math.PI, 0, 0]} position={[32, 1.2, 5]}>
             <planeGeometry args={[6, 2]} />
             <meshBasicMaterial
               color={'white'}

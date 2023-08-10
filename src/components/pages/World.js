@@ -40,6 +40,7 @@ import userAPI from '../../apis/userAPI';
 import FriendsModal from '../ui/public/FriendsModal';
 
 import LoadingSpinner from '../ui/public/LoadingSpinner';
+import AudioPlayer from '../ui/public/AudioPlayer';
 
 export const Controls = {
   forward: 'forward',
@@ -128,7 +129,7 @@ const World = () => {
       try {
         const response = await userAPI.get(`/user/${recoilLoginId}/content`);
 
-        // console.log('서버 응답:', response.data);
+        console.log('서버 응답:', response.data);
         setSelectRoom(response.data.userHouseNum);
         setFriendsInfo(response.data.friendsInfoArray);
 
@@ -140,7 +141,7 @@ const World = () => {
       try {
         const response = await userAPI.get(`/user/${loginId}/content`);
 
-        // console.log('서버 응답:', response.data);
+        console.log('서버 응답:', response.data);
         setSelectRoom(response.data.userHouseNum);
         setFriendsInfo(response.data.friendsInfoArray);
 
@@ -191,10 +192,12 @@ const World = () => {
   const friendsSpots = [
     { x: -17, y: 0.005, z: 15 },
     { x: -11.7, y: 0.005, z: 5.5 },
-    { x: -4.2, y: 0.005, z: 6.8 },
+    { x: -4.4, y: 0.005, z: -6.8 },
     { x: -10, y: 0.005, z: -4 },
     { x: 10, y: 0.005, z: -2.7 },
   ];
+
+  console.log(friendsInfo);
 
   useEffect(() => {
     //내 집
@@ -289,8 +292,8 @@ const World = () => {
               <Spot spot={mySpot} />
               <Spot spot={friendsSpots[0]} />
               <Spot spot={waveSpot} />
-              <Portal />
-              <HouseName />
+              <Portal friendsInfo={friendsInfo} />
+              <HouseName friendsInfo={friendsInfo} />
               <Physics>
                 <Beach />
                 <Pond />
@@ -301,7 +304,7 @@ const World = () => {
                 <Tree />
                 <Lamp />
                 <Floor />
-                <Npc />
+                <Npc myPlayer={myPlayer} />
                 <CharacterController
                   setMyPlayer={setMyPlayer}
                   friendModalOpen={friendModalOpen}
@@ -311,6 +314,7 @@ const World = () => {
             </Canvas>
             <RoomHonorAlert text="방향키를 조작해 자유롭게 이동해보세요!" />
           </Suspense>
+          <AudioPlayer src="/musics/pongdang.mp3" />
         </KeyboardControls>
         <Header setFriend={setFriend} />
         {friendModalOpen && (
