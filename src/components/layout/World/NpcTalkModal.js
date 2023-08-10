@@ -9,7 +9,7 @@ const NpcTalkModal = ({ setNpcTalkOpen, setNpcTalk }) => {
       <Container>
         <img src="/images/npctalk.png" alt="" />
         <ChatIconWrap>
-          <BsFillChatRightDotsFill size={48} color="#F2676E" />
+          <BsFillChatRightDotsFill size={54} color="#F2676E" />
         </ChatIconWrap>
         <TextBox>
           안녕! 만나서 반가워! 나는 호랭이야!
@@ -17,7 +17,7 @@ const NpcTalkModal = ({ setNpcTalkOpen, setNpcTalk }) => {
           오른쪽으로 가면 파도를 타고 새로운 친구를 만나볼 수 있어!
         </TextBox>
         <IconWrap onClick={() => setNpcTalk(false)}>
-          <BiSolidDownArrow size={28} color="#F2676E" />
+          <BiSolidDownArrow size={32} color="#F2676E" />
         </IconWrap>
       </Container>
     </>
@@ -51,10 +51,10 @@ const bounceTwo = keyframes`
 
 const Container = styled.div`
   display: flex;
-  width: 610px;
-  height: 200px;
-  top: 20%;
-  left: 35%;
+  width: 800px;
+  height: 260px;
+  top: 15%;
+  left: 30%;
   /* background-color: transparent; */
   position: absolute;
   box-sizing: border-box;
@@ -77,7 +77,7 @@ const ChatIconWrap = styled.div`
 const IconWrap = styled.div`
   cursor: pointer;
   position: absolute;
-  top: 60%;
+  top: 65%;
   right: 7%;
 
   animation: ${bounce} 1s infinite;
@@ -87,7 +87,7 @@ const TextBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 30px;
   /* font-family: 'jua'; */
   font-weight: 600;
   color: #203337;
