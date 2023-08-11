@@ -177,6 +177,15 @@ const VisitText = ({ guestBooks }) => {
 
   const colors = ['#FE32A5', '#1BB00B', '#FFFB06'];
 
+  const positions = [
+    [-4, 3, -5.48],
+    [-3, 1.5, -5.48],
+    [-2, 5, -5.48],
+    [-1, 3, -5.48],
+    [0, 4.7, -5.48],
+    [-2.5, 3.7, -5.48],
+  ];
+
   useFrame(() => {
     contexts?.forEach((context, i) => {
       context.clearRect(0, 0, context.canvas.width, context.canvas.height);
@@ -199,7 +208,7 @@ const VisitText = ({ guestBooks }) => {
           ref={meshRef}
           geometry={geometry}
           material={material}
-          position={[-4 + i * 2, 3 + (i % 2) * 1.5, -5.48]}
+          position={positions[i]}
         />
       ))}
     </>
