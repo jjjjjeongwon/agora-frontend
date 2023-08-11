@@ -38,7 +38,7 @@ const House = () => {
         <primitive
           castShadow
           receiveShadow
-          position={[-13, 0, -7]}
+          position={[-13, -0.5, -7]}
           rotation={[0, -Math.PI * 0.25, 0]}
           object={store.clone()}
           dispose={null}
@@ -46,14 +46,14 @@ const House = () => {
         <primitive
           castShadow
           receiveShadow
-          position={[-20, 0, 15]}
+          position={[-20, -0.5, 15]}
           object={redSmall.clone()}
           dispose={null}
         />
         <primitive
           castShadow
           receiveShadow
-          position={[3, 0, -12]}
+          position={[3, -0.5, -12]}
           scale={[0.5, 0.5, 0.5]}
           object={bridge.clone()}
           dispose={null}
@@ -61,7 +61,7 @@ const House = () => {
         <primitive
           castShadow
           receiveShadow
-          position={[12, 0, -5]}
+          position={[12, -0.5, -5]}
           rotation={[0, Math.PI * 1.25, 0]}
           object={store.clone()}
           dispose={null}
@@ -69,7 +69,7 @@ const House = () => {
         <primitive
           castShadow
           receiveShadow
-          position={[-5.5, 0, -10]}
+          position={[-5.5, -0.5, -10]}
           rotation={[0, -Math.PI * 0.35, 0]}
           object={redSmall.clone()}
           dispose={null}

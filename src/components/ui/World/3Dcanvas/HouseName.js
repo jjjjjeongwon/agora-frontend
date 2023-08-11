@@ -174,21 +174,21 @@ import { Float } from '@react-three/drei';
 
 const HouseName = ({ friendsInfo }) => {
   const positions = [
-    [-15, 3, 15],
+    [-15, 2, 15],
     [-9.7, 2, 5.5],
-    [-2, 2.5, -6.8],
-    [-8, 3, -4],
-    [11, 3, 0],
-    [5.2, 3, -7.7], //내집
+    [-2, 2, -6.8],
+    [-8, 2, -4],
+    [11, 2, 0],
+    [5.2, 2, -7.7], //내집
   ];
 
   const rotations = [
-    [0, 0, 0],
-    [0, -Math.PI / 4, 0],
+    [0, Math.PI / 4, 0],
     [0, Math.PI / 4, 0],
     [0, Math.PI / 5.5, 0],
     [0, Math.PI / 4, 0],
-    [0, Math.PI / 4, 0],
+    [0, -Math.PI / 4, 0],
+    [0, 0, 0],
   ];
 
   const canvasRefs = friendsInfo?.map(() => {
