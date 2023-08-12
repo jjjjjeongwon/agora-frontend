@@ -36,6 +36,7 @@ const ImagePanel = ({ imageSrc, x, y, z, positionArray }) => {
 };
 
 export default function ImageEffect({ images }) {
+  console.log(images);
   const sphereGeometry = useMemo(() => new THREE.SphereGeometry(1, 8, 8), []);
   const spherePositionArray = sphereGeometry.attributes.position.array;
 
@@ -55,14 +56,16 @@ export default function ImageEffect({ images }) {
   const imagePanelProps = useMemo(() => {
     const props = [];
     const imageLength = images.length;
-    console.log(imageLength);
-    for (let i = 0; i < spherePositionArray.length; i += 3) {
+    console.log('이미지 개수', imageLength);
+    console.log('for문 ', spherePositionArray.length);
+    for (let i = 0; i < spherePositionArray.length; i++) {
       props.push({
         imageSrc: images[i % imageLength]?.fileUrl,
-        x: spherePositionArray[i],
-        y: spherePositionArray[i + 1],
-        z: spherePositionArray[i + 2],
+        x: spherePositionArray[i * 3],
+        y: spherePositionArray[i * 3 + 1],
+        z: spherePositionArray[i * 3 + 2],
       });
+      console.log(props);
     }
     return props;
   }, [spherePositionArray]);
