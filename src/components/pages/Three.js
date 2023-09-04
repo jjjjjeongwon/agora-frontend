@@ -39,7 +39,7 @@ import PostOfficeBox from '../ui/Three/3Dcanvas/PostOfficeBox';
 import JoinExitAlert from '../ui/Three/ui/JoinExitAlert';
 import CampFireAlert from '../ui/Three/ui/CampFireAlert';
 
-const socket = io('http://3.35.5.145:8080/');
+const socket = io('http://52.79.224.132:8080/');
 
 const Three = () => {
   const [isLogin, setIsLogin] = useRecoilState(LoginState);
