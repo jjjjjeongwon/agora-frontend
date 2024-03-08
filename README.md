@@ -1,4 +1,4 @@
-# Agora
+# PolyWorld
 
 ## environment
 
@@ -23,3 +23,5 @@
 ├── sweetalert2@11.7.18 <br>
 ├── three@0.154.0 <br>
 └── web-vitals@2.1.4
+
+![PolyWorldPost-1](https://github.com/uujeen/polyworld-frontend/assets/70149604/3cd56be9-5175-434c-87df-93f8eaef3e6f)
